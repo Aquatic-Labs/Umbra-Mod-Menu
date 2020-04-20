@@ -139,7 +139,7 @@ namespace RoRCheats
 
         public static void DrawNotCollectedMenu(GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle)
         {
-            GUI.Button(btn.BtnRect(1, false, "main"), "<color=yellow>Please Note buttons will be availble in game.</color>", buttonStyle);
+            GUI.Button(btn.BtnRect(1, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
             if (Main.enableRespawnButton)
             {
                 if (GUI.Button(btn.BtnRect(2, false, "main"), "Respawn", OnStyle))
@@ -149,9 +149,9 @@ namespace RoRCheats
             }
             else if (!Main.enableRespawnButton)
             {
-                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Please Note The Respawn button will appear here.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>The Respawn button will appear here.</color>", buttonStyle);
             }
-            GUI.Button(btn.BtnRect(7, false, "main"), "<color=yellow>Created By Lodington#9215.\n Feel Free to Message me on discord</color>", buttonStyle);
+            GUI.Button(btn.BtnRect(7, false, "main"), "<color=yellow>Created By Acherons#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
             GUI.Button(btn.BtnRect(8, false, "main"), "<color=yellow>with Bug Reports or suggestions.</color>", buttonStyle);
         }
 
