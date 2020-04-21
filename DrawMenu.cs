@@ -36,73 +36,84 @@ namespace RoRCheats
             {
                 Main.skillToggle = true;
             }
+            if (Main.noEquipmentCooldown)
+            {
+                if (GUI.Button(btn.BtnRect(3, false, "main"), "Infinite Equipment: ON", OnStyle))
+                {
+                    Main.noEquipmentCooldown = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(3, false, "main"), "Infinite Equipment: OFF", OffStyle))
+            {
+                Main.noEquipmentCooldown = true;
+            }
 
             if (Main.renderInteractables)
             {
-                if (GUI.Button(btn.BtnRect(3, false, "main"), "Interactables ESP: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(4, false, "main"), "Interactables ESP: ON", OnStyle))
                 {
                     Main.renderInteractables = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(3, false, "main"), "Interactables ESP: OFF", OffStyle))
+            else if (GUI.Button(btn.BtnRect(4, false, "main"), "Interactables ESP: OFF", OffStyle))
             {
                 Main.renderInteractables = true;
             }
             if (Main._isTeleMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(4, false, "main"), "Teleporter Menu: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(5, false, "main"), "Teleporter Menu: ON", OnStyle))
                 {
                     Main._isTeleMenuOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(4, false, "main"), "Teleporter Menu: OFF", OffStyle))
+            else if (GUI.Button(btn.BtnRect(5, false, "main"), "Teleporter Menu: OFF", OffStyle))
             {
                 Main._isTeleMenuOpen = true;
             }
             if (Main._isLobbyMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(5, false, "main"), "Lobby Managment: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(6, false, "main"), "Lobby Managment: ON", OnStyle))
                 {
                     Main._isLobbyMenuOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(5, false, "main"), "Lobby Managment: OFF", OffStyle))
+            else if (GUI.Button(btn.BtnRect(6, false, "main"), "Lobby Managment: OFF", OffStyle))
             {
                 Main._isLobbyMenuOpen = true;
             }
             if (Main._isPlayerMod)
             {
-                if (GUI.Button(btn.BtnRect(6, false, "main"), "Player Modifcations: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(7, false, "main"), "Player Modifcations: ON", OnStyle))
                 {
                     Main._isPlayerMod = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(6, false, "main"), "Player Modifcations: OFF", OffStyle))
+            else if (GUI.Button(btn.BtnRect(7, false, "main"), "Player Modifcations: OFF", OffStyle))
             {
                 Main._isPlayerMod = true;
             }
 
             if (Main._isItemManagerOpen)
             {
-                if (GUI.Button(btn.BtnRect(7, false, "main"), "Item Management Menu: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(8, false, "main"), "Item Management Menu: ON", OnStyle))
                 {
                     Main._isItemManagerOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(7, false, "main"), "Item Management Menu: OFF", OffStyle))
+            else if (GUI.Button(btn.BtnRect(8, false, "main"), "Item Management Menu: OFF", OffStyle))
             {
                 Main._isItemManagerOpen = true;
             }
-            if (Main.NoclipToggle)
+            if (Main.FlightToggle)
             {
-                if (GUI.Button(btn.BtnRect(8, false, "main"), "Noclip: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(9, false, "main"), "Flight: ON", OnStyle))
                 {
-                    Main.NoclipToggle = false;
+                    Main.FlightToggle = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(8, false, "main"), "Noclip: Off", OffStyle))
+            else if (GUI.Button(btn.BtnRect(9, false, "main"), "Flight: Off", OffStyle))
             {
-                Main.NoclipToggle = true;
+                Main.FlightToggle = true;
             }
         }
 
@@ -184,15 +195,13 @@ namespace RoRCheats
             }
             GUI.EndScrollView();
         }
-
-        /*
         public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 95f), "Item Spawn Menu", LabelStyle);
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            itemManager.GiveItems(buttonStyle, "itemSpawner");
+            Main.GiveItem(buttonStyle, "itemSpawner");
             GUI.EndScrollView();
         }
         public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
@@ -201,9 +210,18 @@ namespace RoRCheats
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 95f), "Equipment Spawn Menu", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            Main.GiveCustomEquipment(buttonStyle, "equipmentSpawner");
+            Main.GiveEquipment(buttonStyle, "equipmentSpawner");
             GUI.EndScrollView();
-        }*/
+        }
+        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 95f), "Buff Menu", LabelStyle);
+
+            equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            Main.GiveBuff(buttonStyle, "giveBuff");
+            GUI.EndScrollView();
+        }
 
         public static void DrawStatsMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle)
         {
@@ -253,13 +271,13 @@ namespace RoRCheats
             }
             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
             {
-                if (Main.moneyToGive > 100)
-                    Main.moneyToGive -= 100;
+                if (Main.moneyToGive > 50)
+                    Main.moneyToGive -= 50;
             }
             if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
             {
-                if (Main.moneyToGive >= 100)
-                    Main.moneyToGive += 100;
+                if (Main.moneyToGive >= 50)
+                    Main.moneyToGive += 50;
             }
             if (GUI.Button(btn.BtnRect(2, true, "playermod"), "Give Lunar Coins: " + Main.coinsToGive.ToString(), buttonStyle))
             {
@@ -281,13 +299,13 @@ namespace RoRCheats
             }
             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
             {
-                if (Main.xpToGive > 100)
-                    Main.xpToGive -= 100;
+                if (Main.xpToGive > 50)
+                    Main.xpToGive -= 50;
             }
             if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
             {
-                if (Main.xpToGive >= 100)
-                    Main.xpToGive += 100;
+                if (Main.xpToGive >= 50)
+                    Main.xpToGive += 50;
             }
 
             if (Main.damageToggle)
@@ -451,22 +469,21 @@ namespace RoRCheats
                     Main.aimBot = true;
                 }
             }
-            if (Main.ShowUnlockAll)
+            if (Main._isBuffMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "Unlock All", OnStyle))
+                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "Buff Menu: ON", OnStyle))
                 {
-                    Main.UnlockAll();
+                    Main._isBuffMenuOpen = false;
                 }
             }
-            else if (!Main.ShowUnlockAll)
+            else if (GUI.Button(btn.BtnRect(13, false, "playermod"), "Buff Menu: OFF", OffStyle))
             {
-                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "Unlock All", OffStyle))
-                {
-                    Debug.LogWarning("RoRCheats : Please Set unlock all in config to true");
-                }
+                Main._isBuffMenuOpen = true;
             }
-
-
+            if (GUI.Button(btn.BtnRect(14, false, "playermod"), "Unlock All", buttonStyle))
+            {
+                Main.UnlockAll();
+            }
         }
         public static void DrawItemManagementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {

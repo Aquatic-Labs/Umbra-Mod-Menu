@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+// using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
+using EntityStates;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using Console = RoR2.Console;
@@ -12,9 +14,11 @@ namespace RoRCheats
     public class Main : MonoBehaviour
     {
         public const string
-            NAME = "RoRCheats",
+            NAME = "Umbra",
             GUID = "com.acher0ns." + NAME,
             VERSION = "1.0";
+
+        public static string log = "[" + NAME + "] ";
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -39,6 +43,7 @@ namespace RoRCheats
         public static bool _isItemSpawnMenuOpen = false;
         public static bool _isPlayerMod = false;
         public static bool _isEquipmentSpawnMenuOpen = false;
+        public static bool _isBuffMenuOpen = false;
         public static bool _isItemManagerOpen = false;
         public static bool enableRespawnButton = false;
         #endregion
@@ -46,7 +51,7 @@ namespace RoRCheats
         #region Button Styles / Toggles
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle; //make new BgStyle for stats menu
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, NoclipToggle, listItems, equipmentCooldown, listBuffs, dropMenu, ShowUnlockAll;
+        public static bool skillToggle, renderInteractables, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll;
         public static float delay = 0, widthSize = 400;
         #endregion
 
@@ -57,6 +62,7 @@ namespace RoRCheats
         public static Rect lobbyRect;
         public static Rect itemSpawnerRect;
         public static Rect equipmentSpawnerRect;
+        public static Rect buffMenuRect;
         public static Rect characterRect;
         public static Rect playerModRect;
         public static Rect itemManagerRect;
@@ -78,12 +84,12 @@ namespace RoRCheats
         public static bool alwaysSprint = false;
         public static bool aimBot = false;
         public static int allItemsQuantity = 5;
-        public static ulong xpToGive = 100;
-        public static uint moneyToGive = 100;
-        public static uint coinsToGive = 100;
+        public static ulong xpToGive = 50;
+        public static uint moneyToGive = 50;
+        public static uint coinsToGive = 50;
         #endregion
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
 
         public static Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
         public static string[] Players = new string[16];
@@ -96,36 +102,6 @@ namespace RoRCheats
 
         private void OnGUI()
         {
-
-            #region Original Code
-            /*rect = GUI.Window(0, rect, new GUI.WindowFunction(SetBG), "", new GUIStyle());
-            if (_isMenuOpen)
-            {
-                Cursor.visible = true;
-                DrawMenu();
-            }
-            else
-            {
-                Cursor.visible = false;
-            }
-            if (_CharacterCollected)
-            {
-                ESPRoutine();
-            }
-            if (listItems)
-            {
-                ListItemsRoutine();
-            }
-            if (dropMenu)
-            {
-                DropMenuRoutine();
-            }
-            if (listBuffs)
-            {
-                ListBuffsRoutine();
-            }*/
-            #endregion
-
             #region GenerateMenus
 
             mainRect = GUI.Window(0, mainRect, new GUI.WindowFunction(SetMainBG), "", new GUIStyle());
@@ -150,12 +126,12 @@ namespace RoRCheats
                 DrawMenu.DrawManagmentMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
-            /*if (_isItemSpawnMenuOpen)
+            if (_isItemSpawnMenuOpen)
             {
                 itemSpawnerRect = GUI.Window(4, itemSpawnerRect, new GUI.WindowFunction(SetSpawnerBG), "", new GUIStyle());
                 DrawMenu.DrawSpawnMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
-            }*/
+            }
 
             if (_isPlayerMod)
             {
@@ -163,21 +139,26 @@ namespace RoRCheats
                 DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 //Debug.Log("X : " + playerModRect.x + " Y : " + playerModRect.y);
             }
-            /*if (_isEquipmentSpawnMenuOpen)
+            if (_isEquipmentSpawnMenuOpen)
             {
                 equipmentSpawnerRect = GUI.Window(6, equipmentSpawnerRect, new GUI.WindowFunction(SetEquipmentBG), "", new GUIStyle());
                 DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
                 //Debug.Log("X : " + equipmentSpawnerRect.x + " Y : " + equipmentSpawnerRect.y);
-            }*/
+            }
+            if (_isBuffMenuOpen)
+            {
+                buffMenuRect = GUI.Window(7, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
+                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
+            }
             if (_CharacterToggle)
             {
-                characterRect = GUI.Window(7, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
+                characterRect = GUI.Window(8, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
                 DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
             }
             if (_isItemManagerOpen)
             {
-                itemManagerRect = GUI.Window(8, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
+                itemManagerRect = GUI.Window(9, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
                 DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 //Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
@@ -199,7 +180,8 @@ namespace RoRCheats
             teleRect = new Rect(10, 661, 20, 20); //start position
             lobbyRect = new Rect(10, 421, 20, 20); //start position
             itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-            equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start position
+            equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start positions
+            buffMenuRect = new Rect(1503, 10, 20, 20);//start position
             characterRect = new Rect(1503, 10, 20, 20); //start position
             playerModRect = new Rect(424, 381, 20, 20); //start position
             itemManagerRect = new Rect(424, 10, 20, 20);
@@ -441,7 +423,7 @@ namespace RoRCheats
                 StatsRoutine();
                 EquipCooldownRoutine();
                 ModStatsRoutine();
-                NoClipRoutine();
+                FlightRoutine();
                 SprintRoutine();
                 AimBotRoutine();
             }
@@ -457,6 +439,7 @@ namespace RoRCheats
             {
                 _isMenuOpen = !_isMenuOpen;
                 GetCharacter();
+                SceneManager.sceneLoaded += OnSceneLoaded;
             }
             if (Input.GetKeyDown(KeyCode.V))
             {
@@ -483,9 +466,9 @@ namespace RoRCheats
 
         private void EquipCooldownRoutine()
         {
-            if (equipmentCooldown)
+            if (noEquipmentCooldown)
             {
-                ReduceEquipmentCooldown();
+                NoEquipmentCooldown();
             }
         }
 
@@ -510,11 +493,11 @@ namespace RoRCheats
                 AlwaysSprint();
         }
 
-        private void NoClipRoutine()
+        private void FlightRoutine()
         {
-            if (NoclipToggle)
+            if (FlightToggle)
             {
-                DoNoclip();
+                Flight();
             }
         }
 
@@ -546,15 +529,25 @@ namespace RoRCheats
 
             }
         }
+
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            //WriteToLog($"{scene.name}\nAlive: {LocalHealth.alive}\n");
+            bool inGame = scene.name != "title";
             if (scene.name == "title")
             {
+                enableRespawnButton = false;
                 RESETMENU();
             }
-            else if (!LocalHealth.alive && scene.name != "title")
+            else if (!LocalHealth.alive && inGame)
             {
                 enableRespawnButton = true;
+            }
+            else
+            {
+                enableRespawnButton = false;
+                ModStatsRoutine();
+                SoftResetMenu();
             }
         }
 
@@ -645,6 +638,29 @@ namespace RoRCheats
                 if (!_ifDragged)
                 {
                     _isEquipmentSpawnMenuOpen = !_isEquipmentSpawnMenuOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
+        public static void SetBuffBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * buffMenuMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isBuffMenuOpen = !_isBuffMenuOpen;
                 }
                 _ifDragged = false;
             }
@@ -965,324 +981,8 @@ namespace RoRCheats
         }
 
         #endregion Textures
-        
-        private void ListItemsRoutine()
-        {
-            string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "Count" };
-            string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
-            int index = 1;
-            if (listItems)
-            {
-                scrollViewVector = GUI.BeginScrollView(new Rect(dropDownRect.x, dropDownRect.y, widthSize + 10, Enum.GetNames(typeof(ItemIndex)).Length * 25 - 700), scrollViewVector, new Rect(0, 0, widthSize, (Enum.GetNames(typeof(ItemIndex)).Length + Enum.GetNames(typeof(EquipmentIndex)).Length) * 50));
-                GUI.Box(new Rect(2 * rect.x, 2 * rect.y, widthSize + 10, Enum.GetNames(typeof(ItemIndex)).Length * 25), "", CornerStyle);
-                foreach (string item in Enum.GetNames(typeof(ItemIndex)))
-                {
-                    bool unreleasedullItem = unreleasedItems.Any(item.Contains);
-                    if (!unreleasedullItem)
-                    {
-                        if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Item: {item}", BtnStyle))
-                        {
-                            ItemIndex itemName = (ItemIndex)Enum.Parse(typeof(ItemIndex), item);
-                            GiveCustomItem(itemName);
-                        }
-                        index++;
-                    }
-                }
-                index -= 1;
-                foreach (string equipment in Enum.GetNames(typeof(EquipmentIndex)))
-                {
-                    bool unreleasedullEquipment = unreleasedEquipment.Any(equipment.Contains);
-                    if (!unreleasedullEquipment)
-                    {
-                        if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Equipment: {equipment}", BtnStyle))
-                        {
-                            EquipmentIndex EquipmentName = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipment);
-                            GiveCustomEquipment(EquipmentName);
-                        }
-                        index++;
-                    }
-                    else if (equipment == "OrbitalLaser")
-                    {
-                        if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Equipment: {equipment} (Unreleased)", BtnStyle))
-                        {
-                            EquipmentIndex EquipmentName = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipment);
-                            GiveCustomEquipment(EquipmentName);
-                        }
-                        index++;
-                    }
-                }
-                GUI.EndScrollView();
-            }
-            else
-            {
-                GUI.Label(new Rect((dropDownRect.x - 95), dropDownRect.y, 300, 25), Enum.GetNames(typeof(ItemIndex))[index]);
-            }
-        }
-
-        private void DropMenuRoutine()
-        {
-            string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "Count" };
-            string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
-            int index = 1;
-            if (dropMenu)
-            {
-                scrollViewVector = GUI.BeginScrollView(new Rect(dropDownRect.x, dropDownRect.y, widthSize + 10, Enum.GetNames(typeof(ItemIndex)).Length * 25 - 700), scrollViewVector, new Rect(0, 0, widthSize, (Enum.GetNames(typeof(ItemIndex)).Length + Enum.GetNames(typeof(EquipmentIndex)).Length) * 50));
-                GUI.Box(new Rect(2 * rect.x, 2 * rect.y, widthSize + 10, Enum.GetNames(typeof(ItemIndex)).Length * 25), "", CornerStyle);
-                foreach (string item in Enum.GetNames(typeof(ItemIndex)))
-                {
-                    bool unreleasedullItem = unreleasedItems.Any(item.Contains);
-                    if (!unreleasedullItem)
-                    {
-                        if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Item: {item}", BtnStyle))
-                        {
-                            ItemIndex itemName = (ItemIndex)Enum.Parse(typeof(ItemIndex), item);
-                            DropItemMethod(itemName);
-                        }
-                        index++;
-                    }
-                }
-                index -= 1;
-                foreach (string equipment in Enum.GetNames(typeof(EquipmentIndex)))
-                {
-                    bool unreleasedullEquipment = unreleasedEquipment.Any(equipment.Contains);
-                    if (!unreleasedullEquipment)
-                    {
-                        if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Equipment: {equipment}", BtnStyle))
-                        {
-                            EquipmentIndex EquipmentName = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipment);
-                            DropEquipmentMethod(EquipmentName);
-                        }
-                        index++;
-                    }
-                    else if (equipment == "OrbitalLaser")
-                    {
-                        if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Equipment: {equipment} (Unreleased)", BtnStyle))
-                        {
-                            EquipmentIndex EquipmentName = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipment);
-                            DropEquipmentMethod(EquipmentName);
-                        }
-                        index++;
-                    }
-                }
-                GUI.EndScrollView();
-            }
-            else
-            {
-                GUI.Label(new Rect((dropDownRect.x - 95), dropDownRect.y, 300, 25), Enum.GetNames(typeof(ItemIndex))[index]);
-            }
-        }
-
-        private void ListBuffsRoutine()
-        {
-            int index = 1;
-            if (listBuffs)
-            {
-                scrollViewVector = GUI.BeginScrollView(new Rect(dropDownRect.x, dropDownRect.y, widthSize + 10, Enum.GetNames(typeof(BuffIndex)).Length * 25 - 500), scrollViewVector, new Rect(0, 0, widthSize, Enum.GetNames(typeof(BuffIndex)).Length * 50));
-                GUI.Box(new Rect(2 * rect.x, 2 * rect.y, widthSize + 10, Enum.GetNames(typeof(BuffIndex)).Length * 25), "", CornerStyle);
-                foreach (string buff in Enum.GetNames(typeof(BuffIndex)))
-                {
-                    //bool unreleasedullItem = unreleasedItems.Any(item.Contains);
-                    if (GUI.Button(new Rect(dropDownRect.x + 5, dropDownRect.y + 5 + 45 * index, widthSize, 40), $"Buff: {buff}", BtnStyle))
-                    {
-                        BuffIndex buffName = (BuffIndex)Enum.Parse(typeof(BuffIndex), buff);
-                        GiveBuff(buffName);
-                    }
-                    index++;
-                }
-                GUI.EndScrollView();
-            }
-            else
-            {
-                GUI.Label(new Rect((dropDownRect.x - 95), dropDownRect.y, 300, 25), Enum.GetNames(typeof(BuffIndex))[index]);
-            }
-        }
 
         #endregion
-
-        /*
-        public static void DrawMenu()
-        {
-
-
-            GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * mulY), "", BgStyle);
-            GUI.Label(new Rect(rect.x + 0f, rect.y + 5f, widthSize + 10, 95f), "Umbra menu\nv 0.04", LabelStyle);
-
-
-            if (_CharacterCollected)
-            {
-                #region Toggle Buttons
-                // we dont have a god toggle bool, because we can just ref localhealth
-                if (LocalHealth.godMode)
-                {
-                    if (GUI.Button(BtnRect(1, false), "God mode: ON", OnStyle))
-                    {
-                        LocalHealth.godMode = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(1, false), "God mode: OFF", OffStyle))
-                {
-                    LocalHealth.godMode = true;
-                }
-
-                if (skillToggle)
-                {
-                    if (GUI.Button(BtnRect(2, false), "Infinite Skills: ON", OnStyle))
-                    {
-                        skillToggle = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(2, false), "Infinite Skills: OFF", OffStyle))
-                {
-                    skillToggle = true;
-                }
-
-                if (renderInteractables)
-                {
-                    if (GUI.Button(BtnRect(3, false), "Interactables ESP: ON", OnStyle))
-                    {
-                        renderInteractables = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(3, false), "Interactables ESP: OFF", OffStyle))
-                {
-                    renderInteractables = true;
-                }
-
-                if (GUI.Button(BtnRect(4, true), "Give Money: " + moneyToGive.ToString(), BtnStyle))
-                {
-                    GiveMoney();
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 80, rect.y + btnY, 40, 40), "-", OffStyle))
-                {
-                    if (moneyToGive > 100)
-                        moneyToGive -= 100;
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 35, rect.y + btnY, 40, 40), "+", OffStyle))
-                {
-                    if (moneyToGive >= 100)
-                        moneyToGive += 100;
-                }
-                if (GUI.Button(BtnRect(5, true), "Give Lunar Coins: " + coinsToGive.ToString(), BtnStyle))
-                {
-                    GiveLunarCoins();
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 80, rect.y + btnY, 40, 40), "-", OffStyle))
-                {
-                    if (coinsToGive > 10)
-                        coinsToGive -= 10;
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 35, rect.y + btnY, 40, 40), "+", OffStyle))
-                {
-                    if (coinsToGive >= 10)
-                        coinsToGive += 10;
-                }
-                if (GUI.Button(BtnRect(6, true), "Give Experience: " + xpToGive.ToString(), BtnStyle))
-                {
-                    giveXP();
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 80, rect.y + btnY, 40, 40), "-", OffStyle))
-                {
-                    if (xpToGive > 100)
-                        xpToGive -= 100;
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 35, rect.y + btnY, 40, 40), "+", OffStyle))
-                {
-                    if (xpToGive >= 100)
-                        xpToGive += 100;
-                }
-                if (GUI.Button(BtnRect(7, true), "Roll Items: " + itemsToRoll.ToString(), BtnStyle))
-                {
-                    RollItems(itemsToRoll.ToString());
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 80, rect.y + btnY, 40, 40), "-", OffStyle))
-                {
-                    if (itemsToRoll > 5)
-                        itemsToRoll -= 5;
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 35, rect.y + btnY, 40, 40), "+", OffStyle))
-                {
-                    if (itemsToRoll >= 5)
-                        itemsToRoll += 5;
-                }
-                if (GUI.Button(BtnRect(8, true), "Give All Items: " + allItemsQuantity.ToString(), BtnStyle))
-                {
-                    GiveAllItems();
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 80, rect.y + btnY, 40, 40), "-", OffStyle))
-                {
-                    if (allItemsQuantity > 1)
-                        allItemsQuantity -= 1;
-                }
-                if (GUI.Button(new Rect(rect.x + widthSize - 35, rect.y + btnY, 40, 40), "+", OffStyle))
-                {
-                    if (allItemsQuantity >= 1)
-                        allItemsQuantity += 1;
-                }
-                if (GUI.Button(BtnRect(9, false), "Stack Inventory", BtnStyle))
-                {
-                    StackInventory();
-                }
-                if (GUI.Button(BtnRect(10, false), "Clear Inventory", BtnStyle))
-                {
-                    ClearInventory();
-                }
-                if (equipmentCooldown)
-                {
-                    if (GUI.Button(BtnRect(11, false), "Equipment Cooldown: None", OnStyle))
-                    {
-                        equipmentCooldown = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(11, false), "Equipment Cooldown: Normal", OffStyle))
-                {
-                    equipmentCooldown = true;
-                    ReduceEquipmentCooldown();
-                }
-                if (listItems)
-                {
-                    if (GUI.Button(BtnRect(12, false), "Hide Items List", OnStyle))
-                    {
-                        listItems = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(12, false), "Show Item List", OffStyle))
-                {
-                    listItems = true;
-                }
-                if (dropMenu)
-                {
-                    if (GUI.Button(BtnRect(13, false), "Hide Drop Items Menu", OnStyle))
-                    {
-                        dropMenu = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(13, false), "Show Drop Items Menu", OffStyle))
-                {
-                    dropMenu = true;
-                }
-                if (listBuffs)
-                {
-                    if (GUI.Button(BtnRect(14, false), "Hide Buffs List", OnStyle))
-                    {
-                        listBuffs = false;
-                    }
-                }
-                else if (GUI.Button(BtnRect(14, false), "Show Buffs List", OffStyle))
-                {
-                    listBuffs = true;
-                }
-                if (GUI.Button(BtnRect(15, false), "Remove All Buffs", BtnStyle))
-                {
-                    RemoveAllBuffs();
-                }
-                #endregion
-            }
-            else
-            {
-                GUI.Box(new Rect(rect.x, rect.y + 95f * mulY, widthSize + 10, 50f), "", BgStyle);
-                GUI.Label(new Rect(rect.x, rect.y + 95f * mulY, widthSize + 10, 50f), "<color=yellow>Note: Buttons Will Appear in Match Only</color>", LabelStyle);
-            }
-        }*/
 
         // Rect for buttons
         // It automatically auto position buttons. There is no need to change it
@@ -1296,124 +996,6 @@ namespace RoRCheats
             }
             return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 40);
         }
-
-        // Original Textures
-        #region Original Textures
-        /*
-        public static Texture2D BtnTexture
-        {
-            get
-            {
-                if (btntexture == null)
-                {
-                    btntexture = NewTexture2D;
-                    btntexture.SetPixel(0, 0, new Color32(3, 155, 229, 255));
-                    btntexture.Apply();
-                }
-                return btntexture;
-            }
-        }
-
-        public static Texture2D BtnPressTexture
-        {
-            get
-            {
-                if (btnpresstexture == null)
-                {
-                    btnpresstexture = NewTexture2D;
-                    btnpresstexture.SetPixel(0, 0, new Color32(2, 119, 189, 255));
-                    btnpresstexture.Apply();
-                }
-                return btnpresstexture;
-            }
-        }
-
-        public static Texture2D OnPressTexture
-        {
-            get
-            {
-                if (onpresstexture == null)
-                {
-                    onpresstexture = NewTexture2D;
-                    onpresstexture.SetPixel(0, 0, new Color32(62, 119, 64, 255));
-                    onpresstexture.Apply();
-                }
-                return onpresstexture;
-            }
-        }
-
-        public static Texture2D OnTexture
-        {
-            get
-            {
-                if (ontexture == null)
-                {
-                    ontexture = NewTexture2D;
-                    ontexture.SetPixel(0, 0, new Color32(79, 153, 82, 255));
-                    ontexture.Apply();
-                }
-                return ontexture;
-            }
-        }
-
-        public static Texture2D OffPressTexture
-        {
-            get
-            {
-                if (offpresstexture == null)
-                {
-                    offpresstexture = NewTexture2D;
-                    offpresstexture.SetPixel(0, 0, new Color32(79, 79, 79, 255));
-                    offpresstexture.Apply();
-                }
-                return offpresstexture;
-            }
-        }
-
-        public static Texture2D OffTexture
-        {
-            get
-            {
-                if (offtexture == null)
-                {
-                    offtexture = NewTexture2D;
-                    offtexture.SetPixel(0, 0, new Color32(99, 99, 99, 255));
-                    offtexture.Apply();
-                }
-                return offtexture;
-            }
-        }
-
-        public static Texture2D BackTexture
-        {
-            get
-            {
-                if (backtexture == null)
-                {
-                    backtexture = NewTexture2D;
-                    //ToHtmlStringRGBA  new Color(33, 150, 243, 1)
-                    backtexture.SetPixel(0, 0, new Color32(42, 42, 42, 200));
-                    backtexture.Apply();
-                }
-                return backtexture;
-            }
-        }
-
-        public static Texture2D CornerTexture
-        {
-            get
-            {
-                if (cornertexture == null)
-                {
-                    cornertexture = NewTexture2D;
-                    //ToHtmlStringRGBA  new Color(33, 150, 243, 1)
-                    cornertexture.SetPixel(0, 0, new Color32(42, 42, 42, 0));
-                    cornertexture.Apply();
-                }
-                return cornertexture;
-            }
-        }*/
-        #endregion
 
         // try and setup our character, if we hit an error we set it to false
         //TODO: Find a way to stop it from checking whilst in main menu/lobby menu
@@ -1548,9 +1130,25 @@ namespace RoRCheats
         #endregion
 
         #region Player Modifiers
-        private static void GiveBuff(BuffIndex buff)
+        public static void GiveBuff(GUIStyle buttonStyle, string buttonName)
         {
-            LocalPlayerBody.AddBuff(buff);
+            //LocalPlayerBody.AddBuff(buff);
+
+            int buttonPlacement = 1;
+            foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
+            {
+                //bool unreleasedullItem = unreleasedItems.Any(item.Contains);
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buffName, buttonStyle))
+                {
+                    BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), buffName);
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                    {
+                        LocalPlayerBody.AddBuff(buffIndex);
+                    }
+                }
+                buttonPlacement++;
+            }
         }
 
         private static void RemoveAllBuffs()
@@ -1662,13 +1260,18 @@ namespace RoRCheats
 
         public static void AlwaysSprint()
         {
+            var isMoving = LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f || LocalNetworkUser.inputPlayer.GetAxis("MoveHorizontal") != 0f;
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
             var controller = localUser.cachedMasterController;
             var body = controller.master.GetBody();
             if (body && !body.isSprinting && !localUser.inputPlayer.GetButton("Sprint"))
-                //controller.SetFieldValue("sprintInputPressReceived", true);
-                body.isSprinting = true;
+            {
+                if (isMoving)
+                {
+                    body.isSprinting = true;
+                }
+            }
         }
 
         public static void Respawn()
@@ -1677,16 +1280,20 @@ namespace RoRCheats
         }
         #endregion
 
-        #region NoClip
-        public static void DoNoclip()
+        #region Flight
+
+        public static void Flight()
         {
             try
             {
                 var forwardDirection = LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
                 var aimDirection = LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
+                var upDirection = LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
+                var downDirection = LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
                 var isForward = Vector3.Dot(forwardDirection, aimDirection) > 0f;
 
                 var isSprinting = LocalNetworkUser.inputPlayer.GetButton("Sprint");
+                var isJumping = LocalNetworkUser.inputPlayer.GetButton("Jump");
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 var isStrafing = LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f;
 
@@ -1704,6 +1311,10 @@ namespace RoRCheats
                             LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -100f;
                         }
                     }
+                }
+                else if (isJumping)
+                {
+                    LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
                 }
                 else
                 {
@@ -1785,7 +1396,7 @@ namespace RoRCheats
             if (isDropItemForAll && !isDropItems)*/
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
-        
+
         public static void DropItemMethod(ItemIndex itemIndex)
         {
             var user = RoR2.LocalUserManager.GetFirstLocalUser();
@@ -1813,14 +1424,17 @@ namespace RoRCheats
         {
             if (LocalPlayerInv)
             {
-                for (ItemIndex itemIndex = ItemIndex.Syringe; itemIndex < (ItemIndex)78; itemIndex++)
+                //Loops through every item in ItemIndex enum
+                foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
                 {
-
-                    //If an item exists, delete the whole stack of it
+                    ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName); //Convert itemName string to and ItemIndex
                     LocalPlayerInv.ResetItem(itemIndex); int itemCount = LocalPlayerInv.GetItemCount(itemIndex);
-                    if (itemCount > 0)
+                    //If an item exists, delete the whole stack of it
+                    if (itemCount >= 0) // Just > doesnt delete from top bar
+                    {
                         LocalPlayerInv.RemoveItem(itemIndex, itemCount); LocalPlayerInv.ResetItem(itemIndex);
-
+                        LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
+                    }
                 }
                 LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
             }
@@ -1851,9 +1465,6 @@ namespace RoRCheats
             }
         }
 
-        //TODO:
-        //Seems like after giving all items and removing all items, something breaks.
-        //throws ArgumentException: Destination array was not long enough. Look into later.
         public static void GiveAllItems()
         {
             if (LocalPlayerInv)
@@ -1875,23 +1486,69 @@ namespace RoRCheats
             LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
         }
 
-        public static void GiveCustomItem(ItemIndex itemIndex)
+        public static void GiveItem(GUIStyle buttonStyle, string buttonName)
         {
-            if (LocalPlayerInv)
+            string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "Count" };
+            int buttonPlacement = 1;
+            foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
             {
-                LocalPlayerInv.GiveItem(itemIndex, 1);
+                bool unreleasedullItem = unreleasedItems.Any(itemName.Contains);
+                if (!unreleasedullItem)
+                {
+                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, buttonStyle))
+                    {
+                        ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            if (isDropItemForAll)
+                            {
+                                DropItemMethod(itemIndex);
+                            }
+                            else
+                            {
+                                LocalPlayerInv.GiveItem(itemIndex, 1);
+                            }
+
+                        }
+                    }
+                    buttonPlacement++;
+                }
             }
         }
 
-        public static void GiveCustomEquipment(EquipmentIndex equipmentIndex)
+        public static void GiveEquipment(GUIStyle buttonStyle, string buttonName)
         {
-            if (LocalPlayerInv)
+            string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
+            int buttonPlacement = 1;
+            foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
             {
-                LocalPlayerInv.SetEquipmentIndex(equipmentIndex);
+                bool unreleasedullEquipment = unreleasedEquipment.Any(equipmentName.Contains);
+                if (!unreleasedullEquipment)
+                {
+                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, buttonStyle))
+                    {
+                        EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            if (isDropItemForAll)
+                            {
+                                DropEquipmentMethod(equipmentIndex);
+                            }
+                            else
+                            {
+                                LocalPlayerInv.SetEquipmentIndex(equipmentIndex);
+                            }
+
+                        }
+                    }
+                    buttonPlacement++;
+                }
             }
         }
 
-        public static void ReduceEquipmentCooldown()
+        public static void NoEquipmentCooldown()
         {
             EquipmentState equipment = LocalPlayerInv.GetEquipment((uint)LocalPlayerInv.activeEquipmentSlot);
 
@@ -1971,8 +1628,10 @@ namespace RoRCheats
             _isItemSpawnMenuOpen = false;
             _isPlayerMod = false;
             _isEquipmentSpawnMenuOpen = false;
+            _isBuffMenuOpen = false;
             _isItemManagerOpen = false;
             damageToggle = false;
+            noEquipmentCooldown = false;
             critToggle = false;
             skillToggle = false;
             renderInteractables = false;
@@ -1980,36 +1639,56 @@ namespace RoRCheats
             armorToggle = false;
             regenToggle = false;
             moveSpeedToggle = false;
-            NoclipToggle = false;
+            FlightToggle = false;
             isDropItemForAll = false;
             alwaysSprint = false;
             aimBot = false;
         }
 
-        //TODO: FIX
-        private static readonly Dictionary<string, UnlockableDef> nameToDefTable = new Dictionary<string, UnlockableDef>();
+        public static void SoftResetMenu()
+        {
+            _isMenuOpen = !_isMenuOpen;
+            GetCharacter();
+            _isMenuOpen = !_isMenuOpen;
+        }
+
+        //TODO: Add MOnsters/Enviroment Logs
         public static void UnlockAll()
         {
-            var unlockables = nameToDefTable;
-            foreach (var unlockable in unlockables)
-                Run.instance.GrantUnlockToAllParticipatingPlayers(unlockable.Key);
-            //foreach (var networkUser in NetworkUser.readOnlyInstancesList)
-                //networkUser.AwardLunarCoins(100);
             var achievementManager = AchievementManager.GetUserAchievementManager(LocalUserManager.GetFirstLocalUser());
             foreach (var achievement in AchievementManager.allAchievementDefs)
+            {
                 achievementManager.GrantAchievement(achievement);
+            }
+
             var profile = LocalUserManager.GetFirstLocalUser().userProfile;
             foreach (var survivor in SurvivorCatalog.allSurvivorDefs)
             {
                 if (profile.statSheet.GetStatValueDouble(RoR2.Stats.PerBodyStatDef.totalTimeAlive, survivor.bodyPrefab.name) == 0.0)
                     profile.statSheet.SetStatValueFromString(RoR2.Stats.PerBodyStatDef.totalTimeAlive.FindStatDef(survivor.bodyPrefab.name), "0.1");
             }
-            for (int i = 0; i < 150; i++)
+            foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
             {
-                profile.DiscoverPickup(PickupCatalog.FindPickupIndex((ItemIndex)i));
-                profile.DiscoverPickup(PickupCatalog.FindPickupIndex((EquipmentIndex)i));
+                ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
+                profile.DiscoverPickup(PickupCatalog.FindPickupIndex(itemIndex));
+            }
+
+            foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
+            {
+                EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
+                profile.DiscoverPickup(PickupCatalog.FindPickupIndex(equipmentIndex));
             }
         }
+
+        // Used during testing
+        /*public static void WriteToLog(string logContent)
+        {
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
+            {
+                outputFile.WriteLine(log + logContent);
+            }
+        }*/
         #endregion
     }
 }

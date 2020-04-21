@@ -72,6 +72,19 @@ namespace RoRCheats
                 }
 
             }
+            else if (buttonType.Equals("giveBuff"))
+            {
+                Main.buffMenuMulY = y;
+                if (isMultButton)
+                {
+                    return new Rect(Main.buffMenuRect.x + 5, Main.buffMenuRect.y + 5 + 45 * y, Main.widthSize - 90, 40);
+                }
+                else
+                {
+                    return new Rect(Main.buffMenuRect.x + 5, Main.buffMenuRect.y + 5 + 45 * y, Main.widthSize, 40);
+                }
+
+            }
             else if (buttonType.Equals("character"))
             {
                 Main.CharacterMulY = y;
