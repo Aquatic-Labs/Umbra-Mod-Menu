@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
-// using System.IO;
+using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
+using Resources = RoRCheats.Properties.Resources;
 using EntityStates;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -19,6 +21,7 @@ namespace RoRCheats
             VERSION = "1.0";
 
         public static string log = "[" + NAME + "] ";
+        public static List<string> unlockableNames = GetAllUnlockables();
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -36,6 +39,7 @@ namespace RoRCheats
         public static bool _CharacterCollected = false;
         public static bool _isStatMenuOpen = false;
         public static bool _isTeleMenuOpen = false;
+        public static bool _isESPMenuOpen = false;
         public static bool _ItemToggle = false;
         public static bool _CharacterToggle = false;
         public static bool _isLobbyMenuOpen = false;
@@ -51,7 +55,7 @@ namespace RoRCheats
         #region Button Styles / Toggles
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle; //make new BgStyle for stats menu
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll;
         public static float delay = 0, widthSize = 400;
         #endregion
 
@@ -59,6 +63,7 @@ namespace RoRCheats
         public static Rect mainRect;
         public static Rect statRect;
         public static Rect teleRect;
+        public static Rect ESPRect;
         public static Rect lobbyRect;
         public static Rect itemSpawnerRect;
         public static Rect equipmentSpawnerRect;
@@ -87,9 +92,10 @@ namespace RoRCheats
         public static ulong xpToGive = 50;
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
+        public static int ESPLimit = 1;
         #endregion
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
 
         public static Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
         public static string[] Players = new string[16];
@@ -120,45 +126,50 @@ namespace RoRCheats
                 DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + teleRect.x + " Y : " + teleRect.y);
             }
+            if (_isESPMenuOpen)
+            {
+                ESPRect = GUI.Window(3, ESPRect, new GUI.WindowFunction(SetESPBG), "", new GUIStyle());
+                DrawMenu.DrawESPMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
+                //Debug.Log("X : " + ESPRect.x + " Y : " + ESPRect.y);
+            }
             if (_isLobbyMenuOpen)
             {
-                lobbyRect = GUI.Window(3, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
+                lobbyRect = GUI.Window(4, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
                 DrawMenu.DrawManagmentMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
             if (_isItemSpawnMenuOpen)
             {
-                itemSpawnerRect = GUI.Window(4, itemSpawnerRect, new GUI.WindowFunction(SetSpawnerBG), "", new GUIStyle());
+                itemSpawnerRect = GUI.Window(5, itemSpawnerRect, new GUI.WindowFunction(SetSpawnerBG), "", new GUIStyle());
                 DrawMenu.DrawSpawnMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
             }
-
             if (_isPlayerMod)
             {
-                playerModRect = GUI.Window(5, playerModRect, new GUI.WindowFunction(SetPlayerModBG), "", new GUIStyle());
+                playerModRect = GUI.Window(6, playerModRect, new GUI.WindowFunction(SetPlayerModBG), "", new GUIStyle());
                 DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 //Debug.Log("X : " + playerModRect.x + " Y : " + playerModRect.y);
             }
             if (_isEquipmentSpawnMenuOpen)
             {
-                equipmentSpawnerRect = GUI.Window(6, equipmentSpawnerRect, new GUI.WindowFunction(SetEquipmentBG), "", new GUIStyle());
+                equipmentSpawnerRect = GUI.Window(7, equipmentSpawnerRect, new GUI.WindowFunction(SetEquipmentBG), "", new GUIStyle());
                 DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
                 //Debug.Log("X : " + equipmentSpawnerRect.x + " Y : " + equipmentSpawnerRect.y);
             }
             if (_isBuffMenuOpen)
             {
-                buffMenuRect = GUI.Window(7, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
+                buffMenuRect = GUI.Window(8, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
                 DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
             }
             if (_CharacterToggle)
             {
-                characterRect = GUI.Window(8, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
+                characterRect = GUI.Window(9, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
                 DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
             }
             if (_isItemManagerOpen)
             {
-                itemManagerRect = GUI.Window(9, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
+                itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
                 DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 //Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
@@ -173,11 +184,13 @@ namespace RoRCheats
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
+            //TODO: Update these values
             #region CondenseMenuValues
 
             mainRect = new Rect(10, 10, 20, 20); //start position
             statRect = new Rect(1626, 457, 20, 20); //start position
             teleRect = new Rect(10, 661, 20, 20); //start position
+            ESPRect = new Rect(10, 661, 20, 20); //start position
             lobbyRect = new Rect(10, 421, 20, 20); //start position
             itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
             equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start positions
@@ -433,6 +446,18 @@ namespace RoRCheats
             }
         }
 
+        public void FixedUpdate()
+        {
+            try
+            {
+
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+        }
+
         private void CheckInputs()
         {
             if (Input.GetKeyDown(KeyCode.Insert))
@@ -461,6 +486,10 @@ namespace RoRCheats
             if (renderInteractables)
             {
                 RenderInteractables();
+            }
+            if (renderMobs)
+            {
+                RenderMobs();
             }
         }
 
@@ -530,6 +559,7 @@ namespace RoRCheats
             }
         }
 
+        #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             //WriteToLog($"{scene.name}\nAlive: {LocalHealth.alive}\n");
@@ -550,6 +580,7 @@ namespace RoRCheats
                 SoftResetMenu();
             }
         }
+        #endregion
 
         #region SetBG
 
@@ -713,6 +744,29 @@ namespace RoRCheats
             GUI.DragWindow();
         }
 
+        public static void SetESPBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * ESPMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isESPMenuOpen = !_isESPMenuOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
         public static void SetLobbyBG(int windowID)
         {
             GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * LobbyMulY), "", CornerStyle);
@@ -830,6 +884,7 @@ namespace RoRCheats
 
         #endregion SetBG
 
+        #region Draw all Menus
         public static void DrawAllMenus()
         {
             GUI.Box(new Rect(mainRect.x + 0f, mainRect.y + 0f, widthSize + 10, 50f + 45 * MainMulY), "", MainBgStyle);
@@ -844,8 +899,7 @@ namespace RoRCheats
                 DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle);
             }
         }
-
-        // Textures
+        #endregion
 
         #region Textures
 
@@ -1026,7 +1080,8 @@ namespace RoRCheats
             }
         }
 
-        private static void RenderInteractables()
+        #region ESP
+        public static void RenderInteractables()
         {
             foreach (TeleporterInteraction teleporterInteraction in FindObjectsOfType<TeleporterInteraction>())
             {
@@ -1036,7 +1091,7 @@ namespace RoRCheats
                 if (BoundingVector.z > 0.01)
                 {
                     GUI.color =
-                        teleporterInteraction.isIdle ? Color.red :
+                        teleporterInteraction.isIdle ? Color.magenta :
                         teleporterInteraction.isIdleToCharging || teleporterInteraction.isCharging ? Color.yellow :
                         teleporterInteraction.isCharged ? Color.green : Color.yellow;
                     int distance = (int)distanceToObject;
@@ -1074,12 +1129,67 @@ namespace RoRCheats
             }
         }
 
+        public static void RenderMobs()
+        {
+            if (ESPLimit % 1000 == 0)
+            {
+                var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
+                var controller = localUser.cachedMasterController;
+                if (!controller)
+                {
+                    return;
+                }
+                var body = controller.master.GetBody();
+                if (!body)
+                {
+                    return;
+                }
+                var inputBank = body.GetComponent<RoR2.InputBankTest>();
+                var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
+                var bullseyeSearch = new RoR2.BullseyeSearch();
+                var team = body.GetComponent<RoR2.TeamComponent>();
+                bullseyeSearch.searchOrigin = aimRay.origin;
+                bullseyeSearch.searchDirection = aimRay.direction;
+                bullseyeSearch.filterByLoS = false;
+                bullseyeSearch.maxDistanceFilter = 125;
+                bullseyeSearch.maxAngleFilter = 40f;
+                bullseyeSearch.teamMaskFilter = RoR2.TeamMask.all;
+                bullseyeSearch.teamMaskFilter.RemoveTeam(team.teamIndex);
+                bullseyeSearch.RefreshCandidates();
+                var hurtBoxList = bullseyeSearch.GetResults();
+                foreach (var hurtbox in hurtBoxList)
+                {
+                    var mob = HurtBox.FindEntityObject(hurtbox);
+                    if (mob)
+                    {
+                        Vector3 MobPosition = Camera.main.WorldToScreenPoint(mob.transform.position);
+                        var MobBoundingVector = new Vector3(MobPosition.x, MobPosition.y, MobPosition.z);
+                        float distanceToMob = Vector3.Distance(Camera.main.transform.position, mob.transform.position);
+                        if (MobBoundingVector.z > 0.01)
+                        {
+                            GUI.color = Color.red;
+                            string mobName = mob.name.Replace("Body(Clone)", "");
+                            int mobDistance = (int)distanceToMob;
+                            string mobBoxText = $"{mobName}\n{mobDistance}m";
+                            GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText);
+                            WriteToLog($"Drew label. \n{mobBoxText}\n");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ESPLimit++;
+            }
+        }
+        #endregion
+
         #region Teleporter
         public static void InstaTeleporter()
         {
             if (TeleporterInteraction.instance)
             {
-                TeleporterInteraction.instance.remainingChargeTimer = 0;
+                //TeleporterInteraction.instance.remainingChargeTimer = 0;
                 Debug.Log("RoRCheats : Skipping Stage");
             }
         }
@@ -1229,14 +1339,21 @@ namespace RoRCheats
         public static void AimBot()
         {
             if (CursorIsVisible())
+            {
                 return;
+            }
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
             if (!controller)
+            {
                 return;
+            }
             var body = controller.master.GetBody();
             if (!body)
+            {
                 return;
+            }
+
             var inputBank = body.GetComponent<RoR2.InputBankTest>();
             var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
             var bullseyeSearch = new RoR2.BullseyeSearch();
@@ -1434,6 +1551,36 @@ namespace RoRCheats
                     {
                         LocalPlayerInv.RemoveItem(itemIndex, itemCount); LocalPlayerInv.ResetItem(itemIndex);
                         LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
+
+                        if (itemName == "BeetleGland")
+                        {
+                            var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
+                            var controller = localUser.cachedMasterController;
+                            if (!controller)
+                            {
+                                return;
+                            }
+                            var body = controller.master.GetBody();
+                            if (!body)
+                            {
+                                return;
+                            }
+                            var bullseyeSearch = new RoR2.BullseyeSearch();
+                            bullseyeSearch.filterByLoS = false;
+                            bullseyeSearch.maxDistanceFilter = float.MaxValue;
+                            bullseyeSearch.maxAngleFilter = float.MaxValue;
+                            bullseyeSearch.RefreshCandidates();
+                            var hurtBoxList = bullseyeSearch.GetResults();
+                            foreach (var hurtbox in hurtBoxList)
+                            {
+                                var mob = HurtBox.FindEntityObject(hurtbox);
+                                string mobName = mob.name.Replace("Body(Clone)", "");
+                                if (mobName == "BeetleGuardAlly")
+                                {
+                                    UnityEngine.GameObject.Destroy(mob);
+                                }
+                            }
+                        }
                     }
                 }
                 LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
@@ -1469,12 +1616,12 @@ namespace RoRCheats
         {
             if (LocalPlayerInv)
             {
-                for (ItemIndex itemIndex = ItemIndex.Syringe; itemIndex < (ItemIndex)78; itemIndex++)
+                foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
                 {
                     //plantonhit kills you when you pick it up
-                    if (itemIndex == ItemIndex.PlantOnHit)
+                    if (itemName == "PlantOnHit" || itemName == "HealthDecay" || itemName == "TonicAffliction" || itemName == "BurnNearby" || itemName == "CrippleWardOnLevel" || itemName == "Ghost" || itemName == "ExtraLifeConsumed")
                         continue;
-                    //ResetItem sets quantity to 1, RemoveItem removes the last one.
+                    ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
                     LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
                 }
             }
@@ -1509,7 +1656,26 @@ namespace RoRCheats
                             {
                                 LocalPlayerInv.GiveItem(itemIndex, 1);
                             }
-
+                        }
+                    }
+                    buttonPlacement++;
+                }
+                else if (itemName == "GhostOnKill")
+                {
+                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, buttonStyle))
+                    {
+                        ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            if (isDropItemForAll)
+                            {
+                                DropItemMethod(itemIndex);
+                            }
+                            else
+                            {
+                                LocalPlayerInv.GiveItem(itemIndex, 1);
+                            }
                         }
                     }
                     buttonPlacement++;
@@ -1567,12 +1733,12 @@ namespace RoRCheats
                     return true;
             return false;
         }
-        public static void banPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
+        public static void BanPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
         {
             Console.instance.RunClientCmd(LocalNetworkUser, "ban_steam", new string[] { PlayerName.Network_id.steamId.ToString() });
         }
 
-        public static void kickPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
+        public static void KickPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
         {
             Console.instance.RunClientCmd(LocalNetworkUser, "kick_steam", new string[] { PlayerName.Network_id.steamId.ToString() });
         }
@@ -1621,6 +1787,7 @@ namespace RoRCheats
             _CharacterCollected = false;
             _isStatMenuOpen = false;
             _isTeleMenuOpen = false;
+            _isESPMenuOpen = false;
             _ItemToggle = false;
             _CharacterToggle = false;
             _isLobbyMenuOpen = false;
@@ -1635,6 +1802,7 @@ namespace RoRCheats
             critToggle = false;
             skillToggle = false;
             renderInteractables = false;
+            renderMobs = false;
             attackSpeedToggle = false;
             armorToggle = false;
             regenToggle = false;
@@ -1655,6 +1823,15 @@ namespace RoRCheats
         //TODO: Add MOnsters/Enviroment Logs
         public static void UnlockAll()
         {
+            foreach (var unlockableName in unlockableNames)
+            {
+                var unlockableDef = UnlockableCatalog.GetUnlockableDef(unlockableName);
+                NetworkUser networkUser = Util.LookUpBodyNetworkUser(LocalPlayerBody);
+                if (networkUser)
+                {
+                    networkUser.ServerHandleUnlock(unlockableDef);
+                }
+            }
             var achievementManager = AchievementManager.GetUserAchievementManager(LocalUserManager.GetFirstLocalUser());
             foreach (var achievement in AchievementManager.allAchievementDefs)
             {
@@ -1667,6 +1844,7 @@ namespace RoRCheats
                 if (profile.statSheet.GetStatValueDouble(RoR2.Stats.PerBodyStatDef.totalTimeAlive, survivor.bodyPrefab.name) == 0.0)
                     profile.statSheet.SetStatValueFromString(RoR2.Stats.PerBodyStatDef.totalTimeAlive.FindStatDef(survivor.bodyPrefab.name), "0.1");
             }
+
             foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
             {
                 ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
@@ -1681,14 +1859,50 @@ namespace RoRCheats
         }
 
         // Used during testing
-        /*public static void WriteToLog(string logContent)
+        public static void WriteToLog(string logContent)
         {
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
             {
                 outputFile.WriteLine(log + logContent);
             }
-        }*/
+        }
+        public static List<string> GetAllUnlockables()
+        {
+            var unlockableName = new List<string>();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "RoRCheats.Resources.Unlockables.txt";
+
+            Stream stream = assembly.GetManifestResourceStream(resourceName);
+            StreamReader reader = new StreamReader(stream);
+            while (!reader.EndOfStream)
+            {
+                string line1 = reader.ReadLine();
+                line1 = line1.Replace("UnlockableCatalog.RegisterUnlockable(\"", "");
+                line1 = line1.Replace("\", new UnlockableDef", "");
+                line1 = line1.Replace("true", "");
+                line1 = line1.Replace("});", "");
+                line1 = line1.Replace("=", "");
+                line1 = line1.Replace("\"", "");
+                line1 = line1.Replace("false", "");
+                line1 = line1.Replace(",", "");
+                line1 = line1.Replace("hidden", "");
+                line1 = line1.Replace("{", "");
+                line1 = line1.Replace("nameToken", "");
+                line1 = line1.Replace(" ", "");
+                string[] lineArray = line1.Split(null);
+                foreach (var line in lineArray)
+                {
+                    //TODO: Simplify later
+                    if (line.StartsWith("Logs.") || line.StartsWith("Characters.") || line.StartsWith("Items.") || line.StartsWith("Skills.") || line.StartsWith("Skins.") || line.StartsWith("Shop.") || line.StartsWith("Artifacts.") || line.StartsWith("NewtStatue."))
+                    {
+                        unlockableName.Add(line);
+                    }
+                }
+            }
+            return unlockableName;
+        }
         #endregion
     }
 }

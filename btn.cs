@@ -47,6 +47,19 @@ namespace RoRCheats
                 }
 
             }
+            else if (buttonType.Equals("ESP"))
+            {
+                Main.ESPMulY = y;
+                if (isMultButton)
+                {
+                    return new Rect(Main.ESPRect.x + 5, Main.ESPRect.y + 5 + 45 * y, Main.widthSize - 90, 40);
+                }
+                else
+                {
+                    return new Rect(Main.ESPRect.x + 5, Main.ESPRect.y + 5 + 45 * y, Main.widthSize, 40);
+                }
+
+            }
             else if (buttonType.Equals("itemSpawner"))
             {
                 Main.itemSpawnerMulY = y;

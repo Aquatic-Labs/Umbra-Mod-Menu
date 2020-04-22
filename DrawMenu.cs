@@ -47,17 +47,16 @@ namespace RoRCheats
             {
                 Main.noEquipmentCooldown = true;
             }
-
-            if (Main.renderInteractables)
+            if (Main._isESPMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(4, false, "main"), "Interactables ESP: ON", OnStyle))
+                if (GUI.Button(btn.BtnRect(4, false, "main"), "ESP Menu: ON", OnStyle))
                 {
-                    Main.renderInteractables = false;
+                    Main._isESPMenuOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(4, false, "main"), "Interactables ESP: OFF", OffStyle))
+            else if (GUI.Button(btn.BtnRect(4, false, "main"), "ESP Menu: OFF", OffStyle))
             {
-                Main.renderInteractables = true;
+                Main._isESPMenuOpen = true;
             }
             if (Main._isTeleMenuOpen)
             {
@@ -135,7 +134,7 @@ namespace RoRCheats
                             if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), "Kick " + Main.Players[i], buttonStyle))
                             {
                                 Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + "<color=yellow>" + Main.Players[i] + "</color>");
-                                Main.kickPlayer(Main.GetNetUserFromString(Main.Players[i].ToString()), Main.LocalNetworkUser);
+                                Main.KickPlayer(Main.GetNetUserFromString(Main.Players[i].ToString()), Main.LocalNetworkUser);
                             }
                             buttonPlacement++;
                         }
@@ -258,6 +257,35 @@ namespace RoRCheats
                 Main.InstaTeleporter();
             if (GUI.Button(btn.BtnRect(7, false, "tele"), "+1 Mountain Challenge : Current Ammount " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                 Main.addMountain();
+        }
+
+        public static void DrawESPMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "ESP Menu", LabelStyle);
+
+            if (Main.renderInteractables)
+            {
+                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "Interactables ESP: ON", OnStyle))
+                {
+                    Main.renderInteractables = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "Interactables ESP: OFF", OffStyle))
+            {
+                Main.renderInteractables = true;
+            }
+            if (Main.renderMobs)
+            {
+                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "Mob ESP: ON", OnStyle))
+                {
+                    Main.renderMobs = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "Mob ESP: OFF", OffStyle))
+            {
+                Main.renderMobs = true;
+            }
         }
 
         public static void DrawPlayerModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)

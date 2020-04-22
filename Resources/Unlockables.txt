@@ -1,0 +1,826 @@
+private static void Init()
+		{
+			UnlockableCatalog.RegisterUnlockable("Logs.BeetleBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_BEETLE"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.BeetleGuardBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_BEETLEGUARD"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.BeetleQueenBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_BEETLEQUEEN"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.BisonBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_BISON"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ClayBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_CLAY"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ClayBossBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_CLAYBOSS"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.GolemBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_GOLEM"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.TitanBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_TITAN"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.TitanGoldBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_TITANGOLD"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ImpBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_IMP"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.JellyfishBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_JELLYFISH"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.VagrantBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_VAGRANT"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.LemurianBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_LEMURIAN"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.MagmaWormBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_MAGMAWORM"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.WispBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_WISP"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.GreaterWispBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_GREATERWISP"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.AncientWispBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_ANCIENTWISP"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.HermitCrabBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_HERMITCRAB"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.BellBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_BELL"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.LemurianBruiserBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_LEMURIANBRUISER"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ImpBossBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_IMPBOSS"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ShopkeeperBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_SHOPKEEPER"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ElectricWormBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_ELECTRICWORM"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.ClayBruiserBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_CLAYBRUISER"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.GravekeeperBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_GRAVEKEEPER"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.VultureBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_VULTURE"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.RoboBallBossBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_ROBOBALLBOSS"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.RoboBallMiniBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_ROBOBALLMINI"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.SuperRoboBallBossBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_SUPERROBOBALLBOSS"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Nullifier.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_NULLIFIER"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Scav.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_SCAV"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Parent.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_PARENT"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.MiniMushroom.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_MINIMUSHROOM"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Grandparent.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_GRANDPARENT"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Huntress", new UnlockableDef
+			{
+				nameToken = "HUNTRESS_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Bandit", new UnlockableDef
+			{
+				nameToken = "BANDIT_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Engineer", new UnlockableDef
+			{
+				nameToken = "ENGI_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Mercenary", new UnlockableDef
+			{
+				nameToken = "MERC_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Mage", new UnlockableDef
+			{
+				nameToken = "MAGE_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Toolbot", new UnlockableDef
+			{
+				nameToken = "TOOLBOT_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Treebot", new UnlockableDef
+			{
+				nameToken = "TREEBOT_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Loader", new UnlockableDef
+			{
+				nameToken = "LOADER_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Croco", new UnlockableDef
+			{
+				nameToken = "CROCO_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.ExtraLife", new UnlockableDef
+			{
+				nameToken = "ITEM_EXTRALIFE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.BFG", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_BFG_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.ShockNearby", new UnlockableDef
+			{
+				nameToken = "ITEM_SHOCKNEARBY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.AttackSpeedOnCrit", new UnlockableDef
+			{
+				nameToken = "ITEM_ATTACKSPEEDONCRIT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Infusion", new UnlockableDef
+			{
+				nameToken = "ITEM_INFUSION_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Medkit", new UnlockableDef
+			{
+				nameToken = "ITEM_MEDKIT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Bear", new UnlockableDef
+			{
+				nameToken = "ITEM_BEAR_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Clover", new UnlockableDef
+			{
+				nameToken = "ITEM_CLOVER_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.GoldGat", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_GOLDGAT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.EquipmentMagazine", new UnlockableDef
+			{
+				nameToken = "ITEM_EQUIPMENTMAGAZINE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.DroneBackup", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_DRONEBACKUP_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Firework", new UnlockableDef
+			{
+				nameToken = "ITEM_FIREWORK_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.WarCryOnMultiKill", new UnlockableDef
+			{
+				nameToken = "ITEM_WARCRYONMULTIKILL_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Lightning", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_LIGHTNING_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.PassiveHealing", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_PASSIVEHEALING_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Meteor", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_METEOR_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.BurnNearby", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_BURNNEARBY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.AutoCastEquipment", new UnlockableDef
+			{
+				nameToken = "ITEM_AUTOCASTEQUIPMENT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.HealOnCrit", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_HEALONCRIT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.ElementalRings", new UnlockableDef
+			{
+				nameToken = "ITEM_ELEMENTALRINGS_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Scanner", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_SCANNER_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Talisman", new UnlockableDef
+			{
+				nameToken = "ITEM_TALISMAN_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.BossDamageBonus", new UnlockableDef
+			{
+				nameToken = "ITEM_BOSSDAMAGEBONUS_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.KillEliteFrenzy", new UnlockableDef
+			{
+				nameToken = "ITEM_KILLELITEFRENZY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.SecondarySkillMagazine", new UnlockableDef
+			{
+				nameToken = "ITEM_SECONDARYSKILLMAGAZINE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.JumpBoost", new UnlockableDef
+			{
+				nameToken = "ITEM_JUMPBOOST_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Crowbar", new UnlockableDef
+			{
+				nameToken = "ITEM_CROWBAR_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Hoof", new UnlockableDef
+			{
+				nameToken = "ITEM_HOOF_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.BounceNearby", new UnlockableDef
+			{
+				nameToken = "ITEM_BOUNCENEARBY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.TreasureCache", new UnlockableDef
+			{
+				nameToken = "ITEM_TREASURECACHE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.RepeatHeal", new UnlockableDef
+			{
+				nameToken = "ITEM_REPEATHEAL_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.NovaOnHeal", new UnlockableDef
+			{
+				nameToken = "ITEM_NOVAONHEAL_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.CrippleWardOnLevel", new UnlockableDef
+			{
+				nameToken = "ITEM_CRIPPLEWARDONLEVEL_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.IncreaseHealing", new UnlockableDef
+			{
+				nameToken = "ITEM_INCREASEHEALING_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Gateway", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_GATEWAY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Tonic", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_TONIC_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.ExecuteLowHealthElite", new UnlockableDef
+			{
+				nameToken = "ITEM_EXECUTELOWHEALTHELITE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.EnergizedOnEquipmentUse", new UnlockableDef
+			{
+				nameToken = "ITEM_ENERGIZEDONEQUIPMENTUSE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Cleanse", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_CLEANSE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.LunarSkillReplacements", new UnlockableDef
+			{
+				nameToken = "ITEM_LUNARSKILLREPLACEMENTS_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Squid", new UnlockableDef
+			{
+				nameToken = "ITEM_SQUIDTURRET_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.Recycle", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_RECYCLER_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.FocusConvergence", new UnlockableDef
+			{
+				nameToken = "ITEM_FOCUSEDCONVERGENCE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Commando.FireShotgunBlast", new UnlockableDef
+			{
+				nameToken = "COMMANDO_SECONDARY_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Commando.ThrowGrenade", new UnlockableDef
+			{
+				nameToken = "COMMANDO_SPECIAL_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Commando.SlideJet", new UnlockableDef
+			{
+				nameToken = "COMMANDO_UTILITY_ALT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Toolbot.Grenade", new UnlockableDef
+			{
+				nameToken = "TOOLBOT_PRIMARY_ALT2_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Toolbot.Buzzsaw", new UnlockableDef
+			{
+				nameToken = "TOOLBOT_PRIMARY_ALT3_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Merc.Uppercut", new UnlockableDef
+			{
+				nameToken = "MERC_SECONDARY_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Merc.EvisProjectile", new UnlockableDef
+			{
+				nameToken = "MERC_SPECIAL_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Huntress.MiniBlink", new UnlockableDef
+			{
+				nameToken = "HUNTRESS_UTILITY_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Huntress.Snipe", new UnlockableDef
+			{
+				nameToken = "HUNTRESS_SPECIAL_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Huntress.FlurryArrow", new UnlockableDef
+			{
+				nameToken = "HUNTRESS_PRIMARY_ALT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Engi.WalkerTurret", new UnlockableDef
+			{
+				nameToken = "ENGI_SPECIAL_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Engi.SpiderMine", new UnlockableDef
+			{
+				nameToken = "ENGI_SPIDERMINE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Engi.Harpoon", new UnlockableDef
+			{
+				nameToken = "ENGI_SKILL_HARPOON_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Treebot.Barrage", new UnlockableDef
+			{
+				nameToken = "TREEBOT_SECONDARY_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Treebot.PlantSonicBoom", new UnlockableDef
+			{
+				nameToken = "TREEBOT_UTILITY_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Mage.IceBomb", new UnlockableDef
+			{
+				nameToken = "MAGE_SECONDARY_ICE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Mage.FlyUp", new UnlockableDef
+			{
+				nameToken = "MAGE_SPECIAL_LIGHTNING_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Mage.LightningBolt", new UnlockableDef
+			{
+				nameToken = "MAGE_PRIMARY_ICE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Loader.YankHook", new UnlockableDef
+			{
+				nameToken = "LOADER_YANKHOOK_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Loader.ZapFist", new UnlockableDef
+			{
+				nameToken = "LOADER_UTILITY_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Croco.ChainableLeap", new UnlockableDef
+			{
+				nameToken = "CROCO_SKILL_CHAINABLELEAP_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Croco.CrocoBite", new UnlockableDef
+			{
+				nameToken = "CROCO_SECONDARY_ALT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Croco.PassivePoisonLethal", new UnlockableDef
+			{
+				nameToken = "CROCO_PASSIVE_ALT_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Commando.Alt1", new UnlockableDef
+			{
+				nameToken = "COMMANDO_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Huntress.Alt1", new UnlockableDef
+			{
+				nameToken = "HUNTRESS_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Mage.Alt1", new UnlockableDef
+			{
+				nameToken = "MAGE_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Merc.Alt1", new UnlockableDef
+			{
+				nameToken = "MERC_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Toolbot.Alt1", new UnlockableDef
+			{
+				nameToken = "TOOLBOT_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Treebot.Alt1", new UnlockableDef
+			{
+				nameToken = "TREEBOT_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Loader.Alt1", new UnlockableDef
+			{
+				nameToken = "LOADER_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Croco.Alt1", new UnlockableDef
+			{
+				nameToken = "CROCO_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Engi.Alt1", new UnlockableDef
+			{
+				nameToken = "ENGI_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.ShieldOnly", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_BLUEPRINT_SHIELDONLY",
+				displayModelPath = "Prefabs/PickupModels/PickupShieldBug"
+			});
+			UnlockableCatalog.RegisterUnlockable("Shop.BonusLunar.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_SHOP_BONUS_LUNAR_1"
+			});
+			UnlockableCatalog.RegisterUnlockable("Shop.BonusLunar.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_SHOP_BONUS_LUNAR_2"
+			});
+			UnlockableCatalog.RegisterUnlockable("Shop.BonusLunar.3", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_SHOP_BONUS_LUNAR_3"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.blackbeach", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_BLACKBEACH"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.goolake", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_GOOLAKE"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.bazaar", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_BAZAAR"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.frozenwall", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_FROZENWALL"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.golemplains", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_GOLEMPLAINS"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.foggyswamp", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_FOGGYSWAMP"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.dampcavesimple", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_DAMPCAVE"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.mysteryspace", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_MYSTERYSPACE"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.wispgraveyard", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_WISPGRAVEYARD"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.goldshores", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_GOLDSHORES"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.shipgraveyard", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_SHIPGRAVEYARD"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.arena", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_ARENA"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.limbo", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_LIMBO"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.skymeadow", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_SKYMEADOW"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.artifactworld", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_ARTIFACTWORLD"
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.Bomb", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_BOMB_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.Command", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_COMMAND_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.EliteOnly", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_ELITEONLY_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.Enigma", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_ENIGMA_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.FriendlyFire", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_FRIENDLYFIRE_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.Glass", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_GLASS_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.MixEnemy", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_MIXENEMY_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.MonsterTeamGainsItems", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_MONSTERTEAMGAINSITEMS_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.RandomSurvivorOnRespawn", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_RANDOMSURVIVORONRESPAWN_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.Sacrifice", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_SACRIFICE_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.ShadowClone", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_SHADOWCLONE_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.SingleMonsterType", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_SINGLEMONSTERTYPE_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.Swarms", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_SWARMS_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.TeamDeath", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_TEAMDEATH_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.WeakAssKnees", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_WEAKASSKNEES_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("Artifacts.WispOnDeath", new UnlockableDef
+			{
+				nameToken = "ARTIFACT_WISPONDEATH_NAME",
+				hidden = false
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.blackbeach.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.blackbeach.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.blackbeach.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.goolake.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.goolake.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.goolake.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.bazaar.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.bazaar.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.bazaar.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.frozenwall.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.frozenwall.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.frozenwall.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.foggyswamp.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.foggyswamp.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.foggyswamp.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.dampcavesimple.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.dampcavesimple.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.dampcavesimple.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.wispgraveyard.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.wispgraveyard.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.wispgraveyard.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.shipgraveyard.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.shipgraveyard.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.shipgraveyard.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains2.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains2.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains2.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.golemplains2.3", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.blackbeach2.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.blackbeach2.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.blackbeach2.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.skymeadow.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.skymeadow.1", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.skymeadow.2", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.skymeadow.3", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
+			UnlockableCatalog.RegisterUnlockable("NewtStatue.skymeadow.4", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_NEWTSTATUE",
+				hidden = true
+			});
