@@ -1,5 +1,8 @@
-# Umbra // An unofficial Fork of Spektre Developed by BennettStaley
-A small collection of hacks and cheats for Risk of Rain 2. 
+# Umbra Menu
+A small collection of hacks and cheats for Risk of Rain 2.
+
+This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
+Was merged with [lodsharpshooter's](https://github.com/lodsharpshooter) unofficial fork.
 
 # Has been updated for the Artifacts Update
 # Features
@@ -10,32 +13,30 @@ A small collection of hacks and cheats for Risk of Rain 2.
 - [ ] Give XP
 - [ ] Give Money
 - [ ] Give Lunar Coins
-- [ ] Give yourself items and equipment
+- [ ] Give or Drop yourself items and equipment
 - [ ] Give/Remove buffs
 - [ ] No ability cooldowns
 - [ ] No equipment cooldown
 - [ ] See chests and teleporter through walls
+- [ ] See mobs through walls - Needs work, laggy and may crash game
+- [ ] Teleporter Management - Spawn teleporters(newt, celestine, gold), add Mountain Shrine stack, skip stage, insta charge tp
+- [ ] Lobby Management - Kick players from your lobby
+- [ ] Flight
+- [ ] Always Sprint
+- [ ] Stats Modification/View
+- [ ] Unlock All
 
 Can press `Insert` key to open.
 Have to use mouse to select cheats. This can be done while holding tab ingame or while in the escape menu.
 
-# Upcoming
-- [ ] Teleporter Management
-- [ ] Lobby Management
-- [ ] GUI Improvements
-- [ ] Clear Inventory Fix
-- [ ] Drop Items
-- [ ] Fly
-- [ ] Always Sprint
-- [ ] Stats Modification/View
-- [ ] Unlock All
+Note: Some features may not work if you are not the host of the lobby
 
 # How to use:
 ## Download dll from Releases
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
 
-1. Head to [releases](https://github.com/kamron030702/RoR2ModMenu-Renewed/releases) and download Umbra v0.04.zip
+1. Head to [releases](https://github.com/Acher0ns/RoRCheats-master/) and download Umbra Menu.zip
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
@@ -109,10 +110,14 @@ pause
 5. Press ctrl+shift+s and name it `start.bat` (make sure you replace .txt with .bat)
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
+# Changelog:
+4/23/2020 v1.0: Repo Changed to Public
 # Resources:
 https://github.com/0xd4d/dnSpy
 
 https://github.com/BennettStaley/RoR2ModMenu
+
+https://github.com/lodsharpshooter/RoRCheats
 
 # Media: 
 https://www.youtube.com/watch?v=ragMPNvDY44
