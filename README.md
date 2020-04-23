@@ -103,10 +103,10 @@ again replacing [Path to RoRCheats.dll] with the proper path (keep the quotes)
 @echo off
 cd "[path to folder with smi.exe]"
 cls
-smi.exe inject -p "Risk of Rain 2" -a "[Path to RoR2Cheats.dll]" -n RoRCheats -c Loader -m Load
+smi.exe inject -p "Risk of Rain 2" -a "[Path to RoRCheats.dll]" -n RoRCheats -c Loader -m Load
 pause
 ```
-4. Replace [path to folder with smi.exe] and [Path to RoR2Cheats.dll] with the proper paths (keep quotes if they are there)
+4. Replace [path to folder with smi.exe] and [Path to RoRCheats.dll] with the proper paths (keep quotes if they are there)
 5. Press ctrl+shift+s and name it `start.bat` (make sure you replace .txt with .bat)
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
