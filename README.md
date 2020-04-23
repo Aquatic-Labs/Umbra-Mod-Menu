@@ -118,6 +118,3 @@ https://github.com/0xd4d/dnSpy
 https://github.com/BennettStaley/RoR2ModMenu
 
 https://github.com/lodsharpshooter/RoRCheats
-
-# Media: 
-https://www.youtube.com/watch?v=ragMPNvDY44
