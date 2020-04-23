@@ -1433,6 +1433,15 @@ namespace RoRCheats
             if (isDropItemForAll && !isDropItems)*/
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
+        static void HandleDropEquipment(NetworkMessage netMsg)
+        {
+            var dropEquipment = netMsg.ReadMessage<DropEquipmentPacket>();
+            var body = dropEquipment.Player.GetComponent<CharacterBody>();
+            /*if (isDropItems)
+                body.inventory.RemoveItem(dropItem.ItemIndex, 1);
+            if (isDropItemForAll && !isDropItems)*/
+            PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropEquipment.EquipmentIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
+        }
 
         public static void DropItemMethod(ItemIndex itemIndex)
         {
@@ -1451,7 +1460,7 @@ namespace RoRCheats
             var networkClient = NetworkClient.allClients.FirstOrDefault();
             if (networkClient != null)
             {
-                networkClient.RegisterHandlerSafe(HandleId, HandleDropItem);
+                networkClient.RegisterHandlerSafe(HandleId, HandleDropEquipment);
             }
             SendDropEquipment(user.cachedBody.gameObject, equipmentIndex);
         }
