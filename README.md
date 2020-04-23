@@ -36,7 +36,7 @@ Note: Some features may not work if you are not the host of the lobby
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
 
-1. Head to [releases](https://github.com/Acher0ns/RoRCheats-master/) and download Umbra Menu.zip
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `Umbra Menu.zip`
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
