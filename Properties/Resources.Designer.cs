@@ -61,7 +61,9 @@ namespace RoRCheats.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BeetleBody.0&quot;, new UnlockableDef
+        ///   Looks up a localized string similar to private static void Init()
+        ///		{
+        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BeetleBody.0&quot;, new UnlockableDef
         ///			{
         ///				nameToken = &quot;UNLOCKABLE_LOG_BEETLE&quot;
         ///			});
@@ -73,9 +75,7 @@ namespace RoRCheats.Properties {
         ///			{
         ///				nameToken = &quot;UNLOCKABLE_LOG_BEETLEQUEEN&quot;
         ///			});
-        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BisonBody.0&quot;, new UnlockableDef
-        ///			{
-        ///		 [rest of string was truncated]&quot;;.
+        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BisonBod [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Unlockables {
             get {

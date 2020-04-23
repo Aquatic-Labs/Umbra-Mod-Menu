@@ -5,8 +5,6 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
-using Resources = RoRCheats.Properties.Resources;
-using EntityStates;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using Console = RoR2.Console;
@@ -16,7 +14,7 @@ namespace RoRCheats
     public class Main : MonoBehaviour
     {
         public const string
-            NAME = "Umbra",
+            NAME = "U M B R A",
             GUID = "com.acher0ns." + NAME,
             VERSION = "1.0";
 
@@ -56,7 +54,7 @@ namespace RoRCheats
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle; //make new BgStyle for stats menu
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll;
-        public static float delay = 0, widthSize = 400;
+        public static float delay = 0, widthSize = 500;
         #endregion
 
         #region UI Rects
@@ -88,7 +86,8 @@ namespace RoRCheats
         public static bool isDropItemForAll = false;
         public static bool alwaysSprint = false;
         public static bool aimBot = false;
-        public static int allItemsQuantity = 5;
+        public static bool godToggle = false;
+        public static int allItemsQuantity = 1;
         public static ulong xpToGive = 50;
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
@@ -189,15 +188,15 @@ namespace RoRCheats
 
             mainRect = new Rect(10, 10, 20, 20); //start position
             statRect = new Rect(1626, 457, 20, 20); //start position
-            teleRect = new Rect(10, 661, 20, 20); //start position
-            ESPRect = new Rect(10, 661, 20, 20); //start position
-            lobbyRect = new Rect(10, 421, 20, 20); //start position
-            itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-            equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start positions
+            teleRect = new Rect(10, 320, 20, 20); //start position *
+            ESPRect = new Rect(10, 730, 20, 20); //start position *
+            lobbyRect = new Rect(10, 915, 20, 20); //start position *
+            itemSpawnerRect = new Rect(1603, 10, 20, 20); //start position
+            equipmentSpawnerRect = new Rect(1603, 10, 20, 20); //start positions
             buffMenuRect = new Rect(1503, 10, 20, 20);//start position
             characterRect = new Rect(1503, 10, 20, 20); //start position
-            playerModRect = new Rect(424, 381, 20, 20); //start position
-            itemManagerRect = new Rect(424, 10, 20, 20);
+            playerModRect = new Rect(524, 10, 20, 20); //start position
+            itemManagerRect = new Rect(524, 815, 20, 20);
 
             /*mainRect = new Rect(10, 10, 20, 20); //start position
             statRect = new Rect(1626, 457, 20, 20); //start position
@@ -220,10 +219,10 @@ namespace RoRCheats
                 MainBgStyle.onNormal.background = BackTexture;
                 MainBgStyle.active.background = BackTexture;
                 MainBgStyle.onActive.background = BackTexture;
-                MainBgStyle.normal.textColor = Color.white;
-                MainBgStyle.onNormal.textColor = Color.white;
-                MainBgStyle.active.textColor = Color.white;
-                MainBgStyle.onActive.textColor = Color.white;
+                MainBgStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                MainBgStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                MainBgStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                MainBgStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 MainBgStyle.fontSize = 18;
                 MainBgStyle.fontStyle = FontStyle.Normal;
                 MainBgStyle.alignment = TextAnchor.UpperCenter;
@@ -236,10 +235,10 @@ namespace RoRCheats
                 CornerStyle.onNormal.background = BtnTexture;
                 CornerStyle.active.background = BtnTexture;
                 CornerStyle.onActive.background = BtnTexture;
-                CornerStyle.normal.textColor = Color.white;
-                CornerStyle.onNormal.textColor = Color.white;
-                CornerStyle.active.textColor = Color.white;
-                CornerStyle.onActive.textColor = Color.white;
+                CornerStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                CornerStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                CornerStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                CornerStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 CornerStyle.fontSize = 18;
                 CornerStyle.fontStyle = FontStyle.Normal;
                 CornerStyle.alignment = TextAnchor.UpperCenter;
@@ -248,10 +247,10 @@ namespace RoRCheats
             if (LabelStyle == null)
             {
                 LabelStyle = new GUIStyle();
-                LabelStyle.normal.textColor = Color.white;
-                LabelStyle.onNormal.textColor = Color.white;
-                LabelStyle.active.textColor = Color.white;
-                LabelStyle.onActive.textColor = Color.white;
+                LabelStyle.normal.textColor = Color.grey;
+                LabelStyle.onNormal.textColor = Color.grey;
+                LabelStyle.active.textColor = Color.grey;
+                LabelStyle.onActive.textColor = Color.grey;
                 LabelStyle.fontSize = 18;
                 LabelStyle.fontStyle = FontStyle.Normal;
                 LabelStyle.alignment = TextAnchor.UpperCenter;
@@ -259,10 +258,10 @@ namespace RoRCheats
             if (TitleStyle == null)
             {
                 TitleStyle = new GUIStyle();
-                TitleStyle.normal.textColor = Color.white;
-                TitleStyle.onNormal.textColor = Color.white;
-                TitleStyle.active.textColor = Color.white;
-                TitleStyle.onActive.textColor = Color.white;
+                TitleStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                TitleStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                TitleStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                TitleStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 TitleStyle.fontSize = 18;
                 TitleStyle.fontStyle = FontStyle.Normal;
                 TitleStyle.alignment = TextAnchor.UpperCenter;
@@ -275,10 +274,10 @@ namespace RoRCheats
                 OffStyle.onNormal.background = OffTexture;
                 OffStyle.active.background = OffPressTexture;
                 OffStyle.onActive.background = OffPressTexture;
-                OffStyle.normal.textColor = Color.white;
-                OffStyle.onNormal.textColor = Color.white;
-                OffStyle.active.textColor = Color.white;
-                OffStyle.onActive.textColor = Color.white;
+                OffStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                OffStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                OffStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                OffStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OffStyle.fontSize = 18;
                 OffStyle.fontStyle = FontStyle.Normal;
                 OffStyle.alignment = TextAnchor.MiddleCenter;
@@ -291,10 +290,10 @@ namespace RoRCheats
                 OnStyle.onNormal.background = OnTexture;
                 OnStyle.active.background = OnPressTexture;
                 OnStyle.onActive.background = OnPressTexture;
-                OnStyle.normal.textColor = Color.white;
-                OnStyle.onNormal.textColor = Color.white;
-                OnStyle.active.textColor = Color.white;
-                OnStyle.onActive.textColor = Color.white;
+                OnStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                OnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                OnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                OnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OnStyle.fontSize = 18;
                 OnStyle.fontStyle = FontStyle.Normal;
                 OnStyle.alignment = TextAnchor.MiddleCenter;
@@ -307,10 +306,10 @@ namespace RoRCheats
                 BtnStyle.onNormal.background = BtnTexture;
                 BtnStyle.active.background = BtnPressTexture;
                 BtnStyle.onActive.background = BtnPressTexture;
-                BtnStyle.normal.textColor = Color.white;
-                BtnStyle.onNormal.textColor = Color.white;
-                BtnStyle.active.textColor = Color.white;
-                BtnStyle.onActive.textColor = Color.white;
+                BtnStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                BtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                BtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                BtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 BtnStyle.fontSize = 18;
                 BtnStyle.fontStyle = FontStyle.Normal;
                 BtnStyle.alignment = TextAnchor.MiddleCenter;
@@ -322,108 +321,14 @@ namespace RoRCheats
                 ItemBtnStyle.onNormal.background = BtnTexture;
                 ItemBtnStyle.active.background = BtnPressTexture;
                 ItemBtnStyle.onActive.background = BtnPressTexture;
-                ItemBtnStyle.normal.textColor = Color.white;
-                ItemBtnStyle.onNormal.textColor = Color.white;
-                ItemBtnStyle.active.textColor = Color.white;
-                ItemBtnStyle.onActive.textColor = Color.white;
+                ItemBtnStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ItemBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ItemBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ItemBtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ItemBtnStyle.fontSize = 18;
                 ItemBtnStyle.fontStyle = FontStyle.Normal;
                 ItemBtnStyle.alignment = TextAnchor.MiddleCenter;
             }
-            #endregion
-
-            #region Original Styles
-            /*if (BgStyle == null)
-            {
-                BgStyle = new GUIStyle();
-                BgStyle.normal.background = BackTexture;
-                BgStyle.onNormal.background = BackTexture;
-                BgStyle.active.background = BackTexture;
-                BgStyle.onActive.background = BackTexture;
-                BgStyle.normal.textColor = Color.white;
-                BgStyle.onNormal.textColor = Color.white;
-                BgStyle.active.textColor = Color.white;
-                BgStyle.fontSize = 18;
-                BgStyle.fontStyle = FontStyle.Normal;
-                BgStyle.onActive.textColor = Color.white;
-                BgStyle.alignment = TextAnchor.UpperCenter;
-            }
-
-            if (CornerStyle == null)
-            {
-                CornerStyle = new GUIStyle();
-                CornerStyle.normal.background = BtnTexture;
-                CornerStyle.onNormal.background = BtnTexture;
-                CornerStyle.active.background = BtnTexture;
-                CornerStyle.onActive.background = BtnTexture;
-                CornerStyle.normal.textColor = Color.white;
-                CornerStyle.onNormal.textColor = Color.white;
-                CornerStyle.active.textColor = Color.white;
-                CornerStyle.onActive.textColor = Color.white;
-                CornerStyle.fontSize = 18;
-                CornerStyle.fontStyle = FontStyle.Normal;
-                CornerStyle.alignment = TextAnchor.UpperCenter;
-            }
-
-            if (LabelStyle == null)
-            {
-                LabelStyle = new GUIStyle();
-                LabelStyle.normal.textColor = Color.white;
-                LabelStyle.onNormal.textColor = Color.white;
-                LabelStyle.active.textColor = Color.white;
-                LabelStyle.onActive.textColor = Color.white;
-                LabelStyle.fontSize = 18;
-                LabelStyle.fontStyle = FontStyle.Normal;
-                LabelStyle.alignment = TextAnchor.UpperCenter;
-            }
-
-            if (OffStyle == null)
-            {
-                OffStyle = new GUIStyle();
-                OffStyle.normal.background = OffTexture;
-                OffStyle.onNormal.background = OffTexture;
-                OffStyle.active.background = OffPressTexture;
-                OffStyle.onActive.background = OffPressTexture;
-                OffStyle.normal.textColor = Color.white;
-                OffStyle.onNormal.textColor = Color.white;
-                OffStyle.active.textColor = Color.white;
-                OffStyle.onActive.textColor = Color.white;
-                OffStyle.fontSize = 18;
-                OffStyle.fontStyle = FontStyle.Normal;
-                OffStyle.alignment = TextAnchor.MiddleCenter;
-            }
-
-            if (OnStyle == null)
-            {
-                OnStyle = new GUIStyle();
-                OnStyle.normal.background = OnTexture;
-                OnStyle.onNormal.background = OnTexture;
-                OnStyle.active.background = OnPressTexture;
-                OnStyle.onActive.background = OnPressTexture;
-                OnStyle.normal.textColor = Color.white;
-                OnStyle.onNormal.textColor = Color.white;
-                OnStyle.active.textColor = Color.white;
-                OnStyle.onActive.textColor = Color.white;
-                OnStyle.fontSize = 18;
-                OnStyle.fontStyle = FontStyle.Normal;
-                OnStyle.alignment = TextAnchor.MiddleCenter;
-            }
-
-            if (BtnStyle == null)
-            {
-                BtnStyle = new GUIStyle();
-                BtnStyle.normal.background = BtnTexture;
-                BtnStyle.onNormal.background = BtnTexture;
-                BtnStyle.active.background = BtnPressTexture;
-                BtnStyle.onActive.background = BtnPressTexture;
-                BtnStyle.normal.textColor = Color.white;
-                BtnStyle.onNormal.textColor = Color.white;
-                BtnStyle.active.textColor = Color.white;
-                BtnStyle.onActive.textColor = Color.white;
-                BtnStyle.fontSize = 18;
-                BtnStyle.fontStyle = FontStyle.Normal;
-                BtnStyle.alignment = TextAnchor.MiddleCenter;
-            }*/
             #endregion
         }
 
@@ -439,18 +344,7 @@ namespace RoRCheats
                 FlightRoutine();
                 SprintRoutine();
                 AimBotRoutine();
-            }
-            catch (NullReferenceException)
-            {
-
-            }
-        }
-
-        public void FixedUpdate()
-        {
-            try
-            {
-
+                GodRoutine();
             }
             catch (NullReferenceException)
             {
@@ -460,6 +354,14 @@ namespace RoRCheats
 
         private void CheckInputs()
         {
+            if (_isMenuOpen)
+            {
+                Cursor.visible = true;            
+            }
+            else if (!_isMenuOpen)
+            {
+                Cursor.visible = false;
+            }
             if (Input.GetKeyDown(KeyCode.Insert))
             {
                 _isMenuOpen = !_isMenuOpen;
@@ -516,6 +418,17 @@ namespace RoRCheats
             if (aimBot)
                 AimBot();
         }
+        private void GodRoutine()
+        {
+            if (godToggle)
+            {
+                GodMode();
+            }
+            else
+            {
+                LocalHealth.godMode = false;
+            }
+        }
         private void SprintRoutine()
         {
             if (alwaysSprint)
@@ -563,6 +476,7 @@ namespace RoRCheats
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             //WriteToLog($"{scene.name}\nAlive: {LocalHealth.alive}\n");
+
             bool inGame = scene.name != "title";
             if (scene.name == "title")
             {
@@ -888,7 +802,7 @@ namespace RoRCheats
         public static void DrawAllMenus()
         {
             GUI.Box(new Rect(mainRect.x + 0f, mainRect.y + 0f, widthSize + 10, 50f + 45 * MainMulY), "", MainBgStyle);
-            GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), "RoRCheats" + "\n" + VERSION, TitleStyle);
+            GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
 
             if (!_CharacterCollected)
             {
@@ -910,7 +824,7 @@ namespace RoRCheats
                 if (btntexture == null)
                 {
                     btntexture = NewTexture2D;
-                    btntexture.SetPixel(0, 0, new Color32(3, 155, 229, 255));
+                    btntexture.SetPixel(0, 0, new Color32(120, 120, 120, 255));
                     //byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/RoRCheats/Resources/Images/ButtonStyle.png");
                     //btntexture.LoadImage(FileData);
                     btntexture.Apply();
@@ -940,7 +854,7 @@ namespace RoRCheats
                 if (btnpresstexture == null)
                 {
                     btnpresstexture = NewTexture2D;
-                    btnpresstexture.SetPixel(0, 0, new Color32(2, 119, 189, 255));
+                    btnpresstexture.SetPixel(0, 0, new Color32(99, 99, 99, 255));
                     btnpresstexture.Apply();
                 }
                 return btnpresstexture;
@@ -954,7 +868,7 @@ namespace RoRCheats
                 if (onpresstexture == null)
                 {
                     onpresstexture = NewTexture2D;
-                    onpresstexture.SetPixel(0, 0, new Color32(62, 119, 64, 255));
+                    onpresstexture.SetPixel(0, 0, new Color32(50, 50, 50, 255));
                     onpresstexture.Apply();
                 }
                 return onpresstexture;
@@ -968,7 +882,7 @@ namespace RoRCheats
                 if (ontexture == null)
                 {
                     ontexture = NewTexture2D;
-                    ontexture.SetPixel(0, 0, new Color32(79, 153, 82, 255));
+                    ontexture.SetPixel(0, 0, new Color32(67, 67, 67, 255));
                     ontexture.Apply();
                 }
                 return ontexture;
@@ -982,7 +896,7 @@ namespace RoRCheats
                 if (offpresstexture == null)
                 {
                     offpresstexture = NewTexture2D;
-                    offpresstexture.SetPixel(0, 0, new Color32(79, 79, 79, 255));
+                    offpresstexture.SetPixel(0, 0, new Color32(99, 99, 99, 255));
                     offpresstexture.Apply();
                 }
                 return offpresstexture;
@@ -996,7 +910,7 @@ namespace RoRCheats
                 if (offtexture == null)
                 {
                     offtexture = NewTexture2D;
-                    offtexture.SetPixel(0, 0, new Color32(99, 99, 99, 255));
+                    offtexture.SetPixel(0, 0, new Color32(120, 120, 120, 255));
                     //byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/RoRCheats/Resources/Images/OffStyle.png");
                     //offtexture.LoadImage(FileData);
                     offtexture.Apply();
@@ -1011,7 +925,7 @@ namespace RoRCheats
                 if (backtexture == null)
                 {
                     backtexture = NewTexture2D;
-                    backtexture.SetPixel(0, 0, new Color32(42, 42, 42, 200));
+                    backtexture.SetPixel(0, 0, new Color32(0, 0, 0, 158));
                     backtexture.Apply();
                 }
                 return backtexture;
@@ -1189,8 +1103,7 @@ namespace RoRCheats
         {
             if (TeleporterInteraction.instance)
             {
-                //TeleporterInteraction.instance.remainingChargeTimer = 0;
-                Debug.Log("RoRCheats : Skipping Stage");
+                TeleporterInteraction.instance.holdoutZoneController.baseChargeDuration = 1;
             }
         }
 
@@ -1261,7 +1174,7 @@ namespace RoRCheats
             }
         }
 
-        private static void RemoveAllBuffs()
+        public static void RemoveAllBuffs()
         {
             foreach (string buff in Enum.GetNames(typeof(BuffIndex)))
             {
@@ -1395,6 +1308,11 @@ namespace RoRCheats
         {
             LocalPlayer.RespawnExtraLife();
         }
+
+        public static void GodMode()
+        {
+            LocalHealth.godMode = true;
+        }
         #endregion
 
         #region Flight
@@ -1417,6 +1335,7 @@ namespace RoRCheats
                 if (isSprinting)
                 {
                     LocalPlayerBody.characterMotor.velocity = forwardDirection * 100f;
+                    LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
                     if (isStrafing)
                     {
                         if (isForward)
@@ -1436,6 +1355,7 @@ namespace RoRCheats
                 else
                 {
                     LocalPlayerBody.characterMotor.velocity = forwardDirection * 50;
+                    LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
                     if (isStrafing)
                     {
                         if (isForward)
@@ -1807,6 +1727,7 @@ namespace RoRCheats
             armorToggle = false;
             regenToggle = false;
             moveSpeedToggle = false;
+            godToggle = false;
             FlightToggle = false;
             isDropItemForAll = false;
             alwaysSprint = false;
@@ -1818,6 +1739,10 @@ namespace RoRCheats
             _isMenuOpen = !_isMenuOpen;
             GetCharacter();
             _isMenuOpen = !_isMenuOpen;
+            godToggle = !godToggle;
+            GetCharacter();
+            godToggle = !godToggle;
+
         }
 
         //TODO: Add MOnsters/Enviroment Logs

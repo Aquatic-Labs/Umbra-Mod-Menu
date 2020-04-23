@@ -8,7 +8,6 @@ namespace RoRCheats
         {
             if (buttonType.Equals("main"))
             {
-
                 Main.MainMulY = y;
                 if (isMultButton)
                 {

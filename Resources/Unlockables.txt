@@ -1,4 +1,50 @@
-private static void Init()
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RoR2
+{
+	// Token: 0x020004E0 RID: 1248
+	public static class UnlockableCatalog
+	{
+		// Token: 0x06001EA1 RID: 7841 RVA: 0x0007D942 File Offset: 0x0007BB42
+		private static void RegisterUnlockable(string name, UnlockableDef unlockableDef)
+		{
+			unlockableDef.name = name;
+			unlockableDef.index = new UnlockableIndex(UnlockableCatalog.nameToDefTable.Count);
+			UnlockableCatalog.nameToDefTable.Add(name, unlockableDef);
+		}
+
+		// Token: 0x06001EA2 RID: 7842 RVA: 0x0007D96C File Offset: 0x0007BB6C
+		public static UnlockableDef GetUnlockableDef(string name)
+		{
+			UnlockableDef result;
+			UnlockableCatalog.nameToDefTable.TryGetValue(name, out result);
+			return result;
+		}
+
+		// Token: 0x06001EA3 RID: 7843 RVA: 0x0007D988 File Offset: 0x0007BB88
+		public static UnlockableDef GetUnlockableDef(UnlockableIndex index)
+		{
+			return UnlockableCatalog.indexToDefTable[index.value];
+		}
+
+		// Token: 0x17000386 RID: 902
+		// (get) Token: 0x06001EA4 RID: 7844 RVA: 0x0007D997 File Offset: 0x0007BB97
+		public static int unlockableCount
+		{
+			get
+			{
+				return UnlockableCatalog.indexToDefTable.Length;
+			}
+		}
+
+		// Token: 0x06001EA5 RID: 7845 RVA: 0x0007D9A0 File Offset: 0x0007BBA0
+		[SystemInitializer(new Type[]
+		{
+			typeof(SurvivorCatalog)
+		})]
+		private static void Init()
 		{
 			UnlockableCatalog.RegisterUnlockable("Logs.BeetleBody.0", new UnlockableDef
 			{
@@ -824,3 +870,92 @@ private static void Init()
 				nameToken = "UNLOCKABLE_NEWTSTATUE",
 				hidden = true
 			});
+			UnlockableCatalog.indexToDefTable = new UnlockableDef[UnlockableCatalog.nameToDefTable.Count];
+			foreach (KeyValuePair<string, UnlockableDef> keyValuePair in UnlockableCatalog.nameToDefTable)
+			{
+				UnlockableCatalog.indexToDefTable[keyValuePair.Value.index.value] = keyValuePair.Value;
+			}
+			for (int i = 0; i < UnlockableCatalog.indexToDefTable.Length; i++)
+			{
+				UnlockableDef unlockableDef = UnlockableCatalog.indexToDefTable[i];
+				unlockableDef.sortScore = UnlockableCatalog.GuessUnlockableSortScore(unlockableDef);
+			}
+		}
+
+		// Token: 0x06001EA6 RID: 7846 RVA: 0x0007EF50 File Offset: 0x0007D150
+		public static int GetUnlockableSortScore(string unlockableName)
+		{
+			UnlockableDef unlockableDef = UnlockableCatalog.GetUnlockableDef(unlockableName);
+			if (unlockableDef == null)
+			{
+				return 0;
+			}
+			return unlockableDef.sortScore;
+		}
+
+		// Token: 0x06001EA7 RID: 7847 RVA: 0x0007EF64 File Offset: 0x0007D164
+		private static int GuessUnlockableSortScore(UnlockableDef unlockableDef)
+		{
+			int num = 0;
+			int num2 = num + 200;
+			int num3 = num2 + 200;
+			int num4 = num3 + 200;
+			int result = num4 + 200;
+			if (unlockableDef == null)
+			{
+				return 10000;
+			}
+			string name = unlockableDef.name;
+			int i = 0;
+			while (i < SurvivorCatalog.idealSurvivorOrder.Length)
+			{
+				SurvivorIndex survivorIndex = SurvivorCatalog.idealSurvivorOrder[i];
+				if (name.Contains(survivorIndex.ToString()))
+				{
+					if (SurvivorCatalog.GetSurvivorDef(survivorIndex).unlockableName == name)
+					{
+						return num3 + i * 10;
+					}
+					int num5 = num4 + i * 10;
+					if (name.Contains("Skin"))
+					{
+						num5++;
+					}
+					return num5;
+				}
+				else
+				{
+					i++;
+				}
+			}
+			ItemDef itemDef = ItemCatalog.allItems.Select(new Func<ItemIndex, ItemDef>(ItemCatalog.GetItemDef)).FirstOrDefault((ItemDef v) => v.unlockableName == unlockableDef.name);
+			if (itemDef != null)
+			{
+				return (int)(num + itemDef.tier);
+			}
+			EquipmentDef equipmentDef = EquipmentCatalog.allEquipment.Select(new Func<EquipmentIndex, EquipmentDef>(EquipmentCatalog.GetEquipmentDef)).FirstOrDefault((EquipmentDef v) => v.unlockableName == unlockableDef.name);
+			if (equipmentDef == null)
+			{
+				return result;
+			}
+			if (equipmentDef.isBoss)
+			{
+				return num2 + 1;
+			}
+			if (equipmentDef.isLunar)
+			{
+				return num2 - 1;
+			}
+			return num2;
+		}
+
+		// Token: 0x04001ABF RID: 6847
+		private static readonly Dictionary<string, UnlockableDef> nameToDefTable = new Dictionary<string, UnlockableDef>();
+
+		// Token: 0x04001AC0 RID: 6848
+		private static UnlockableDef[] indexToDefTable;
+
+		// Token: 0x04001AC1 RID: 6849
+		public static ResourceAvailability availability;
+	}
+}
