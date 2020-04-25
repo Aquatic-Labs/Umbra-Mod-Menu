@@ -1,4 +1,19 @@
-﻿using System;
+﻿//TODO LIST
+/*
+GUI keyboard navigation somehow?
+Add drop items from inventory?
+Add filters to ESPs
+Make ESP less laggy?
+Clear Items despawn beatle gaurds/Allies from UI
+Press X to go down while fly is enabled
+add media section to github readme
+Organize Files
+
+Possible features:
+Respawn
+Spawn Mobs
+*/
+using System;
 using System.Linq;
 using System.IO;
 using System.Reflection;
@@ -15,7 +30,6 @@ namespace RoRCheats
     {
         public const string
             NAME = "U M B R A",
-            GUID = "com.acher0ns." + NAME,
             VERSION = "1.0";
 
         public static string log = "[" + NAME + "] ";
@@ -1043,6 +1057,7 @@ namespace RoRCheats
             }
         }
 
+        //Nees improvement. Causes a lot of lag
         public static void RenderMobs()
         {
             if (ESPLimit % 1000 == 0)
@@ -1086,7 +1101,7 @@ namespace RoRCheats
                             int mobDistance = (int)distanceToMob;
                             string mobBoxText = $"{mobName}\n{mobDistance}m";
                             GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText);
-                            WriteToLog($"Drew label. \n{mobBoxText}\n");
+                            //WriteToLog($"Drew label. \n{mobBoxText}\n");
                         }
                     }
                 }
@@ -1481,6 +1496,8 @@ namespace RoRCheats
                         LocalPlayerInv.RemoveItem(itemIndex, itemCount); LocalPlayerInv.ResetItem(itemIndex);
                         LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
 
+                        //Destroys BeetleGuardAllies on inventory clear, other wise they dont get removed until next stage.
+                        //TODO: Find a way to refresh UI/Remove beetle guard health from ui on the left
                         if (itemName == "BeetleGland")
                         {
                             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
@@ -1564,6 +1581,7 @@ namespace RoRCheats
 
         public static void GiveItem(GUIStyle buttonStyle, string buttonName)
         {
+            //Removes null items and no icon items from item list. Might change if requested.
             string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "Count" };
             int buttonPlacement = 1;
             foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
@@ -1589,6 +1607,7 @@ namespace RoRCheats
                     }
                     buttonPlacement++;
                 }
+                //Since "Ghost" is unreleased item, "GhostOnKill" was getting removed from item list.
                 else if (itemName == "GhostOnKill")
                 {
                     if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, buttonStyle))
@@ -1614,6 +1633,7 @@ namespace RoRCheats
 
         public static void GiveEquipment(GUIStyle buttonStyle, string buttonName)
         {
+            //Removes null equipment and no icon equipment from item list. Might change if requested.
             string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
             int buttonPlacement = 1;
             foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
@@ -1643,6 +1663,7 @@ namespace RoRCheats
             }
         }
 
+        //Sets equipment cooldown to 0 if its on cooldown
         public static void NoEquipmentCooldown()
         {
             EquipmentState equipment = LocalPlayerInv.GetEquipment((uint)LocalPlayerInv.activeEquipmentSlot);
@@ -1662,11 +1683,14 @@ namespace RoRCheats
                     return true;
             return false;
         }
+        //More posibilities here using console.
+        //Not added to ui yet.
         public static void BanPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
         {
             Console.instance.RunClientCmd(LocalNetworkUser, "ban_steam", new string[] { PlayerName.Network_id.steamId.ToString() });
         }
 
+        //Kicks player
         public static void KickPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
         {
             Console.instance.RunClientCmd(LocalNetworkUser, "kick_steam", new string[] { PlayerName.Network_id.steamId.ToString() });
@@ -1709,7 +1733,7 @@ namespace RoRCheats
                 Players[i] = n.userName;
             }
         }
-
+        //Reset menu when you return to main menu
         public static void RESETMENU()
         {
             _ifDragged = false;
@@ -1742,7 +1766,7 @@ namespace RoRCheats
             alwaysSprint = false;
             aimBot = false;
         }
-
+        //Soft reset when moving to next stage to keep player stat mods and god mode between stages
         public static void SoftResetMenu()
         {
             _isMenuOpen = !_isMenuOpen;
@@ -1754,9 +1778,10 @@ namespace RoRCheats
 
         }
 
-        //TODO: Add MOnsters/Enviroment Logs
         public static void UnlockAll()
         {
+            //Goes through resource file containing all unlockables... Easily updatable, just paste "RoR2.UnlockCatalog" and GetAllUnlockable does the rest.
+            //This is needed to unlock logs
             foreach (var unlockableName in unlockableNames)
             {
                 var unlockableDef = UnlockableCatalog.GetUnlockableDef(unlockableName);
@@ -1766,12 +1791,15 @@ namespace RoRCheats
                     networkUser.ServerHandleUnlock(unlockableDef);
                 }
             }
+
+            //Gives all achievements.
             var achievementManager = AchievementManager.GetUserAchievementManager(LocalUserManager.GetFirstLocalUser());
             foreach (var achievement in AchievementManager.allAchievementDefs)
             {
                 achievementManager.GrantAchievement(achievement);
             }
 
+            //Give all survivors
             var profile = LocalUserManager.GetFirstLocalUser().userProfile;
             foreach (var survivor in SurvivorCatalog.allSurvivorDefs)
             {
@@ -1779,6 +1807,7 @@ namespace RoRCheats
                     profile.statSheet.SetStatValueFromString(RoR2.Stats.PerBodyStatDef.totalTimeAlive.FindStatDef(survivor.bodyPrefab.name), "0.1");
             }
 
+            //All items and equipments
             foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
             {
                 ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
@@ -1789,16 +1818,6 @@ namespace RoRCheats
             {
                 EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
                 profile.DiscoverPickup(PickupCatalog.FindPickupIndex(equipmentIndex));
-            }
-        }
-
-        // Used during testing
-        public static void WriteToLog(string logContent)
-        {
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
-            {
-                outputFile.WriteLine(log + logContent);
             }
         }
         public static List<string> GetAllUnlockables()
@@ -1836,6 +1855,16 @@ namespace RoRCheats
                 }
             }
             return unlockableName;
+        }
+
+        // Used during testing and debugging
+        public static void WriteToLog(string logContent)
+        {
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
+            {
+                outputFile.WriteLine(log + logContent);
+            }
         }
         #endregion
     }
