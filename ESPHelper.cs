@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RoRCheats
+namespace UmbraRoR
 {
     public static class ESPHelper
     {

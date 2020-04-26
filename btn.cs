@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RoRCheats
+namespace UmbraRoR
 {
     internal class btn
     {

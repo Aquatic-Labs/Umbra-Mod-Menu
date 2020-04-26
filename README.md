@@ -39,7 +39,6 @@ Make ESP less laggy?
 Clear Items despawn beatle gaurds/Allies from UI
 Press X to go down while fly is enabled
 add media section to github readme
-Organize Files
 
 Possible features:
 Respawn
@@ -50,11 +49,11 @@ Spawn Mobs
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
 
-1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `Umbra Menu.zip`
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu.zip`
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
-Namespace: RoRCheats
+Namespace: UmbraRoR
 Class: Loader
 Method: Load
 ```
@@ -80,11 +79,11 @@ Method: Load
 5) UnityEngine.IMGUModule.dll
 6) UnityEngine.CoreModule.dll
 ```
-6. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Debug -> RoRCheats.dll
+6. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Debug -> UmbraRoR.dll
 
 7. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
-Namespace: RoRCheats
+Namespace: UmbraRoR
 Class: Loader
 Method: Load
 ```
@@ -99,15 +98,15 @@ After you have your dll file, you'll need to have a way to inject it into the ga
 
 obviously replacing [path to folder with smi.exe in it] with the proper path (keep the quotes). For example my command is:
 
-`cd "C:\Users\Kamron Cole\Documents\My Cheats\RoR2\SharpMonoInjector.Console\SharpMonoInjector.Console"`
+`cd "C:\Users\Username\Documents\My Cheats\RoR2\SharpMonoInjector.Console\SharpMonoInjector.Console"`
 
 3. You can tell if you're in the proper directory if you type `dir` and you see SharpMonoInjector.dll and smi.exe listed
 
 4. Once you are in the proper directory and Risk of Rain 2 is open, type 
 
-`smi.exe inject -p "Risk of Rain 2" -a "[Path to RoRCheats.dll]" -n RoRCheats -c Loader -m Load` 
+`smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load` 
 
-again replacing [Path to RoRCheats.dll] with the proper path (keep the quotes)
+again replacing [Path to UmbraRoR.dll] with the proper path (keep the quotes)
 
 ### Batch file
 1. Once you have sharpmonoinjector downloaded from [here](https://github.com/warbler/SharpMonoInjector/releases/download/v2.2/SharpMonoInjector.Console.zip), extract the zip.
@@ -117,10 +116,10 @@ again replacing [Path to RoRCheats.dll] with the proper path (keep the quotes)
 @echo off
 cd "[path to folder with smi.exe]"
 cls
-smi.exe inject -p "Risk of Rain 2" -a "[Path to RoRCheats.dll]" -n RoRCheats -c Loader -m Load
+smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load
 pause
 ```
-4. Replace [path to folder with smi.exe] and [Path to RoRCheats.dll] with the proper paths (keep quotes if they are there)
+4. Replace [path to folder with smi.exe] and [Path to UmbraRoR.dll] with the proper paths (keep quotes if they are there)
 5. Press ctrl+shift+s and name it `start.bat` (make sure you replace .txt with .bat)
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 

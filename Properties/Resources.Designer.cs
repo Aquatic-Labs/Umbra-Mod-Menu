@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RoRCheats.Properties {
+namespace UmbraRoR.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace RoRCheats.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RoRCheats.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UmbraRoR.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,21 +61,22 @@ namespace RoRCheats.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to private static void Init()
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///using System.Linq;
+        ///
+        ///namespace RoR2
+        ///{
+        ///	// Token: 0x020004E0 RID: 1248
+        ///	public static class UnlockableCatalog
+        ///	{
+        ///		// Token: 0x06001EA1 RID: 7841 RVA: 0x0007D942 File Offset: 0x0007BB42
+        ///		private static void RegisterUnlockable(string name, UnlockableDef unlockableDef)
         ///		{
-        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BeetleBody.0&quot;, new UnlockableDef
-        ///			{
-        ///				nameToken = &quot;UNLOCKABLE_LOG_BEETLE&quot;
-        ///			});
-        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BeetleGuardBody.0&quot;, new UnlockableDef
-        ///			{
-        ///				nameToken = &quot;UNLOCKABLE_LOG_BEETLEGUARD&quot;
-        ///			});
-        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BeetleQueenBody.0&quot;, new UnlockableDef
-        ///			{
-        ///				nameToken = &quot;UNLOCKABLE_LOG_BEETLEQUEEN&quot;
-        ///			});
-        ///			UnlockableCatalog.RegisterUnlockable(&quot;Logs.BisonBod [rest of string was truncated]&quot;;.
+        ///			unlockableDef.name = name;
+        ///			unlockableDef.index = new UnlockableIndex(UnlockableCatalog.nameToDefTable.Count);
+        ///			UnlockableCatalog.nameToDefTable.Add(name, unlockableDef);
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Unlockables {
             get {

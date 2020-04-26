@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using System.Threading.Tasks;
 
-namespace RoRCheats
+namespace UmbraRoR
 {
     public class Loader
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{16E3F076-0420-44EE-ADC5-ADF5F3E657F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RoRCheats</RootNamespace>
-    <AssemblyName>RoRCheats</AssemblyName>
+    <RootNamespace>UmbraRoR</RootNamespace>
+    <AssemblyName>UmbraRoR</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -333,13 +333,18 @@
     <Compile Include="DrawMenu.cs" />
     <Compile Include="ESPHelper.cs" />
     <Compile Include="CHackLoader.cs" />
+    <Compile Include="ItemManager.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Render.cs" />
+    <Compile Include="Teleporter.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Unlockables.txt" />
