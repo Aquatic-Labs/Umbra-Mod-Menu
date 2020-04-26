@@ -128,6 +128,7 @@ pause
  - [ ] Fixed Equipment not dropping sometimes
  - [ ] Reorganized code
  - [ ] Added comments to code
+
 4/23/2020 v1.0:
  - [ ] Repo Changed to Public
 # Resources:
