@@ -49,7 +49,7 @@ Spawn Mobs
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
 
-1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu.zip`
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
@@ -124,7 +124,12 @@ pause
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
 # Changelog:
-4/23/2020 v1.0: Repo Changed to Public
+4/26/2020 v1.2:
+ - [ ] Fixed Equipment not dropping sometimes
+ - [ ] Reorganized code
+ - [ ] Added comments to code
+4/23/2020 v1.0:
+ - [ ] Repo Changed to Public
 # Resources:
 https://github.com/0xd4d/dnSpy
 
