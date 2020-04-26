@@ -32,17 +32,17 @@ Have to use mouse to select cheats. This can be done while holding tab ingame or
 Note: Some features may not work if you are not the host of the lobby
 
 # TODO List:
-GUI keyboard navigation somehow?
-Add drop items from inventory?
-Add filters to ESPs
-Make ESP less laggy?
-Clear Items despawn beatle gaurds/Allies from UI
-Press X to go down while fly is enabled
-add media section to github readme
+- [ ] GUI keyboard navigation somehow?
+- [ ] Add drop items from inventory?
+- [ ] Add filters to ESPs
+- [ ] Make ESP less laggy?
+- [ ] Clear Items despawn beatle gaurds/Allies from UI
+- [ ] Press X to go down while fly is enabled
+- [ ] add media section to github readme
 
-Possible features:
-Respawn
-Spawn Mobs
+### Possible features:
+- [ ] Respawn
+- [ ] Spawn Mobs
 
 # How to use:
 ## Download dll from Releases
