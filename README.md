@@ -36,7 +36,7 @@ Note: Some features may not work if you are not the host of the lobby
 - [ ] Add drop items from inventory?
 - [ ] Add filters to ESPs
 - [ ] Make ESP less laggy?
-- [ ] Clear Items despawn beatle gaurds/Allies from UI
+- [ ] Clear Items despawn beatle guards/Allies from UI
 - [ ] Press X to go down while fly is enabled
 - [ ] add media section to github readme
 
