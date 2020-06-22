@@ -15,15 +15,10 @@ Spawn Mobs
 Pause Multiplayer game
 */
 using System;
-using System.Linq;
-using System.IO;
-using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-using Console = RoR2.Console;
 
 namespace UmbraRoR
 {
@@ -475,21 +470,17 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            //WriteToLog($"{scene.name}\nAlive: {LocalHealth.alive}\n");
-
             bool inGame = scene.name != "title";
-            if (scene.name == "title")
+            if (!inGame)
             {
-                enableRespawnButton = false;
                 Utils.ResetMenu();
             }
-            else if (!LocalHealth.alive && inGame)
+            else if (scene.name == "lobby")
             {
-                enableRespawnButton = true;
+                Debug.Log("");
             }
             else
             {
-                enableRespawnButton = false;
                 ModStatsRoutine();
                 Utils.SoftResetMenu();
             }
