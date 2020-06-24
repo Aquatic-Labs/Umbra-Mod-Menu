@@ -26,6 +26,8 @@ Was merged with [lodsharpshooter's](https://github.com/lodsharpshooter) unoffici
 - [ ] Stats Modification/View
 - [ ] Unlock All
 
+[image](https://user-images.githubusercontent.com/12210881/85503584-03c3e080-b5b8-11ea-8c56-539bff7ece66.png)
+
 Can press `Insert` key to open.
 Have to use mouse to select cheats. This can be done while holding tab ingame or while in the escape menu.
 
