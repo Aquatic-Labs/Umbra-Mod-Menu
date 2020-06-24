@@ -61,10 +61,11 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle; //make new BgStyle for stats menu
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle; //make new BgStyle for stats menu
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll, aimBot, alwaysSprint, godToggle;
         public static float delay = 0, widthSize = 500;
+        public static bool navigationToggle = false;
         #endregion
 
         #region UI Rects
@@ -82,7 +83,7 @@ namespace UmbraRoR
         #endregion
 
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
-        public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
+        public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
         public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
         public static int btnY, mulY;
@@ -319,6 +320,21 @@ namespace UmbraRoR
                 ItemBtnStyle.fontStyle = FontStyle.Normal;
                 ItemBtnStyle.alignment = TextAnchor.MiddleCenter;
             }
+            if (HighlightBtnStyle == null)
+            {
+                HighlightBtnStyle = new GUIStyle();
+                HighlightBtnStyle.normal.background = highlightTexture;
+                HighlightBtnStyle.onNormal.background = highlightTexture;
+                HighlightBtnStyle.active.background = BtnPressTexture;
+                HighlightBtnStyle.onActive.background = BtnPressTexture;
+                HighlightBtnStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                HighlightBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                HighlightBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                HighlightBtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                HighlightBtnStyle.fontSize = 18;
+                HighlightBtnStyle.fontStyle = FontStyle.Normal;
+                HighlightBtnStyle.alignment = TextAnchor.MiddleCenter;
+            }
             #endregion
         }
         #endregion Start
@@ -350,7 +366,11 @@ namespace UmbraRoR
         {
             if (_isMenuOpen)
             {
-                Cursor.visible = true;            
+                Cursor.visible = true;
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    navigationToggle = true;
+                }
             }
             else if (!_isMenuOpen)
             {
@@ -801,7 +821,7 @@ namespace UmbraRoR
             }
             if (_CharacterCollected)
             {
-                DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle);
+                DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle, HighlightBtnStyle);
             }
         }
         #endregion
@@ -816,8 +836,6 @@ namespace UmbraRoR
                 {
                     btntexture = NewTexture2D;
                     btntexture.SetPixel(0, 0, new Color32(120, 120, 120, 255));
-                    //byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/ButtonStyle.png");
-                    //btntexture.LoadImage(FileData);
                     btntexture.Apply();
                 }
                 return btntexture;
@@ -936,6 +954,20 @@ namespace UmbraRoR
                     cornertexture.Apply();
                 }
                 return cornertexture;
+            }
+        }
+
+        public static Texture2D HighlightTexture
+        {
+            get
+            {
+                if (highlightTexture == null)
+                {
+                    highlightTexture = NewTexture2D;
+                    highlightTexture.SetPixel(0, 0, new Color32(90, 90, 90, 255));
+                    highlightTexture.Apply();
+                }
+                return highlightTexture;
             }
         }
 

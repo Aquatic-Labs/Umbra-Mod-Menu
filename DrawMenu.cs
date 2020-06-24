@@ -10,9 +10,13 @@ namespace UmbraRoR
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
         public static Vector2 CharacterScrollPosition = Vector2.zero;
 
-        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle BtnStyle)
+        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle BtnStyle, GUIStyle Highlighted)
         {
-            // we dont have a god toggle bool, because we can just ref localhealth
+            if (Main.navigationToggle)
+            {
+
+            }
+
             if (Main._isPlayerMod)
             {
                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
