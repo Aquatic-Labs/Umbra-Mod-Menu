@@ -33,16 +33,18 @@ Have to use mouse to select cheats. This can be done while holding tab ingame or
 
 Note: Some features may not work if you are not the host of the lobby
 
+# Next Update (ETA: ROR2 Next Update):
+### Upcoming Features:
+- [ ] GUI keyboard navigation
+- [ ] drop items from inventory
+
 # TODO List:
-- [ ] GUI keyboard navigation somehow?
-- [ ] Add drop items from inventory?
 - [ ] Add filters to ESPs
 - [ ] Make ESP less laggy?
 - [ ] Clear Items despawn beatle guards/Allies from UI
-- [ ] Press X to go down while fly is enabled
-- [ ] add media section to github readme
+- [ ] Press X to go down while fly is enabled?
 
-### Possible features:
+### far fetched features(still possible but idk):
 - [ ] Respawn
 - [ ] Spawn Mobs
 
