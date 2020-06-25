@@ -330,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="btn.cs" />
+    <Compile Include="Navigation.cs" />
     <Compile Include="DrawMenu.cs" />
     <Compile Include="ESPHelper.cs" />
     <Compile Include="CHackLoader.cs" />

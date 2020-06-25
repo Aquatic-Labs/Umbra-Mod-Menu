@@ -1,18 +1,15 @@
 ﻿//TODO LIST
 /*
-GUI keyboard navigation somehow?
-Add drop items from inventory?
-Add filters to ESPs
-Make ESP less laggy?
-Clear Items despawn beatle gaurds/Allies from UI
-Press X to go down while fly is enabled
-add media section to github readme
-Organize Files
+GUI keyboard navigation
+Add drop items from inventory
+Add filters to ESPs?
+Make ESP less laggy??
+Clear Items despawn beatle guards from UI
+Press X to go down while fly is enabled?
 
 Possible features:
 Respawn
-Spawn Mobs
-Pause Multiplayer game
+Spawn Mobs?
 */
 using System;
 using System.Collections.Generic;
@@ -61,7 +58,7 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle; //make new BgStyle for stats menu
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll, aimBot, alwaysSprint, godToggle;
         public static float delay = 0, widthSize = 500;
@@ -111,7 +108,7 @@ namespace UmbraRoR
             if (_isTeleMenuOpen)
             {
                 teleRect = GUI.Window(2, teleRect, new GUI.WindowFunction(SetTeleBG), "", new GUIStyle());
-                DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle);
+                DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
                 //Debug.Log("X : " + teleRect.x + " Y : " + teleRect.y);
             }
             if (_isESPMenuOpen)
@@ -123,7 +120,7 @@ namespace UmbraRoR
             if (_isLobbyMenuOpen)
             {
                 lobbyRect = GUI.Window(4, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
-                DrawMenu.DrawManagmentMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle);
+                DrawMenu.DrawManagmentMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
                 //Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
             if (_isItemSpawnMenuOpen)
@@ -149,12 +146,12 @@ namespace UmbraRoR
                 buffMenuRect = GUI.Window(8, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
                 DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
             }
-            if (_CharacterToggle)
+            /*if (_CharacterToggle)
             {
                 characterRect = GUI.Window(9, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
                 DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
-            }
+            }*/
             if (_isItemManagerOpen)
             {
                 itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
@@ -325,8 +322,8 @@ namespace UmbraRoR
                 HighlightBtnStyle = new GUIStyle();
                 HighlightBtnStyle.normal.background = highlightTexture;
                 HighlightBtnStyle.onNormal.background = highlightTexture;
-                HighlightBtnStyle.active.background = BtnPressTexture;
-                HighlightBtnStyle.onActive.background = BtnPressTexture;
+                HighlightBtnStyle.active.background = highlightTexture;
+                HighlightBtnStyle.onActive.background = highlightTexture;
                 HighlightBtnStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 HighlightBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 HighlightBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
@@ -370,10 +367,67 @@ namespace UmbraRoR
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     navigationToggle = true;
+                    Navigation.IntraMenuIndex++;
+                }
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    navigationToggle = true;
+                    Navigation.IntraMenuIndex--;
+                }
+                if (navigationToggle)
+                {
+                    if (Input.GetKeyDown(KeyCode.Tilde) || Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        Navigation.PressBtn(Navigation.MenuIndex, Navigation.IntraMenuIndex);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    {
+                        switch (Navigation.MenuIndex)
+                        {
+                            case 1:
+                                {
+                                    _isPlayerMod = false;
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    _isItemManagerOpen = false;
+                                    break;
+                                }
+
+                            case 3:
+                                {
+                                    _isTeleMenuOpen = false;
+                                    break;
+                                }
+
+                            case 4:
+                                {
+                                    _isESPMenuOpen = false;
+                                    break;
+                                }
+
+                            case 5:
+                                {
+                                    _isLobbyMenuOpen = false;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        Navigation.IntraMenuIndex = 0;
+                        Navigation.MenuIndex = 0;
+                    }
                 }
             }
             else if (!_isMenuOpen)
             {
+                navigationToggle = false;
+                Navigation.IntraMenuIndex = -1;
                 Cursor.visible = false;
             }
             if (Input.GetKeyDown(KeyCode.Insert))
