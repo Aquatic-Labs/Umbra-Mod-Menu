@@ -99,6 +99,24 @@ namespace UmbraRoR
             Main.aimBot = false;
             ItemManager.isDropItemForAll = false;
         }
+        public static void CloseAllMenus()
+        {
+            Main._ifDragged = false;
+            Main._CharacterCollected = false;
+            Main._isStatMenuOpen = false;
+            Main._isTeleMenuOpen = false;
+            Main._isESPMenuOpen = false;
+            Main._ItemToggle = false;
+            Main._CharacterToggle = false;
+            Main._isLobbyMenuOpen = false;
+            Main._isEditStatsOpen = false;
+            Main._isItemSpawnMenuOpen = false;
+            Main._isPlayerMod = false;
+            Main._isEquipmentSpawnMenuOpen = false;
+            Main._isBuffMenuOpen = false;
+            Main._isItemManagerOpen = false;
+        }
+
         //Soft reset when moving to next stage to keep player stat mods and god mode between stages
         public static void SoftResetMenu()
         {
