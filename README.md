@@ -30,12 +30,19 @@ Was merged with [lodsharpshooter's](https://github.com/lodsharpshooter) unoffici
 ![image](https://user-images.githubusercontent.com/12210881/85503584-03c3e080-b5b8-11ea-8c56-539bff7ece66.png)
 
 Press the `Insert` key to open.
+
 Use `Up Arrow` and `Down Arrow` to activate keyboard navigation.
+
 Navigate current menu options with `Down Arrow` and `Up Arrow`.
+
 Go to the next menu or activate the highlighted cheat with `Right Arrow` or `V`.
+
 Go to the previous menu with `Backspace` or `Left Arrow`.
+
 When highlighting an option with +/- buttons next to it use `Left Arrow` to decrease or `Right Arrow` to increase.
+
 OR
+
 Use mouse to select cheats. This can be done while holding tab ingame or while in the escape menu.
 
 Note: Some features may not work if you are not the host of the lobby
