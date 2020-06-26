@@ -177,7 +177,7 @@ namespace UmbraRoR
                     weightedSelection.AddChoice(Run.instance.availableTier3DropList, 1f);
                     for (int i = 0; i < num; i++)
                     {
-                        List<PickupIndex> list = weightedSelection.Evaluate(UnityEngine.Random.value);
+                        List <PickupIndex> list = weightedSelection.Evaluate(UnityEngine.Random.value);
                         Main.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)].itemIndex, 1);
                     }
                 }
