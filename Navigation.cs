@@ -479,22 +479,30 @@ namespace UmbraRoR
                             case 4:
                                 {
                                     ItemManager.isDropItemForAll = !ItemManager.isDropItemForAll;
+                                    ItemManager.isDropItemFromInventory = false;
                                     break;
                                 }
 
                             case 5:
                                 {
-                                    Main.noEquipmentCooldown = !Main.noEquipmentCooldown;
+                                    ItemManager.isDropItemFromInventory = !ItemManager.isDropItemFromInventory;
+                                    ItemManager.isDropItemForAll = false;
                                     break;
                                 }
 
                             case 6:
                                 {
-                                    ItemManager.StackInventory();
+                                    Main.noEquipmentCooldown = !Main.noEquipmentCooldown;
                                     break;
                                 }
 
                             case 7:
+                                {
+                                    ItemManager.StackInventory();
+                                    break;
+                                }
+
+                            case 8:
                                 {
                                     ItemManager.ClearInventory();
                                     break;

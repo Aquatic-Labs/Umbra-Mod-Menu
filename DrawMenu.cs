@@ -5849,31 +5849,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -5948,31 +5961,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6047,31 +6073,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6146,31 +6185,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6245,31 +6297,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", Highlighted))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", Highlighted))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6344,31 +6409,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", Highlighted))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", Highlighted))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6443,31 +6521,44 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", Highlighted))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", Highlighted))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", Highlighted))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6542,31 +6633,156 @@ namespace UmbraRoR
                             }
                             if (ItemManager.isDropItemForAll)
                             {
-                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                                 {
                                     ItemManager.isDropItemForAll = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                             {
                                 ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
                             }
                             if (Main.noEquipmentCooldown)
                             {
-                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                                 {
                                     Main.noEquipmentCooldown = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                             {
                                 Main.noEquipmentCooldown = true;
                             }
-                            if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", Highlighted))
                             {
                                 ItemManager.StackInventory();
                             }
-                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", Highlighted))
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                            {
+                                ItemManager.ClearInventory();
+                            }
+                            break;
+                        }
+
+                    case 8:
+                        {
+                            if (GUI.Button(btn.BtnRect(1, true, "itemmanager"), "G I V E   A L L   I T E M S : " + ItemManager.allItemsQuantity.ToString(), buttonStyle))
+                            {
+                                ItemManager.GiveAllItems();
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.ItemManagerBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (ItemManager.allItemsQuantity > 1)
+                                    ItemManager.allItemsQuantity -= 1;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.ItemManagerBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (ItemManager.allItemsQuantity >= 1)
+                                    ItemManager.allItemsQuantity += 1;
+                            }
+                            if (GUI.Button(btn.BtnRect(2, true, "itemmanager"), "R O L L   I T E M S : " + ItemManager.itemsToRoll.ToString(), buttonStyle))
+                            {
+                                ItemManager.RollItems(ItemManager.itemsToRoll.ToString());
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.ItemManagerBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (ItemManager.itemsToRoll > 5)
+                                    ItemManager.itemsToRoll -= 5;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.ItemManagerBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (ItemManager.itemsToRoll >= 5)
+                                    ItemManager.itemsToRoll += 5;
+                            }
+                            /*if (Main.isDropItems)
+                            {
+                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
+                                {
+                                    Main.isDropItems = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
+                            {
+                                Main.isDropItems = true;
+                            }*/
+
+                            if (Main._isItemSpawnMenuOpen)
+                            {
+                                Main._isEquipmentSpawnMenuOpen = false;
+                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "I T E M   S P A W N   M E N U : O N", OnStyle))
+                                {
+                                    Main._isItemSpawnMenuOpen = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "I T E M   S P A W N   M E N U : O F F", OffStyle))
+                            {
+                                Main._isItemSpawnMenuOpen = true;
+                            }
+                            if (Main._isEquipmentSpawnMenuOpen)
+                            {
+                                Main._isItemSpawnMenuOpen = false;
+                                if (GUI.Button(btn.BtnRect(4, false, "itemmanager"), "E Q U I P M E N T   S P A W N   M E N U : O N", OnStyle))
+                                {
+                                    Main._isEquipmentSpawnMenuOpen = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(4, false, "itemmanager"), "E Q U I P M E N T   S P A W N   M E N U : O F F", OffStyle))
+                            {
+                                Main._isEquipmentSpawnMenuOpen = true;
+                            }
+                            if (ItemManager.isDropItemForAll)
+                            {
+                                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemForAll = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemForAll = true;
+                                ItemManager.isDropItemFromInventory = false;
+                            }
+                            if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                                {
+                                    ItemManager.isDropItemFromInventory = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                            {
+                                ItemManager.isDropItemFromInventory = true;
+                                ItemManager.isDropItemForAll = false;
+                            }
+                            if (Main.noEquipmentCooldown)
+                            {
+                                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                                {
+                                    Main.noEquipmentCooldown = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                            {
+                                Main.noEquipmentCooldown = true;
+                            }
+                            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                            {
+                                ItemManager.StackInventory();
+                            }
+                            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", Highlighted))
                             {
                                 ItemManager.ClearInventory();
                             }
@@ -6575,13 +6791,13 @@ namespace UmbraRoR
 
                     default:
                         {
-                            if (Navigation.IntraMenuIndex > 7)
+                            if (Navigation.IntraMenuIndex > 8)
                             {
                                 Navigation.IntraMenuIndex = 0;
                             }
                             if (Navigation.IntraMenuIndex < 0)
                             {
-                                Navigation.IntraMenuIndex = 7;
+                                Navigation.IntraMenuIndex = 8;
                             }
                             break;
                         }
@@ -6655,31 +6871,44 @@ namespace UmbraRoR
                 }
                 if (ItemManager.isDropItemForAll)
                 {
-                    if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle))
                     {
                         ItemManager.isDropItemForAll = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "G I V E N   I T E M S   D R O P : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle))
                 {
                     ItemManager.isDropItemForAll = true;
+                    ItemManager.isDropItemFromInventory = false;
+                }
+                if (ItemManager.isDropItemFromInventory)
+                {
+                    if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle))
+                    {
+                        ItemManager.isDropItemFromInventory = false;
+                    }
+                }
+                else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle))
+                {
+                    ItemManager.isDropItemFromInventory = true;
+                    ItemManager.isDropItemForAll = false;
                 }
                 if (Main.noEquipmentCooldown)
                 {
-                    if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", OnStyle))
                     {
                         Main.noEquipmentCooldown = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle))
                 {
                     Main.noEquipmentCooldown = true;
                 }
-                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
+                if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", buttonStyle))
                 {
                     ItemManager.StackInventory();
                 }
-                if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
+                if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", buttonStyle))
                 {
                     ItemManager.ClearInventory();
                 }
