@@ -2,7 +2,7 @@
 A small collection of hacks and cheats for Risk of Rain 2.
 
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
-Was merged with [lodsharpshooter's](https://github.com/lodsharpshooter) unofficial fork.
+Was merged with [Lodington](https://github.com/Lodington/) unofficial fork.
 
 # Has been updated for the Artifacts Update
 # Next Update (ETA: ROR2 Next Update)
@@ -158,4 +158,4 @@ https://github.com/0xd4d/dnSpy
 
 https://github.com/BennettStaley/RoR2ModMenu
 
-https://github.com/lodsharpshooter/RoRCheats
+https://github.com/Lodington/RoRCheats
