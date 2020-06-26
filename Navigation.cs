@@ -53,7 +53,7 @@ namespace UmbraRoR
                         break;
                     }
             }
-            IntraMenuIndex = MenuIndex;
+            IntraMenuIndex = MenuIndex - 1;
             MenuIndex = 0;
         }
 
