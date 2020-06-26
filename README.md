@@ -5,6 +5,7 @@ This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github
 Was merged with [lodsharpshooter's](https://github.com/lodsharpshooter) unofficial fork.
 
 # Has been updated for the Artifacts Update
+# Next Update (ETA: ROR2 Next Update)
 # Features
 
 - [ ] Clear items in inventory
@@ -28,15 +29,23 @@ Was merged with [lodsharpshooter's](https://github.com/lodsharpshooter) unoffici
 
 ![image](https://user-images.githubusercontent.com/12210881/85503584-03c3e080-b5b8-11ea-8c56-539bff7ece66.png)
 
-Can press `Insert` key to open.
-Have to use mouse to select cheats. This can be done while holding tab ingame or while in the escape menu.
+Press the `Insert` key to open.
+
+Use `Up Arrow` and `Down Arrow` to activate keyboard navigation.
+
+Navigate current menu options with `Down Arrow` and `Up Arrow`.
+
+Go to the next menu or activate the highlighted cheat with `Right Arrow` or `V`.
+
+Go to the previous menu with `Backspace` or `Left Arrow`.
+
+When highlighting an option with +/- buttons next to it use `Left Arrow` to decrease or `Right Arrow` to increase.
+
+OR
+
+Use mouse to select cheats. This can be done while holding tab ingame or while in the escape menu.
 
 Note: Some features may not work if you are not the host of the lobby
-
-# Next Update (ETA: ROR2 Next Update):
-### Upcoming Features:
-- [ ] GUI keyboard navigation
-- [ ] drop items from inventory
 
 # TODO List:
 - [ ] Add filters to ESPs
@@ -128,6 +137,10 @@ pause
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
 # Changelog:
+6/26/2020 v1.2.1:
+ - [ ] Added the ability to navigate the menu with a keyboard
+ - [ ] Added the ability to drop items from your inventory
+ 
 4/26/2020 v1.2:
  - [ ] Fixed Equipment not dropping sometimes
  - [ ] Reorganized code
