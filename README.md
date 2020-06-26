@@ -47,6 +47,11 @@ Use mouse to select cheats. This can be done while holding tab ingame or while i
 
 Note: Some features may not work if you are not the host of the lobby
 
+# Next Update (ETA: ROR2 Next Update):
+### Upcoming Features:
+- [ ] GUI keyboard navigation
+- [ ] drop items from inventory
+
 # TODO List:
 - [ ] Add filters to ESPs
 - [ ] Make ESP less laggy?
