@@ -18,6 +18,12 @@ namespace UmbraRoR
         {
             switch (Navigation.MenuIndex)
             {
+                case 0:
+                    {
+                        Main.navigationToggle = false;
+                        break;
+                    }
+
                 case 1:
                     {
                         Main._isPlayerMod = false;
