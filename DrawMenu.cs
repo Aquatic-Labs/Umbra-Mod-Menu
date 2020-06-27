@@ -1285,6 +1285,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -1546,6 +1547,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -1807,6 +1809,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -2068,6 +2071,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -2329,6 +2333,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -2590,6 +2595,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -2851,6 +2857,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -3112,6 +3119,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -3373,6 +3381,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -3634,6 +3643,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -3895,6 +3905,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -4156,6 +4167,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -4417,6 +4429,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -4678,6 +4691,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", Highlighted))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -4939,6 +4953,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -5200,6 +5215,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -5461,6 +5477,7 @@ namespace UmbraRoR
                             {
                                 if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
+                                    Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                                     Main.FlightToggle = false;
                                 }
                             }
@@ -5736,6 +5753,7 @@ namespace UmbraRoR
                 {
                     if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
                     {
+                        Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
                         Main.FlightToggle = false;
                     }
                 }

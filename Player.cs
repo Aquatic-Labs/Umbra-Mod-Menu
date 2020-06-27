@@ -187,6 +187,7 @@ namespace UmbraRoR
         {
             try
             {
+                Main.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                 var forwardDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
                 var aimDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
                 var upDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
@@ -195,6 +196,7 @@ namespace UmbraRoR
 
                 var isSprinting = Main.LocalNetworkUser.inputPlayer.GetButton("Sprint");
                 var isJumping = Main.LocalNetworkUser.inputPlayer.GetButton("Jump");
+                var isGoingDown = Input.GetKey(KeyCode.X);
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 var isStrafing = Main.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f;
 
@@ -214,10 +216,6 @@ namespace UmbraRoR
                         }
                     }
                 }
-                else if (isJumping)
-                {
-                    Main.LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
-                }
                 else
                 {
                     Main.LocalPlayerBody.characterMotor.velocity = forwardDirection * 50;
@@ -233,6 +231,14 @@ namespace UmbraRoR
                             Main.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -50;
                         }
                     }
+                }
+                if (isJumping)
+                {
+                    Main.LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
+                }
+                if (isGoingDown)
+                {
+                    Main.LocalPlayerBody.characterMotor.velocity.y = downDirection * 100;
                 }
             }
             catch (NullReferenceException) { }

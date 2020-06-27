@@ -424,7 +424,15 @@ namespace UmbraRoR
 
                             case 13:
                                 {
-                                    Main.FlightToggle = !Main.FlightToggle;
+                                    if (Main.FlightToggle)
+                                    {
+                                        Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                        Main.FlightToggle = false;
+                                    }
+                                    else
+                                    {
+                                        Main.FlightToggle = true;
+                                    }
                                     break;
                                 }
 

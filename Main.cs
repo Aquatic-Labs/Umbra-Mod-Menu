@@ -1,10 +1,8 @@
 ﻿//TODO LIST
 /*
-Add drop items from inventory
 Add filters to ESPs?
 Make ESP less laggy??
 Clear Items despawn beatle guards from UI
-Press X to go down while fly is enabled?
 
 Possible features:
 Respawn
