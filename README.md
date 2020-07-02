@@ -1,11 +1,11 @@
 # Umbra Menu
 A small collection of hacks and cheats for Risk of Rain 2.
+Open to any pull requests.
 
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
-Was merged with [Lodington](https://github.com/Lodington/) unofficial fork.
+Was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
 # Has been updated for the Artifacts Update
-# Next Update (ETA: ROR2 Next Update)
 # Features
 
 - [ ] Clear items in inventory
@@ -51,7 +51,6 @@ Note: Some features may not work if you are not the host of the lobby
 - [ ] Add filters to ESPs
 - [ ] Make ESP less laggy?
 - [ ] Clear Items despawn beatle guards/Allies from UI
-- [ ] Press X to go down while fly is enabled?
 
 ### far fetched features(still possible but idk):
 - [ ] Respawn
@@ -61,6 +60,7 @@ Note: Some features may not work if you are not the host of the lobby
 ## Download dll from Releases
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
+Note: Must use the CLI version of sharp mono injector. The GUI version doesn't work properly.
 
 1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
 2. Extract the zip
