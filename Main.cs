@@ -25,6 +25,7 @@ namespace UmbraRoR
 
         public static string log = "[" + NAME + "] ";
         public static List<string> unlockableNames = Utils.GetAllUnlockables();
+        public static WeightedSelection<List<ItemIndex>> weightedSelection;
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -88,6 +89,7 @@ namespace UmbraRoR
 
         public static Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
         public static string[] Players = new string[16];
+
         #region On GUI
         private void OnGUI()
         {
@@ -558,6 +560,7 @@ namespace UmbraRoR
             {
                 ModStatsRoutine();
                 Utils.SoftResetMenu();
+                weightedSelection = ItemManager.BuildRollItemsDropTable(); weightedSelection = ItemManager.BuildRollItemsDropTable();
             }
         }
         #endregion
