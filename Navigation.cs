@@ -14,6 +14,7 @@ namespace UmbraRoR
         public static string[] RenderBtnNav = { "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
 
+        //Goes to previous menu when backspace or left arrow is pressed
         public static void GoBackAMenu()
         {
             switch (Navigation.MenuIndex)
@@ -63,6 +64,7 @@ namespace UmbraRoR
             MenuIndex = 0;
         }
 
+        //Increase value for buttons with +/- options
         public static void IncreaseValue(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -168,6 +170,7 @@ namespace UmbraRoR
             }
         }
 
+        //Decrease value for buttons with +/- options
         public static void DecreaseValue(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -273,6 +276,7 @@ namespace UmbraRoR
             }
         }
 
+        //Basically recreates menu buttons based on what button is highlighted
         public static void PressBtn(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)

@@ -207,6 +207,7 @@ namespace UmbraRoR
             }
         }
 
+        //Builds loot table for RollItems()
         public static WeightedSelection<List<ItemIndex>> BuildRollItemsDropTable()
         {
             WeightedSelection<List<ItemIndex>> weightedSelection = new WeightedSelection<List<ItemIndex>>(8);
@@ -265,6 +266,7 @@ namespace UmbraRoR
             return weightedSelection;
         }
 
+        //Gives all items
         public static void GiveAllItems()
         {
             if (Main.LocalPlayerInv)
@@ -286,6 +288,7 @@ namespace UmbraRoR
             Main.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
         }
 
+        //Draws list of items and gives item selected
         public static void GiveItem(GUIStyle buttonStyle, string buttonName)
         {
             //Removes null items and no icon items from item list. Might change if requested.
@@ -365,6 +368,7 @@ namespace UmbraRoR
             }
         }
 
+        //Draws list of equipment and gives equipment selected
         public static void GiveEquipment(GUIStyle buttonStyle, string buttonName)
         {
             //Removes null equipment and no icon equipment from item list. Might change if requested.
@@ -420,6 +424,7 @@ namespace UmbraRoR
             }
         }
 
+        //Gets players current items to make sure they can drop item from inventory if enabled
         public static List<string> CurrentInventory()
         {
             var currentInventory = new List<string>();

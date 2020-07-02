@@ -1088,7 +1088,6 @@ namespace UmbraRoR
             }
             catch (Exception e)
             {
-                e = null;
                 Debug.LogError(e);
                 _CharacterCollected = false;
             }
