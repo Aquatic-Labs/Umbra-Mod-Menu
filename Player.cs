@@ -51,7 +51,7 @@ namespace UmbraRoR
         }
 
         // self explanatory
-        public static void giveXP()
+        public static void GiveXP()
         {
             Main.LocalPlayer.GiveExperience(xpToGive);
         }
@@ -118,16 +118,18 @@ namespace UmbraRoR
 
         public static void AimBot()
         {
-            if (Utils.CursorIsVisible())
+            if (Utility.CursorIsVisible())
             {
                 return;
             }
+
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
             if (!controller)
             {
                 return;
             }
+
             var body = controller.master.GetBody();
             if (!body)
             {
@@ -160,6 +162,7 @@ namespace UmbraRoR
             var isMoving = Main.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f || Main.LocalNetworkUser.inputPlayer.GetAxis("MoveHorizontal") != 0f;
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+
             var controller = localUser.cachedMasterController;
             var body = controller.master.GetBody();
             if (body && !body.isSprinting && !localUser.inputPlayer.GetButton("Sprint"))

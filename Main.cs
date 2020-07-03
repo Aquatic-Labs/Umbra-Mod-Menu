@@ -21,10 +21,10 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.1";
+            VERSION = "1.2.2";
 
         public static string log = "[" + NAME + "] ";
-        public static List<string> unlockableNames = Utils.GetAllUnlockables();
+        public static List<string> unlockableNames = Utility.GetAllUnlockables();
         public static WeightedSelection<List<ItemIndex>> weightedSelection;
 
         #region Player Variables
@@ -437,7 +437,7 @@ namespace UmbraRoR
             {
                 if (_isMenuOpen && navigationToggle)
                 {
-                    Utils.CloseAllMenus();
+                    Utility.CloseAllMenus();
                 }
                 _isMenuOpen = !_isMenuOpen;
                 GetCharacter();
@@ -550,7 +550,7 @@ namespace UmbraRoR
             bool inGame = scene.name != "title";
             if (!inGame)
             {
-                Utils.ResetMenu();
+                Utility.ResetMenu();
             }
             else if (scene.name == "lobby")
             {
@@ -559,7 +559,7 @@ namespace UmbraRoR
             else
             {
                 ModStatsRoutine();
-                Utils.SoftResetMenu();
+                Utility.SoftResetMenu();
                 weightedSelection = ItemManager.BuildRollItemsDropTable(); weightedSelection = ItemManager.BuildRollItemsDropTable();
             }
         }

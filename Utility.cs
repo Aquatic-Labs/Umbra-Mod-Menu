@@ -7,7 +7,7 @@ using Console = RoR2.Console;
 
 namespace UmbraRoR
 {
-    public class Utils
+    public class Utility
     {
         public static Boolean CursorIsVisible()
         {
@@ -165,15 +165,28 @@ namespace UmbraRoR
             }
             return unlockableName;
         }
-
-        // Used during testing and debugging
-        public static void WriteToLog(string logContent)
+        public static void LoadAssembly()
         {
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
-                outputFile.WriteLine(Main.log + logContent);
-            }
+
+                String resourceName = "UmbraRoR." +
+
+                   new AssemblyName(args.Name).Name + ".dll";
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+
+                {
+
+                    Byte[] assemblyData = new Byte[stream.Length];
+
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+
+                    return Assembly.Load(assemblyData);
+
+                }
+
+            };
         }
     }
 }

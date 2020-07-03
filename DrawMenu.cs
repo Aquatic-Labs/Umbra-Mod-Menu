@@ -76,6 +76,7 @@ namespace UmbraRoR
                             }
                             break;
                         }
+
                     case 1:
                         {
                             if (Main._isPlayerMod)
@@ -136,6 +137,7 @@ namespace UmbraRoR
                             }
                             break;
                         }
+
                     case 2:
                         {
                             if (Main._isPlayerMod)
@@ -196,6 +198,7 @@ namespace UmbraRoR
                             }
                             break;
                         }
+
                     case 3:
                         {
                             if (Main._isPlayerMod)
@@ -256,6 +259,7 @@ namespace UmbraRoR
                             }
                             break;
                         }
+
                     case 4:
                         {
                             if (Main._isPlayerMod)
@@ -400,7 +404,7 @@ namespace UmbraRoR
                 if (Main.navigationToggle && Navigation.MenuIndex == 5)
                 {
                     int maxBtn = -1;
-                    Utils.GetPlayers(Main.Players); //update this asap
+                    Utility.GetPlayers(Main.Players); //update this asap
                     try
                     {
                         switch (Navigation.IntraMenuIndex)
@@ -414,7 +418,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", Highlighted))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 0;
                                         playerIndex++;
@@ -425,7 +429,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 1;
                                         playerIndex++;
@@ -436,7 +440,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 2;
                                         playerIndex++;
@@ -447,7 +451,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 3;
                                         buttonPlacement++;
@@ -464,7 +468,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 0;
                                         playerIndex++;
@@ -475,7 +479,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", Highlighted))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 1;
                                         playerIndex++;
@@ -486,7 +490,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 3;
                                         playerIndex++;
@@ -497,7 +501,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 3;
                                         buttonPlacement++;
@@ -523,7 +527,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 0;
                                         playerIndex++;
@@ -534,7 +538,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 1;
                                         playerIndex++;
@@ -545,7 +549,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", Highlighted))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 2;
                                         playerIndex++;
@@ -556,7 +560,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 3;
                                         buttonPlacement++;
@@ -582,7 +586,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 0;
                                         playerIndex++;
@@ -593,7 +597,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 1;
                                         playerIndex++;
@@ -604,7 +608,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", buttonStyle))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 2;
                                         playerIndex++;
@@ -615,7 +619,7 @@ namespace UmbraRoR
                                         if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[playerIndex]}</color>", Highlighted))
                                         {
                                             Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[playerIndex]}</color>");
-                                            Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
+                                            Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[playerIndex].ToString()), Main.LocalNetworkUser);
                                         }
                                         maxBtn = 3;
                                         buttonPlacement++;
@@ -654,7 +658,7 @@ namespace UmbraRoR
                 }
                 else
                 {
-                    Utils.GetPlayers(Main.Players); //update this asap
+                    Utility.GetPlayers(Main.Players); //update this asap
                     int buttonPlacement = 1;
                     for (int i = 0; i < Main.Players.Length; i++)
                     {
@@ -665,7 +669,7 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[i]}</color>", buttonStyle))
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[i]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[i].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[i].ToString()), Main.LocalNetworkUser);
                                 }
                                 buttonPlacement++;
                             }
@@ -1092,7 +1096,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -1354,7 +1358,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -1616,7 +1620,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), Highlighted))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -1878,7 +1882,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -2140,7 +2144,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -2402,7 +2406,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -2664,7 +2668,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -2926,7 +2930,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -3188,7 +3192,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -3450,7 +3454,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -3712,7 +3716,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -3974,7 +3978,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -4236,7 +4240,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -4498,7 +4502,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -4760,7 +4764,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -5022,7 +5026,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -5284,7 +5288,7 @@ namespace UmbraRoR
                             }
                             if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                             {
-                                PlayerMod.giveXP();
+                                PlayerMod.GiveXP();
                             }
                             if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                             {
@@ -5560,7 +5564,7 @@ namespace UmbraRoR
                 }
                 if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
                 {
-                    PlayerMod.giveXP();
+                    PlayerMod.GiveXP();
                 }
                 if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
                 {

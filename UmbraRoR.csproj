@@ -2,6 +2,11 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{16E3F076-0420-44EE-ADC5-ADF5F3E657F4}</ProjectGuid>
@@ -58,12 +63,18 @@
     <Reference Include="KdTreeLib">
       <HintPath>D:\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\KdTreeLib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Security">
       <HintPath>D:\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="netstandard" />
     <Reference Include="Assembly-CSharp">
       <HintPath>D:\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Octokit, Version=0.48.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\Octokit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="pb_Stl">
       <HintPath>D:\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\pb_Stl.dll</HintPath>
@@ -91,6 +102,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization">
       <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\System.Runtime.Serialization.dll</HintPath>
@@ -327,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="btn.cs" />
+    <Compile Include="Updates.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="DrawMenu.cs" />
     <Compile Include="ESPHelper.cs" />
@@ -342,7 +355,7 @@
     </Compile>
     <Compile Include="Render.cs" />
     <Compile Include="Teleporter.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Unlockables.txt" />
@@ -352,6 +365,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Octokit.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

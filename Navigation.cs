@@ -347,7 +347,7 @@ namespace UmbraRoR
 
                             case 2:
                                 {
-                                    PlayerMod.giveXP();
+                                    PlayerMod.GiveXP();
                                     break;
                                 }
 
@@ -619,28 +619,28 @@ namespace UmbraRoR
                             case 0:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[0]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[0].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[0].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 1:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[1]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[1].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[1].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 2:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[2]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[2].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[2].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 3:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[3]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[3].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[3].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
