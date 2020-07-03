@@ -4,7 +4,7 @@ A small collection of hacks and cheats for Risk of Rain 2.
 Open to any pull requests.
 
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
-Was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
+and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
 # Has been updated for the Artifacts Update
 # Features
@@ -32,7 +32,7 @@ Was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
 Press the `Insert` key to open.
 
-Use `Up Arrow` and `Down Arrow` to activate keyboard navigation.
+Use `Up Arrow` and `Down Arrow` to activate keyboard navigation. Can be disabled with `Backspace` or `Left Arrow`.
 
 Navigate current menu options with `Down Arrow` and `Up Arrow`.
 
@@ -49,12 +49,13 @@ Use mouse to select cheats. This can be done while holding tab ingame or while i
 Note: Some features may not work if you are not the host of the lobby
 
 # TODO List:
+- [ ] Some implimentation of Respawn
 - [ ] Add filters to ESPs
 - [ ] Make ESP less laggy?
 - [ ] Clear Items despawn beatle guards/Allies from UI
+- [ ] Change character once mid game
 
 ### far fetched features(still possible but idk):
-- [ ] Respawn
 - [ ] Spawn Mobs
 
 # How to use:
@@ -145,6 +146,17 @@ pause
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
 # Changelog:
+7/3/2020 v1.2.2
+- [ ] Menu now `checks for updates` on inject and whill tell you if its outdated
+- [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
+- [ ] Improved Flight
+ - Can now press `X` to fly down
+ - No longer take fall damage while flight is enabled
+- [ ] Improved Roll Item
+ - Added Lunar and Boss items to loot pool
+ - No longer uses a depricated method
+- [ ] Refactored a few things
+ 
 6/26/2020 v1.2.1:
  - [ ] Added the ability to navigate the menu with a keyboard
  - [ ] Added the ability to drop items from your inventory
@@ -162,3 +174,5 @@ https://github.com/0xd4d/dnSpy
 https://github.com/BennettStaley/RoR2ModMenu
 
 https://github.com/Lodington/RoRCheats
+
+https://github.com/octokit/octokit.net
