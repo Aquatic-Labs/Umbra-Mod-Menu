@@ -89,15 +89,20 @@ Method: Load
 5. Click browse. The required resources are found in > `\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed`
 ```
 1) Assembly-CSharp.dll
-2) UnityEngine.dll
-3) UnityEngine.TextRenderingModule.dll
-4) UnityEngine.Networking.dll
-5) UnityEngine.IMGUModule.dll
-6) UnityEngine.CoreModule.dll
+2) netstandard.dll
+3) Rewired_Core.dll
+4) System.dll
+5) UnityEngine.CoreModule.dll
+6) UnityEngine.dll
+7) UnityEngine.IMGUIModule.dll
+8) UnityEngine.Networking.dll
+9) UnityEngine.TextRenderingModule.dll
 ```
-6. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Debug -> UmbraRoR.dll
+6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
-7. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
+7. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
+
+8. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
 Namespace: UmbraRoR
 Class: Loader
