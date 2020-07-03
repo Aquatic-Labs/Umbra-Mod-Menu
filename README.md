@@ -61,7 +61,9 @@ Note: Some features may not work if you are not the host of the lobby
 ## Download dll from Releases
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
+
 Note: Must use the CLI version of sharp mono injector. The GUI version doesn't work properly.
+
 
 1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
 2. Extract the zip
