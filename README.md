@@ -1,4 +1,5 @@
-# Umbra Menu
+# Umbra Menu ![Downloads](https://img.shields.io/github/downloads/Acher0ns/Umbra-Mod-Menu/total)
+
 A small collection of hacks and cheats for Risk of Rain 2.
 
 Open to any pull requests.
