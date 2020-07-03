@@ -11,6 +11,8 @@ namespace UmbraRoR
             gameObject = new GameObject();
             gameObject.AddComponent<Main>();
             UnityEngine.Object.DontDestroyOnLoad(gameObject);
+            Utility.LoadAssembly();
+            Updates.CheckForUpdate();
         }
 
         public static void Unload()

@@ -871,7 +871,15 @@ namespace UmbraRoR
         public static void DrawAllMenus()
         {
             GUI.Box(new Rect(mainRect.x + 0f, mainRect.y + 0f, widthSize + 10, 50f + 45 * MainMulY), "", MainBgStyle);
-            GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+
+            if (Updates.updateAvailable)
+            {
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
+            }
+            else
+            {
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+            }
 
             if (!_CharacterCollected)
             {
