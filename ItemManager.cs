@@ -163,7 +163,7 @@ namespace UmbraRoR
         }
 
         // random items
-        public static void RollItems(string ammount)
+        /*public static void RollItems(string ammount)
         {
             try
             {
@@ -185,8 +185,88 @@ namespace UmbraRoR
             catch (ArgumentException)
             {
             }
+        }*/
+
+        public static void RollItems(string ammount)
+        {
+            try
+            {
+                int num;
+                TextSerialization.TryParseInvariant(ammount, out num);
+                if (num > 0)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        List<ItemIndex> list = Main.weightedSelection.Evaluate(UnityEngine.Random.value);
+                        Main.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)], 1);
+                    }
+                }
+            }
+            catch (ArgumentException)
+            {
+            }
         }
 
+        //Builds loot table for RollItems()
+        public static WeightedSelection<List<ItemIndex>> BuildRollItemsDropTable()
+        {
+            WeightedSelection<List<ItemIndex>> weightedSelection = new WeightedSelection<List<ItemIndex>>(8);
+            ItemIndex itemIndex = ItemIndex.Syringe;
+            ItemIndex itemCount = (ItemIndex)ItemCatalog.itemCount;
+
+            List<ItemIndex> tier1 = new List<ItemIndex>();
+            List<ItemIndex> tier2 = new List<ItemIndex>();
+            List<ItemIndex> tier3 = new List<ItemIndex>();
+            List<ItemIndex> lunar = new List<ItemIndex>();
+            List<ItemIndex> boss = new List<ItemIndex>();
+
+            while (itemIndex < itemCount)
+            {
+                ItemDef itemDef = ItemCatalog.GetItemDef(itemIndex);
+                switch (itemDef.tier)
+                {
+                    case ItemTier.Tier1:
+                        {
+                            tier1.Add(itemIndex);
+                            break;
+                        }
+
+                    case ItemTier.Tier2:
+                        {
+                            tier2.Add(itemIndex);
+                            break;
+                        }
+
+                    case ItemTier.Tier3:
+                        {
+                            tier3.Add(itemIndex);
+                            break;
+                        }
+
+                    case ItemTier.Lunar:
+                        {
+                            lunar.Add(itemIndex);
+                            break;
+                        }
+
+                    case ItemTier.Boss:
+                        {
+                            boss.Add(itemIndex);
+                            break;
+                        }
+                }
+                itemIndex++;
+            }
+
+            weightedSelection.AddChoice(tier1, 70f);
+            weightedSelection.AddChoice(tier2, 22f);
+            weightedSelection.AddChoice(tier3, 3f);
+            weightedSelection.AddChoice(lunar, 2.5f);
+            weightedSelection.AddChoice(boss, 2.5f);
+            return weightedSelection;
+        }
+
+        //Gives all items
         public static void GiveAllItems()
         {
             if (Main.LocalPlayerInv)
@@ -208,6 +288,7 @@ namespace UmbraRoR
             Main.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
         }
 
+        //Draws list of items and gives item selected
         public static void GiveItem(GUIStyle buttonStyle, string buttonName)
         {
             //Removes null items and no icon items from item list. Might change if requested.
@@ -287,6 +368,7 @@ namespace UmbraRoR
             }
         }
 
+        //Draws list of equipment and gives equipment selected
         public static void GiveEquipment(GUIStyle buttonStyle, string buttonName)
         {
             //Removes null equipment and no icon equipment from item list. Might change if requested.
@@ -342,6 +424,7 @@ namespace UmbraRoR
             }
         }
 
+        //Gets players current items to make sure they can drop item from inventory if enabled
         public static List<string> CurrentInventory()
         {
             var currentInventory = new List<string>();

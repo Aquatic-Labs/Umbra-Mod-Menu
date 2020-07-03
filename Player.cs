@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using RoR2;
+using System.Net;
 
 namespace UmbraRoR
 {
@@ -51,7 +52,7 @@ namespace UmbraRoR
         }
 
         // self explanatory
-        public static void giveXP()
+        public static void GiveXP()
         {
             Main.LocalPlayer.GiveExperience(xpToGive);
         }
@@ -118,16 +119,18 @@ namespace UmbraRoR
 
         public static void AimBot()
         {
-            if (Utils.CursorIsVisible())
+            if (Utility.CursorIsVisible())
             {
                 return;
             }
+
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
             if (!controller)
             {
                 return;
             }
+
             var body = controller.master.GetBody();
             if (!body)
             {
@@ -160,6 +163,7 @@ namespace UmbraRoR
             var isMoving = Main.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f || Main.LocalNetworkUser.inputPlayer.GetAxis("MoveHorizontal") != 0f;
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+
             var controller = localUser.cachedMasterController;
             var body = controller.master.GetBody();
             if (body && !body.isSprinting && !localUser.inputPlayer.GetButton("Sprint"))
@@ -183,10 +187,23 @@ namespace UmbraRoR
             Main.LocalHealth.godMode = true;
         }
 
+        public static SurvivorIndex GetCurrentCharacter()
+        {
+            var bodyIndex = BodyCatalog.FindBodyIndex(Main.LocalPlayerBody);
+            var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
+            Debug.Log(survivorIndex.ToString());
+            return survivorIndex;
+        }
+
         public static void Flight()
         {
             try
             {
+                if (GetCurrentCharacter().ToString() != "Loader")
+                {
+                    Main.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                }
+
                 var forwardDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
                 var aimDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
                 var upDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
@@ -195,6 +212,7 @@ namespace UmbraRoR
 
                 var isSprinting = Main.LocalNetworkUser.inputPlayer.GetButton("Sprint");
                 var isJumping = Main.LocalNetworkUser.inputPlayer.GetButton("Jump");
+                var isGoingDown = Input.GetKey(KeyCode.X);
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 var isStrafing = Main.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f;
 
@@ -214,10 +232,6 @@ namespace UmbraRoR
                         }
                     }
                 }
-                else if (isJumping)
-                {
-                    Main.LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
-                }
                 else
                 {
                     Main.LocalPlayerBody.characterMotor.velocity = forwardDirection * 50;
@@ -233,6 +247,14 @@ namespace UmbraRoR
                             Main.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -50;
                         }
                     }
+                }
+                if (isJumping)
+                {
+                    Main.LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
+                }
+                if (isGoingDown)
+                {
+                    Main.LocalPlayerBody.characterMotor.velocity.y = downDirection * 100;
                 }
             }
             catch (NullReferenceException) { }

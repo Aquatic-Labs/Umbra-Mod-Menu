@@ -1,10 +1,8 @@
 ﻿//TODO LIST
 /*
-Add drop items from inventory
 Add filters to ESPs?
 Make ESP less laggy??
 Clear Items despawn beatle guards from UI
-Press X to go down while fly is enabled?
 
 Possible features:
 Respawn
@@ -23,10 +21,11 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.1";
+            VERSION = "1.2.2";
 
         public static string log = "[" + NAME + "] ";
-        public static List<string> unlockableNames = Utils.GetAllUnlockables();
+        public static List<string> unlockableNames = Utility.GetAllUnlockables();
+        public static WeightedSelection<List<ItemIndex>> weightedSelection;
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -90,6 +89,7 @@ namespace UmbraRoR
 
         public static Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
         public static string[] Players = new string[16];
+
         #region On GUI
         private void OnGUI()
         {
@@ -437,7 +437,7 @@ namespace UmbraRoR
             {
                 if (_isMenuOpen && navigationToggle)
                 {
-                    Utils.CloseAllMenus();
+                    Utility.CloseAllMenus();
                 }
                 _isMenuOpen = !_isMenuOpen;
                 GetCharacter();
@@ -550,7 +550,7 @@ namespace UmbraRoR
             bool inGame = scene.name != "title";
             if (!inGame)
             {
-                Utils.ResetMenu();
+                Utility.ResetMenu();
             }
             else if (scene.name == "lobby")
             {
@@ -559,7 +559,8 @@ namespace UmbraRoR
             else
             {
                 ModStatsRoutine();
-                Utils.SoftResetMenu();
+                Utility.SoftResetMenu();
+                weightedSelection = ItemManager.BuildRollItemsDropTable(); weightedSelection = ItemManager.BuildRollItemsDropTable();
             }
         }
         #endregion
@@ -870,7 +871,15 @@ namespace UmbraRoR
         public static void DrawAllMenus()
         {
             GUI.Box(new Rect(mainRect.x + 0f, mainRect.y + 0f, widthSize + 10, 50f + 45 * MainMulY), "", MainBgStyle);
-            GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+
+            if (Updates.updateAvailable)
+            {
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
+            }
+            else
+            {
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+            }
 
             if (!_CharacterCollected)
             {
@@ -1087,7 +1096,6 @@ namespace UmbraRoR
             }
             catch (Exception e)
             {
-                e = null;
                 Debug.LogError(e);
                 _CharacterCollected = false;
             }

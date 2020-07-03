@@ -14,10 +14,17 @@ namespace UmbraRoR
         public static string[] RenderBtnNav = { "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
 
+        //Goes to previous menu when backspace or left arrow is pressed
         public static void GoBackAMenu()
         {
             switch (Navigation.MenuIndex)
             {
+                case 0:
+                    {
+                        Main.navigationToggle = false;
+                        break;
+                    }
+
                 case 1:
                     {
                         Main._isPlayerMod = false;
@@ -57,6 +64,7 @@ namespace UmbraRoR
             MenuIndex = 0;
         }
 
+        //Increase value for buttons with +/- options
         public static void IncreaseValue(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -162,6 +170,7 @@ namespace UmbraRoR
             }
         }
 
+        //Decrease value for buttons with +/- options
         public static void DecreaseValue(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -267,6 +276,7 @@ namespace UmbraRoR
             }
         }
 
+        //Basically recreates menu buttons based on what button is highlighted
         public static void PressBtn(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -337,7 +347,7 @@ namespace UmbraRoR
 
                             case 2:
                                 {
-                                    PlayerMod.giveXP();
+                                    PlayerMod.GiveXP();
                                     break;
                                 }
 
@@ -418,7 +428,18 @@ namespace UmbraRoR
 
                             case 13:
                                 {
-                                    Main.FlightToggle = !Main.FlightToggle;
+                                    if (Main.FlightToggle)
+                                    {
+                                        if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
+                                        {
+                                            Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                        }
+                                        Main.FlightToggle = false;
+                                    }
+                                    else
+                                    {
+                                        Main.FlightToggle = true;
+                                    }
                                     break;
                                 }
 
@@ -601,28 +622,28 @@ namespace UmbraRoR
                             case 0:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[0]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[0].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[0].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 1:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[1]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[1].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[1].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 2:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[2]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[2].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[2].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 3:
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[3]}</color>");
-                                    Utils.KickPlayer(Utils.GetNetUserFromString(Main.Players[3].ToString()), Main.LocalNetworkUser);
+                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[3].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 

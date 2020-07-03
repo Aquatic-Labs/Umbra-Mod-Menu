@@ -1,11 +1,12 @@
 # Umbra Menu
 A small collection of hacks and cheats for Risk of Rain 2.
 
+Open to any pull requests.
+
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
-Was merged with [Lodington](https://github.com/Lodington/) unofficial fork.
+and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
 # Has been updated for the Artifacts Update
-# Next Update (ETA: ROR2 Next Update)
 # Features
 
 - [ ] Clear items in inventory
@@ -31,7 +32,7 @@ Was merged with [Lodington](https://github.com/Lodington/) unofficial fork.
 
 Press the `Insert` key to open.
 
-Use `Up Arrow` and `Down Arrow` to activate keyboard navigation.
+Use `Up Arrow` and `Down Arrow` to activate keyboard navigation. Can be disabled with `Backspace` or `Left Arrow`.
 
 Navigate current menu options with `Down Arrow` and `Up Arrow`.
 
@@ -48,19 +49,22 @@ Use mouse to select cheats. This can be done while holding tab ingame or while i
 Note: Some features may not work if you are not the host of the lobby
 
 # TODO List:
+- [ ] Some implimentation of Respawn
 - [ ] Add filters to ESPs
 - [ ] Make ESP less laggy?
 - [ ] Clear Items despawn beatle guards/Allies from UI
-- [ ] Press X to go down while fly is enabled?
+- [ ] Change character once mid game
 
 ### far fetched features(still possible but idk):
-- [ ] Respawn
 - [ ] Spawn Mobs
 
 # How to use:
 ## Download dll from Releases
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
+
+Note: Must use the CLI version of sharp mono injector. The GUI version doesn't work properly.
+
 
 1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
 2. Extract the zip
@@ -86,15 +90,20 @@ Method: Load
 5. Click browse. The required resources are found in > `\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed`
 ```
 1) Assembly-CSharp.dll
-2) UnityEngine.dll
-3) UnityEngine.TextRenderingModule.dll
-4) UnityEngine.Networking.dll
-5) UnityEngine.IMGUModule.dll
-6) UnityEngine.CoreModule.dll
+2) netstandard.dll
+3) Rewired_Core.dll
+4) System.dll
+5) UnityEngine.CoreModule.dll
+6) UnityEngine.dll
+7) UnityEngine.IMGUIModule.dll
+8) UnityEngine.Networking.dll
+9) UnityEngine.TextRenderingModule.dll
 ```
-6. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Debug -> UmbraRoR.dll
+6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
-7. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
+7. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
+
+8. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
 Namespace: UmbraRoR
 Class: Loader
@@ -137,6 +146,17 @@ pause
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
 # Changelog:
+7/3/2020 v1.2.2
+- [ ] Menu now `checks for updates` on inject and will tell you if its outdated
+- [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
+- [ ] Improved Flight
+ - Can now press `X` to fly down
+ - No longer take fall damage while flight is enabled
+- [ ] Improved Roll Item
+ - Added Lunar and Boss items to loot pool
+ - No longer uses a depricated method
+- [ ] Refactored a few things
+ 
 6/26/2020 v1.2.1:
  - [ ] Added the ability to navigate the menu with a keyboard
  - [ ] Added the ability to drop items from your inventory
@@ -154,3 +174,5 @@ https://github.com/0xd4d/dnSpy
 https://github.com/BennettStaley/RoR2ModMenu
 
 https://github.com/Lodington/RoRCheats
+
+https://github.com/octokit/octokit.net
