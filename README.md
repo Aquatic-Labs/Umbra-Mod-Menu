@@ -147,7 +147,7 @@ pause
 
 # Changelog:
 7/3/2020 v1.2.2
-- [ ] Menu now `checks for updates` on inject and whill tell you if its outdated
+- [ ] Menu now `checks for updates` on inject and will tell you if its outdated
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
 - [ ] Improved Flight
  - Can now press `X` to fly down
