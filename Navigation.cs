@@ -430,7 +430,10 @@ namespace UmbraRoR
                                 {
                                     if (Main.FlightToggle)
                                     {
-                                        Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                        if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
+                                        {
+                                            Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                        }
                                         Main.FlightToggle = false;
                                     }
                                     else

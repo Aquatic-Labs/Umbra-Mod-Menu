@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using RoR2;
+using System.Net;
 
 namespace UmbraRoR
 {
@@ -186,11 +187,23 @@ namespace UmbraRoR
             Main.LocalHealth.godMode = true;
         }
 
+        public static SurvivorIndex GetCurrentCharacter()
+        {
+            var bodyIndex = BodyCatalog.FindBodyIndex(Main.LocalPlayerBody);
+            var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
+            Debug.Log(survivorIndex.ToString());
+            return survivorIndex;
+        }
+
         public static void Flight()
         {
             try
             {
-                Main.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                if (GetCurrentCharacter().ToString() != "Loader")
+                {
+                    Main.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                }
+
                 var forwardDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
                 var aimDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
                 var upDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
