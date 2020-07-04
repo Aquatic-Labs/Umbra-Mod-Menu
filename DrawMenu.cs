@@ -8,7 +8,7 @@ namespace UmbraRoR
     {
         public static Vector2 itemSpawnerScrollPosition = Vector2.zero;
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
-        public static Vector2 CharacterScrollPosition = Vector2.zero;
+        public static Vector2 characterScrollPosition = Vector2.zero;
 
         public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle BtnStyle, GUIStyle Highlighted)
         {
@@ -686,50 +686,20 @@ namespace UmbraRoR
         public static void DrawNotCollectedMenu(GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle)
         {
             GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
-            /*if (Main.enableRespawnButton)
-            {
-                if (GUI.Button(btn.BtnRect(2, false, "main"), "Respawn", OnStyle))
-                {
-                    Main.Respawn();
-                }
-            }
-            else if (!Main.enableRespawnButton)
-            {
-                //GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>The Respawn button will appear here.</color>", buttonStyle);
-            }*/
             GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
             GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with Bug Reports or suggestions.</color>", buttonStyle);
         }
 
-        /*public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
+        public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "C H A R A C T E R   M E N U", LabelStyle);
 
-            CharacterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), CharacterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            int buttonPlacement = 1;
-            foreach (var body in Main.nameToIndexMap)
-            {
-                if (body.Key.Contains("(Clone)"))
-                    continue;
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, "character"), body.Key.Replace("Body", ""), buttonStyle))
-                {
-                    GameObject newBody = BodyCatalog.FindBodyPrefab(body.Key);
-                    if (newBody == null)
-                        return;
-                    var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
-                    if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
-                    var master = localUser.cachedMasterController.master;
-
-                    master.bodyPrefab = newBody;
-                    master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
-                    //DrawMenu();
-                    return;
-                }
-                buttonPlacement++;
-            }
+            characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            PlayerMod.ChangeCharacter(buttonStyle, "character");
             GUI.EndScrollView();
-        }*/
+        }
+
         public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
@@ -1108,7 +1078,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -1214,46 +1183,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -1263,7 +1232,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -1273,21 +1242,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -1296,33 +1265,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -1373,7 +1342,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -1479,46 +1447,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -1528,7 +1496,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -1538,21 +1506,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -1561,33 +1529,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -1638,7 +1606,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -1744,46 +1711,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -1793,7 +1760,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -1803,21 +1770,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -1826,33 +1793,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -1903,7 +1870,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), Highlighted))
@@ -2009,46 +1975,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -2058,7 +2024,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -2068,21 +2034,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -2091,33 +2057,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -2168,7 +2134,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -2274,46 +2239,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -2323,7 +2288,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -2333,21 +2298,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -2356,33 +2321,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -2433,7 +2398,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -2539,46 +2503,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -2588,7 +2552,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -2598,21 +2562,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -2621,33 +2585,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -2698,7 +2662,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -2804,46 +2767,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -2853,7 +2816,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -2863,21 +2826,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -2886,33 +2849,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -2963,7 +2926,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -3069,46 +3031,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -3118,7 +3080,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -3128,21 +3090,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -3151,33 +3113,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -3228,7 +3190,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -3334,46 +3295,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", Highlighted))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", Highlighted))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -3383,7 +3344,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -3393,21 +3354,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -3416,33 +3377,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -3493,7 +3454,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -3599,46 +3559,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", Highlighted))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", Highlighted))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -3648,7 +3608,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -3658,21 +3618,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -3681,33 +3641,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -3758,7 +3718,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -3864,46 +3823,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", Highlighted))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", Highlighted))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", Highlighted))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -3913,7 +3872,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -3923,21 +3882,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -3946,33 +3905,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -4023,7 +3982,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -4129,46 +4087,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", Highlighted))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -4178,7 +4136,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", Highlighted))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -4188,21 +4146,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -4211,33 +4169,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -4288,7 +4246,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -4394,46 +4351,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", Highlighted))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -4443,7 +4400,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", Highlighted))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -4453,21 +4410,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", Highlighted))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -4476,33 +4433,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -4553,7 +4510,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -4659,46 +4615,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -4708,7 +4664,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -4718,21 +4674,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", Highlighted))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", Highlighted))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -4741,33 +4697,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -4818,7 +4774,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -4924,46 +4879,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -4973,7 +4928,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -4983,21 +4938,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", Highlighted))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -5006,33 +4961,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", Highlighted))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -5083,7 +5038,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -5189,46 +5143,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -5238,7 +5192,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -5248,21 +5202,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -5271,33 +5225,33 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", Highlighted))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", Highlighted))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", Highlighted))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", Highlighted))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -5348,7 +5302,6 @@ namespace UmbraRoR
                                 if (PlayerMod.xpToGive >= 50)
                                     PlayerMod.xpToGive += 50;
                             }
-
                             if (Main.damageToggle)
                             {
                                 if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -5454,46 +5407,46 @@ namespace UmbraRoR
                                 if (PlayerMod.movespeed >= 7)
                                     PlayerMod.movespeed += 10;
                             }
-                            /*if (Main._CharacterToggle)
+                            if (Main._CharacterToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                                 {
                                     Main._CharacterToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                             {
                                 Main._CharacterToggle = true;
-                            }*/
+                            }
                             if (Main._isStatMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                                 {
                                     Main._isStatMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                             {
                                 Main._isStatMenuOpen = true;
                             }
                             if (Main._isBuffMenuOpen)
                             {
-                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                                 {
                                     Main._isBuffMenuOpen = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                             {
                                 Main._isBuffMenuOpen = true;
                             }
-                            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                             {
                                 PlayerMod.RemoveAllBuffs();
                             }
                             if (Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -5503,7 +5456,7 @@ namespace UmbraRoR
                             }
                             else if (!Main.aimBot)
                             {
-                                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                                 {
                                     EntityStates.FireNailgun.spreadPitchScale = 0;
                                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -5513,21 +5466,21 @@ namespace UmbraRoR
                             }
                             if (Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                                 {
                                     Main.alwaysSprint = false;
                                 }
                             }
                             else if (!Main.alwaysSprint)
                             {
-                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                                 {
                                     Main.alwaysSprint = true;
                                 }
                             }
                             if (Main.FlightToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                                 {
                                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                                     {
@@ -5536,33 +5489,297 @@ namespace UmbraRoR
                                     Main.FlightToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                             {
                                 Main.FlightToggle = true;
                             }
                             if (Main.godToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                                 {
                                     Main.godToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                             {
                                 Main.godToggle = true;
                             }
                             if (Main.skillToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", Highlighted))
                                 {
                                     Main.skillToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", Highlighted))
                             {
                                 Main.skillToggle = true;
                             }
-                            if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", Highlighted))
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                            {
+                                PlayerMod.UnlockAll();
+                            }
+                            break;
+                        }
+
+                    case 17:
+                        {
+                            if (GUI.Button(btn.BtnRect(1, true, "playermod"), "G I V E   M O N E Y : " + PlayerMod.moneyToGive.ToString(), buttonStyle))
+                            {
+                                PlayerMod.GiveMoney();
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.moneyToGive > 50)
+                                    PlayerMod.moneyToGive -= 50;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.moneyToGive >= 50)
+                                    PlayerMod.moneyToGive += 50;
+                            }
+                            if (GUI.Button(btn.BtnRect(2, true, "playermod"), "G I V E   L U N A R   C O I N S : " + PlayerMod.coinsToGive.ToString(), buttonStyle))
+                            {
+                                PlayerMod.GiveLunarCoins();
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.coinsToGive > 10)
+                                    PlayerMod.coinsToGive -= 10;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.coinsToGive >= 10)
+                                    PlayerMod.coinsToGive += 10;
+                            }
+                            if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), buttonStyle))
+                            {
+                                PlayerMod.GiveXP();
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.xpToGive > 50)
+                                    PlayerMod.xpToGive -= 50;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.xpToGive >= 50)
+                                    PlayerMod.xpToGive += 50;
+                            }
+                            if (Main.damageToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                {
+                                    Main.damageToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            {
+                                Main.damageToggle = true;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.damagePerLvl > 0)
+                                    PlayerMod.damagePerLvl -= 10;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.damagePerLvl >= 0)
+                                    PlayerMod.damagePerLvl += 10;
+                            }
+                            if (Main.critToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                {
+                                    Main.critToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            {
+                                Main.critToggle = true;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.CritPerLvl > 0)
+                                    PlayerMod.CritPerLvl -= 1;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.CritPerLvl >= 0)
+                                    PlayerMod.CritPerLvl += 1;
+                            }
+                            if (Main.attackSpeedToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(6, true, "playermod"), "A T T A C K   S P E E D ( O N ) : " + PlayerMod.attackSpeed.ToString(), OnStyle))
+                                {
+                                    Main.attackSpeedToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(6, true, "playermod"), "A T T A C K   S P E E D ( O F F ) : " + PlayerMod.attackSpeed.ToString(), OffStyle))
+                            {
+                                Main.attackSpeedToggle = true;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.attackSpeed > 0)
+                                    PlayerMod.attackSpeed -= 1;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.attackSpeed >= 0)
+                                    PlayerMod.attackSpeed += 1;
+                            }
+                            if (Main.armorToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(7, true, "playermod"), "A R M O R ( O N ) : " + PlayerMod.armor.ToString(), OnStyle))
+                                {
+                                    Main.armorToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(7, true, "playermod"), "A R M O R ( O F F ) : " + PlayerMod.armor.ToString(), OffStyle))
+                            {
+                                Main.armorToggle = true;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.armor > 0)
+                                    PlayerMod.armor -= 10;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.armor >= 0)
+                                    PlayerMod.armor += 10;
+                            }
+                            if (Main.moveSpeedToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(8, true, "playermod"), "M O V E   S P E E D ( O N ) : " + PlayerMod.movespeed.ToString(), OnStyle))
+                                {
+                                    Main.moveSpeedToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(8, true, "playermod"), "M O V E   S P E E D ( O F F ) : " + PlayerMod.movespeed.ToString(), OffStyle))
+                            {
+                                Main.moveSpeedToggle = true;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+                            {
+                                if (PlayerMod.movespeed > 7)
+                                    PlayerMod.movespeed -= 10;
+                            }
+                            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+                            {
+                                if (PlayerMod.movespeed >= 7)
+                                    PlayerMod.movespeed += 10;
+                            }
+                            if (Main._CharacterToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
+                                {
+                                    Main._CharacterToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
+                            {
+                                Main._CharacterToggle = true;
+                            }
+                            if (Main._isStatMenuOpen)
+                            {
+                                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                                {
+                                    Main._isStatMenuOpen = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                            {
+                                Main._isStatMenuOpen = true;
+                            }
+                            if (Main._isBuffMenuOpen)
+                            {
+                                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                                {
+                                    Main._isBuffMenuOpen = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                            {
+                                Main._isBuffMenuOpen = true;
+                            }
+                            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                            {
+                                PlayerMod.RemoveAllBuffs();
+                            }
+                            if (Main.aimBot)
+                            {
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
+                                {
+                                    EntityStates.FireNailgun.spreadPitchScale = 0.5f;
+                                    EntityStates.FireNailgun.spreadYawScale = 1f;
+                                    EntityStates.FireNailgun.spreadBloomValue = 0.2f;
+                                    Main.aimBot = false;
+                                }
+                            }
+                            else if (!Main.aimBot)
+                            {
+                                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                                {
+                                    EntityStates.FireNailgun.spreadPitchScale = 0;
+                                    EntityStates.FireNailgun.spreadYawScale = 0;
+                                    EntityStates.FireNailgun.spreadBloomValue = 0;
+                                    Main.aimBot = true;
+                                }
+                            }
+                            if (Main.alwaysSprint)
+                            {
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                                {
+                                    Main.alwaysSprint = false;
+                                }
+                            }
+                            else if (!Main.alwaysSprint)
+                            {
+                                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                                {
+                                    Main.alwaysSprint = true;
+                                }
+                            }
+                            if (Main.FlightToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
+                                {
+                                    if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
+                                    {
+                                        Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                    }
+                                    Main.FlightToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                            {
+                                Main.FlightToggle = true;
+                            }
+                            if (Main.godToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                                {
+                                    Main.godToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                            {
+                                Main.godToggle = true;
+                            }
+                            if (Main.skillToggle)
+                            {
+                                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                                {
+                                    Main.skillToggle = false;
+                                }
+                            }
+                            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                            {
+                                Main.skillToggle = true;
+                            }
+                            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", Highlighted))
                             {
                                 PlayerMod.UnlockAll();
                             }
@@ -5571,13 +5788,13 @@ namespace UmbraRoR
 
                     default:
                         {
-                            if (Navigation.IntraMenuIndex > 16)
+                            if (Navigation.IntraMenuIndex > 17)
                             {
                                 Navigation.IntraMenuIndex = 0;
                             }
                             if (Navigation.IntraMenuIndex < 0)
                             {
-                                Navigation.IntraMenuIndex = 16;
+                                Navigation.IntraMenuIndex = 17;
                             }
                             break;
                         }
@@ -5627,7 +5844,6 @@ namespace UmbraRoR
                     if (PlayerMod.xpToGive >= 50)
                         PlayerMod.xpToGive += 50;
                 }
-
                 if (Main.damageToggle)
                 {
                     if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
@@ -5733,46 +5949,46 @@ namespace UmbraRoR
                     if (PlayerMod.movespeed >= 7)
                         PlayerMod.movespeed += 10;
                 }
-                /*if (Main._CharacterToggle)
+                if (Main._CharacterToggle)
                 {
-                    if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: ON", OnStyle))
+                    if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", OnStyle))
                     {
                         Main._CharacterToggle = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "Character Selection: OFF", OffStyle))
+                else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", OffStyle))
                 {
                     Main._CharacterToggle = true;
-                }*/
+                }
                 if (Main._isStatMenuOpen)
                 {
-                    if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", OnStyle))
                     {
                         Main._isStatMenuOpen = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", OffStyle))
                 {
                     Main._isStatMenuOpen = true;
                 }
                 if (Main._isBuffMenuOpen)
                 {
-                    if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", OnStyle))
                     {
                         Main._isBuffMenuOpen = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", OffStyle))
                 {
                     Main._isBuffMenuOpen = true;
                 }
-                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
+                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", buttonStyle))
                 {
                     PlayerMod.RemoveAllBuffs();
                 }
                 if (Main.aimBot)
                 {
-                    if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", OnStyle))
                     {
                         EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                         EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -5782,7 +5998,7 @@ namespace UmbraRoR
                 }
                 else if (!Main.aimBot)
                 {
-                    if (GUI.Button(btn.BtnRect(12, false, "playermod"), "A I M B O T : O F F", OffStyle))
+                    if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", OffStyle))
                     {
                         EntityStates.FireNailgun.spreadPitchScale = 0;
                         EntityStates.FireNailgun.spreadYawScale = 0;
@@ -5792,21 +6008,21 @@ namespace UmbraRoR
                 }
                 if (Main.alwaysSprint)
                 {
-                    if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", OnStyle))
                     {
                         Main.alwaysSprint = false;
                     }
                 }
                 else if (!Main.alwaysSprint)
                 {
-                    if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
+                    if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", OffStyle))
                     {
                         Main.alwaysSprint = true;
                     }
                 }
                 if (Main.FlightToggle)
                 {
-                    if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", OnStyle))
                     {
                         if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                         {
@@ -5815,33 +6031,33 @@ namespace UmbraRoR
                         Main.FlightToggle = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(14, false, "playermod"), "F L I G H T : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", OffStyle))
                 {
                     Main.FlightToggle = true;
                 }
                 if (Main.godToggle)
                 {
-                    if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", OnStyle))
                     {
                         Main.godToggle = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", OffStyle))
                 {
                     Main.godToggle = true;
                 }
                 if (Main.skillToggle)
                 {
-                    if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
+                    if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", OnStyle))
                     {
                         Main.skillToggle = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
+                else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", OffStyle))
                 {
                     Main.skillToggle = true;
                 }
-                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "U N L O C K   A L L", buttonStyle))
+                if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", buttonStyle))
                 {
                     PlayerMod.UnlockAll();
                 }
@@ -5887,18 +6103,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -5999,18 +6203,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6111,18 +6303,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6223,18 +6403,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6335,18 +6503,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6447,18 +6603,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6559,18 +6703,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6671,18 +6803,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6783,18 +6903,6 @@ namespace UmbraRoR
                                 if (ItemManager.itemsToRoll >= 5)
                                     ItemManager.itemsToRoll += 5;
                             }
-                            /*if (Main.isDropItems)
-                            {
-                                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                                {
-                                    Main.isDropItems = false;
-                                }
-                            }
-                            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                            {
-                                Main.isDropItems = true;
-                            }*/
-
                             if (Main._isItemSpawnMenuOpen)
                             {
                                 Main._isEquipmentSpawnMenuOpen = false;
@@ -6909,18 +7017,6 @@ namespace UmbraRoR
                     if (ItemManager.itemsToRoll >= 5)
                         ItemManager.itemsToRoll += 5;
                 }
-                /*if (Main.isDropItems)
-                {
-                    if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: ON", OnStyle))
-                    {
-                        Main.isDropItems = false;
-                    }
-                }
-                else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "Remove Items: OFF", OffStyle))
-                {
-                    Main.isDropItems = true;
-                }*/
-
                 if (Main._isItemSpawnMenuOpen)
                 {
                     Main._isEquipmentSpawnMenuOpen = false;

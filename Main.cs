@@ -146,12 +146,12 @@ namespace UmbraRoR
                 buffMenuRect = GUI.Window(8, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
                 DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
             }
-            /*if (_CharacterToggle)
+            if (_CharacterToggle)
             {
                 characterRect = GUI.Window(9, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
                 DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
                 //Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
-            }*/
+            }
             if (_isItemManagerOpen)
             {
                 itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());

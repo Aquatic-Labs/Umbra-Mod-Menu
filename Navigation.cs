@@ -383,23 +383,29 @@ namespace UmbraRoR
 
                             case 8:
                                 {
-                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
+                                    Main._CharacterToggle = !Main._CharacterToggle;
                                     break;
                                 }
 
                             case 9:
                                 {
-                                    Main._isBuffMenuOpen = !Main._isBuffMenuOpen;
+                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
                                     break;
                                 }
 
                             case 10:
                                 {
-                                    PlayerMod.RemoveAllBuffs();
+                                    Main._isBuffMenuOpen = !Main._isBuffMenuOpen;
                                     break;
                                 }
 
                             case 11:
+                                {
+                                    PlayerMod.RemoveAllBuffs();
+                                    break;
+                                }
+
+                            case 12:
                                 {
                                     if (Main.aimBot)
                                     {
@@ -420,13 +426,13 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 12:
+                            case 13:
                                 {
                                     Main.alwaysSprint = !Main.alwaysSprint;
                                     break;
                                 }
 
-                            case 13:
+                            case 14:
                                 {
                                     if (Main.FlightToggle)
                                     {
@@ -443,19 +449,19 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 14:
+                            case 15:
                                 {
                                     Main.godToggle = !Main.godToggle;
                                     break;
                                 }
 
-                            case 15:
+                            case 16:
                                 {
                                     Main.skillToggle = !Main.skillToggle;
                                     break;
                                 }
 
-                            case 16:
+                            case 17:
                                 {
                                     PlayerMod.UnlockAll();
                                     break;

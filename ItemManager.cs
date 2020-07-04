@@ -70,9 +70,6 @@ namespace UmbraRoR
         {
             var dropItem = netMsg.ReadMessage<DropItemPacket>();
             var body = dropItem.Player.GetComponent<CharacterBody>();
-            /*if (isDropItems)
-                body.inventory.RemoveItem(dropItem.ItemIndex, 1);
-            if (isDropItemForAll && !isDropItems)*/
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
         [RoR2.Networking.NetworkMessageHandler(msgType = HandleEquipmentId, client = true)]
@@ -80,9 +77,6 @@ namespace UmbraRoR
         {
             var dropEquipment = netMsg.ReadMessage<DropEquipmentPacket>();
             var body = dropEquipment.Player.GetComponent<CharacterBody>();
-            /*if (isDropItems)
-                body.inventory.RemoveItem(dropItem.ItemIndex, 1);
-            if (isDropItemForAll && !isDropItems)*/
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropEquipment.EquipmentIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
 
@@ -163,30 +157,6 @@ namespace UmbraRoR
         }
 
         // random items
-        /*public static void RollItems(string ammount)
-        {
-            try
-            {
-                int num;
-                TextSerialization.TryParseInvariant(ammount, out num);
-                if (num > 0)
-                {
-                    WeightedSelection<List<PickupIndex>> weightedSelection = new WeightedSelection<List<PickupIndex>>(8);
-                    weightedSelection.AddChoice(Run.instance.availableTier1DropList, 80f);
-                    weightedSelection.AddChoice(Run.instance.availableTier2DropList, 19f);
-                    weightedSelection.AddChoice(Run.instance.availableTier3DropList, 1f);
-                    for (int i = 0; i < num; i++)
-                    {
-                        List <PickupIndex> list = weightedSelection.Evaluate(UnityEngine.Random.value);
-                        Main.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)].itemIndex, 1);
-                    }
-                }
-            }
-            catch (ArgumentException)
-            {
-            }
-        }*/
-
         public static void RollItems(string ammount)
         {
             try

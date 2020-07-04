@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using RoR2;
 using System.Net;
+using UnityEngine.Networking;
 
 namespace UmbraRoR
 {
@@ -261,6 +262,26 @@ namespace UmbraRoR
                 }
             }
             catch (NullReferenceException) { }
+        }
+
+        public static void ChangeCharacter(GUIStyle buttonStyle, string buttonName)
+        {
+            int buttonPlacement = 1;
+            foreach (var prefab in BodyCatalog.allBodyPrefabs)
+            {
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), prefab.name.Replace("Body", ""), buttonStyle))
+                {
+                    GameObject newBody = BodyCatalog.FindBodyPrefab(prefab.name);
+                    if (newBody == null) return;
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                    var master = localUser.cachedMasterController.master;
+
+                    master.bodyPrefab = newBody;
+                    master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
+                }
+                buttonPlacement++;
+            }
         }
 
         public static void UnlockAll()
