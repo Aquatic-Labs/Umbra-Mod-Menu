@@ -165,28 +165,30 @@ namespace UmbraRoR
             }
             return unlockableName;
         }
+
         public static void LoadAssembly()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
-
                 String resourceName = "UmbraRoR." +
-
                    new AssemblyName(args.Name).Name + ".dll";
 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-
                 {
-
                     Byte[] assemblyData = new Byte[stream.Length];
-
                     stream.Read(assemblyData, 0, assemblyData.Length);
-
                     return Assembly.Load(assemblyData);
-
                 }
-
             };
+        }
+
+        public static void WriteToLog(string logContent)
+        {
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
+            {
+                outputFile.WriteLine(Main.log + logContent);
+            }
         }
     }
 }
