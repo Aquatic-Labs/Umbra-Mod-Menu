@@ -178,8 +178,11 @@ namespace UmbraRoR
         //Respawn... Not sure how to implement it.
         public static void AttemptRespawn()
         {
-            Main.LocalPlayer.RespawnExtraLife();
-            Debug.Log($"{Main.log}: Respawning");
+            if (!Main.LocalHealth.alive)
+            {
+                Main.LocalPlayer.RespawnExtraLife();
+                Debug.Log($"{Main.log}: Respawned");
+            }
         }
 
         public static void GodMode()
