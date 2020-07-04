@@ -60,7 +60,7 @@ namespace UmbraRoR
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll, aimBot, alwaysSprint, godToggle;
-        public static float delay = 0, widthSize = 500;
+        public static float delay = 0, widthSize = 400;
         public static bool navigationToggle = false;
         #endregion
 
@@ -174,27 +174,26 @@ namespace UmbraRoR
             //TODO: Update these values
             #region CondenseMenuValues
 
-            mainRect = new Rect(10, 10, 20, 20); //start position
-            statRect = new Rect(1626, 457, 20, 20); //start position
-            teleRect = new Rect(10, 320, 20, 20); //start position *
-            ESPRect = new Rect(10, 730, 20, 20); //start position *
-            lobbyRect = new Rect(10, 915, 20, 20); //start position *
-            itemSpawnerRect = new Rect(1603, 10, 20, 20); //start position
-            equipmentSpawnerRect = new Rect(1603, 10, 20, 20); //start positions
-            buffMenuRect = new Rect(1503, 10, 20, 20);//start position
-            characterRect = new Rect(1503, 10, 20, 20); //start position
-            playerModRect = new Rect(524, 10, 20, 20); //start position
-            itemManagerRect = new Rect(524, 815, 20, 20);
+            if (navigationToggle)
+            {
 
-            /*mainRect = new Rect(10, 10, 20, 20); //start position
-            statRect = new Rect(1626, 457, 20, 20); //start position
-            teleRect = new Rect(426, 558, 20, 20); //start position
-            lobbyRect = new Rect(10, 558, 20, 20); //start position
-            itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-            equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-            characterRect = new Rect(1503, 10, 20, 20); //start position
-            playerModRect = new Rect(426, 10, 20, 20); //start position
-            itemManagerRect = new Rect(426, 10, 20, 20);*/
+            }
+            else
+            {
+                mainRect = new Rect(10, 10, 20, 20); //start position
+                playerModRect = new Rect(424, 10, 20, 20); //start position
+                itemManagerRect = new Rect(838, 10, 20, 20); //start positions
+                teleRect = new Rect(10, 290, 20, 20); //start position
+                ESPRect = new Rect(10, 660, 20, 20); //start position
+                lobbyRect = new Rect(10, 805, 20, 20); //start position
+
+                statRect = new Rect(1626, 457, 20, 20); //start position
+
+                itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
+                equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start positions
+                buffMenuRect = new Rect(1503, 10, 20, 20);//start position
+                characterRect = new Rect(1503, 10, 20, 20); //start position
+            }
 
             #endregion
 
@@ -211,7 +210,7 @@ namespace UmbraRoR
                 MainBgStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 MainBgStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 MainBgStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                MainBgStyle.fontSize = 18;
+                MainBgStyle.fontSize = 15;
                 MainBgStyle.fontStyle = FontStyle.Normal;
                 MainBgStyle.alignment = TextAnchor.UpperCenter;
             }
@@ -266,7 +265,7 @@ namespace UmbraRoR
                 OffStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OffStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OffStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                OffStyle.fontSize = 18;
+                OffStyle.fontSize = 15;
                 OffStyle.fontStyle = FontStyle.Normal;
                 OffStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -282,7 +281,7 @@ namespace UmbraRoR
                 OnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                OnStyle.fontSize = 18;
+                OnStyle.fontSize = 15;
                 OnStyle.fontStyle = FontStyle.Normal;
                 OnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -298,7 +297,7 @@ namespace UmbraRoR
                 BtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 BtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 BtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                BtnStyle.fontSize = 18;
+                BtnStyle.fontSize = 15;
                 BtnStyle.fontStyle = FontStyle.Normal;
                 BtnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -313,7 +312,7 @@ namespace UmbraRoR
                 ItemBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ItemBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ItemBtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                ItemBtnStyle.fontSize = 18;
+                ItemBtnStyle.fontSize = 15;
                 ItemBtnStyle.fontStyle = FontStyle.Normal;
                 ItemBtnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -328,7 +327,7 @@ namespace UmbraRoR
                 HighlightBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 HighlightBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 HighlightBtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                HighlightBtnStyle.fontSize = 18;
+                HighlightBtnStyle.fontSize = 15;
                 HighlightBtnStyle.fontStyle = FontStyle.Normal;
                 HighlightBtnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -366,11 +365,19 @@ namespace UmbraRoR
                 Cursor.visible = true;
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
+                    if (!navigationToggle)
+                    {
+                        Utility.CloseAllMenus();
+                    }
                     navigationToggle = true;
                     Navigation.IntraMenuIndex++;
                 }
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
+                    if (!navigationToggle)
+                    {
+                        Utility.CloseAllMenus();
+                    }
                     navigationToggle = true;
                     Navigation.IntraMenuIndex--;
                 }
@@ -874,11 +881,11 @@ namespace UmbraRoR
 
             if (Updates.updateAvailable)
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
             }
             else
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
             }
 
             if (!_CharacterCollected)
@@ -1064,9 +1071,9 @@ namespace UmbraRoR
             if (multiplyBtn)
             {
                 btnY = 5 + 45 * y;
-                return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize - 90, 40);
+                return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize - 90, 20);
             }
-            return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 40);
+            return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 20);
         }
         #endregion
 
