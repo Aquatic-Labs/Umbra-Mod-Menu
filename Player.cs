@@ -269,18 +269,22 @@ namespace UmbraRoR
             int buttonPlacement = 1;
             foreach (var prefab in BodyCatalog.allBodyPrefabs)
             {
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), prefab.name.Replace("Body", ""), buttonStyle))
+                if (prefab.name != "ScavSackProjectile")
                 {
-                    GameObject newBody = BodyCatalog.FindBodyPrefab(prefab.name);
-                    if (newBody == null) return;
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
-                    var master = localUser.cachedMasterController.master;
+                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), prefab.name.Replace("Body", ""), buttonStyle))
+                    {
+                        GameObject newBody = BodyCatalog.FindBodyPrefab(prefab.name);
+                        if (newBody == null) return;
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                        var master = localUser.cachedMasterController.master;
 
-                    master.bodyPrefab = newBody;
-                    master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
+                        master.bodyPrefab = newBody;
+                        master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
+                        Utility.SoftResetMenu();
+                    }
+                    buttonPlacement++;
                 }
-                buttonPlacement++;
             }
         }
 
