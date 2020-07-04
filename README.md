@@ -51,16 +51,12 @@ Use mouse to select cheats. This can be done while holding tab ingame or while i
 Note: Some features may not work if you are not the host of the lobby
 
 
-# TODO List:
-- [ ] Some implimentation of Respawn
-- [ ] Add filters to ESPs
+# List of Improvements I Might Add:
+- [ ] Add filters to ESPs?
 - [ ] Make ESP less laggy?
 - [ ] Clear Items despawn beatle guards/Allies from UI
-- [ ] Change character once mid game
-
-### far fetched features(maybe possible idk):
 - [ ] Spawn Mobs
-
+- [ ] Dynamic Menu Placement (based on what menues are open etc)
 
 # Getting Started:
 ### Requirements
@@ -173,6 +169,8 @@ Method: Load
 
 4/23/2020 v1.0:
  - [ ] Repo Changed to Public
+ 
+ 
 # Resources:
 https://github.com/0xd4d/dnSpy
 
