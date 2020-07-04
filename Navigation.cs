@@ -6,6 +6,7 @@ namespace UmbraRoR
     {
         public static int MenuIndex = 0;
         public static int IntraMenuIndex = -1;
+        public static int PrevMenuIndex;
         public static string[] MenuList = { "Main", "Player", "Item", "Teleporter", "Render", "Lobby" };
         public static string[] MainBtnNav = { "PlayerMod", "ItemMang", "Teleporter", "Render", "LobbyMang" };
         public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "StatMenu", "BuffMenu", "RemoveBuffs", "Aimbot", "AutoSprint", "Flight", "GodMode", "NoSkillCD", "UnlockAll" };

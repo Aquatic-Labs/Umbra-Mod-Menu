@@ -23,56 +23,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", Highlighted))
                                 {
                                     Main._isPlayerMod = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", Highlighted))
                             {
                                 Main._isPlayerMod = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 1;
                             }
-
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 5;
                             }
                             break;
                         }
@@ -84,56 +98,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 1;
                             }
-
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", Highlighted))
                                 {
                                     Main._isItemManagerOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", Highlighted))
                             {
                                 Main._isItemManagerOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 5;
                             }
                             break;
                         }
@@ -145,56 +173,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 1;
                             }
-
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", Highlighted))
                                 {
                                     Main._isTeleMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", Highlighted))
                             {
                                 Main._isTeleMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 5;
                             }
                             break;
                         }
@@ -206,56 +248,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 1;
                             }
-
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", Highlighted))
                                 {
                                     Main._isESPMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", Highlighted))
                             {
                                 Main._isESPMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 5;
                             }
                             break;
                         }
@@ -267,56 +323,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 1;
                             }
-
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", Highlighted))
                                 {
                                     Main._isLobbyMenuOpen = false;
+                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", Highlighted))
                             {
                                 Main._isLobbyMenuOpen = true;
+                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                                Navigation.MenuIndex = 5;
                             }
                             break;
                         }
@@ -340,11 +410,14 @@ namespace UmbraRoR
                     if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                     {
                         Main._isPlayerMod = false;
+                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                 {
                     Main._isPlayerMod = true;
+                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                    Navigation.MenuIndex = 1;
                 }
 
                 if (Main._isItemManagerOpen)
@@ -352,44 +425,56 @@ namespace UmbraRoR
                     if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                     {
                         Main._isItemManagerOpen = false;
+                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                 {
                     Main._isItemManagerOpen = true;
+                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                    Navigation.MenuIndex = 2;
                 }
                 if (Main._isTeleMenuOpen)
                 {
                     if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                     {
                         Main._isTeleMenuOpen = false;
+                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                 {
                     Main._isTeleMenuOpen = true;
+                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                    Navigation.MenuIndex = 3;
                 }
                 if (Main._isESPMenuOpen)
                 {
                     if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                     {
                         Main._isESPMenuOpen = false;
+                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                 {
                     Main._isESPMenuOpen = true;
+                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                    Navigation.MenuIndex = 4;
                 }
                 if (Main._isLobbyMenuOpen)
                 {
                     if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                     {
                         Main._isLobbyMenuOpen = false;
+                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                 {
                     Main._isLobbyMenuOpen = true;
+                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
+                    Navigation.MenuIndex = 5;
                 }
             }
         }
@@ -397,7 +482,7 @@ namespace UmbraRoR
         public static void DrawManagmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "L O B B Y   M A N A G E M E N T   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "L O B B Y   M A N A G E M E N T   M E N U", LabelStyle);
 
             if (Main._CharacterCollected)
             {
@@ -693,7 +778,7 @@ namespace UmbraRoR
         public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "C H A R A C T E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "C H A R A C T E R   M E N U", LabelStyle);
 
             characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.ChangeCharacter(buttonStyle, "character");
@@ -703,7 +788,7 @@ namespace UmbraRoR
         public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 95f), "I T E M   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M   M E N U", LabelStyle);
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             ItemManager.GiveItem(buttonStyle, "itemSpawner");
@@ -712,7 +797,7 @@ namespace UmbraRoR
         public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 95f), "E Q U I P M E N T   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             ItemManager.GiveEquipment(buttonStyle, "equipmentSpawner");
@@ -721,7 +806,7 @@ namespace UmbraRoR
         public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 95f), "B U F F   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F   L I S T", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.GiveBuff(buttonStyle, "giveBuff");
@@ -747,7 +832,7 @@ namespace UmbraRoR
         public static void DrawTeleMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "T E L E P O R T E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "T E L E P O R T E R   M E N U", LabelStyle);
 
             if (Main.navigationToggle && Navigation.MenuIndex == 3)
             {
@@ -757,9 +842,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", Highlighted))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                                 Teleporter.SpawnPortals("all");
@@ -776,9 +861,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", Highlighted))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", Highlighted))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                                 Teleporter.SpawnPortals("all");
@@ -795,9 +880,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), Highlighted))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), Highlighted))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                                 Teleporter.SpawnPortals("all");
@@ -814,9 +899,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", Highlighted))
                                 Teleporter.SpawnPortals("all");
@@ -833,9 +918,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                                 Teleporter.SpawnPortals("all");
@@ -852,9 +937,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                                 Teleporter.SpawnPortals("all");
@@ -871,9 +956,9 @@ namespace UmbraRoR
                         {
                             if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                                 Teleporter.skipStage();
-                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                                 Teleporter.InstaTeleporter();
-                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                                 Teleporter.addMountain();
                             if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                                 Teleporter.SpawnPortals("all");
@@ -904,9 +989,9 @@ namespace UmbraRoR
             {
                 if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", buttonStyle))
                     Teleporter.skipStage();
-                if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R   C H A R G E", buttonStyle))
+                if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", buttonStyle))
                     Teleporter.InstaTeleporter();
-                if (GUI.Button(btn.BtnRect(3, false, "tele"), "M O U N T A I N   C H A L L E N G E - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
+                if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), buttonStyle))
                     Teleporter.addMountain();
                 if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", buttonStyle))
                     Teleporter.SpawnPortals("all");
@@ -922,7 +1007,7 @@ namespace UmbraRoR
         public static void DrawESPMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "R E N D E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
 
             if (Main.navigationToggle && Navigation.MenuIndex == 4)
             {
@@ -1028,7 +1113,7 @@ namespace UmbraRoR
         public static void DrawPlayerModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "P L A Y E R   M O D I F I C A T I O N   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "P L A Y E R   M O D I F I C A T I O N   M E N U", LabelStyle);
 
             if (Main.navigationToggle && Navigation.MenuIndex == 1)
             {
@@ -1080,12 +1165,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -1101,12 +1186,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -1344,12 +1429,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -1365,12 +1450,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -1608,12 +1693,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -1629,12 +1714,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -1872,12 +1957,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), Highlighted))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), Highlighted))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), Highlighted))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), Highlighted))
                             {
                                 Main.damageToggle = true;
                             }
@@ -1893,12 +1978,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -2136,12 +2221,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -2157,12 +2242,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), Highlighted))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), Highlighted))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), Highlighted))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), Highlighted))
                             {
                                 Main.critToggle = true;
                             }
@@ -2400,12 +2485,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -2421,12 +2506,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -2664,12 +2749,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -2685,12 +2770,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -2928,12 +3013,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -2949,12 +3034,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -3192,12 +3277,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -3213,12 +3298,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -3456,12 +3541,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -3477,12 +3562,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -3720,12 +3805,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -3741,12 +3826,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -3984,12 +4069,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -4005,12 +4090,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -4248,12 +4333,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -4269,12 +4354,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -4512,12 +4597,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -4533,12 +4618,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -4776,12 +4861,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -4797,12 +4882,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -5040,12 +5125,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -5061,12 +5146,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -5304,12 +5389,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -5325,12 +5410,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -5568,12 +5653,12 @@ namespace UmbraRoR
                             }
                             if (Main.damageToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                                 {
                                     Main.damageToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                             {
                                 Main.damageToggle = true;
                             }
@@ -5589,12 +5674,12 @@ namespace UmbraRoR
                             }
                             if (Main.critToggle)
                             {
-                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                                 {
                                     Main.critToggle = false;
                                 }
                             }
-                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                             {
                                 Main.critToggle = true;
                             }
@@ -5846,12 +5931,12 @@ namespace UmbraRoR
                 }
                 if (Main.damageToggle)
                 {
-                    if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
+                    if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), OnStyle))
                     {
                         Main.damageToggle = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E   P E R   L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
+                else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), OffStyle))
                 {
                     Main.damageToggle = true;
                 }
@@ -5867,12 +5952,12 @@ namespace UmbraRoR
                 }
                 if (Main.critToggle)
                 {
-                    if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
+                    if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), OnStyle))
                     {
                         Main.critToggle = false;
                     }
                 }
-                else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T   P E R   L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
+                else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), OffStyle))
                 {
                     Main.critToggle = true;
                 }
@@ -6067,7 +6152,7 @@ namespace UmbraRoR
         public static void DrawItemManagementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 95f), "I T E M   M A N A G E M E N T   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "I T E M   M A N A G E M E N T   M E N U", LabelStyle);
 
             if (Main.navigationToggle && Navigation.MenuIndex == 2)
             {
