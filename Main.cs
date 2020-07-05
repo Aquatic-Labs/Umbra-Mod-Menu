@@ -78,6 +78,14 @@ namespace UmbraRoR
         public static Rect itemManagerRect;
         #endregion
 
+        #region Rect Start Position Values
+        public static int topY = 10;
+        public static int leftX = 10;
+        public static int firstRightX = 424;
+        public static int secondRightX = 838;
+        public static int belowMainY = 290;
+        #endregion
+
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
@@ -174,26 +182,19 @@ namespace UmbraRoR
             //TODO: Update these values
             #region CondenseMenuValues
 
-            if (navigationToggle)
-            {
+             mainRect = new Rect(10, 10, 20, 20); //start position
+             playerModRect = new Rect(424, 10, 20, 20); //start position
+             itemManagerRect = new Rect(838, 10, 20, 20); //start positions
+             teleRect = new Rect(10, 290, 20, 20); //start position
+             ESPRect = new Rect(10, 660, 20, 20); //start position
+             lobbyRect = new Rect(10, 805, 20, 20); //start position
 
-            }
-            else
-            {
-                mainRect = new Rect(10, 10, 20, 20); //start position
-                playerModRect = new Rect(424, 10, 20, 20); //start position
-                itemManagerRect = new Rect(838, 10, 20, 20); //start positions
-                teleRect = new Rect(10, 290, 20, 20); //start position
-                ESPRect = new Rect(10, 660, 20, 20); //start position
-                lobbyRect = new Rect(10, 805, 20, 20); //start position
+             statRect = new Rect(1626, 457, 20, 20); //start position
 
-                statRect = new Rect(1626, 457, 20, 20); //start position
-
-                itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-                equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start positions
-                buffMenuRect = new Rect(1503, 10, 20, 20);//start position
-                characterRect = new Rect(1503, 10, 20, 20); //start position
-            }
+             itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
+             equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start positions
+             buffMenuRect = new Rect(1503, 10, 20, 20);//start position
+             characterRect = new Rect(1503, 10, 20, 20); //start position
 
             #endregion
 
@@ -349,6 +350,7 @@ namespace UmbraRoR
                 SprintRoutine();
                 AimBotRoutine();
                 GodRoutine();
+                UpdateMenuPositions();
             }
             catch (NullReferenceException)
             {
@@ -1108,5 +1110,48 @@ namespace UmbraRoR
             }
         }
         #endregion
+
+        public static void UpdateMenuPositions()
+        {
+            bool noAddMenusOpen = !_isTeleMenuOpen && !_isESPMenuOpen && !_CharacterToggle && !_isLobbyMenuOpen && !_isItemSpawnMenuOpen && !_isPlayerMod && !_isEquipmentSpawnMenuOpen && !_isBuffMenuOpen && !_isItemManagerOpen;
+            bool OneAddMenusOpen = _isTeleMenuOpen ^ _isESPMenuOpen ^ _CharacterToggle ^ _isLobbyMenuOpen ^ _isItemSpawnMenuOpen ^ _isPlayerMod ^ _isEquipmentSpawnMenuOpen ^ _isBuffMenuOpen ^ _isItemManagerOpen;
+            
+            if (noAddMenusOpen && navigationToggle)
+            {
+                playerModRect = new Rect(firstRightX, topY, 20, 20); //start position
+                itemManagerRect = new Rect(firstRightX, topY, 20, 20); //start positions
+                teleRect = new Rect(firstRightX, topY, 20, 20); //start position
+                ESPRect = new Rect(firstRightX, topY, 20, 20); //start position
+                lobbyRect = new Rect(firstRightX, topY, 20, 20); //start position
+            }
+            else if (OneAddMenusOpen)
+            {
+                if (_isPlayerMod)
+                {
+                    itemManagerRect = new Rect(secondRightX, topY, 20, 20); //start positions
+                    teleRect = new Rect(10, belowMainY, 20, 20); //start position
+                    ESPRect = new Rect(10, belowMainY, 20, 20); //start position
+                    lobbyRect = new Rect(10, belowMainY, 20, 20); //start position
+                }
+                else
+                {
+                    playerModRect = new Rect(secondRightX, topY, 20, 20); //start position
+                    itemManagerRect = new Rect(firstRightX, topY, 20, 20); //start positions
+                    teleRect = new Rect(firstRightX, topY, 20, 20); //start position
+                    ESPRect = new Rect(firstRightX, topY, 20, 20); //start position
+                    lobbyRect = new Rect(firstRightX, topY, 20, 20); //start position
+                }
+
+            }
+            else
+            {
+                mainRect = new Rect(10, 10, 20, 20); //start position
+                playerModRect = new Rect(424, 10, 20, 20); //start position
+                itemManagerRect = new Rect(838, 10, 20, 20); //start positions
+                teleRect = new Rect(10, 290, 20, 20); //start position
+                ESPRect = new Rect(10, 660, 20, 20); //start position
+                lobbyRect = new Rect(10, 805, 20, 20); //start position
+            }
+        }
     }
 }
