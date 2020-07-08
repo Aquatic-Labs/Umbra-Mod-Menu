@@ -190,5 +190,27 @@ namespace UmbraRoR
                 outputFile.WriteLine(Main.log + logContent);
             }
         }
+
+        public static int NumberOfBoolsTrue(/*int threshold,*/IEnumerable<bool> bools)
+        {
+            int trueCnt = 0;
+            foreach (bool b in bools)
+            {
+                if (b)
+                {
+                    trueCnt++;
+                    Main.menusOpen.Add(b);
+                }
+                else
+                {
+                    Main.menusOpen.Remove(b);
+                }
+                /*if (b && (++trueCnt > threshold))
+                {
+                    return true;
+                }*/
+            }
+            return trueCnt;
+        }
     }
 }

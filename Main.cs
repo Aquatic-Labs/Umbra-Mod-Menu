@@ -21,11 +21,13 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.2";
+            VERSION = "1.2.3";
 
         public static string log = "[" + NAME + "] ";
         public static List<string> unlockableNames = Utility.GetAllUnlockables();
         public static WeightedSelection<List<ItemIndex>> weightedSelection;
+        public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen };
+        public static List<bool> menusOpen = new List<bool>();
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -84,6 +86,7 @@ namespace UmbraRoR
         public static int firstRightX = 424;
         public static int secondRightX = 838;
         public static int belowMainY = 290;
+        public static int belowTeleY = 660;
         #endregion
 
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
@@ -95,7 +98,6 @@ namespace UmbraRoR
         public static Rect rect = new Rect(10, 10, 20, 20);
         public Rect dropDownRect = new Rect(10, 10, 20, 20);
 
-        public static Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
         public static string[] Players = new string[16];
 
         #region On GUI
@@ -350,7 +352,7 @@ namespace UmbraRoR
                 SprintRoutine();
                 AimBotRoutine();
                 GodRoutine();
-                UpdateMenuPositions();
+                //UpdateMenuPositions();
             }
             catch (NullReferenceException)
             {
@@ -1110,48 +1112,5 @@ namespace UmbraRoR
             }
         }
         #endregion
-
-        public static void UpdateMenuPositions()
-        {
-            bool noAddMenusOpen = !_isTeleMenuOpen && !_isESPMenuOpen && !_CharacterToggle && !_isLobbyMenuOpen && !_isItemSpawnMenuOpen && !_isPlayerMod && !_isEquipmentSpawnMenuOpen && !_isBuffMenuOpen && !_isItemManagerOpen;
-            bool OneAddMenusOpen = _isTeleMenuOpen ^ _isESPMenuOpen ^ _CharacterToggle ^ _isLobbyMenuOpen ^ _isItemSpawnMenuOpen ^ _isPlayerMod ^ _isEquipmentSpawnMenuOpen ^ _isBuffMenuOpen ^ _isItemManagerOpen;
-            
-            if (noAddMenusOpen && navigationToggle)
-            {
-                playerModRect = new Rect(firstRightX, topY, 20, 20); //start position
-                itemManagerRect = new Rect(firstRightX, topY, 20, 20); //start positions
-                teleRect = new Rect(firstRightX, topY, 20, 20); //start position
-                ESPRect = new Rect(firstRightX, topY, 20, 20); //start position
-                lobbyRect = new Rect(firstRightX, topY, 20, 20); //start position
-            }
-            else if (OneAddMenusOpen)
-            {
-                if (_isPlayerMod)
-                {
-                    itemManagerRect = new Rect(secondRightX, topY, 20, 20); //start positions
-                    teleRect = new Rect(10, belowMainY, 20, 20); //start position
-                    ESPRect = new Rect(10, belowMainY, 20, 20); //start position
-                    lobbyRect = new Rect(10, belowMainY, 20, 20); //start position
-                }
-                else
-                {
-                    playerModRect = new Rect(secondRightX, topY, 20, 20); //start position
-                    itemManagerRect = new Rect(firstRightX, topY, 20, 20); //start positions
-                    teleRect = new Rect(firstRightX, topY, 20, 20); //start position
-                    ESPRect = new Rect(firstRightX, topY, 20, 20); //start position
-                    lobbyRect = new Rect(firstRightX, topY, 20, 20); //start position
-                }
-
-            }
-            else
-            {
-                mainRect = new Rect(10, 10, 20, 20); //start position
-                playerModRect = new Rect(424, 10, 20, 20); //start position
-                itemManagerRect = new Rect(838, 10, 20, 20); //start positions
-                teleRect = new Rect(10, 290, 20, 20); //start position
-                ESPRect = new Rect(10, 660, 20, 20); //start position
-                lobbyRect = new Rect(10, 805, 20, 20); //start position
-            }
-        }
     }
 }
