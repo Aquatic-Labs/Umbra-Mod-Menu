@@ -66,6 +66,7 @@ namespace UmbraRoR
                 Players[i] = n.userName;
             }
         }
+
         //Reset menu when you return to main menu
         public static void ResetMenu()
         {
@@ -99,6 +100,7 @@ namespace UmbraRoR
             Main.aimBot = false;
             ItemManager.isDropItemForAll = false;
         }
+
         public static void CloseAllMenus()
         {
             Main._ifDragged = false;
@@ -180,6 +182,20 @@ namespace UmbraRoR
                     return Assembly.Load(assemblyData);
                 }
             };
+        }
+
+        public static int NumberOfPlayers()
+        {
+            GetPlayers(Main.Players);
+            int numberOfPlayers = 0;
+            for (int i = 0; i < Main.Players.Length; i++)
+            {
+                if (Main.Players[i] != null)
+                {
+                    numberOfPlayers++;
+                }
+            }
+            return numberOfPlayers;
         }
 
         public static void WriteToLog(string logContent)

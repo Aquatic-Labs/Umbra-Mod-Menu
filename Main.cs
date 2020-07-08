@@ -28,6 +28,7 @@ namespace UmbraRoR
         public static WeightedSelection<List<ItemIndex>> weightedSelection;
         public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen };
         public static List<bool> menusOpen = new List<bool>();
+        public static int numberOfPlayers;
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -130,7 +131,7 @@ namespace UmbraRoR
             if (_isLobbyMenuOpen)
             {
                 lobbyRect = GUI.Window(4, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
-                DrawMenu.DrawManagmentMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawLobbyMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
                 //Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
             if (_isItemSpawnMenuOpen)
@@ -352,6 +353,7 @@ namespace UmbraRoR
                 SprintRoutine();
                 AimBotRoutine();
                 GodRoutine();
+                UpdateNavIndexRoutine();
                 //UpdateMenuPositions();
             }
             catch (NullReferenceException)
@@ -390,7 +392,7 @@ namespace UmbraRoR
                     if (Input.GetKeyDown(KeyCode.V))
                     {
                         int oldMenuIndex = Navigation.menuIndex;
-                        Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
+                        Navigation.PressBtn();
                         int newMenuIndex = Navigation.menuIndex;
 
                         if (oldMenuIndex != newMenuIndex)
@@ -409,7 +411,7 @@ namespace UmbraRoR
                         else
                         {
                             int oldMenuIndex = Navigation.menuIndex;
-                            Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
+                            Navigation.PressBtn();
                             int newMenuIndex = Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
@@ -446,6 +448,7 @@ namespace UmbraRoR
             }
             if (Input.GetKeyDown(KeyCode.Insert))
             {
+                numberOfPlayers = Utility.NumberOfPlayers();
                 if (_isMenuOpen && navigationToggle)
                 {
                     Utility.CloseAllMenus();
@@ -552,6 +555,14 @@ namespace UmbraRoR
                 }
                 LocalPlayerBody.RecalculateStats();
 
+            }
+        }
+
+        private void UpdateNavIndexRoutine()
+        {
+            if (navigationToggle)
+            {
+                Navigation.UpdateIndexValues();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using RoR2;
+using UnityEngine;
 
 namespace UmbraRoR
 {
@@ -278,9 +279,9 @@ namespace UmbraRoR
         }
 
         //Basically recreates menu buttons based on what button is highlighted
-        public static void PressBtn(int MenuIndex, int BtnIndex)
+        public static void PressBtn()
         {
-            switch (MenuIndex)
+            switch (menuIndex)
             {
                 case 0: // Main Menu 
                     {
@@ -658,6 +659,114 @@ namespace UmbraRoR
                                 {
                                     break;
                                 }
+                        }
+                        break;
+                    }
+
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        public static GUIStyle HighlighedCheck(GUIStyle defaultStyle, GUIStyle highlighted, int currentMenu, int currentBtn)
+        {
+            if (Main.navigationToggle)
+            {
+                if (currentBtn - 1 == intraMenuIndex && currentMenu == menuIndex)
+                {
+                    return highlighted;
+                }
+                else
+                {
+                    return defaultStyle;
+                }
+            }
+            return defaultStyle;
+        }
+
+        public static void UpdateIndexValues()
+        {
+            switch (menuIndex)
+            {
+                case 0: // Main Menu 0 - 4
+                    {
+                        if (intraMenuIndex > 4)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 4;
+                        }
+                        break;
+                    }
+
+                case 1: // Player Management Menu 0 - 17
+                    {
+                        if (intraMenuIndex > 17)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 17;
+                        }
+                        break;
+                    }
+
+                case 2: // Item Management Menu 0 - 8
+                    {
+                        if (intraMenuIndex > 8)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 8;
+                        }
+                        break;
+                    }
+
+                case 3: // Teleporter Menu 0 - 6
+                    {
+                        if (intraMenuIndex > 6)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 6;
+                        }
+                        break;
+                    }
+
+                case 4: // Render Menu 0 - 1
+                    {
+                        if (intraMenuIndex > 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 1;
+                        }
+                        break;
+                    }
+
+                case 5: // Lobby Management Menu 0 - 3
+                    {
+                        if (Main.numberOfPlayers > 0)
+                        {
+                            if (intraMenuIndex > Main.numberOfPlayers - 1)
+                            {
+                                intraMenuIndex = 0;
+                            }
+                            if (intraMenuIndex < 0)
+                            {
+                                intraMenuIndex = Main.numberOfPlayers - 1;
+                            }
                         }
                         break;
                     }
