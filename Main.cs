@@ -374,7 +374,7 @@ namespace UmbraRoR
                         Utility.CloseAllMenus();
                     }
                     navigationToggle = true;
-                    Navigation.IntraMenuIndex++;
+                    Navigation.intraMenuIndex++;
                 }
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
@@ -383,48 +383,48 @@ namespace UmbraRoR
                         Utility.CloseAllMenus();
                     }
                     navigationToggle = true;
-                    Navigation.IntraMenuIndex--;
+                    Navigation.intraMenuIndex--;
                 }
                 if (navigationToggle)
                 {
                     if (Input.GetKeyDown(KeyCode.V))
                     {
-                        int oldMenuIndex = Navigation.MenuIndex;
-                        Navigation.PressBtn(Navigation.MenuIndex, Navigation.IntraMenuIndex);
-                        int newMenuIndex = Navigation.MenuIndex;
+                        int oldMenuIndex = Navigation.menuIndex;
+                        Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
+                        int newMenuIndex = Navigation.menuIndex;
 
                         if (oldMenuIndex != newMenuIndex)
                         {
-                            Navigation.IntraMenuIndex = 0;
+                            Navigation.intraMenuIndex = 0;
                         }
                     }
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
-                        bool playerPlusMinusBtn = Navigation.MenuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.IntraMenuIndex);
-                        bool itemPlusMinusBtn = Navigation.MenuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.IntraMenuIndex);
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.intraMenuIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn)
                         {
-                            Navigation.IncreaseValue(Navigation.MenuIndex, Navigation.IntraMenuIndex);
+                            Navigation.IncreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
                         } 
                         else
                         {
-                            int oldMenuIndex = Navigation.MenuIndex;
-                            Navigation.PressBtn(Navigation.MenuIndex, Navigation.IntraMenuIndex);
-                            int newMenuIndex = Navigation.MenuIndex;
+                            int oldMenuIndex = Navigation.menuIndex;
+                            Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
+                            int newMenuIndex = Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
                             {
-                                Navigation.IntraMenuIndex = 0;
+                                Navigation.intraMenuIndex = 0;
                             }
                         }
                     }
                     if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
-                        bool playerPlusMinusBtn = Navigation.MenuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.IntraMenuIndex);
-                        bool itemPlusMinusBtn = Navigation.MenuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.IntraMenuIndex);
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.intraMenuIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn)
                         {
-                            Navigation.DecreaseValue(Navigation.MenuIndex, Navigation.IntraMenuIndex);
+                            Navigation.DecreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
                         }
                         else
                         {
@@ -440,8 +440,8 @@ namespace UmbraRoR
             else if (!_isMenuOpen)
             {
                 navigationToggle = false;
-                Navigation.IntraMenuIndex = -1;
-                Navigation.MenuIndex = 0;
+                Navigation.intraMenuIndex = -1;
+                Navigation.menuIndex = 0;
                 Cursor.visible = false;
             }
             if (Input.GetKeyDown(KeyCode.Insert))

@@ -12,9 +12,9 @@ namespace UmbraRoR
 
         public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle BtnStyle, GUIStyle Highlighted)
         {
-            if (Main.navigationToggle && Navigation.MenuIndex == 0)
+            if (Main.navigationToggle && Navigation.menuIndex == 0)
             {
-                switch (Navigation.IntraMenuIndex)
+                switch (Navigation.intraMenuIndex)
                 {
                     case 0:
                         {
@@ -23,70 +23,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", Highlighted))
                                 {
                                     Main._isPlayerMod = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", Highlighted))
                             {
                                 Main._isPlayerMod = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 1;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 1;
                             }
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 2;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 3;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 4;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 5;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 5;
                             }
                             break;
                         }
@@ -98,70 +98,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 1;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 1;
                             }
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", Highlighted))
                                 {
                                     Main._isItemManagerOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", Highlighted))
                             {
                                 Main._isItemManagerOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 2;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 3;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 4;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 5;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 5;
                             }
                             break;
                         }
@@ -173,70 +173,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 1;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 1;
                             }
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 2;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", Highlighted))
                                 {
                                     Main._isTeleMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", Highlighted))
                             {
                                 Main._isTeleMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 3;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 4;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 5;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 5;
                             }
                             break;
                         }
@@ -248,70 +248,70 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 1;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 1;
                             }
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 2;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 3;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", Highlighted))
                                 {
                                     Main._isESPMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", Highlighted))
                             {
                                 Main._isESPMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 4;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                                 {
                                     Main._isLobbyMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isLobbyMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 5;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 5;
                             }
                             break;
                         }
@@ -323,82 +323,82 @@ namespace UmbraRoR
                                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                                 {
                                     Main._isPlayerMod = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                             {
                                 Main._isPlayerMod = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 1;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 1;
                             }
                             if (Main._isItemManagerOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                                 {
                                     Main._isItemManagerOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                             {
                                 Main._isItemManagerOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 2;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 2;
                             }
                             if (Main._isTeleMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                                 {
                                     Main._isTeleMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                             {
                                 Main._isTeleMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 3;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 3;
                             }
                             if (Main._isESPMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                                 {
                                     Main._isESPMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                             {
                                 Main._isESPMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 4;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 4;
                             }
                             if (Main._isLobbyMenuOpen)
                             {
                                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", Highlighted))
                                 {
                                     Main._isLobbyMenuOpen = false;
-                                    Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                                    Navigation.menuIndex = Navigation.PrevMenuIndex;
                                 }
                             }
                             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", Highlighted))
                             {
                                 Main._isLobbyMenuOpen = true;
-                                Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                                Navigation.MenuIndex = 5;
+                                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                                Navigation.menuIndex = 5;
                             }
                             break;
                         }
 
                     default:
-                        if (Navigation.IntraMenuIndex > 4)
+                        if (Navigation.intraMenuIndex > 4)
                         {
-                            Navigation.IntraMenuIndex = 0;
+                            Navigation.intraMenuIndex = 0;
                         }
-                        if (Navigation.IntraMenuIndex < 0)
+                        if (Navigation.intraMenuIndex < 0)
                         {
-                            Navigation.IntraMenuIndex = 4;
+                            Navigation.intraMenuIndex = 4;
                         }
                         break;
                 }
@@ -410,14 +410,14 @@ namespace UmbraRoR
                     if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", OnStyle))
                     {
                         Main._isPlayerMod = false;
-                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                        Navigation.menuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", OffStyle))
                 {
                     Main._isPlayerMod = true;
-                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                    Navigation.MenuIndex = 1;
+                    Navigation.PrevMenuIndex = Navigation.menuIndex;
+                    Navigation.menuIndex = 1;
                 }
 
                 if (Main._isItemManagerOpen)
@@ -425,56 +425,56 @@ namespace UmbraRoR
                     if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", OnStyle))
                     {
                         Main._isItemManagerOpen = false;
-                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                        Navigation.menuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", OffStyle))
                 {
                     Main._isItemManagerOpen = true;
-                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                    Navigation.MenuIndex = 2;
+                    Navigation.PrevMenuIndex = Navigation.menuIndex;
+                    Navigation.menuIndex = 2;
                 }
                 if (Main._isTeleMenuOpen)
                 {
                     if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", OnStyle))
                     {
                         Main._isTeleMenuOpen = false;
-                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                        Navigation.menuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", OffStyle))
                 {
                     Main._isTeleMenuOpen = true;
-                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                    Navigation.MenuIndex = 3;
+                    Navigation.PrevMenuIndex = Navigation.menuIndex;
+                    Navigation.menuIndex = 3;
                 }
                 if (Main._isESPMenuOpen)
                 {
                     if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", OnStyle))
                     {
                         Main._isESPMenuOpen = false;
-                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                        Navigation.menuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", OffStyle))
                 {
                     Main._isESPMenuOpen = true;
-                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                    Navigation.MenuIndex = 4;
+                    Navigation.PrevMenuIndex = Navigation.menuIndex;
+                    Navigation.menuIndex = 4;
                 }
                 if (Main._isLobbyMenuOpen)
                 {
                     if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", OnStyle))
                     {
                         Main._isLobbyMenuOpen = false;
-                        Navigation.MenuIndex = Navigation.PrevMenuIndex;
+                        Navigation.menuIndex = Navigation.PrevMenuIndex;
                     }
                 }
                 else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", OffStyle))
                 {
                     Main._isLobbyMenuOpen = true;
-                    Navigation.PrevMenuIndex = Navigation.MenuIndex;
-                    Navigation.MenuIndex = 5;
+                    Navigation.PrevMenuIndex = Navigation.menuIndex;
+                    Navigation.menuIndex = 5;
                 }
             }
         }
@@ -486,13 +486,13 @@ namespace UmbraRoR
 
             if (Main._CharacterCollected)
             {
-                if (Main.navigationToggle && Navigation.MenuIndex == 5)
+                if (Main.navigationToggle && Navigation.menuIndex == 5)
                 {
                     int maxBtn = -1;
                     Utility.GetPlayers(Main.Players); //update this asap
                     try
                     {
-                        switch (Navigation.IntraMenuIndex)
+                        switch (Navigation.intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -592,13 +592,13 @@ namespace UmbraRoR
                                         buttonPlacement++;
                                     }
 
-                                    if (Navigation.IntraMenuIndex > maxBtn)
+                                    if (Navigation.intraMenuIndex > maxBtn)
                                     {
-                                        Navigation.IntraMenuIndex = 0;
+                                        Navigation.intraMenuIndex = 0;
                                     }
-                                    if (Navigation.IntraMenuIndex < 0)
+                                    if (Navigation.intraMenuIndex < 0)
                                     {
-                                        Navigation.IntraMenuIndex = maxBtn;
+                                        Navigation.intraMenuIndex = maxBtn;
                                     }
                                     break;
                                 }
@@ -651,13 +651,13 @@ namespace UmbraRoR
                                         buttonPlacement++;
                                     }
 
-                                    if (Navigation.IntraMenuIndex > maxBtn)
+                                    if (Navigation.intraMenuIndex > maxBtn)
                                     {
-                                        Navigation.IntraMenuIndex = 0;
+                                        Navigation.intraMenuIndex = 0;
                                     }
-                                    if (Navigation.IntraMenuIndex < 0)
+                                    if (Navigation.intraMenuIndex < 0)
                                     {
-                                        Navigation.IntraMenuIndex = maxBtn;
+                                        Navigation.intraMenuIndex = maxBtn;
                                     }
                                     break;
                                 }
@@ -710,26 +710,26 @@ namespace UmbraRoR
                                         buttonPlacement++;
                                     }
 
-                                    if (Navigation.IntraMenuIndex > maxBtn)
+                                    if (Navigation.intraMenuIndex > maxBtn)
                                     {
-                                        Navigation.IntraMenuIndex = 0;
+                                        Navigation.intraMenuIndex = 0;
                                     }
-                                    if (Navigation.IntraMenuIndex < 0)
+                                    if (Navigation.intraMenuIndex < 0)
                                     {
-                                        Navigation.IntraMenuIndex = maxBtn;
+                                        Navigation.intraMenuIndex = maxBtn;
                                     }
                                     break;
                                 }
 
                             default:
                                 {
-                                    if (Navigation.IntraMenuIndex > 3)
+                                    if (Navigation.intraMenuIndex > 3)
                                     {
-                                        Navigation.IntraMenuIndex = 0;
+                                        Navigation.intraMenuIndex = 0;
                                     }
-                                    if (Navigation.IntraMenuIndex < 0)
+                                    if (Navigation.intraMenuIndex < 0)
                                     {
-                                        Navigation.IntraMenuIndex = 3;
+                                        Navigation.intraMenuIndex = 3;
                                     }
                                     break;
                                 }
@@ -834,9 +834,9 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "T E L E P O R T E R   M E N U", LabelStyle);
 
-            if (Main.navigationToggle && Navigation.MenuIndex == 3)
+            if (Main.navigationToggle && Navigation.menuIndex == 3)
             {
-                switch (Navigation.IntraMenuIndex)
+                switch (Navigation.intraMenuIndex)
                 {
                     case 0:
                         {
@@ -973,13 +973,13 @@ namespace UmbraRoR
 
                     default:
                         {
-                            if (Navigation.IntraMenuIndex > 6)
+                            if (Navigation.intraMenuIndex > 6)
                             {
-                                Navigation.IntraMenuIndex = 0;
+                                Navigation.intraMenuIndex = 0;
                             }
-                            if (Navigation.IntraMenuIndex < 0)
+                            if (Navigation.intraMenuIndex < 0)
                             {
-                                Navigation.IntraMenuIndex = 6;
+                                Navigation.intraMenuIndex = 6;
                             }
                             break;
                         }
@@ -1009,9 +1009,9 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
 
-            if (Main.navigationToggle && Navigation.MenuIndex == 4)
+            if (Main.navigationToggle && Navigation.menuIndex == 4)
             {
-                switch (Navigation.IntraMenuIndex)
+                switch (Navigation.intraMenuIndex)
                 {
 
                     case 0:
@@ -1070,13 +1070,13 @@ namespace UmbraRoR
 
                     default:
                         {
-                            if (Navigation.IntraMenuIndex > 1)
+                            if (Navigation.intraMenuIndex > 1)
                             {
-                                Navigation.IntraMenuIndex = 0;
+                                Navigation.intraMenuIndex = 0;
                             }
-                            if (Navigation.IntraMenuIndex < 0)
+                            if (Navigation.intraMenuIndex < 0)
                             {
-                                Navigation.IntraMenuIndex = 1;
+                                Navigation.intraMenuIndex = 1;
                             }
                             break;
                         }
@@ -1115,9 +1115,9 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "P L A Y E R   M O D I F I C A T I O N   M E N U", LabelStyle);
 
-            if (Main.navigationToggle && Navigation.MenuIndex == 1)
+            if (Main.navigationToggle && Navigation.menuIndex == 1)
             {
-                switch (Navigation.IntraMenuIndex)
+                switch (Navigation.intraMenuIndex)
                 {
                     case 0:
                         {
@@ -5873,13 +5873,13 @@ namespace UmbraRoR
 
                     default:
                         {
-                            if (Navigation.IntraMenuIndex > 17)
+                            if (Navigation.intraMenuIndex > 17)
                             {
-                                Navigation.IntraMenuIndex = 0;
+                                Navigation.intraMenuIndex = 0;
                             }
-                            if (Navigation.IntraMenuIndex < 0)
+                            if (Navigation.intraMenuIndex < 0)
                             {
-                                Navigation.IntraMenuIndex = 17;
+                                Navigation.intraMenuIndex = 17;
                             }
                             break;
                         }
@@ -6154,9 +6154,9 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "I T E M   M A N A G E M E N T   M E N U", LabelStyle);
 
-            if (Main.navigationToggle && Navigation.MenuIndex == 2)
+            if (Main.navigationToggle && Navigation.menuIndex == 2)
             {
-                switch (Navigation.IntraMenuIndex)
+                switch (Navigation.intraMenuIndex)
                 {
                     case 0:
                         {
@@ -7060,13 +7060,13 @@ namespace UmbraRoR
 
                     default:
                         {
-                            if (Navigation.IntraMenuIndex > 8)
+                            if (Navigation.intraMenuIndex > 8)
                             {
-                                Navigation.IntraMenuIndex = 0;
+                                Navigation.intraMenuIndex = 0;
                             }
-                            if (Navigation.IntraMenuIndex < 0)
+                            if (Navigation.intraMenuIndex < 0)
                             {
-                                Navigation.IntraMenuIndex = 8;
+                                Navigation.intraMenuIndex = 8;
                             }
                             break;
                         }

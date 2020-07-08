@@ -4,8 +4,8 @@ namespace UmbraRoR
 {
     class Navigation
     {
-        public static int MenuIndex = 0;
-        public static int IntraMenuIndex = -1;
+        public static int menuIndex = 0;
+        public static int intraMenuIndex = -1;
         public static int PrevMenuIndex;
         public static string[] MenuList = { "Main", "Player", "Item", "Teleporter", "Render", "Lobby" };
         public static string[] MainBtnNav = { "PlayerMod", "ItemMang", "Teleporter", "Render", "LobbyMang" };
@@ -18,7 +18,7 @@ namespace UmbraRoR
         //Goes to previous menu when backspace or left arrow is pressed
         public static void GoBackAMenu()
         {
-            switch (Navigation.MenuIndex)
+            switch (Navigation.menuIndex)
             {
                 case 0:
                     {
@@ -61,8 +61,8 @@ namespace UmbraRoR
                         break;
                     }
             }
-            IntraMenuIndex = MenuIndex - 1;
-            MenuIndex = 0;
+            intraMenuIndex = menuIndex - 1;
+            menuIndex = 0;
         }
 
         //Increase value for buttons with +/- options
@@ -284,46 +284,46 @@ namespace UmbraRoR
             {
                 case 0: // Main Menu 
                     {
-                        switch (BtnIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
                                     Main._isPlayerMod = !Main._isPlayerMod;
-                                    Navigation.MenuIndex = 1;
+                                    Navigation.menuIndex = 1;
                                     break;
                                 }
 
                             case 1:
                                 {
                                     Main._isItemManagerOpen = !Main._isItemManagerOpen;
-                                    Navigation.MenuIndex = 2;
+                                    Navigation.menuIndex = 2;
                                     break;
                                 }
 
                             case 2:
                                 {
                                     Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
-                                    Navigation.MenuIndex = 3;
+                                    Navigation.menuIndex = 3;
                                     break;
                                 }
 
                             case 3:
                                 {
                                     Main._isESPMenuOpen = !Main._isESPMenuOpen;
-                                    Navigation.MenuIndex = 4;
+                                    Navigation.menuIndex = 4;
                                     break;
                                 }
 
                             case 4:
                                 {
                                     Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
-                                    Navigation.MenuIndex = 5;
+                                    Navigation.menuIndex = 5;
                                     break;
                                 }
 
                             default:
                                 {
-                                    Navigation.MenuIndex = 0;
+                                    Navigation.menuIndex = 0;
                                     break;
                                 }
                         }
@@ -332,7 +332,7 @@ namespace UmbraRoR
 
                 case 1: // Player Management Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -478,7 +478,7 @@ namespace UmbraRoR
 
                 case 2: // Item Management Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -546,7 +546,7 @@ namespace UmbraRoR
 
                 case 3: // Teleporter Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -600,7 +600,7 @@ namespace UmbraRoR
 
                 case 4: // Render Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -624,7 +624,7 @@ namespace UmbraRoR
 
                 case 5: // Lobby Management Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
