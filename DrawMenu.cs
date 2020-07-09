@@ -8,6 +8,7 @@ namespace UmbraRoR
     {
         public static Vector2 itemSpawnerScrollPosition = Vector2.zero;
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
+        public static Vector2 buffMenuScrollPosition = Vector2.zero;
         public static Vector2 characterScrollPosition = Vector2.zero;
 
         public static void DrawNotCollectedMenu(GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle)
@@ -24,13 +25,13 @@ namespace UmbraRoR
                 if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 1)))
                 {
                     Main._isPlayerMod = false;
-                    Navigation.menuIndex = Navigation.PrevMenuIndex;
+                    Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
             else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R   M O D I F I C A T I O N S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 1)))
             {
                 Main._isPlayerMod = true;
-                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 1;
             }
 
@@ -39,13 +40,13 @@ namespace UmbraRoR
                 if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 2)))
                 {
                     Main._isItemManagerOpen = false;
-                    Navigation.menuIndex = Navigation.PrevMenuIndex;
+                    Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
             else if (GUI.Button(btn.BtnRect(2, false, "main"), "I T E M   M A N A G E M E N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 2)))
             {
                 Main._isItemManagerOpen = true;
-                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 2;
             }
             if (Main._isTeleMenuOpen)
@@ -53,13 +54,13 @@ namespace UmbraRoR
                 if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 3)))
                 {
                     Main._isTeleMenuOpen = false;
-                    Navigation.menuIndex = Navigation.PrevMenuIndex;
+                    Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
             else if (GUI.Button(btn.BtnRect(3, false, "main"), "T E L E P O R T E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 3)))
             {
                 Main._isTeleMenuOpen = true;
-                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 3;
             }
             if (Main._isESPMenuOpen)
@@ -67,13 +68,13 @@ namespace UmbraRoR
                 if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 4)))
                 {
                     Main._isESPMenuOpen = false;
-                    Navigation.menuIndex = Navigation.PrevMenuIndex;
+                    Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
             else if (GUI.Button(btn.BtnRect(4, false, "main"), "R E N D E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 4)))
             {
                 Main._isESPMenuOpen = true;
-                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 4;
             }
             if (Main._isLobbyMenuOpen)
@@ -81,13 +82,13 @@ namespace UmbraRoR
                 if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 5)))
                 {
                     Main._isLobbyMenuOpen = false;
-                    Navigation.menuIndex = Navigation.PrevMenuIndex;
+                    Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
             else if (GUI.Button(btn.BtnRect(5, false, "main"), "L O B B Y   M A N A G E M E N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 5)))
             {
                 Main._isLobbyMenuOpen = true;
-                Navigation.PrevMenuIndex = Navigation.menuIndex;
+                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 5;
             }
         }
@@ -244,16 +245,16 @@ namespace UmbraRoR
                 if (PlayerMod.movespeed >= 7)
                     PlayerMod.movespeed += 10;
             }
-            if (Main._CharacterToggle)
+            if (Main._isChangeCharacterMenuOpen)
             {
                 if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 9)))
                 {
-                    Main._CharacterToggle = false;
+                    Main._isChangeCharacterMenuOpen = false;
                 }
             }
             else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 9)))
             {
-                Main._CharacterToggle = true;
+                Main._isChangeCharacterMenuOpen = true;
             }
             if (Main._isStatMenuOpen)
             {
@@ -541,43 +542,43 @@ namespace UmbraRoR
             }
         }
 
-        public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
+        public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "C H A R A C T E R   M E N U", LabelStyle);
 
             characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            PlayerMod.ChangeCharacter(buttonStyle, "character");
+            PlayerMod.ChangeCharacter(buttonStyle, Highlighted, "character");
             GUI.EndScrollView();
         }
 
-        public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
+        public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M   M E N U", LabelStyle);
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            ItemManager.GiveItem(buttonStyle, "itemSpawner");
+            ItemManager.GiveItem(buttonStyle, Highlighted, "itemSpawner");
             GUI.EndScrollView();
         }
 
-        public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            ItemManager.GiveEquipment(buttonStyle, "equipmentSpawner");
+            ItemManager.GiveEquipment(buttonStyle, Highlighted, "equipmentSpawner");
             GUI.EndScrollView();
         }
 
-        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F   L I S T", LabelStyle);
 
-            equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            PlayerMod.GiveBuff(buttonStyle, "giveBuff");
+            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            PlayerMod.GiveBuff(buttonStyle, Highlighted, "giveBuff");
             GUI.EndScrollView();
         }
 

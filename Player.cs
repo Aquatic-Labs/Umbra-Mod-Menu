@@ -19,15 +19,12 @@ namespace UmbraRoR
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
 
-        public static void GiveBuff(GUIStyle buttonStyle, string buttonName)
+        public static void GiveBuff(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
         {
-            //LocalPlayerBody.AddBuff(buff);
-
             int buttonPlacement = 1;
             foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
             {
-                //bool unreleasedullItem = unreleasedItems.Any(item.Contains);
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buffName, buttonStyle))
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buffName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 1.2f, buttonPlacement)))
                 {
                     BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), buffName);
                     var localUser = LocalUserManager.GetFirstLocalUser();
@@ -264,27 +261,24 @@ namespace UmbraRoR
             catch (NullReferenceException) { }
         }
 
-        public static void ChangeCharacter(GUIStyle buttonStyle, string buttonName)
+        public static void ChangeCharacter(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
         {
             int buttonPlacement = 1;
-            foreach (var prefab in BodyCatalog.allBodyPrefabs)
+            foreach (var prefab in Main.bodyPrefabs)
             {
-                if (prefab.name != "ScavSackProjectile")
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), prefab.name.Replace("Body", ""), Navigation.HighlighedCheck(buttonStyle, Highlighted, 1.1f, buttonPlacement)))
                 {
-                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), prefab.name.Replace("Body", ""), buttonStyle))
-                    {
-                        GameObject newBody = BodyCatalog.FindBodyPrefab(prefab.name);
-                        if (newBody == null) return;
-                        var localUser = LocalUserManager.GetFirstLocalUser();
-                        if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
-                        var master = localUser.cachedMasterController.master;
+                    GameObject newBody = BodyCatalog.FindBodyPrefab(prefab.name);
+                    if (newBody == null) return;
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                    var master = localUser.cachedMasterController.master;
 
-                        master.bodyPrefab = newBody;
-                        master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
-                        Utility.SoftResetMenu();
-                    }
-                    buttonPlacement++;
+                    master.bodyPrefab = newBody;
+                    master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
+                    Utility.SoftResetMenu();
                 }
+                buttonPlacement++;
             }
         }
 
