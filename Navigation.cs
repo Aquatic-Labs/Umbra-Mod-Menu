@@ -1,57 +1,125 @@
 ﻿using RoR2;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace UmbraRoR
 {
     class Navigation
     {
-        public static int MenuIndex = 0;
-        public static int IntraMenuIndex = -1;
-        public static string[] MenuList = { "Main", "Player", "Item", "Teleporter", "Render", "Lobby" };
+        public static float menuIndex = 0;
+        public static int intraMenuIndex = -1;
+        public static int prevMenuIndex;
+        public static int prevIntraMenuIndex;
+        public static Tuple<float, float> highlightedBtn = new Tuple<float, float>(menuIndex, intraMenuIndex);
+
+        public static Dictionary<float, string> MenuList = new Dictionary<float, string>()
+        {
+            { 0, "Menu" },
+            { 1, "Player" },
+            { 2, "Item" },
+            { 3, "Teleporter" },
+            { 4, "Render" },
+            { 5, "Lobby" }
+        };
+
+        public static Dictionary<float, string> ExtentionMenuList = new Dictionary<float, string>()
+        {
+            { 1.1f, "CharacterMenu" },
+            { 1.2f, "BuffMenu" },
+            { 2.1f, "ItemMenu" },
+            { 2.2f, "EquipMenu" },
+        };
+
         public static string[] MainBtnNav = { "PlayerMod", "ItemMang", "Teleporter", "Render", "LobbyMang" };
-        public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "StatMenu", "BuffMenu", "RemoveBuffs", "Aimbot", "AutoSprint", "Flight", "GodMode", "NoSkillCD", "UnlockAll" };
-        public static string[] ItemBtnNav = { "GiveAll", "RollItems", "ItemMenu", "EquipMenu", "DropItems", "NoEquipCD", "StackShrine", "ClearInv" };
+        public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "CharacterMenu", "Stat", "BuffMenu", "RemoveBuffs", "Aimbot", "AutoSprint", "Flight", "GodMode", "NoSkillCD", "UnlockAll" };
+        public static string[] ItemBtnNav = { "GiveAll", "RollItems", "ItemMenu", "EquipMenu", "DropItems", "DropFromInventory", "NoEquipCD", "StackShrine", "ClearInv" };
         public static string[] TeleBtnNav = { "Skip", "InstaTP", "Mountain", "SpawnAll", "SpawnBlue", "SpawnCele", "SpawnGold" };
         public static string[] RenderBtnNav = { "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
 
-        //Goes to previous menu when backspace or left arrow is pressed
+        // Goes to previous menu when backspace or left arrow is pressed
         public static void GoBackAMenu()
         {
-            switch (Navigation.MenuIndex)
+            switch (Navigation.menuIndex)
             {
                 case 0:
                     {
                         Main.navigationToggle = false;
+                        menuIndex = 0;
+                        intraMenuIndex = -1;
                         break;
                     }
 
                 case 1:
                     {
                         Main._isPlayerMod = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 0;
+                        break;
+                    }
+
+                case 1.1f:
+                    {
+                        Main._isChangeCharacterMenuOpen = false;
+                        menuIndex = 1;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 1.2f:
+                    {
+                        Main._isBuffMenuOpen = false;
+                        menuIndex = 1;
+                        intraMenuIndex = prevIntraMenuIndex;
                         break;
                     }
 
                 case 2:
                     {
                         Main._isItemManagerOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 1;
+                        break;
+                    }
+
+                case 2.1f:
+                    {
+                        Main._isItemSpawnMenuOpen = false;
+                        menuIndex = 2;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 2.2f:
+                    {
+                        Main._isEquipmentSpawnMenuOpen = false;
+                        menuIndex = 2;
+                        intraMenuIndex = prevIntraMenuIndex;
                         break;
                     }
 
                 case 3:
                     {
                         Main._isTeleMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 2;
                         break;
                     }
 
                 case 4:
                     {
                         Main._isESPMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 3;
                         break;
                     }
 
                 case 5:
                     {
                         Main._isLobbyMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 4;
                         break;
                     }
 
@@ -60,11 +128,9 @@ namespace UmbraRoR
                         break;
                     }
             }
-            IntraMenuIndex = MenuIndex - 1;
-            MenuIndex = 0;
         }
 
-        //Increase value for buttons with +/- options
+        // Increase value for buttons with +/- options
         public static void IncreaseValue(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -170,7 +236,7 @@ namespace UmbraRoR
             }
         }
 
-        //Decrease value for buttons with +/- options
+        // Decrease value for buttons with +/- options
         public static void DecreaseValue(int MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
@@ -276,53 +342,53 @@ namespace UmbraRoR
             }
         }
 
-        //Basically recreates menu buttons based on what button is highlighted
-        public static void PressBtn(int MenuIndex, int BtnIndex)
+        // Basically recreates menu buttons based on what button is highlighted
+        public static void PressBtn()
         {
-            switch (MenuIndex)
+            switch (menuIndex)
             {
                 case 0: // Main Menu 
                     {
-                        switch (BtnIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
                                     Main._isPlayerMod = !Main._isPlayerMod;
-                                    Navigation.MenuIndex = 1;
+                                    Navigation.menuIndex = 1;
                                     break;
                                 }
 
                             case 1:
                                 {
                                     Main._isItemManagerOpen = !Main._isItemManagerOpen;
-                                    Navigation.MenuIndex = 2;
+                                    Navigation.menuIndex = 2;
                                     break;
                                 }
 
                             case 2:
                                 {
                                     Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
-                                    Navigation.MenuIndex = 3;
+                                    Navigation.menuIndex = 3;
                                     break;
                                 }
 
                             case 3:
                                 {
                                     Main._isESPMenuOpen = !Main._isESPMenuOpen;
-                                    Navigation.MenuIndex = 4;
+                                    Navigation.menuIndex = 4;
                                     break;
                                 }
 
                             case 4:
                                 {
                                     Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
-                                    Navigation.MenuIndex = 5;
+                                    Navigation.menuIndex = 5;
                                     break;
                                 }
 
                             default:
                                 {
-                                    Navigation.MenuIndex = 0;
+                                    Navigation.menuIndex = 0;
                                     break;
                                 }
                         }
@@ -331,7 +397,7 @@ namespace UmbraRoR
 
                 case 1: // Player Management Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -383,23 +449,35 @@ namespace UmbraRoR
 
                             case 8:
                                 {
-                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 1.1f;
+                                    Main._isChangeCharacterMenuOpen = !Main._isChangeCharacterMenuOpen;
                                     break;
                                 }
 
                             case 9:
                                 {
-                                    Main._isBuffMenuOpen = !Main._isBuffMenuOpen;
+                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
                                     break;
                                 }
 
                             case 10:
                                 {
-                                    PlayerMod.RemoveAllBuffs();
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 1.2f;
+                                    Main._isBuffMenuOpen = !Main._isBuffMenuOpen;
                                     break;
                                 }
 
                             case 11:
+                                {
+                                    PlayerMod.RemoveAllBuffs();
+                                    break;
+                                }
+
+                            case 12:
                                 {
                                     if (Main.aimBot)
                                     {
@@ -420,13 +498,13 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 12:
+                            case 13:
                                 {
                                     Main.alwaysSprint = !Main.alwaysSprint;
                                     break;
                                 }
 
-                            case 13:
+                            case 14:
                                 {
                                     if (Main.FlightToggle)
                                     {
@@ -443,19 +521,19 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 14:
+                            case 15:
                                 {
                                     Main.godToggle = !Main.godToggle;
                                     break;
                                 }
 
-                            case 15:
+                            case 16:
                                 {
                                     Main.skillToggle = !Main.skillToggle;
                                     break;
                                 }
 
-                            case 16:
+                            case 17:
                                 {
                                     PlayerMod.UnlockAll();
                                     break;
@@ -469,9 +547,34 @@ namespace UmbraRoR
                         break;
                     }
 
+                case 1.1f: // Character Menu
+                    {
+                        GameObject newBody = BodyCatalog.FindBodyPrefab(Main.bodyPrefabs[intraMenuIndex].name);
+                        if (newBody == null) return;
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                        var master = localUser.cachedMasterController.master;
+
+                        master.bodyPrefab = newBody;
+                        master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
+                        Utility.SoftResetMenu();
+                        break;
+                    }
+
+                case 1.2f: // Buff Menu
+                    {
+                        BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), Enum.GetNames(typeof(BuffIndex))[intraMenuIndex]);
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            Main.LocalPlayerBody.AddBuff(buffIndex);
+                        }
+                        break;
+                    }
+
                 case 2: // Item Management Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -487,12 +590,18 @@ namespace UmbraRoR
 
                             case 2:
                                 {
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 2.1f;
                                     Main._isItemSpawnMenuOpen = !Main._isItemSpawnMenuOpen;
                                     break;
                                 }
 
                             case 3:
                                 {
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 2.2f;
                                     Main._isEquipmentSpawnMenuOpen = !Main._isEquipmentSpawnMenuOpen;
                                     break;
                                 }
@@ -537,9 +646,69 @@ namespace UmbraRoR
                         break;
                     }
 
+                case 2.1f: // Give Item Menu
+                    {
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            if (ItemManager.isDropItemForAll)
+                            {
+                                ItemManager.DropItemMethod(Main.items[intraMenuIndex]);
+                            }
+                            else if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (ItemManager.CurrentInventory().Contains(Main.items[intraMenuIndex].ToString()))
+                                {
+                                    Main.LocalPlayerInv.RemoveItem(Main.items[intraMenuIndex], 1);
+                                    ItemManager.DropItemMethod(Main.items[intraMenuIndex]);
+                                }
+                                else
+                                {
+                                    Chat.AddMessage($"<color=yellow> You do not have that item and therefore cannot drop it from your inventory.</color>");
+                                    Chat.AddMessage($" ");
+                                }
+                            }
+                            else
+                            {
+                                Main.LocalPlayerInv.GiveItem(Main.items[intraMenuIndex], 1);
+                            }
+                        }
+                        break;
+                    }
+
+                case 2.2f: // Give Equipment Menu
+                    {
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            if (ItemManager.isDropItemForAll)
+                            {
+                                ItemManager.DropEquipmentMethod(Main.equipment[intraMenuIndex]);
+                            }
+                            else if (ItemManager.isDropItemFromInventory)
+                            {
+                                if (Main.LocalPlayerInv.currentEquipmentIndex == Main.equipment[intraMenuIndex])
+                                {
+                                    Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
+                                    ItemManager.DropEquipmentMethod(Main.equipment[intraMenuIndex]);
+                                }
+                                else
+                                {
+                                    Chat.AddMessage($"<color=yellow> You do not have that equipment and therefore cannot drop it from your inventory.</color>");
+                                    Chat.AddMessage($" ");
+                                }
+                            }
+                            else
+                            {
+                                Main.LocalPlayerInv.SetEquipmentIndex(Main.equipment[intraMenuIndex]);
+                            }
+                        }
+                        break;
+                    }
+
                 case 3: // Teleporter Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -593,7 +762,7 @@ namespace UmbraRoR
 
                 case 4: // Render Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -617,7 +786,7 @@ namespace UmbraRoR
 
                 case 5: // Lobby Management Menu
                     {
-                        switch (IntraMenuIndex)
+                        switch (intraMenuIndex)
                         {
                             case 0:
                                 {
@@ -651,6 +820,210 @@ namespace UmbraRoR
                                 {
                                     break;
                                 }
+                        }
+                        break;
+                    }
+
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        public static GUIStyle HighlighedCheck(GUIStyle defaultStyle, GUIStyle highlighted, float currentMenu, int currentBtn)
+        {
+            if (Main.navigationToggle)
+            {
+                if (currentBtn - 1 == intraMenuIndex && currentMenu == menuIndex)
+                {
+                    return highlighted;
+                }
+                else
+                {
+                    return defaultStyle;
+                }
+            }
+            return defaultStyle;
+        }
+
+        public static void UpdateIndexValues()
+        {
+            switch (menuIndex)
+            {
+                case 0: // Main Menu 0 - 4
+                    {
+                        if (intraMenuIndex > 4)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 4;
+                        }
+                        break;
+                    }
+
+                case 1: // Player Management Menu 0 - 17
+                    {
+                        if (intraMenuIndex > 17)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 17;
+                        }
+                        break;
+                    }
+
+                case 1.1f: // Change Character Menu
+                    {
+                        DrawMenu.characterScrollPosition.y = 40 * intraMenuIndex;
+
+                        if (intraMenuIndex > Main.bodyPrefabs.Count - 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = Main.bodyPrefabs.Count - 1;
+                        }
+
+                        if (DrawMenu.characterScrollPosition.y > (Main.bodyPrefabs.Count - 1) * 40)
+                        {
+                            DrawMenu.characterScrollPosition = Vector2.zero;
+                        }
+                        if (DrawMenu.characterScrollPosition.y < 0)
+                        {
+                            DrawMenu.characterScrollPosition.y = (Main.bodyPrefabs.Count - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 1.2f: // Give Buff Menu
+                    {
+                        DrawMenu.buffMenuScrollPosition.y = 40 * intraMenuIndex;
+
+                        if (intraMenuIndex > Enum.GetNames(typeof(BuffIndex)).Length - 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = Enum.GetNames(typeof(BuffIndex)).Length - 1;
+                        }
+
+                        if (DrawMenu.buffMenuScrollPosition.y > (Enum.GetNames(typeof(BuffIndex)).Length - 1) * 40)
+                        {
+                            DrawMenu.buffMenuScrollPosition = Vector2.zero;
+                        }
+                        if (DrawMenu.buffMenuScrollPosition.y < 0)
+                        {
+                            DrawMenu.buffMenuScrollPosition.y = (Enum.GetNames(typeof(BuffIndex)).Length - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 2: // Item Management Menu 0 - 8
+                    {
+                        if (intraMenuIndex > 8)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 8;
+                        }
+                        break;
+                    }
+
+                case 2.1f: // Give Item Menu
+                    {
+                        DrawMenu.itemSpawnerScrollPosition.y = 40 * intraMenuIndex;
+
+                        if (intraMenuIndex > Main.items.Count - 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = Main.items.Count - 1;
+                        }
+
+                        if (DrawMenu.itemSpawnerScrollPosition.y > (Main.items.Count - 1) * 40)
+                        {
+                            DrawMenu.itemSpawnerScrollPosition = Vector2.zero;
+                        }
+                        if (DrawMenu.itemSpawnerScrollPosition.y < 0)
+                        {
+                            DrawMenu.itemSpawnerScrollPosition.y = (Main.items.Count - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 2.2f: // Give Equip Menu
+                    {
+                        DrawMenu.equipmentSpawnerScrollPosition.y = 40 * intraMenuIndex;
+
+                        if (intraMenuIndex > Main.equipment.Count - 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = Main.equipment.Count - 1;
+                        }
+
+                        if (DrawMenu.equipmentSpawnerScrollPosition.y > (Main.equipment.Count - 1) * 40)
+                        {
+                            DrawMenu.equipmentSpawnerScrollPosition = Vector2.zero;
+                        }
+                        if (DrawMenu.equipmentSpawnerScrollPosition.y < 0)
+                        {
+                            DrawMenu.equipmentSpawnerScrollPosition.y = (Main.equipment.Count - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 3: // Teleporter Menu 0 - 6
+                    {
+                        if (intraMenuIndex > 6)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 6;
+                        }
+                        break;
+                    }
+
+                case 4: // Render Menu 0 - 1
+                    {
+                        if (intraMenuIndex > 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 1;
+                        }
+                        break;
+                    }
+
+                case 5: // Lobby Management Menu 0 - 3
+                    {
+                        if (Main.numberOfPlayers > 0)
+                        {
+                            if (intraMenuIndex > Main.numberOfPlayers - 1)
+                            {
+                                intraMenuIndex = 0;
+                            }
+                            if (intraMenuIndex < 0)
+                            {
+                                intraMenuIndex = Main.numberOfPlayers - 1;
+                            }
                         }
                         break;
                     }

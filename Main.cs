@@ -1,12 +1,8 @@
-﻿//TODO LIST
+﻿// TODO LIST
 /*
 Add filters to ESPs?
 Make ESP less laggy??
 Clear Items despawn beatle guards from UI
-
-Possible features:
-Respawn
-Spawn Mobs?
 */
 using System;
 using System.Collections.Generic;
@@ -21,11 +17,26 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.2";
+            VERSION = "1.2.3";
 
         public static string log = "[" + NAME + "] ";
+
+        // Used to unlock all items
         public static List<string> unlockableNames = Utility.GetAllUnlockables();
+
+        // These Values are needed for navigation to create Enumerable and indexable values with the items I've excluded
+        public static List<GameObject> bodyPrefabs = Utility.GetBodyPrefabs();
+        public static List<EquipmentIndex> equipment = Utility.GetEquipment();
+        public static List<ItemIndex> items = Utility.GetItems();
+
+        // Used for RollItems
         public static WeightedSelection<List<ItemIndex>> weightedSelection;
+
+        // Used to make sure navigation intraMenuIndex doesnt go over when in the lobby management menu
+        public static int numberOfPlayers;
+
+        public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen };
+        public static List<bool> menusOpen = new List<bool>();
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -44,8 +55,7 @@ namespace UmbraRoR
         public static bool _isStatMenuOpen = false;
         public static bool _isTeleMenuOpen = false;
         public static bool _isESPMenuOpen = false;
-        public static bool _ItemToggle = false;
-        public static bool _CharacterToggle = false;
+        public static bool _isChangeCharacterMenuOpen = false;
         public static bool _isLobbyMenuOpen = false;
         public static bool _isEditStatsOpen = false;
         public static bool _isItemSpawnMenuOpen = false;
@@ -60,7 +70,7 @@ namespace UmbraRoR
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll, aimBot, alwaysSprint, godToggle;
-        public static float delay = 0, widthSize = 500;
+        public static float delay = 0, widthSize = 400;
         public static bool navigationToggle = false;
         #endregion
 
@@ -78,6 +88,15 @@ namespace UmbraRoR
         public static Rect itemManagerRect;
         #endregion
 
+        #region Rect Start Position Values
+        public static int topY = 10;
+        public static int leftX = 10;
+        public static int firstRightX = 424;
+        public static int secondRightX = 838;
+        public static int belowMainY = 290;
+        public static int belowTeleY = 660;
+        #endregion
+
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
@@ -87,7 +106,6 @@ namespace UmbraRoR
         public static Rect rect = new Rect(10, 10, 20, 20);
         public Rect dropDownRect = new Rect(10, 10, 20, 20);
 
-        public static Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
         public static string[] Players = new string[16];
 
         #region On GUI
@@ -109,54 +127,54 @@ namespace UmbraRoR
             {
                 teleRect = GUI.Window(2, teleRect, new GUI.WindowFunction(SetTeleBG), "", new GUIStyle());
                 DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
-                //Debug.Log("X : " + teleRect.x + " Y : " + teleRect.y);
+                // Debug.Log("X : " + teleRect.x + " Y : " + teleRect.y);
             }
             if (_isESPMenuOpen)
             {
                 ESPRect = GUI.Window(3, ESPRect, new GUI.WindowFunction(SetESPBG), "", new GUIStyle());
                 DrawMenu.DrawESPMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
-                //Debug.Log("X : " + ESPRect.x + " Y : " + ESPRect.y);
+                // Debug.Log("X : " + ESPRect.x + " Y : " + ESPRect.y);
             }
             if (_isLobbyMenuOpen)
             {
                 lobbyRect = GUI.Window(4, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
-                DrawMenu.DrawManagmentMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
-                //Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
+                DrawMenu.DrawLobbyMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
             if (_isItemSpawnMenuOpen)
             {
                 itemSpawnerRect = GUI.Window(5, itemSpawnerRect, new GUI.WindowFunction(SetSpawnerBG), "", new GUIStyle());
-                DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle);
-                //Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
+                DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
             }
             if (_isPlayerMod)
             {
                 playerModRect = GUI.Window(6, playerModRect, new GUI.WindowFunction(SetPlayerModBG), "", new GUIStyle());
                 DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
-                //Debug.Log("X : " + playerModRect.x + " Y : " + playerModRect.y);
+                // Debug.Log("X : " + playerModRect.x + " Y : " + playerModRect.y);
             }
             if (_isEquipmentSpawnMenuOpen)
             {
                 equipmentSpawnerRect = GUI.Window(7, equipmentSpawnerRect, new GUI.WindowFunction(SetEquipmentBG), "", new GUIStyle());
-                DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
-                //Debug.Log("X : " + equipmentSpawnerRect.x + " Y : " + equipmentSpawnerRect.y);
+                DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + equipmentSpawnerRect.x + " Y : " + equipmentSpawnerRect.y);
             }
             if (_isBuffMenuOpen)
             {
                 buffMenuRect = GUI.Window(8, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
-                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
+                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle, HighlightBtnStyle);
             }
-            /*if (_CharacterToggle)
+            if (_isChangeCharacterMenuOpen)
             {
                 characterRect = GUI.Window(9, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
-                DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
-                //Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
-            }*/
+                DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
+            }
             if (_isItemManagerOpen)
             {
                 itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
                 DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
-                //Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
+                // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
             if (_CharacterCollected)
             {
@@ -171,30 +189,21 @@ namespace UmbraRoR
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            //TODO: Update these values
             #region CondenseMenuValues
 
-            mainRect = new Rect(10, 10, 20, 20); //start position
-            statRect = new Rect(1626, 457, 20, 20); //start position
-            teleRect = new Rect(10, 320, 20, 20); //start position *
-            ESPRect = new Rect(10, 730, 20, 20); //start position *
-            lobbyRect = new Rect(10, 915, 20, 20); //start position *
-            itemSpawnerRect = new Rect(1603, 10, 20, 20); //start position
-            equipmentSpawnerRect = new Rect(1603, 10, 20, 20); //start positions
-            buffMenuRect = new Rect(1503, 10, 20, 20);//start position
-            characterRect = new Rect(1503, 10, 20, 20); //start position
-            playerModRect = new Rect(524, 10, 20, 20); //start position
-            itemManagerRect = new Rect(524, 815, 20, 20);
+             mainRect = new Rect(10, 10, 20, 20); // start position
+             playerModRect = new Rect(424, 10, 20, 20); // start position
+             itemManagerRect = new Rect(838, 10, 20, 20); // start positions
+             teleRect = new Rect(10, 290, 20, 20); // start position
+             ESPRect = new Rect(10, 660, 20, 20); // start position
+             lobbyRect = new Rect(10, 805, 20, 20); // start position
 
-            /*mainRect = new Rect(10, 10, 20, 20); //start position
-            statRect = new Rect(1626, 457, 20, 20); //start position
-            teleRect = new Rect(426, 558, 20, 20); //start position
-            lobbyRect = new Rect(10, 558, 20, 20); //start position
-            itemSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-            equipmentSpawnerRect = new Rect(1503, 10, 20, 20); //start position
-            characterRect = new Rect(1503, 10, 20, 20); //start position
-            playerModRect = new Rect(426, 10, 20, 20); //start position
-            itemManagerRect = new Rect(426, 10, 20, 20);*/
+             statRect = new Rect(1626, 457, 20, 20); // start position
+
+             itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+             equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
+             buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+             characterRect = new Rect(1503, 10, 20, 20); // start position
 
             #endregion
 
@@ -211,7 +220,7 @@ namespace UmbraRoR
                 MainBgStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 MainBgStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 MainBgStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                MainBgStyle.fontSize = 18;
+                MainBgStyle.fontSize = 15;
                 MainBgStyle.fontStyle = FontStyle.Normal;
                 MainBgStyle.alignment = TextAnchor.UpperCenter;
             }
@@ -266,7 +275,7 @@ namespace UmbraRoR
                 OffStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OffStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OffStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                OffStyle.fontSize = 18;
+                OffStyle.fontSize = 15;
                 OffStyle.fontStyle = FontStyle.Normal;
                 OffStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -282,7 +291,7 @@ namespace UmbraRoR
                 OnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 OnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                OnStyle.fontSize = 18;
+                OnStyle.fontSize = 15;
                 OnStyle.fontStyle = FontStyle.Normal;
                 OnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -298,7 +307,7 @@ namespace UmbraRoR
                 BtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 BtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 BtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                BtnStyle.fontSize = 18;
+                BtnStyle.fontSize = 15;
                 BtnStyle.fontStyle = FontStyle.Normal;
                 BtnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -313,7 +322,7 @@ namespace UmbraRoR
                 ItemBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ItemBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ItemBtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                ItemBtnStyle.fontSize = 18;
+                ItemBtnStyle.fontSize = 15;
                 ItemBtnStyle.fontStyle = FontStyle.Normal;
                 ItemBtnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -328,7 +337,7 @@ namespace UmbraRoR
                 HighlightBtnStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 HighlightBtnStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 HighlightBtnStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
-                HighlightBtnStyle.fontSize = 18;
+                HighlightBtnStyle.fontSize = 15;
                 HighlightBtnStyle.fontStyle = FontStyle.Normal;
                 HighlightBtnStyle.alignment = TextAnchor.MiddleCenter;
             }
@@ -350,6 +359,8 @@ namespace UmbraRoR
                 SprintRoutine();
                 AimBotRoutine();
                 GodRoutine();
+                UpdateNavIndexRoutine();
+                // UpdateMenuPositions();
             }
             catch (NullReferenceException)
             {
@@ -366,54 +377,64 @@ namespace UmbraRoR
                 Cursor.visible = true;
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
+                    if (!navigationToggle)
+                    {
+                        Utility.CloseAllMenus();
+                    }
+
                     navigationToggle = true;
-                    Navigation.IntraMenuIndex++;
+                    Navigation.intraMenuIndex++;
                 }
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
+                    if (!navigationToggle)
+                    {
+                        Utility.CloseAllMenus();
+                    }
+
                     navigationToggle = true;
-                    Navigation.IntraMenuIndex--;
+                    Navigation.intraMenuIndex--;
                 }
                 if (navigationToggle)
                 {
                     if (Input.GetKeyDown(KeyCode.V))
                     {
-                        int oldMenuIndex = Navigation.MenuIndex;
-                        Navigation.PressBtn(Navigation.MenuIndex, Navigation.IntraMenuIndex);
-                        int newMenuIndex = Navigation.MenuIndex;
+                        int oldMenuIndex = (int)Navigation.menuIndex;
+                        Navigation.PressBtn();
+                        int newMenuIndex = (int)Navigation.menuIndex;
 
                         if (oldMenuIndex != newMenuIndex)
                         {
-                            Navigation.IntraMenuIndex = 0;
+                            Navigation.intraMenuIndex = 0;
                         }
                     }
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
-                        bool playerPlusMinusBtn = Navigation.MenuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.IntraMenuIndex);
-                        bool itemPlusMinusBtn = Navigation.MenuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.IntraMenuIndex);
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.intraMenuIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn)
                         {
-                            Navigation.IncreaseValue(Navigation.MenuIndex, Navigation.IntraMenuIndex);
+                            Navigation.IncreaseValue((int)Navigation.menuIndex, Navigation.intraMenuIndex);
                         } 
                         else
                         {
-                            int oldMenuIndex = Navigation.MenuIndex;
-                            Navigation.PressBtn(Navigation.MenuIndex, Navigation.IntraMenuIndex);
-                            int newMenuIndex = Navigation.MenuIndex;
+                            int oldMenuIndex = (int)Navigation.menuIndex;
+                            Navigation.PressBtn();
+                            int newMenuIndex = (int)Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
                             {
-                                Navigation.IntraMenuIndex = 0;
+                                Navigation.intraMenuIndex = 0;
                             }
                         }
                     }
                     if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
-                        bool playerPlusMinusBtn = Navigation.MenuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.IntraMenuIndex);
-                        bool itemPlusMinusBtn = Navigation.MenuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.IntraMenuIndex);
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.intraMenuIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn)
                         {
-                            Navigation.DecreaseValue(Navigation.MenuIndex, Navigation.IntraMenuIndex);
+                            Navigation.DecreaseValue((int)Navigation.menuIndex, Navigation.intraMenuIndex);
                         }
                         else
                         {
@@ -429,12 +450,13 @@ namespace UmbraRoR
             else if (!_isMenuOpen)
             {
                 navigationToggle = false;
-                Navigation.IntraMenuIndex = -1;
-                Navigation.MenuIndex = 0;
+                Navigation.intraMenuIndex = -1;
+                Navigation.menuIndex = 0;
                 Cursor.visible = false;
             }
             if (Input.GetKeyDown(KeyCode.Insert))
             {
+                numberOfPlayers = Utility.NumberOfPlayers();
                 if (_isMenuOpen && navigationToggle)
                 {
                     Utility.CloseAllMenus();
@@ -544,6 +566,14 @@ namespace UmbraRoR
             }
         }
 
+        private void UpdateNavIndexRoutine()
+        {
+            if (navigationToggle)
+            {
+                Navigation.UpdateIndexValues();
+            }
+        }
+
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
@@ -628,7 +658,7 @@ namespace UmbraRoR
                 delay = 0;
                 if (!_ifDragged)
                 {
-                    _CharacterToggle = !_CharacterToggle;
+                    _isChangeCharacterMenuOpen = !_isChangeCharacterMenuOpen;
                 }
                 _ifDragged = false;
             }
@@ -874,11 +904,11 @@ namespace UmbraRoR
 
             if (Updates.updateAvailable)
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
             }
             else
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 95f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
             }
 
             if (!_CharacterCollected)
@@ -986,8 +1016,8 @@ namespace UmbraRoR
                 {
                     offtexture = NewTexture2D;
                     offtexture.SetPixel(0, 0, new Color32(120, 120, 120, 255));
-                    //byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/OffStyle.png");
-                    //offtexture.LoadImage(FileData);
+                    // byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/OffStyle.png");
+                    // offtexture.LoadImage(FileData);
                     offtexture.Apply();
                 }
                 return offtexture;
@@ -1014,7 +1044,7 @@ namespace UmbraRoR
                 if (cornertexture == null)
                 {
                     cornertexture = NewTexture2D;
-                    //ToHtmlStringRGBA  new Color(33, 150, 243, 1)
+                    // ToHtmlStringRGBA  new Color(33, 150, 243, 1)
                     cornertexture.SetPixel(0, 0, new Color32(42, 42, 42, 0));
 
                     cornertexture.Apply();
@@ -1064,15 +1094,15 @@ namespace UmbraRoR
             if (multiplyBtn)
             {
                 btnY = 5 + 45 * y;
-                return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize - 90, 40);
+                return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize - 90, 20);
             }
-            return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 40);
+            return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 20);
         }
         #endregion
 
         #region Get Character
         // try and setup our character, if we hit an error we set it to false
-        //TODO: Find a way to stop it from checking whilst in main menu/lobby menu
+        // TODO: Find a way to stop it from checking whilst in main menu/lobby menu
         public static void GetCharacter()
         {
             try

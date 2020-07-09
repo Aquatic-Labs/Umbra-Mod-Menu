@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using RoR2;
 using System.Net;
+using UnityEngine.Networking;
 
 namespace UmbraRoR
 {
@@ -18,15 +19,12 @@ namespace UmbraRoR
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
 
-        public static void GiveBuff(GUIStyle buttonStyle, string buttonName)
+        public static void GiveBuff(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
         {
-            //LocalPlayerBody.AddBuff(buff);
-
             int buttonPlacement = 1;
             foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
             {
-                //bool unreleasedullItem = unreleasedItems.Any(item.Contains);
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buffName, buttonStyle))
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buffName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 1.2f, buttonPlacement)))
                 {
                     BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), buffName);
                     var localUser = LocalUserManager.GetFirstLocalUser();
@@ -178,8 +176,11 @@ namespace UmbraRoR
         //Respawn... Not sure how to implement it.
         public static void AttemptRespawn()
         {
-            Main.LocalPlayer.RespawnExtraLife();
-            Debug.Log($"{Main.log}: Respawning");
+            if (!Main.LocalHealth.alive)
+            {
+                Main.LocalPlayer.RespawnExtraLife();
+                Debug.Log($"{Main.log}: Respawned");
+            }
         }
 
         public static void GodMode()
@@ -258,6 +259,27 @@ namespace UmbraRoR
                 }
             }
             catch (NullReferenceException) { }
+        }
+
+        public static void ChangeCharacter(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
+        {
+            int buttonPlacement = 1;
+            foreach (var prefab in Main.bodyPrefabs)
+            {
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), prefab.name.Replace("Body", ""), Navigation.HighlighedCheck(buttonStyle, Highlighted, 1.1f, buttonPlacement)))
+                {
+                    GameObject newBody = BodyCatalog.FindBodyPrefab(prefab.name);
+                    if (newBody == null) return;
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                    var master = localUser.cachedMasterController.master;
+
+                    master.bodyPrefab = newBody;
+                    master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
+                    Utility.SoftResetMenu();
+                }
+                buttonPlacement++;
+            }
         }
 
         public static void UnlockAll()

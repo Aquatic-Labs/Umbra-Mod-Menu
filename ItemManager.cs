@@ -70,9 +70,6 @@ namespace UmbraRoR
         {
             var dropItem = netMsg.ReadMessage<DropItemPacket>();
             var body = dropItem.Player.GetComponent<CharacterBody>();
-            /*if (isDropItems)
-                body.inventory.RemoveItem(dropItem.ItemIndex, 1);
-            if (isDropItemForAll && !isDropItems)*/
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
         [RoR2.Networking.NetworkMessageHandler(msgType = HandleEquipmentId, client = true)]
@@ -80,9 +77,6 @@ namespace UmbraRoR
         {
             var dropEquipment = netMsg.ReadMessage<DropEquipmentPacket>();
             var body = dropEquipment.Player.GetComponent<CharacterBody>();
-            /*if (isDropItems)
-                body.inventory.RemoveItem(dropItem.ItemIndex, 1);
-            if (isDropItemForAll && !isDropItems)*/
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropEquipment.EquipmentIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
 
@@ -163,30 +157,6 @@ namespace UmbraRoR
         }
 
         // random items
-        /*public static void RollItems(string ammount)
-        {
-            try
-            {
-                int num;
-                TextSerialization.TryParseInvariant(ammount, out num);
-                if (num > 0)
-                {
-                    WeightedSelection<List<PickupIndex>> weightedSelection = new WeightedSelection<List<PickupIndex>>(8);
-                    weightedSelection.AddChoice(Run.instance.availableTier1DropList, 80f);
-                    weightedSelection.AddChoice(Run.instance.availableTier2DropList, 19f);
-                    weightedSelection.AddChoice(Run.instance.availableTier3DropList, 1f);
-                    for (int i = 0; i < num; i++)
-                    {
-                        List <PickupIndex> list = weightedSelection.Evaluate(UnityEngine.Random.value);
-                        Main.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)].itemIndex, 1);
-                    }
-                }
-            }
-            catch (ArgumentException)
-            {
-            }
-        }*/
-
         public static void RollItems(string ammount)
         {
             try
@@ -289,127 +259,82 @@ namespace UmbraRoR
         }
 
         //Draws list of items and gives item selected
-        public static void GiveItem(GUIStyle buttonStyle, string buttonName)
+        public static void GiveItem(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
         {
             //Removes null items and no icon items from item list. Might change if requested.
-            string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
             int buttonPlacement = 1;
-            foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
+            foreach (var itemIndex in Main.items)
             {
-                bool unreleasednullItem = unreleasedItems.Any(itemName.Contains);
-                if (!unreleasednullItem)
+                string itemName = itemIndex.ToString();
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 2.1f, buttonPlacement)))
                 {
-                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, buttonStyle))
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
                     {
-                        Debug.Log($"Button Drew: {buttonPlacement}");
-                        ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
-                        var localUser = LocalUserManager.GetFirstLocalUser();
-                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        if (isDropItemForAll)
                         {
-                            if (isDropItemForAll)
+                            DropItemMethod(itemIndex);
+                        }
+                        else if (isDropItemFromInventory)
+                        {
+                            if (CurrentInventory().Contains(itemName))
                             {
+                                Main.LocalPlayerInv.RemoveItem(itemIndex, 1);
                                 DropItemMethod(itemIndex);
-                            }
-                            else if (isDropItemFromInventory)
-                            {
-                                if (CurrentInventory().Contains(itemName))
-                                {
-                                    Main.LocalPlayerInv.RemoveItem(itemIndex, 1);
-                                    DropItemMethod(itemIndex);
-                                }
-                                else
-                                {
-                                    Chat.AddMessage($"<color=yellow> You do not have that item and therefore cannot drop it from your inventory.</color>");
-                                    Chat.AddMessage($" ");
-                                }
                             }
                             else
                             {
-                                Main.LocalPlayerInv.GiveItem(itemIndex, 1);
+                                Chat.AddMessage($"<color=yellow> You do not have that item and therefore cannot drop it from your inventory.</color>");
+                                Chat.AddMessage($" ");
                             }
                         }
-                    }
-                    buttonPlacement++;
-                }
-                //Since "Ghost" is unreleased item, "GhostOnKill" was getting removed from item list.
-                else if (itemName == "GhostOnKill")
-                {
-                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, buttonStyle))
-                    {
-                        ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
-                        var localUser = LocalUserManager.GetFirstLocalUser();
-                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        else
                         {
-                            if (isDropItemForAll)
-                            {
-                                DropItemMethod(itemIndex);
-                            }
-                            else if (isDropItemFromInventory)
-                            {
-                                if (CurrentInventory().Contains(itemName))
-                                {
-                                    Main.LocalPlayerInv.RemoveItem(itemIndex, 1);
-                                    DropItemMethod(itemIndex);
-                                }
-                                else
-                                {
-                                    Chat.AddMessage($"<color=yellow> You do not have that item and therefore cannot drop it from your inventory.</color>");
-                                    Chat.AddMessage($" ");
-                                }
-                            }
-                            else
-                            {
-                                Main.LocalPlayerInv.GiveItem(itemIndex, 1);
-                            }
+                            Main.LocalPlayerInv.GiveItem(itemIndex, 1);
                         }
                     }
-                    buttonPlacement++;
                 }
+                buttonPlacement++;
             }
         }
 
         //Draws list of equipment and gives equipment selected
-        public static void GiveEquipment(GUIStyle buttonStyle, string buttonName)
+        public static void GiveEquipment(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
         {
             //Removes null equipment and no icon equipment from item list. Might change if requested.
-            string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
             int buttonPlacement = 1;
-            foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
+            foreach (var equipmentIndex in Main.equipment)
             {
-                bool unreleasednullEquipment = unreleasedEquipment.Any(equipmentName.Contains);
-                if (!unreleasednullEquipment)
+                string equipmentName = equipmentIndex.ToString();
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 2.2f, buttonPlacement)))
                 {
-                    if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, buttonStyle))
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
                     {
-                        EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
-                        var localUser = LocalUserManager.GetFirstLocalUser();
-                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        if (isDropItemForAll)
                         {
-                            if (isDropItemForAll)
+                            DropEquipmentMethod(equipmentIndex);
+                        }
+                        else if (isDropItemFromInventory)
+                        {
+                            if (Main.LocalPlayerInv.currentEquipmentIndex == equipmentIndex)
                             {
+                                Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
                                 DropEquipmentMethod(equipmentIndex);
-                            }
-                            else if (isDropItemFromInventory)
-                            {
-                                if (Main.LocalPlayerInv.currentEquipmentIndex == equipmentIndex)
-                                {
-                                    Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
-                                    DropEquipmentMethod(equipmentIndex);
-                                }
-                                else
-                                {
-                                    Chat.AddMessage($"<color=yellow> You do not have that equipment and therefore cannot drop it from your inventory.</color>");
-                                    Chat.AddMessage($" ");
-                                }
                             }
                             else
                             {
-                                Main.LocalPlayerInv.SetEquipmentIndex(equipmentIndex);
+                                Chat.AddMessage($"<color=yellow> You do not have that equipment and therefore cannot drop it from your inventory.</color>");
+                                Chat.AddMessage($" ");
                             }
                         }
+                        else
+                        {
+                            Main.LocalPlayerInv.SetEquipmentIndex(equipmentIndex);
+                        }
                     }
-                    buttonPlacement++;
                 }
+                buttonPlacement++;
             }
         }
 
