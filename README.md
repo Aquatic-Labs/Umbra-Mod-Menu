@@ -11,6 +11,8 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 # Has been updated for the Artifacts Update
 # Features
 
+- [ ] Change Character
+- [ ] Play as mobs/unreleased characters
 - [ ] Clear items in inventory
 - [ ] Give all items
 - [ ] Stack inventory (does the same thing as the Shrine of Order)
@@ -55,8 +57,7 @@ Note: Some features may not work if you are not the host of the lobby
 - [ ] Add filters to ESPs?
 - [ ] Make ESP less laggy?
 - [ ] Clear Items despawn beatle guards/Allies from UI
-- [ ] Spawn Mobs
-- [ ] Dynamic Menu Placement (based on what menues are open etc)
+
 
 # Getting Started:
 ### Requirements
@@ -147,6 +148,13 @@ Method: Load
 ```
 
 # Changelog:
+7/9/2020 v1.2.3
+- [ ] Added the ability to change characters and play as unreleased characters and mobs.
+- [ ] Added Keyboard Navigation to change character menu, give buff menu, give item menu, and give equipment menu.
+- [ ] Completely reworked how Keyboard Navigation works behind the scenes.
+- [ ] Made the menu more compact.
+- [ ] Refactored a few things.
+
 7/3/2020 v1.2.2
 - [ ] Menu now `checks for updates` on inject and will tell you if its outdated
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
