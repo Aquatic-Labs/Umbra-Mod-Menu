@@ -273,8 +273,10 @@ namespace UmbraRoR
                 ActiveModsStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ActiveModsStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
                 ActiveModsStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.fontSize = 20;
+                ActiveModsStyle.wordWrap = true;
                 ActiveModsStyle.fontStyle = FontStyle.Normal;
-                ActiveModsStyle.alignment = TextAnchor.MiddleRight;
+                ActiveModsStyle.alignment = TextAnchor.MiddleLeft;
             }
 
             if (renderInteractablesStyle == null)

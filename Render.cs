@@ -106,28 +106,28 @@ namespace UmbraRoR
             List<string> modsActive = new List<string>();
             Dictionary<string, bool> allMods = new Dictionary<string, bool>()
             {
-                { "Active Mods", Main.renderActiveMods },
                 { "Aimbot", Main.aimBot },
-                { "Always Sprint", Main.alwaysSprint },
-                { "Drop Items", ItemManager.isDropItemForAll },
-                { "Drop Items from Inventory", ItemManager.isDropItemFromInventory },
+                { "Always-Sprint", Main.alwaysSprint },
+                { "Drop-Items", ItemManager.isDropItemForAll },
+                { "Drop-Items-from-Inventory", ItemManager.isDropItemFromInventory },
                 { "Flight", Main.FlightToggle },
-                { "God Mode", Main.godToggle },
-                { "Keyboard Navigation", Main.navigationToggle },
-                { "Modified Armor", Main.armorToggle },
-                { "Modified Attack Speed", Main.attackSpeedToggle },
-                { "Modified Crit", Main.critToggle },
-                { "Modified Damage", Main.damageToggle },
-                { "Modified Move Speed", Main.moveSpeedToggle },
-                { "Modified Regen", Main.regenToggle },
-                { "No Equipment Cooldown", Main.noEquipmentCooldown },
-                { "No Skill Cooldowns", Main.skillToggle },
-                { "Render Interactables", Main.renderInteractables },
-                { "Render Mobs", Main.renderMobs }
+                { "God-Mode", Main.godToggle },
+                { "Keyboard-Navigation", Main.navigationToggle },
+                { "Modified-Armor", Main.armorToggle },
+                { "Modified-Attack Speed", Main.attackSpeedToggle },
+                { "Modified-Crit", Main.critToggle },
+                { "Modified-Damage", Main.damageToggle },
+                { "Modified-Move-Speed", Main.moveSpeedToggle },
+                { "Modified-Regen", Main.regenToggle },
+                { "No-Equipment-Cooldown", Main.noEquipmentCooldown },
+                { "No-Skill-Cooldowns", Main.skillToggle },
+                { "Render-Interactables", Main.renderInteractables },
+                { "Render-Mobs", Main.renderMobs }
             };
 
             string modsBoxText = "";
             Vector2 farRight = new Vector2(Screen.width, 0);
+            Vector2 bottom = new Vector2(0, Screen.height);
 
             foreach (string modName in allMods.Keys)
             {
@@ -146,10 +146,16 @@ namespace UmbraRoR
             {
                 for (int i = 0; i < modsActive.Count; i++)
                 {
-                    modsBoxText += $"{modsActive[i]}\n";
+                    //modsBoxText += $"{modsActive[i]}\n";
+                    modsBoxText += $"{modsActive[i]}    ";
                 }
 
-                GUI.Label(new Rect(farRight.x - 210f, 10f, 200f, 16.66666667f * modsActive.Count), modsBoxText, Main.ActiveModsStyle);
+                if (modsBoxText != "")
+                {
+                    //GUI.Label(new Rect(farRight.x - 210f, 20f, 200f, 16.66666667f * modsActive.Count), modsBoxText, Main.ActiveModsStyle);
+                    GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Main.ActiveModsStyle);
+                    GUI.Label(new Rect(Screen.width / 9, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
+                }
             }
         }
     }
