@@ -99,8 +99,21 @@ namespace UmbraRoR
             Main.godToggle = false;
             Main.alwaysSprint = false;
             Main.aimBot = false;
+            Main.unloadConfirm = false;
+            ItemManager.itemsToRoll = 5;
             ItemManager.isDropItemForAll = false;
-        }
+            ItemManager.isDropItemFromInventory = false;
+            ItemManager.allItemsQuantity = 1;
+            PlayerMod.damagePerLvl = 10;
+            PlayerMod.CritPerLvl = 1;
+            PlayerMod.attackSpeed = 1;
+            PlayerMod.armor = 0;
+            PlayerMod.movespeed = 7;
+            PlayerMod.jumpCount = 1;
+            PlayerMod.xpToGive = 50;
+            PlayerMod.moneyToGive = 50;
+            PlayerMod.coinsToGive = 50;
+    }
 
         public static void CloseAllMenus()
         {

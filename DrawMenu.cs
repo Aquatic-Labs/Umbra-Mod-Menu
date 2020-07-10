@@ -95,6 +95,7 @@ namespace UmbraRoR
             {
                 if (GUI.Button(btn.BtnRect(6, false, "main"), "C O N F I R M ?", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 6)))
                 {
+                    Utility.ResetMenu();
                     Loader.Unload();
                 }
             }

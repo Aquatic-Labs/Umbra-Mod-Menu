@@ -397,6 +397,7 @@ namespace UmbraRoR
                                 {
                                     if (Main.unloadConfirm)
                                     {
+                                        Utility.ResetMenu();
                                         Loader.Unload();
                                     }
                                     else
