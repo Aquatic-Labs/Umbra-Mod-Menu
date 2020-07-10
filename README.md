@@ -32,7 +32,7 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 - [ ] See mobs through walls - Needs work, laggy and may crash game
 - [ ] Teleporter Management - Spawn teleporters(newt, celestine, gold), add Mountain Shrine stack, skip stage, insta charge tp
 
-![image](https://user-images.githubusercontent.com/12210881/85503584-03c3e080-b5b8-11ea-8c56-539bff7ece66.png)
+![image](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)
 
 Press the `Insert` key to open.
 
