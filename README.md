@@ -147,7 +147,7 @@ Method: Load
 ```
 
 # Changelog:
-7/14/2020 v1.2.4
+7/14/2020 v1.2.4:
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
 - [ ] Updated Menu positions to support 1080p & 1440p.
@@ -161,14 +161,14 @@ Method: Load
 - [ ] Fixed a bug causing Stats Menu & drag location to reset when insert was pressed while Navigation was toggled.
 
 
-7/9/2020 v1.2.3
+7/9/2020 v1.2.3:
 - [ ] Added the ability to change characters and play as unreleased characters and mobs.
 - [ ] Added Keyboard Navigation to change character menu, give buff menu, give item menu, and give equipment menu.
 - [ ] Completely reworked how Keyboard Navigation works behind the scenes.
 - [ ] Made the menu more compact.
 - [ ] Refactored a few things.
 
-7/3/2020 v1.2.2
+7/3/2020 v1.2.2:
 - [ ] Menu now `checks for updates` on inject and will tell you if its outdated
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
 - [ ] Improved Flight
