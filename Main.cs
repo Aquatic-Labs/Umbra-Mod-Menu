@@ -67,7 +67,7 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle;
         public static bool renderActiveMods = true;
@@ -112,6 +112,15 @@ namespace UmbraRoR
         #region On GUI
         private void OnGUI()
         {
+            if (Updates.updateAvailable)
+            {
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Updates.latestVersion})</color>", WatermarkStyle);
+            }
+            else
+            {
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu v{VERSION}", WatermarkStyle);
+            }
+
             #region GenerateMenus
 
             mainRect = GUI.Window(0, mainRect, new GUI.WindowFunction(SetMainBG), "", new GUIStyle());
@@ -306,6 +315,18 @@ namespace UmbraRoR
                 renderMobsStyle.onActive.textColor = Color.red;
                 renderMobsStyle.fontStyle = FontStyle.Normal;
                 renderMobsStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (WatermarkStyle == null)
+            {
+                WatermarkStyle = new GUIStyle();
+                WatermarkStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.fontSize = 14;
+                WatermarkStyle.fontStyle = FontStyle.Normal;
+                WatermarkStyle.alignment = TextAnchor.MiddleRight;
             }
 
             if (OffStyle == null)
