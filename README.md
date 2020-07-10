@@ -32,7 +32,7 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 - [ ] Stats Modification/View
 - [ ] Unlock All
 
-![image](https://user-images.githubusercontent.com/12210881/85503584-03c3e080-b5b8-11ea-8c56-539bff7ece66.png)
+![image](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)
 
 Press the `Insert` key to open.
 
