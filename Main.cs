@@ -120,7 +120,7 @@ namespace UmbraRoR
             }
             else
             {
-                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu v{VERSION}", WatermarkStyle);
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", WatermarkStyle);
             }
 
             #region GenerateMenus
@@ -200,23 +200,41 @@ namespace UmbraRoR
         public void Start()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-
+            Utility.WriteToLog(Screen.height.ToString());
             #region CondenseMenuValues
+            if (Screen.height > 1080)
+            {
+                mainRect = new Rect(10, 10, 20, 20); // start position
+                playerModRect = new Rect(424, 10, 20, 20); // start position
+                itemManagerRect = new Rect(838, 10, 20, 20); // start positions
+                teleRect = new Rect(10, 335, 20, 20); // start position
+                ESPRect = new Rect(10, 705, 20, 20); // start position
+                lobbyRect = new Rect(10, 895, 20, 20); // start position
 
-             mainRect = new Rect(10, 10, 20, 20); // start position
-             playerModRect = new Rect(424, 10, 20, 20); // start position
-             itemManagerRect = new Rect(838, 10, 20, 20); // start positions
-             teleRect = new Rect(10, 290, 20, 20); // start position
-             ESPRect = new Rect(10, 660, 20, 20); // start position
-             lobbyRect = new Rect(10, 805, 20, 20); // start position
+                statRect = new Rect(1626, 457, 20, 20); // start position
 
-             statRect = new Rect(1626, 457, 20, 20); // start position
+                itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
+                buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+                characterRect = new Rect(1503, 10, 20, 20); // start position
+            }
+            else
+            {
+                mainRect = new Rect(10, 10, 20, 20); // start position
+                playerModRect = new Rect(424, 10, 20, 20); // start position
+                itemManagerRect = new Rect(838, 10, 20, 20); // start positions
+                teleRect = new Rect(10, 335, 20, 20); // start position
+                ESPRect = new Rect(10, 705, 20, 20); // start position
+                lobbyRect = new Rect(838, 470, 20, 20); // start position
 
-             itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
-             equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
-             buffMenuRect = new Rect(1503, 10, 20, 20);// start position
-             characterRect = new Rect(1503, 10, 20, 20); // start position
+                statRect = new Rect(1626, 457, 20, 20); // start position
 
+                itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
+                buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+                characterRect = new Rect(1503, 10, 20, 20); // start position
+            }
+            
             #endregion
 
             #region Styles

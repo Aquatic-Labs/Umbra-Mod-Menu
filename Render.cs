@@ -154,7 +154,7 @@ namespace UmbraRoR
                 {
                     //GUI.Label(new Rect(farRight.x - 210f, 20f, 200f, 16.66666667f * modsActive.Count), modsBoxText, Main.ActiveModsStyle);
                     GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Main.ActiveModsStyle);
-                    GUI.Label(new Rect(Screen.width / 9, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
+                    GUI.Label(new Rect((Screen.width / 16) + 124, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
                 }
             }
         }
