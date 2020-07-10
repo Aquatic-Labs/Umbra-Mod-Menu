@@ -487,25 +487,36 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
 
+            if (Main.renderActiveMods)
+            {
+                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 1)))
+                {
+                    Main.renderActiveMods = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 1)))
+            {
+                Main.renderActiveMods = true;
+            }
             if (Main.renderInteractables)
             {
-                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 1)))
+                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 2)))
                 {
                     Main.renderInteractables = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 1)))
+            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 2)))
             {
                 Main.renderInteractables = true;
             }
             if (Main.renderMobs)
             {
-                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 2)))
+                if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 3)))
                 {
                     Main.renderMobs = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 2)))
+            else if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 3)))
             {
                 Main.renderMobs = true;
             }

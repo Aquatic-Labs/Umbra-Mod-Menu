@@ -266,6 +266,17 @@ namespace UmbraRoR
                 TitleStyle.alignment = TextAnchor.UpperCenter;
             }
 
+            if (ActiveModsStyle == null)
+            {
+                ActiveModsStyle = new GUIStyle();
+                ActiveModsStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.fontStyle = FontStyle.Normal;
+                ActiveModsStyle.alignment = TextAnchor.MiddleRight;
+            }
+
             if (renderInteractablesStyle == null)
             {
                 renderInteractablesStyle = new GUIStyle();
@@ -517,6 +528,10 @@ namespace UmbraRoR
             if (renderMobs)
             {
                 Render.Mobs();
+            }
+            if (renderActiveMods)
+            {
+                Render.ActiveMods();
             }
         }
 

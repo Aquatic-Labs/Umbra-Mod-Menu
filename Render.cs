@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using RoR2;
+using System.Collections.Generic;
 
 namespace UmbraRoR
 {
@@ -97,6 +98,58 @@ namespace UmbraRoR
                         GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
                     }
                 }
+            }
+        }
+
+        public static void ActiveMods()
+        {
+            List<string> modsActive = new List<string>();
+            Dictionary<string, bool> allMods = new Dictionary<string, bool>()
+            {
+                { "Active Mods", Main.renderActiveMods },
+                { "Aimbot", Main.aimBot },
+                { "Always Sprint", Main.alwaysSprint },
+                { "Drop Items", ItemManager.isDropItemForAll },
+                { "Drop Items from Inventory", ItemManager.isDropItemFromInventory },
+                { "Flight", Main.FlightToggle },
+                { "God Mode", Main.godToggle },
+                { "Keyboard Navigation", Main.navigationToggle },
+                { "Modified Armor", Main.armorToggle },
+                { "Modified Attack Speed", Main.attackSpeedToggle },
+                { "Modified Crit", Main.critToggle },
+                { "Modified Damage", Main.damageToggle },
+                { "Modified Move Speed", Main.moveSpeedToggle },
+                { "Modified Regen", Main.regenToggle },
+                { "No Equipment Cooldown", Main.noEquipmentCooldown },
+                { "No Skill Cooldowns", Main.skillToggle },
+                { "Render Interactables", Main.renderInteractables },
+                { "Render Mobs", Main.renderMobs }
+            };
+
+            string modsBoxText = "";
+            Vector2 farRight = new Vector2(Screen.width, 0);
+
+            foreach (string modName in allMods.Keys)
+            {
+                allMods.TryGetValue(modName, out bool active);
+                if (active)
+                {
+                    modsActive.Add(modName);
+                }
+                else if (modsActive.Contains(modName))
+                {
+                    modsActive.Remove(modName);
+                }
+            }
+
+            if (modsActive != null)
+            {
+                for (int i = 0; i < modsActive.Count; i++)
+                {
+                    modsBoxText += $"{modsActive[i]}\n";
+                }
+
+                GUI.Label(new Rect(farRight.x - 210f, 10f, 200f, 16.66666667f * modsActive.Count), modsBoxText, Main.ActiveModsStyle);
             }
         }
     }

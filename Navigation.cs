@@ -766,11 +766,17 @@ namespace UmbraRoR
                         {
                             case 0:
                                 {
-                                    Main.renderInteractables = !Main.renderInteractables;
+                                    Main.renderActiveMods = !Main.renderActiveMods;
                                     break;
                                 }
 
                             case 1:
+                                {
+                                    Main.renderInteractables = !Main.renderInteractables;
+                                    break;
+                                }
+
+                            case 2:
                                 {
                                     Main.renderMobs = !Main.renderMobs;
                                     break;
@@ -999,15 +1005,15 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Render Menu 0 - 1
+                case 4: // Render Menu 0 - 2
                     {
-                        if (intraMenuIndex > 1)
+                        if (intraMenuIndex > 2)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 1;
+                            intraMenuIndex = 2;
                         }
                         break;
                     }
