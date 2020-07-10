@@ -137,14 +137,9 @@ pause
 ```
 6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
-7. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
+### Build
+1. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
 
-8. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
-```
-Namespace: UmbraRoR
-Class: Loader
-Method: Load
-```
 
 # Changelog:
 7/14/2020 v1.2.4:
