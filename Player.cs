@@ -192,7 +192,6 @@ namespace UmbraRoR
         {
             var bodyIndex = BodyCatalog.FindBodyIndex(Main.LocalPlayerBody);
             var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
-            Debug.Log(survivorIndex.ToString());
             return survivorIndex;
         }
 
