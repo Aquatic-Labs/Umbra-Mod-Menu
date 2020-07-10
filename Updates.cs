@@ -8,7 +8,7 @@ namespace UmbraRoR
         public static bool updateAvailable;
         public static string latestVersion;
         public static bool devBuild;
-        public static bool upToDate;
+        public static bool upToDate = true;
 
         public static async void CheckForUpdate()
         {
@@ -28,19 +28,16 @@ namespace UmbraRoR
                     int latestVersionNumber = int.Parse(latestVersionSplit[i]);
                     if (versionNumber < latestVersionNumber)
                     {
+                        upToDate = false;
                         updateAvailable = true;
                         break;
                     }
                     else if (versionNumber > latestVersionNumber)
                     {
+                        upToDate = false;
                         devBuild = true;
                         break;
                     }
-                }
-                
-                if (!devBuild && !updateAvailable)
-                {
-                    upToDate = true;
                 }
             }
             catch(Exception e)
