@@ -59,6 +59,14 @@ Note: Some features may not work if you are not the host of the lobby
 
 
 # Getting Started:
+## v1.2.4 and above
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
+2. Extract the zip.
+3. While the game is running, run `UmbraInjector.exe`
+
+Note: Make sure `UmbraInjector.exe` and the `Data` folder stay in the same directory.
+
+## v1.2.3 and below
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
 
@@ -143,6 +151,7 @@ pause
 
 # Changelog:
 7/14/2020 v1.2.4:
+- [ ] Releases from now on will be an exe installer rather than a dll.
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
 - [ ] Updated Menu positions to support 1080p & 1440p.
