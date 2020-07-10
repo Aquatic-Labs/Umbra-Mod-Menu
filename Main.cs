@@ -204,7 +204,7 @@ namespace UmbraRoR
         public void Start()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            Utility.WriteToLog(Screen.height.ToString());
+
             #region CondenseMenuValues
             if (Screen.height > 1080)
             {
