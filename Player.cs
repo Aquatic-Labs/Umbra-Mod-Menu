@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using UnityEngine;
 using RoR2;
-using System.Net;
-using UnityEngine.Networking;
 
 namespace UmbraRoR
 {
@@ -210,7 +208,7 @@ namespace UmbraRoR
                 var downDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
                 var isForward = Vector3.Dot(forwardDirection, aimDirection) > 0f;
 
-                var isSprinting = Main.LocalNetworkUser.inputPlayer.GetButton("Sprint");
+                var isSprinting = Main.alwaysSprint ? Main.LocalPlayerBody.isSprinting : Main.LocalNetworkUser.inputPlayer.GetButton("Sprint");
                 var isJumping = Main.LocalNetworkUser.inputPlayer.GetButton("Jump");
                 var isGoingDown = Input.GetKey(KeyCode.X);
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
@@ -218,6 +216,11 @@ namespace UmbraRoR
 
                 if (isSprinting)
                 {
+                    if (!Main.alwaysSprint && !Main.LocalNetworkUser.inputPlayer.GetButton("Sprint"))
+                    {
+                        Main.LocalPlayerBody.isSprinting = false;
+                    }
+
                     Main.LocalPlayerBody.characterMotor.velocity = forwardDirection * 100f;
                     Main.LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
                     if (isStrafing)
