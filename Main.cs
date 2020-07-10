@@ -1005,7 +1005,7 @@ namespace UmbraRoR
             }
             else if (Updates.devBuild)
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n</color><color=yellow>D E V</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=yellow>D E V</color>", TitleStyle);
             }
 
             if (!_CharacterCollected)

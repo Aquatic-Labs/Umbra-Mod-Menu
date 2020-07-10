@@ -13,9 +13,18 @@ namespace UmbraRoR
 
         public static void DrawNotCollectedMenu(GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle)
         {
-            GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
-            GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
-            GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle);
+            if (Updates.updateAvailable)
+            {
+                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>", buttonStyle);
+            }
+            else if (Updates.upToDate || Updates.devBuild)
+            {
+                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle);
+            }
         }
 
         public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle ButtonStyle, GUIStyle Highlighted)
