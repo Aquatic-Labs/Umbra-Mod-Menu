@@ -6,7 +6,7 @@ namespace UmbraRoR
 {
     public class Render : MonoBehaviour
     {
-        public static void RenderInteractables()
+        public static void Interactables()
         {
             foreach (TeleporterInteraction teleporterInteraction in FindObjectsOfType<TeleporterInteraction>())
             {
@@ -15,7 +15,7 @@ namespace UmbraRoR
                 var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
                 if (BoundingVector.z > 0.01)
                 {
-                    GUI.color =
+                    Main.renderTeleporterStyle.normal.textColor =
                         teleporterInteraction.isIdle ? Color.magenta :
                         teleporterInteraction.isIdleToCharging || teleporterInteraction.isCharging ? Color.yellow :
                         teleporterInteraction.isCharged ? Color.green : Color.yellow;
@@ -30,7 +30,7 @@ namespace UmbraRoR
                         teleporterInteraction.isInFinalSequence ? "Final-Sequence" :
                         "???");
                     string boxText = $"{friendlyName}\n{status}\n{distance}m";
-                    GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText);
+                    GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderTeleporterStyle);
                 }
             }
 
@@ -44,20 +44,19 @@ namespace UmbraRoR
                     if (BoundingVector.z > 0.01)
                     {
                         int distance = (int)distanceToObject;
-                        GUI.color = Color.green;
                         String friendlyName = purchaseInteraction.GetDisplayName();
                         int cost = purchaseInteraction.cost;
                         string boxText = $"{friendlyName}\n${cost}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
                     }
                 }
             }
         }
 
-        //Needs improvement. Causes a lot of lag
-        public static void RenderMobs()
+        // Needs improvement. Causes a lot of lag
+        public static void Mobs()
         {
-            var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
+            var localUser = LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
             if (!controller)
             {
@@ -68,19 +67,20 @@ namespace UmbraRoR
             {
                 return;
             }
-            var inputBank = body.GetComponent<RoR2.InputBankTest>();
+            var inputBank = body.GetComponent<InputBankTest>();
             var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
-            var bullseyeSearch = new RoR2.BullseyeSearch();
-            var team = body.GetComponent<RoR2.TeamComponent>();
+            var bullseyeSearch = new BullseyeSearch();
+            var team = body.GetComponent<TeamComponent>();
             bullseyeSearch.searchOrigin = aimRay.origin;
             bullseyeSearch.searchDirection = aimRay.direction;
             bullseyeSearch.filterByLoS = false;
             bullseyeSearch.maxDistanceFilter = 125;
             bullseyeSearch.maxAngleFilter = 40f;
-            bullseyeSearch.teamMaskFilter = RoR2.TeamMask.all;
+            bullseyeSearch.teamMaskFilter = TeamMask.all;
             bullseyeSearch.teamMaskFilter.RemoveTeam(team.teamIndex);
             bullseyeSearch.RefreshCandidates();
             var hurtBoxList = bullseyeSearch.GetResults();
+
             foreach (var hurtbox in hurtBoxList)
             {
                 var mob = HurtBox.FindEntityObject(hurtbox);
@@ -91,12 +91,10 @@ namespace UmbraRoR
                     float distanceToMob = Vector3.Distance(Camera.main.transform.position, mob.transform.position);
                     if (MobBoundingVector.z > 0.01)
                     {
-                        GUI.color = Color.red;
                         string mobName = mob.name.Replace("Body(Clone)", "");
                         int mobDistance = (int)distanceToMob;
                         string mobBoxText = $"{mobName}\n{mobDistance}m";
-                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText);
-                        //WriteToLog($"Drew label. \n{mobBoxText}\n");
+                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
                     }
                 }
             }

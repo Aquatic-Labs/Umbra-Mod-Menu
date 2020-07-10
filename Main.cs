@@ -266,6 +266,35 @@ namespace UmbraRoR
                 TitleStyle.alignment = TextAnchor.UpperCenter;
             }
 
+            if (renderInteractablesStyle == null)
+            {
+                renderInteractablesStyle = new GUIStyle();
+                renderInteractablesStyle.normal.textColor = Color.green;
+                renderInteractablesStyle.onNormal.textColor = Color.green;
+                renderInteractablesStyle.active.textColor = Color.green;
+                renderInteractablesStyle.onActive.textColor = Color.green;
+                renderInteractablesStyle.fontStyle = FontStyle.Normal;
+                renderInteractablesStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (renderTeleporterStyle == null)
+            {
+                renderTeleporterStyle = new GUIStyle();
+                renderTeleporterStyle.fontStyle = FontStyle.Normal;
+                renderTeleporterStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (renderMobsStyle == null)
+            {
+                renderMobsStyle = new GUIStyle();
+                renderMobsStyle.normal.textColor = Color.red;
+                renderMobsStyle.onNormal.textColor = Color.red;
+                renderMobsStyle.active.textColor = Color.red;
+                renderMobsStyle.onActive.textColor = Color.red;
+                renderMobsStyle.fontStyle = FontStyle.Normal;
+                renderMobsStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
             if (OffStyle == null)
             {
                 OffStyle = new GUIStyle();
