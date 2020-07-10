@@ -104,9 +104,7 @@ namespace UmbraRoR
 
         public static void CloseAllMenus()
         {
-            Main._ifDragged = false;
             Main._CharacterCollected = false;
-            Main._isStatMenuOpen = false;
             Main._isTeleMenuOpen = false;
             Main._isESPMenuOpen = false;
             Main._isChangeCharacterMenuOpen = false;
