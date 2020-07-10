@@ -154,6 +154,7 @@ pause
 - [ ] Fixed a bug that sometimes caused mob & interactable ESP to conflict.
 - [ ] Fixed a bug causing Always Sprint & Flight to conflict.
 - [ ] Fixed a bug causing Stats Menu & drag location to reset when insert was pressed while Navigation was toggled.
+- [ ] Some code cleanup
 
 
 7/9/2020 v1.2.3:
