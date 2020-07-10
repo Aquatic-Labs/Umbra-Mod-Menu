@@ -17,7 +17,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.3";
+            VERSION = "1.2.4";
 
         public static string log = "[" + NAME + "] ";
 
@@ -30,7 +30,7 @@ namespace UmbraRoR
         public static List<ItemIndex> items = Utility.GetItems();
 
         // Used for RollItems
-        public static WeightedSelection<List<ItemIndex>> weightedSelection;
+        public static WeightedSelection<List<ItemIndex>> weightedSelection = ItemManager.BuildRollItemsDropTable();
 
         // Used to make sure navigation intraMenuIndex doesnt go over when in the lobby management menu
         public static int numberOfPlayers;
@@ -67,9 +67,10 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll, aimBot, alwaysSprint, godToggle;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle;
+        public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 400;
         public static bool navigationToggle = false;
         #endregion
@@ -252,6 +253,7 @@ namespace UmbraRoR
                 LabelStyle.fontStyle = FontStyle.Normal;
                 LabelStyle.alignment = TextAnchor.UpperCenter;
             }
+
             if (TitleStyle == null)
             {
                 TitleStyle = new GUIStyle();
@@ -481,11 +483,11 @@ namespace UmbraRoR
         {
             if (renderInteractables)
             {
-                Render.RenderInteractables();
+                Render.Interactables();
             }
             if (renderMobs)
             {
-                Render.RenderMobs();
+                Render.Mobs();
             }
         }
 
@@ -584,13 +586,12 @@ namespace UmbraRoR
             }
             else if (scene.name == "lobby")
             {
-                Debug.Log("");
+
             }
             else
             {
                 ModStatsRoutine();
                 Utility.SoftResetMenu();
-                weightedSelection = ItemManager.BuildRollItemsDropTable(); weightedSelection = ItemManager.BuildRollItemsDropTable();
             }
         }
         #endregion
