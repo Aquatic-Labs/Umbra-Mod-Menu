@@ -18,7 +18,7 @@ namespace UmbraRoR
             GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle);
         }
 
-        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle BtnStyle, GUIStyle Highlighted)
+        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle ButtonStyle, GUIStyle Highlighted)
         {
             if (Main._isPlayerMod)
             {
@@ -90,6 +90,17 @@ namespace UmbraRoR
                 Main._isLobbyMenuOpen = true;
                 Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 5;
+            }
+            if (Main.unloadConfirm)
+            {
+                if (GUI.Button(btn.BtnRect(6, false, "main"), "C O N F I R M ?", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 6)))
+                {
+                    Loader.Unload();
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(6, false, "main"), "U N L O A D   M E N U", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 6)))
+            {
+                Main.unloadConfirm = true;
             }
         }
 

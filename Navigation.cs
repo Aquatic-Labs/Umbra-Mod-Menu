@@ -43,15 +43,22 @@ namespace UmbraRoR
         {
             switch (Navigation.menuIndex)
             {
-                case 0:
+                case 0: // Main Menu 
                     {
-                        Main.navigationToggle = false;
-                        menuIndex = 0;
-                        intraMenuIndex = -1;
+                        if (intraMenuIndex == 5)
+                        {
+                            Main.unloadConfirm = false;
+                        }
+                        else
+                        {
+                            Main.navigationToggle = false;
+                            menuIndex = 0;
+                            intraMenuIndex = -1;
+                        }
                         break;
                     }
 
-                case 1:
+                case 1: // Player Management Menu
                     {
                         Main._isPlayerMod = false;
                         menuIndex = 0;
@@ -59,7 +66,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 1.1f:
+                case 1.1f: // Character Menu
                     {
                         Main._isChangeCharacterMenuOpen = false;
                         menuIndex = 1;
@@ -67,7 +74,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 1.2f:
+                case 1.2f: // Buff Menu
                     {
                         Main._isBuffMenuOpen = false;
                         menuIndex = 1;
@@ -75,7 +82,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2:
+                case 2: // Item Management Menu
                     {
                         Main._isItemManagerOpen = false;
                         menuIndex = 0;
@@ -83,7 +90,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.1f:
+                case 2.1f: // Give Item Menu
                     {
                         Main._isItemSpawnMenuOpen = false;
                         menuIndex = 2;
@@ -91,7 +98,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.2f:
+                case 2.2f: // Give Equipment Menu
                     {
                         Main._isEquipmentSpawnMenuOpen = false;
                         menuIndex = 2;
@@ -99,7 +106,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 3:
+                case 3: // Teleporter Menu
                     {
                         Main._isTeleMenuOpen = false;
                         menuIndex = 0;
@@ -107,7 +114,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4:
+                case 4: // Render Menu
                     {
                         Main._isESPMenuOpen = false;
                         menuIndex = 0;
@@ -115,7 +122,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5:
+                case 5: // Lobby Management Menu
                     {
                         Main._isLobbyMenuOpen = false;
                         menuIndex = 0;
@@ -383,6 +390,19 @@ namespace UmbraRoR
                                 {
                                     Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
                                     Navigation.menuIndex = 5;
+                                    break;
+                                }
+
+                            case 5:
+                                {
+                                    if (Main.unloadConfirm)
+                                    {
+                                        Loader.Unload();
+                                    }
+                                    else
+                                    {
+                                        Main.unloadConfirm = true;
+                                    }
                                     break;
                                 }
 
@@ -857,15 +877,15 @@ namespace UmbraRoR
         {
             switch (menuIndex)
             {
-                case 0: // Main Menu 0 - 4
+                case 0: // Main Menu 0 - 5
                     {
-                        if (intraMenuIndex > 4)
+                        if (intraMenuIndex > 5)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 4;
+                            intraMenuIndex = 5;
                         }
                         break;
                     }

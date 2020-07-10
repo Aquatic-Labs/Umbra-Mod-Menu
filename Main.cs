@@ -4,6 +4,8 @@ Add filters to ESPs?
 Make ESP less laggy??
 Clear Items despawn beatle guards from UI
 */
+
+// On Risk of Rain 2 Update: Update Unlockables.txt, Update Unreleased items list if needed
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,7 +71,7 @@ namespace UmbraRoR
         #region Button Styles / Toggles
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm;
         public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 400;
         public static bool navigationToggle = false;
@@ -521,6 +523,7 @@ namespace UmbraRoR
             }
             if (Input.GetKeyDown(KeyCode.Insert))
             {
+                unloadConfirm = false;
                 numberOfPlayers = Utility.NumberOfPlayers();
                 if (_isMenuOpen && navigationToggle)
                 {
