@@ -118,9 +118,13 @@ namespace UmbraRoR
             {
                 GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Updates.latestVersion})</color>", WatermarkStyle);
             }
-            else
+            else if (Updates.upToDate)
             {
                 GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", WatermarkStyle);
+            }
+            else if (Updates.devBuild)
+            {
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", WatermarkStyle);
             }
 
             #region GenerateMenus
@@ -993,11 +997,15 @@ namespace UmbraRoR
 
             if (Updates.updateAvailable)
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=yellow>O U T D A T E D</color>", TitleStyle);
             }
-            else
+            else if (Updates.upToDate)
             {
                 GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+            }
+            else if (Updates.devBuild)
+            {
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n</color><color=yellow>D E V</color>", TitleStyle);
             }
 
             if (!_CharacterCollected)

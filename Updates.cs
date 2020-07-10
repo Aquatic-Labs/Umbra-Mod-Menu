@@ -7,6 +7,9 @@ namespace UmbraRoR
     {
         public static bool updateAvailable;
         public static string latestVersion;
+        public static bool devBuild;
+        public static bool upToDate;
+
         public static async void CheckForUpdate()
         {
             try
@@ -16,7 +19,29 @@ namespace UmbraRoR
                 var latest = releases[0];
                 latestVersion = latest.TagName;
 
-                updateAvailable = latestVersion != Main.VERSION;
+                string[] versionSplit = Main.VERSION.Split('.');
+                string[] latestVersionSplit = latestVersion.Split('.');
+
+                for (int i = 0; i < versionSplit.Length; i++)
+                {
+                    int versionNumber = int.Parse(versionSplit[i]);
+                    int latestVersionNumber = int.Parse(latestVersionSplit[i]);
+                    if (versionNumber < latestVersionNumber)
+                    {
+                        updateAvailable = true;
+                        break;
+                    }
+                    else if (versionNumber > latestVersionNumber)
+                    {
+                        devBuild = true;
+                        break;
+                    }
+                }
+                
+                if (!devBuild && !updateAvailable)
+                {
+                    upToDate = true;
+                }
             }
             catch(Exception e)
             {
