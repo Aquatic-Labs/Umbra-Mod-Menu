@@ -8,7 +8,7 @@ This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github
 and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
 
-# Has been updated for the Artifacts Update
+# Just released Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Acher0ns/Umbra-Menu-Injector)
 # Features
 
 - [ ] Unlock All
