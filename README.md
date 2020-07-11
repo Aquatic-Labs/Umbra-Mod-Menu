@@ -60,9 +60,10 @@ Note: Some features may not work if you are not the host of the lobby
 
 # Getting Started:
 ## v1.2.4 and above
-1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Menu-Injector/releases/latest/) and download `Umbra-Injector-vX.X.X.zip`
 2. Extract the zip.
-3. While the game is running, run `UmbraInjector.exe`
+3. Run `UmbraInjector.exe`
+4. Press the `Inject` button while the game is open.
 
 Note: Make sure `UmbraInjector.exe` and the `Data` folder stay in the same directory.
 
