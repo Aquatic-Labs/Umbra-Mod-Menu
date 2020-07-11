@@ -152,7 +152,6 @@ pause
 
 # Changelog:
 7/14/2020 v1.2.4:
-- [ ] Releases from now on will be an exe Injector rather than a dll.
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
 - [ ] Updated Menu positions to support 1080p & 1440p.
