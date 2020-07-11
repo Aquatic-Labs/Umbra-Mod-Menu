@@ -102,58 +102,56 @@ namespace UmbraRoR
             SendDropEquipment(user.cachedBody.gameObject, equipmentIndex);
         }
 
-        //clears inventory, duh.
+        // Clears inventory, duh.
         public static void ClearInventory()
         {
             if (Main.LocalPlayerInv)
             {
-                //Loops through every item in ItemIndex enum
-                foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
+                // Loops through every item in ItemIndex enum
+                foreach (string itemName in CurrentInventory())
                 {
                     ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName); //Convert itemName string to and ItemIndex
-                    Main.LocalPlayerInv.ResetItem(itemIndex); int itemCount = Main.LocalPlayerInv.GetItemCount(itemIndex);
-                    //If an item exists, delete the whole stack of it
-                    if (itemCount >= 0) // Just > doesnt delete from top bar
-                    {
-                        Main.LocalPlayerInv.RemoveItem(itemIndex, itemCount);
-                        Main.LocalPlayerInv.ResetItem(itemIndex);
-                        Main.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
+                    // If an item exists, delete the whole stack of it
+                    Main.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
+                    Main.LocalPlayerInv.ResetItem(itemIndex);
+                    int itemCount = Main.LocalPlayerInv.GetItemCount(itemIndex);
+                    Main.LocalPlayerInv.RemoveItem(itemIndex, itemCount);
 
-                        //Destroys BeetleGuardAllies on inventory clear, other wise they dont get removed until next stage.
-                        //TODO: Find a way to refresh UI/Remove beetle guard health from ui on the left
-                        if (itemName == "BeetleGland")
+                    // Destroys BeetleGuardAllies on inventory clear, other wise they dont get removed until next stage.
+                    var localUser = LocalUserManager.GetFirstLocalUser();
+                    var controller = localUser.cachedMasterController;
+                    if (!controller)
+                    {
+                        return;
+                    }
+                    var body = controller.master.GetBody();
+                    if (!body)
+                    {
+                        return;
+                    }
+
+                    var bullseyeSearch = new BullseyeSearch
+                    {
+                        filterByLoS = false,
+                        maxDistanceFilter = float.MaxValue,
+                        maxAngleFilter = float.MaxValue
+                    };
+                    bullseyeSearch.RefreshCandidates();
+                    var hurtBoxList = bullseyeSearch.GetResults();
+                    foreach (var hurtbox in hurtBoxList)
+                    {
+                        var mob = HurtBox.FindEntityObject(hurtbox);
+                        string mobName = mob.name.Replace("Body(Clone)", "");
+                        if (mobName == "BeetleGuardAlly")
                         {
-                            var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
-                            var controller = localUser.cachedMasterController;
-                            if (!controller)
-                            {
-                                return;
-                            }
-                            var body = controller.master.GetBody();
-                            if (!body)
-                            {
-                                return;
-                            }
-                            var bullseyeSearch = new RoR2.BullseyeSearch();
-                            bullseyeSearch.filterByLoS = false;
-                            bullseyeSearch.maxDistanceFilter = float.MaxValue;
-                            bullseyeSearch.maxAngleFilter = float.MaxValue;
-                            bullseyeSearch.RefreshCandidates();
-                            var hurtBoxList = bullseyeSearch.GetResults();
-                            foreach (var hurtbox in hurtBoxList)
-                            {
-                                var mob = HurtBox.FindEntityObject(hurtbox);
-                                string mobName = mob.name.Replace("Body(Clone)", "");
-                                if (mobName == "BeetleGuardAlly")
-                                {
-                                    UnityEngine.GameObject.Destroy(mob);
-                                }
-                            }
+                            var health = mob.GetComponent<HealthComponent>();
+                            health.Suicide();
                         }
                     }
                 }
                 Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
             }
+            PlayerMod.RemoveAllBuffs();
         }
 
         // random items

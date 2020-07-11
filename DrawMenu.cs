@@ -13,12 +13,21 @@ namespace UmbraRoR
 
         public static void DrawNotCollectedMenu(GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle)
         {
-            GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
-            GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
-            GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle);
+            if (Updates.updateAvailable)
+            {
+                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>", buttonStyle);
+            }
+            else if (Updates.upToDate || Updates.devBuild)
+            {
+                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
+                GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle);
+            }
         }
 
-        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle BtnStyle, GUIStyle Highlighted)
+        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle ButtonStyle, GUIStyle Highlighted)
         {
             if (Main._isPlayerMod)
             {
@@ -90,6 +99,18 @@ namespace UmbraRoR
                 Main._isLobbyMenuOpen = true;
                 Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 5;
+            }
+            if (Main.unloadConfirm)
+            {
+                if (GUI.Button(btn.BtnRect(6, false, "main"), "C O N F I R M ?", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 6)))
+                {
+                    Utility.ResetMenu();
+                    Loader.Unload();
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(6, false, "main"), "U N L O A D   M E N U", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 6)))
+            {
+                Main.unloadConfirm = true;
             }
         }
 
@@ -487,25 +508,36 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
 
+            if (Main.renderActiveMods)
+            {
+                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 1)))
+                {
+                    Main.renderActiveMods = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 1)))
+            {
+                Main.renderActiveMods = true;
+            }
             if (Main.renderInteractables)
             {
-                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 1)))
+                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 2)))
                 {
                     Main.renderInteractables = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 1)))
+            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 2)))
             {
                 Main.renderInteractables = true;
             }
             if (Main.renderMobs)
             {
-                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 2)))
+                if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 3)))
                 {
                     Main.renderMobs = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 2)))
+            else if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 3)))
             {
                 Main.renderMobs = true;
             }

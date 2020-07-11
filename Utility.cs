@@ -99,14 +99,25 @@ namespace UmbraRoR
             Main.godToggle = false;
             Main.alwaysSprint = false;
             Main.aimBot = false;
+            Main.unloadConfirm = false;
+            ItemManager.itemsToRoll = 5;
             ItemManager.isDropItemForAll = false;
-        }
+            ItemManager.isDropItemFromInventory = false;
+            ItemManager.allItemsQuantity = 1;
+            PlayerMod.damagePerLvl = 10;
+            PlayerMod.CritPerLvl = 1;
+            PlayerMod.attackSpeed = 1;
+            PlayerMod.armor = 0;
+            PlayerMod.movespeed = 7;
+            PlayerMod.jumpCount = 1;
+            PlayerMod.xpToGive = 50;
+            PlayerMod.moneyToGive = 50;
+            PlayerMod.coinsToGive = 50;
+    }
 
         public static void CloseAllMenus()
         {
-            Main._ifDragged = false;
             Main._CharacterCollected = false;
-            Main._isStatMenuOpen = false;
             Main._isTeleMenuOpen = false;
             Main._isESPMenuOpen = false;
             Main._isChangeCharacterMenuOpen = false;
@@ -216,7 +227,8 @@ namespace UmbraRoR
         {
             List<EquipmentIndex> equipment = new List<EquipmentIndex>();
 
-            string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
+            string[] unreleasedEquipment = { "Count" };
+            // string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
             foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
             {
                 bool unreleasednullEquipment = unreleasedEquipment.Any(equipmentName.Contains);
@@ -234,7 +246,8 @@ namespace UmbraRoR
             List<ItemIndex> items = new List<ItemIndex>();
 
             // List of null items that I remove from the item list. Will change if requested.
-            string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
+            string[] unreleasedItems = { "LevelBonus", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "BoostAttackSpeed", "Count", "None" };
+            // string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
             foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
             {
                 bool unreleasednullItem = unreleasedItems.Any(itemName.Contains);
@@ -243,7 +256,7 @@ namespace UmbraRoR
                 {
                     items.Add(itemIndex);
                 }
-                // Since "Ghost" is nyll item, "GhostOnKill" was getting removed from item list.
+                // Since "Ghost" is null item, "GhostOnKill" was getting removed from item list.
                 else if (itemName == "GhostOnKill")
                 {
                     items.Add(itemIndex);

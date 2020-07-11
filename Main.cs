@@ -4,6 +4,8 @@ Add filters to ESPs?
 Make ESP less laggy??
 Clear Items despawn beatle guards from UI
 */
+
+// On Risk of Rain 2 Update: Update Unlockables.txt, Update Unreleased items list if needed
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +19,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.3";
+            VERSION = "1.2.4";
 
         public static string log = "[" + NAME + "] ";
 
@@ -30,7 +32,7 @@ namespace UmbraRoR
         public static List<ItemIndex> items = Utility.GetItems();
 
         // Used for RollItems
-        public static WeightedSelection<List<ItemIndex>> weightedSelection;
+        public static WeightedSelection<List<ItemIndex>> weightedSelection = ItemManager.BuildRollItemsDropTable();
 
         // Used to make sure navigation intraMenuIndex doesnt go over when in the lobby management menu
         public static int numberOfPlayers;
@@ -67,9 +69,10 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, dropMenu, ShowUnlockAll, aimBot, alwaysSprint, godToggle;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm;
+        public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 400;
         public static bool navigationToggle = false;
         #endregion
@@ -111,6 +114,19 @@ namespace UmbraRoR
         #region On GUI
         private void OnGUI()
         {
+            if (Updates.updateAvailable)
+            {
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Updates.latestVersion})</color>", WatermarkStyle);
+            }
+            else if (Updates.upToDate)
+            {
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", WatermarkStyle);
+            }
+            else if (Updates.devBuild)
+            {
+                GUI.Label(new Rect(Screen.width - 100, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", WatermarkStyle);
+            }
+
             #region GenerateMenus
 
             mainRect = GUI.Window(0, mainRect, new GUI.WindowFunction(SetMainBG), "", new GUIStyle());
@@ -190,21 +206,39 @@ namespace UmbraRoR
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             #region CondenseMenuValues
+            if (Screen.height > 1080)
+            {
+                mainRect = new Rect(10, 10, 20, 20); // start position
+                playerModRect = new Rect(424, 10, 20, 20); // start position
+                itemManagerRect = new Rect(838, 10, 20, 20); // start positions
+                teleRect = new Rect(10, 335, 20, 20); // start position
+                ESPRect = new Rect(10, 705, 20, 20); // start position
+                lobbyRect = new Rect(10, 895, 20, 20); // start position
 
-             mainRect = new Rect(10, 10, 20, 20); // start position
-             playerModRect = new Rect(424, 10, 20, 20); // start position
-             itemManagerRect = new Rect(838, 10, 20, 20); // start positions
-             teleRect = new Rect(10, 290, 20, 20); // start position
-             ESPRect = new Rect(10, 660, 20, 20); // start position
-             lobbyRect = new Rect(10, 805, 20, 20); // start position
+                statRect = new Rect(1626, 457, 20, 20); // start position
 
-             statRect = new Rect(1626, 457, 20, 20); // start position
+                itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
+                buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+                characterRect = new Rect(1503, 10, 20, 20); // start position
+            }
+            else
+            {
+                mainRect = new Rect(10, 10, 20, 20); // start position
+                playerModRect = new Rect(424, 10, 20, 20); // start position
+                itemManagerRect = new Rect(838, 10, 20, 20); // start positions
+                teleRect = new Rect(10, 335, 20, 20); // start position
+                ESPRect = new Rect(10, 705, 20, 20); // start position
+                lobbyRect = new Rect(838, 470, 20, 20); // start position
 
-             itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
-             equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
-             buffMenuRect = new Rect(1503, 10, 20, 20);// start position
-             characterRect = new Rect(1503, 10, 20, 20); // start position
+                statRect = new Rect(1626, 457, 20, 20); // start position
 
+                itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
+                buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+                characterRect = new Rect(1503, 10, 20, 20); // start position
+            }
+            
             #endregion
 
             #region Styles
@@ -252,6 +286,7 @@ namespace UmbraRoR
                 LabelStyle.fontStyle = FontStyle.Normal;
                 LabelStyle.alignment = TextAnchor.UpperCenter;
             }
+
             if (TitleStyle == null)
             {
                 TitleStyle = new GUIStyle();
@@ -262,6 +297,60 @@ namespace UmbraRoR
                 TitleStyle.fontSize = 18;
                 TitleStyle.fontStyle = FontStyle.Normal;
                 TitleStyle.alignment = TextAnchor.UpperCenter;
+            }
+
+            if (ActiveModsStyle == null)
+            {
+                ActiveModsStyle = new GUIStyle();
+                ActiveModsStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                ActiveModsStyle.fontSize = 20;
+                ActiveModsStyle.wordWrap = true;
+                ActiveModsStyle.fontStyle = FontStyle.Normal;
+                ActiveModsStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (renderInteractablesStyle == null)
+            {
+                renderInteractablesStyle = new GUIStyle();
+                renderInteractablesStyle.normal.textColor = Color.green;
+                renderInteractablesStyle.onNormal.textColor = Color.green;
+                renderInteractablesStyle.active.textColor = Color.green;
+                renderInteractablesStyle.onActive.textColor = Color.green;
+                renderInteractablesStyle.fontStyle = FontStyle.Normal;
+                renderInteractablesStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (renderTeleporterStyle == null)
+            {
+                renderTeleporterStyle = new GUIStyle();
+                renderTeleporterStyle.fontStyle = FontStyle.Normal;
+                renderTeleporterStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (renderMobsStyle == null)
+            {
+                renderMobsStyle = new GUIStyle();
+                renderMobsStyle.normal.textColor = Color.red;
+                renderMobsStyle.onNormal.textColor = Color.red;
+                renderMobsStyle.active.textColor = Color.red;
+                renderMobsStyle.onActive.textColor = Color.red;
+                renderMobsStyle.fontStyle = FontStyle.Normal;
+                renderMobsStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (WatermarkStyle == null)
+            {
+                WatermarkStyle = new GUIStyle();
+                WatermarkStyle.normal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.onNormal.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.active.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.onActive.textColor = Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f);
+                WatermarkStyle.fontSize = 14;
+                WatermarkStyle.fontStyle = FontStyle.Normal;
+                WatermarkStyle.alignment = TextAnchor.MiddleRight;
             }
 
             if (OffStyle == null)
@@ -456,6 +545,7 @@ namespace UmbraRoR
             }
             if (Input.GetKeyDown(KeyCode.Insert))
             {
+                unloadConfirm = false;
                 numberOfPlayers = Utility.NumberOfPlayers();
                 if (_isMenuOpen && navigationToggle)
                 {
@@ -481,11 +571,15 @@ namespace UmbraRoR
         {
             if (renderInteractables)
             {
-                Render.RenderInteractables();
+                Render.Interactables();
             }
             if (renderMobs)
             {
-                Render.RenderMobs();
+                Render.Mobs();
+            }
+            if (renderActiveMods)
+            {
+                Render.ActiveMods();
             }
         }
 
@@ -584,13 +678,12 @@ namespace UmbraRoR
             }
             else if (scene.name == "lobby")
             {
-                Debug.Log("");
+
             }
             else
             {
                 ModStatsRoutine();
                 Utility.SoftResetMenu();
-                weightedSelection = ItemManager.BuildRollItemsDropTable(); weightedSelection = ItemManager.BuildRollItemsDropTable();
             }
         }
         #endregion
@@ -904,11 +997,15 @@ namespace UmbraRoR
 
             if (Updates.updateAvailable)
             {
-                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color><color=yellow> - O U T D A T E D</color>", TitleStyle);
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=yellow>O U T D A T E D</color>", TitleStyle);
             }
-            else
+            else if (Updates.upToDate)
             {
                 GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=grey>v{VERSION}</color>", TitleStyle);
+            }
+            else if (Updates.devBuild)
+            {
+                GUI.Label(new Rect(mainRect.x + 5f, mainRect.y + 5f, widthSize + 5, 85f), $"U M B R A \n<color=yellow>D E V</color>", TitleStyle);
             }
 
             if (!_CharacterCollected)

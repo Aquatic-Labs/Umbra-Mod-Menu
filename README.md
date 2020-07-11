@@ -11,26 +11,26 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 # Has been updated for the Artifacts Update
 # Features
 
+- [ ] Unlock All
 - [ ] Change Character
+- [ ] God Mode
+- [ ] Flight
 - [ ] Play as mobs/unreleased characters
-- [ ] Clear items in inventory
-- [ ] Give all items
-- [ ] Stack inventory (does the same thing as the Shrine of Order)
+- [ ] Stats Modification/View
+- [ ] No ability cooldowns
+- [ ] No equipment cooldown
+- [ ] See chests and teleporter through walls
 - [ ] Give XP
 - [ ] Give Money
 - [ ] Give Lunar Coins
 - [ ] Give or Drop yourself items and equipment
 - [ ] Give/Remove buffs
-- [ ] No ability cooldowns
-- [ ] No equipment cooldown
-- [ ] See chests and teleporter through walls
+- [ ] Always Sprint
+- [ ] Clear items in inventory
+- [ ] Stack inventory (does the same thing as the Shrine of Order)
+- [ ] Lobby Management - Kick players from your lobby
 - [ ] See mobs through walls - Needs work, laggy and may crash game
 - [ ] Teleporter Management - Spawn teleporters(newt, celestine, gold), add Mountain Shrine stack, skip stage, insta charge tp
-- [ ] Lobby Management - Kick players from your lobby
-- [ ] Flight
-- [ ] Always Sprint
-- [ ] Stats Modification/View
-- [ ] Unlock All
 
 ![image](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)
 
@@ -56,10 +56,18 @@ Note: Some features may not work if you are not the host of the lobby
 # List of Improvements I Might Add:
 - [ ] Add filters to ESPs?
 - [ ] Make ESP less laggy?
-- [ ] Clear Items despawn beatle guards/Allies from UI
 
 
 # Getting Started:
+## v1.2.4 and above
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Menu-Injector/releases/latest/) and download `Umbra-Injector-vX.X.X.zip`
+2. Extract the zip.
+3. Run `UmbraInjector.exe`
+4. Press the `Inject` button while the game is open.
+
+Note: Make sure `UmbraInjector.exe` and the `Data` folder stay in the same directory.
+
+## v1.2.3 and below
 ### Requirements
 - [ ] A Mono Injector. [Sharpmonoinjector](https://github.com/warbler/SharpMonoInjector) is recommended and is used in this tutorial.
 
@@ -138,24 +146,35 @@ pause
 ```
 6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
-7. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
+### Build
+1. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
 
-8. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
-```
-Namespace: UmbraRoR
-Class: Loader
-Method: Load
-```
 
 # Changelog:
-7/9/2020 v1.2.3
+7/14/2020 v1.2.4:
+- [ ] Releases from now on will be an exe Injector rather than a dll.
+- [ ] Added Active Mobs list to bottom of screen.
+- [ ] Added Unload button to the main menu.
+- [ ] Updated Menu positions to support 1080p & 1440p.
+- [ ] Improved how the menu checks for updates.
+- [ ] Fixed some things not showing in item/equipment lists.
+- [ ] Fixed bug causing Roll Items to not work.
+- [ ] Fixed Clear Inventory not clearing the UI properly.
+- [ ] Fixed ClearInventory not clearing buffs given by items.
+- [ ] Fixed a bug that sometimes caused mob & interactable ESP to conflict.
+- [ ] Fixed a bug causing Always Sprint & Flight to conflict.
+- [ ] Fixed a bug causing Stats Menu & drag location to reset when insert was pressed while Navigation was toggled.
+- [ ] Some code cleanup
+
+
+7/9/2020 v1.2.3:
 - [ ] Added the ability to change characters and play as unreleased characters and mobs.
 - [ ] Added Keyboard Navigation to change character menu, give buff menu, give item menu, and give equipment menu.
 - [ ] Completely reworked how Keyboard Navigation works behind the scenes.
 - [ ] Made the menu more compact.
 - [ ] Refactored a few things.
 
-7/3/2020 v1.2.2
+7/3/2020 v1.2.2:
 - [ ] Menu now `checks for updates` on inject and will tell you if its outdated
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
 - [ ] Improved Flight
