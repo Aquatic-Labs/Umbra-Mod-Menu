@@ -151,7 +151,7 @@ pause
 
 
 # Changelog:
-7/11/2020 v1.2.4:
+### 7/11/2020 v1.2.4:
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
 - [ ] Updated Menu positions to support 1080p & 1440p.
@@ -166,14 +166,14 @@ pause
 - [ ] Some code cleanup
 
 
-7/9/2020 v1.2.3:
+### 7/9/2020 v1.2.3:
 - [ ] Added the ability to change characters and play as unreleased characters and mobs.
 - [ ] Added Keyboard Navigation to change character menu, give buff menu, give item menu, and give equipment menu.
 - [ ] Completely reworked how Keyboard Navigation works behind the scenes.
 - [ ] Made the menu more compact.
 - [ ] Refactored a few things.
 
-7/3/2020 v1.2.2:
+### 7/3/2020 v1.2.2:
 - [ ] Menu now `checks for updates` on inject and will tell you if its outdated
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
 - [ ] Improved Flight
@@ -184,16 +184,16 @@ pause
  - No longer uses a depricated method
 - [ ] Refactored a few things
  
-6/26/2020 v1.2.1:
+### 6/26/2020 v1.2.1:
  - [ ] Added the ability to navigate the menu with a keyboard
  - [ ] Added the ability to drop items from your inventory
  
-4/26/2020 v1.2:
+### 4/26/2020 v1.2:
  - [ ] Fixed Equipment not dropping sometimes
  - [ ] Reorganized code
  - [ ] Added comments to code
 
-4/23/2020 v1.0:
+### 4/23/2020 v1.0:
  - [ ] Repo Changed to Public
  
  
