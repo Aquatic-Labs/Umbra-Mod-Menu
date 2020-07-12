@@ -1,5 +1,7 @@
 # Umbra Menu ![Downloads](https://img.shields.io/github/downloads/Acher0ns/Umbra-Mod-Menu/total)
 
+![UmbraInjecter-icon](https://user-images.githubusercontent.com/12210881/87236402-2d05ae80-c3b7-11ea-96d9-61f2136e8607.png)
+
 A small collection of hacks and cheats for Risk of Rain 2.
 
 Open to any pull requests.
@@ -31,8 +33,7 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 - [ ] Lobby Management - Kick players from your lobby
 - [ ] See mobs through walls - Needs work, laggy and may crash game
 - [ ] Teleporter Management - Spawn teleporters(newt, celestine, gold), add Mountain Shrine stack, skip stage, insta charge tp
-
-![image](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)
+[![Preview](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)](https://www.youtube.com/watch?v=XakIkkCxtRA)
 
 Press the `Insert` key to open.
 
@@ -205,5 +206,3 @@ https://github.com/BennettStaley/RoR2ModMenu
 https://github.com/Lodington/RoRCheats
 
 https://github.com/octokit/octokit.net
-
-[![Preview](https://img.youtube.com/vi/XakIkkCxtRA/0.jpg)](https://www.youtube.com/watch?v=XakIkkCxtRA)
