@@ -89,6 +89,7 @@ namespace UmbraRoR
         public static Rect characterRect;
         public static Rect playerModRect;
         public static Rect itemManagerRect;
+        public static Rect editStatsRect;
         #endregion
 
         #region Rect Start Position Values
@@ -103,7 +104,7 @@ namespace UmbraRoR
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY;
         public static int btnY, mulY;
 
         public static Rect rect = new Rect(10, 10, 20, 20);
@@ -190,6 +191,12 @@ namespace UmbraRoR
             {
                 itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
                 DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
+            }
+            if (_isEditStatsOpen)
+            {
+                editStatsRect = GUI.Window(10, editStatsRect, new GUI.WindowFunction(SetEditStatBG), "", new GUIStyle());
+                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OffStyle, OnStyle, LabelStyle, HighlightBtnStyle);
                 // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
             if (_CharacterCollected)

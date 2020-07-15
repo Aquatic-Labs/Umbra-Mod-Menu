@@ -161,151 +161,47 @@ namespace UmbraRoR
                 if (PlayerMod.xpToGive >= 50)
                     PlayerMod.xpToGive += 50;
             }
-            if (Main.damageToggle)
+            if (Main._isEditStatsOpen)
             {
-                if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 4)))
+                if (GUI.Button(btn.BtnRect(4, false, "playermod"), "S T A T S   M E N U : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 4)))
                 {
-                    Main.damageToggle = false;
+                    Main._isEditStatsOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(4, true, "playermod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 4)))
+            else if (GUI.Button(btn.BtnRect(4, false, "playermod"), "S T A T S   M E N U : OFF", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 4)))
             {
-                Main.damageToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.damagePerLvl > 0)
-                    PlayerMod.damagePerLvl -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.damagePerLvl >= 0)
-                    PlayerMod.damagePerLvl += 10;
-            }
-            if (Main.critToggle)
-            {
-                if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 5)))
-                {
-                    Main.critToggle = false;
-                }
-            }
-            else if (GUI.Button(btn.BtnRect(5, true, "playermod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 5)))
-            {
-                Main.critToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.CritPerLvl > 0)
-                    PlayerMod.CritPerLvl -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.CritPerLvl >= 0)
-                    PlayerMod.CritPerLvl += 1;
-            }
-            if (Main.attackSpeedToggle)
-            {
-                if (GUI.Button(btn.BtnRect(6, true, "playermod"), "A T T A C K   S P E E D ( O N ) : " + PlayerMod.attackSpeed.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 6)))
-                {
-                    Main.attackSpeedToggle = false;
-                }
-            }
-            else if (GUI.Button(btn.BtnRect(6, true, "playermod"), "A T T A C K   S P E E D ( O F F ) : " + PlayerMod.attackSpeed.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 6)))
-            {
-                Main.attackSpeedToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.attackSpeed > 0)
-                    PlayerMod.attackSpeed -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.attackSpeed >= 0)
-                    PlayerMod.attackSpeed += 1;
-            }
-            if (Main.armorToggle)
-            {
-                if (GUI.Button(btn.BtnRect(7, true, "playermod"), "A R M O R ( O N ) : " + PlayerMod.armor.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 7)))
-                {
-                    Main.armorToggle = false;
-                }
-            }
-            else if (GUI.Button(btn.BtnRect(7, true, "playermod"), "A R M O R ( O F F ) : " + PlayerMod.armor.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 7)))
-            {
-                Main.armorToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.armor > 0)
-                    PlayerMod.armor -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.armor >= 0)
-                    PlayerMod.armor += 10;
-            }
-            if (Main.moveSpeedToggle)
-            {
-                if (GUI.Button(btn.BtnRect(8, true, "playermod"), "M O V E   S P E E D ( O N ) : " + PlayerMod.movespeed.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 8)))
-                {
-                    Main.moveSpeedToggle = false;
-                }
-            }
-            else if (GUI.Button(btn.BtnRect(8, true, "playermod"), "M O V E   S P E E D ( O F F ) : " + PlayerMod.movespeed.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 8)))
-            {
-                Main.moveSpeedToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.movespeed > 7)
-                    PlayerMod.movespeed -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.movespeed >= 7)
-                    PlayerMod.movespeed += 10;
+                Main._isEditStatsOpen = true;
             }
             if (Main._isChangeCharacterMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 9)))
+                if (GUI.Button(btn.BtnRect(5, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 5)))
                 {
                     Main._isChangeCharacterMenuOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 9)))
+            else if (GUI.Button(btn.BtnRect(5, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 5)))
             {
                 Main._isChangeCharacterMenuOpen = true;
             }
-            if (Main._isStatMenuOpen)
-            {
-                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 10)))
-                {
-                    Main._isStatMenuOpen = false;
-                }
-            }
-            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "S H O W   S T A T S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 10)))
-            {
-                Main._isStatMenuOpen = true;
-            }
+
             if (Main._isBuffMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 11)))
+                if (GUI.Button(btn.BtnRect(6, false, "playermod"), "G I V E   B U F F   M E N U : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 6)))
                 {
                     Main._isBuffMenuOpen = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G I V E   B U F F   M E N U : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 11)))
+            else if (GUI.Button(btn.BtnRect(6, false, "playermod"), "G I V E   B U F F   M E N U : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 6)))
             {
                 Main._isBuffMenuOpen = true;
             }
-            if (GUI.Button(btn.BtnRect(12, false, "playermod"), "R E M O V E   A L L   B U F F S", Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 12)))
+            if (GUI.Button(btn.BtnRect(7, false, "playermod"), "R E M O V E   A L L   B U F F S", Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 7)))
             {
                 PlayerMod.RemoveAllBuffs();
             }
             if (Main.aimBot)
             {
-                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 13)))
+                if (GUI.Button(btn.BtnRect(8, false, "playermod"), "A I M B O T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 8)))
                 {
                     EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                     EntityStates.FireNailgun.spreadYawScale = 1f;
@@ -315,7 +211,7 @@ namespace UmbraRoR
             }
             else if (!Main.aimBot)
             {
-                if (GUI.Button(btn.BtnRect(13, false, "playermod"), "A I M B O T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 13)))
+                if (GUI.Button(btn.BtnRect(8, false, "playermod"), "A I M B O T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 8)))
                 {
                     EntityStates.FireNailgun.spreadPitchScale = 0;
                     EntityStates.FireNailgun.spreadYawScale = 0;
@@ -325,21 +221,21 @@ namespace UmbraRoR
             }
             if (Main.alwaysSprint)
             {
-                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 14)))
+                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "A L W A Y S   S P R I N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 9)))
                 {
                     Main.alwaysSprint = false;
                 }
             }
             else if (!Main.alwaysSprint)
             {
-                if (GUI.Button(btn.BtnRect(14, false, "playermod"), "A L W A Y S   S P R I N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 14)))
+                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "A L W A Y S   S P R I N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 9)))
                 {
                     Main.alwaysSprint = true;
                 }
             }
             if (Main.FlightToggle)
             {
-                if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 15)))
+                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "F L I G H T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 10)))
                 {
                     if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
                     {
@@ -348,33 +244,33 @@ namespace UmbraRoR
                     Main.FlightToggle = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(15, false, "playermod"), "F L I G H T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 15)))
+            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "F L I G H T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 10)))
             {
                 Main.FlightToggle = true;
             }
             if (Main.godToggle)
             {
-                if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 16)))
+                if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G O D   M O D E : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 11)))
                 {
                     Main.godToggle = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(16, false, "playermod"), "G O D   M O D E : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 16)))
+            else if (GUI.Button(btn.BtnRect(11, false, "playermod"), "G O D   M O D E : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 11)))
             {
                 Main.godToggle = true;
             }
             if (Main.skillToggle)
             {
-                if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 17)))
+                if (GUI.Button(btn.BtnRect(12, false, "playermod"), "I N F I N I T E   S K I L L S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 12)))
                 {
                     Main.skillToggle = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(17, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 17)))
+            else if (GUI.Button(btn.BtnRect(12, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 12)))
             {
                 Main.skillToggle = true;
             }
-            if (GUI.Button(btn.BtnRect(18, false, "playermod"), "U N L O C K   A L L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 18)))
+            if (GUI.Button(btn.BtnRect(13, false, "playermod"), "U N L O C K   A L L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 13)))
             {
                 PlayerMod.UnlockAll();
             }
@@ -582,6 +478,118 @@ namespace UmbraRoR
             characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.ChangeCharacter(buttonStyle, Highlighted, "character");
             GUI.EndScrollView();
+        }
+
+        public static void DrawStatsModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OffStyle, GUIStyle OnStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S T A T   M O D I F I C A T I O N   M E N U", LabelStyle);
+
+            if (Main.damageToggle)
+            {
+                if (GUI.Button(btn.BtnRect(4, true, "statsmod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 4)))
+                {
+                    Main.damageToggle = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(4, true, "statsmod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 4)))
+            {
+                Main.damageToggle = true;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+            {
+                if (PlayerMod.damagePerLvl > 0)
+                    PlayerMod.damagePerLvl -= 10;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+            {
+                if (PlayerMod.damagePerLvl >= 0)
+                    PlayerMod.damagePerLvl += 10;
+            }
+            if (Main.critToggle)
+            {
+                if (GUI.Button(btn.BtnRect(5, true, "statsmod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 5)))
+                {
+                    Main.critToggle = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(5, true, "statsmod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 5)))
+            {
+                Main.critToggle = true;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+            {
+                if (PlayerMod.CritPerLvl > 0)
+                    PlayerMod.CritPerLvl -= 1;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+            {
+                if (PlayerMod.CritPerLvl >= 0)
+                    PlayerMod.CritPerLvl += 1;
+            }
+            if (Main.attackSpeedToggle)
+            {
+                if (GUI.Button(btn.BtnRect(6, true, "statsmod"), "A T T A C K   S P E E D ( O N ) : " + PlayerMod.attackSpeed.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 6)))
+                {
+                    Main.attackSpeedToggle = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(6, true, "statsmod"), "A T T A C K   S P E E D ( O F F ) : " + PlayerMod.attackSpeed.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 6)))
+            {
+                Main.attackSpeedToggle = true;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+            {
+                if (PlayerMod.attackSpeed > 0)
+                    PlayerMod.attackSpeed -= 1;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+            {
+                if (PlayerMod.attackSpeed >= 0)
+                    PlayerMod.attackSpeed += 1;
+            }
+            if (Main.armorToggle)
+            {
+                if (GUI.Button(btn.BtnRect(7, true, "statsmod"), "A R M O R ( O N ) : " + PlayerMod.armor.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 7)))
+                {
+                    Main.armorToggle = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(7, true, "statsmod"), "A R M O R ( O F F ) : " + PlayerMod.armor.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 7)))
+            {
+                Main.armorToggle = true;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+            {
+                if (PlayerMod.armor > 0)
+                    PlayerMod.armor -= 10;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+            {
+                if (PlayerMod.armor >= 0)
+                    PlayerMod.armor += 10;
+            }
+            if (Main.moveSpeedToggle)
+            {
+                if (GUI.Button(btn.BtnRect(8, true, "statsmod"), "M O V E   S P E E D ( O N ) : " + PlayerMod.movespeed.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 8)))
+                {
+                    Main.moveSpeedToggle = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(8, true, "statsmod"), "M O V E   S P E E D ( O F F ) : " + PlayerMod.movespeed.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 8)))
+            {
+                Main.moveSpeedToggle = true;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
+            {
+                if (PlayerMod.movespeed > 7)
+                    PlayerMod.movespeed -= 10;
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
+            {
+                if (PlayerMod.movespeed >= 7)
+                    PlayerMod.movespeed += 10;
+            }
         }
 
         public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
