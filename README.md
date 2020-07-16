@@ -1,5 +1,7 @@
 # Umbra Menu ![Downloads](https://img.shields.io/github/downloads/Acher0ns/Umbra-Mod-Menu/total)
 
+![UmbraInjecter-icon](https://user-images.githubusercontent.com/12210881/87236402-2d05ae80-c3b7-11ea-96d9-61f2136e8607.png)
+
 A small collection of hacks and cheats for Risk of Rain 2.
 
 Open to any pull requests.
@@ -8,7 +10,7 @@ This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github
 and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
 
-# Has been updated for the Artifacts Update
+# Just released Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Acher0ns/Umbra-Menu-Injector)
 # Features
 
 - [ ] Unlock All
@@ -31,8 +33,7 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 - [ ] Lobby Management - Kick players from your lobby
 - [ ] See mobs through walls - Needs work, laggy and may crash game
 - [ ] Teleporter Management - Spawn teleporters(newt, celestine, gold), add Mountain Shrine stack, skip stage, insta charge tp
-
-![image](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)
+[![Preview](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)](https://www.youtube.com/watch?v=XakIkkCxtRA)
 
 Press the `Insert` key to open.
 
@@ -60,9 +61,10 @@ Note: Some features may not work if you are not the host of the lobby
 
 # Getting Started:
 ## v1.2.4 and above
-1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
+1. Head to [releases](https://github.com/Acher0ns/Umbra-Menu-Injector/releases/latest/) and download `Umbra-Injector-vX.X.X.zip`
 2. Extract the zip.
-3. While the game is running, run `UmbraInjector.exe`
+3. Run `UmbraInjector.exe`
+4. Press the `Inject` button while the game is open.
 
 Note: Make sure `UmbraInjector.exe` and the `Data` folder stay in the same directory.
 
@@ -150,8 +152,7 @@ pause
 
 
 # Changelog:
-7/14/2020 v1.2.4:
-- [ ] Releases from now on will be an exe Injector rather than a dll.
+### 7/11/2020 v1.2.4:
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
 - [ ] Updated Menu positions to support 1080p & 1440p.
@@ -166,14 +167,14 @@ pause
 - [ ] Some code cleanup
 
 
-7/9/2020 v1.2.3:
+### 7/9/2020 v1.2.3:
 - [ ] Added the ability to change characters and play as unreleased characters and mobs.
 - [ ] Added Keyboard Navigation to change character menu, give buff menu, give item menu, and give equipment menu.
 - [ ] Completely reworked how Keyboard Navigation works behind the scenes.
 - [ ] Made the menu more compact.
 - [ ] Refactored a few things.
 
-7/3/2020 v1.2.2:
+### 7/3/2020 v1.2.2:
 - [ ] Menu now `checks for updates` on inject and will tell you if its outdated
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
 - [ ] Improved Flight
@@ -184,16 +185,16 @@ pause
  - No longer uses a depricated method
 - [ ] Refactored a few things
  
-6/26/2020 v1.2.1:
+### 6/26/2020 v1.2.1:
  - [ ] Added the ability to navigate the menu with a keyboard
  - [ ] Added the ability to drop items from your inventory
  
-4/26/2020 v1.2:
+### 4/26/2020 v1.2:
  - [ ] Fixed Equipment not dropping sometimes
  - [ ] Reorganized code
  - [ ] Added comments to code
 
-4/23/2020 v1.0:
+### 4/23/2020 v1.0:
  - [ ] Repo Changed to Public
  
  
