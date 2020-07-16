@@ -19,7 +19,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.4";
+            VERSION = "1.2.5";
 
         public static string log = "[" + NAME + "] ";
 
@@ -89,6 +89,7 @@ namespace UmbraRoR
         public static Rect characterRect;
         public static Rect playerModRect;
         public static Rect itemManagerRect;
+        public static Rect editStatsRect;
         #endregion
 
         #region Rect Start Position Values
@@ -103,7 +104,7 @@ namespace UmbraRoR
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY;
         public static int btnY, mulY;
 
         public static Rect rect = new Rect(10, 10, 20, 20);
@@ -192,6 +193,12 @@ namespace UmbraRoR
                 DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
                 // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
+            if (_isEditStatsOpen)
+            {
+                editStatsRect = GUI.Window(11, editStatsRect, new GUI.WindowFunction(SetEditStatBG), "", new GUIStyle());
+                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OffStyle, OnStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
+            }
             if (_CharacterCollected)
             {
                 ESPRoutine();
@@ -219,8 +226,9 @@ namespace UmbraRoR
 
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
-                buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+                buffMenuRect = new Rect(1503, 10, 20, 20); // start position
                 characterRect = new Rect(1503, 10, 20, 20); // start position
+                editStatsRect = new Rect(1503, 10, 20, 20); // start position
             }
             else
             {
@@ -235,10 +243,11 @@ namespace UmbraRoR
 
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
-                buffMenuRect = new Rect(1503, 10, 20, 20);// start position
+                buffMenuRect = new Rect(1503, 10, 20, 20); // start position
                 characterRect = new Rect(1503, 10, 20, 20); // start position
+                editStatsRect = new Rect(1503, 10, 20, 20); // start position
             }
-            
+
             #endregion
 
             #region Styles
@@ -499,17 +508,18 @@ namespace UmbraRoR
                     }
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
-                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.intraMenuIndex);
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
-                        if (playerPlusMinusBtn || itemPlusMinusBtn)
+                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn)
                         {
-                            Navigation.IncreaseValue((int)Navigation.menuIndex, Navigation.intraMenuIndex);
-                        } 
+                            Navigation.IncreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
+                        }
                         else
                         {
-                            int oldMenuIndex = (int)Navigation.menuIndex;
+                            float oldMenuIndex = Navigation.menuIndex;
                             Navigation.PressBtn();
-                            int newMenuIndex = (int)Navigation.menuIndex;
+                            float newMenuIndex = Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
                             {
@@ -519,11 +529,12 @@ namespace UmbraRoR
                     }
                     if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
-                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 8).Contains(Navigation.intraMenuIndex);
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
-                        if (playerPlusMinusBtn || itemPlusMinusBtn)
+                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn)
                         {
-                            Navigation.DecreaseValue((int)Navigation.menuIndex, Navigation.intraMenuIndex);
+                            Navigation.DecreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
                         }
                         else
                         {
@@ -656,7 +667,6 @@ namespace UmbraRoR
                     PlayerMod.SetplayersMoveSpeed();
                 }
                 LocalPlayerBody.RecalculateStats();
-
             }
         }
 
@@ -898,7 +908,7 @@ namespace UmbraRoR
 
         public static void SetEditStatBG(int windowID)
         {
-            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * MainMulY), "", CornerStyle);
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * editStatsMulY), "", CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
             {
                 delay += Time.deltaTime;

@@ -27,6 +27,7 @@ namespace UmbraRoR
         {
             { 1.1f, "CharacterMenu" },
             { 1.2f, "BuffMenu" },
+            { 1.3f, "StatsModMenu"},
             { 2.1f, "ItemMenu" },
             { 2.2f, "EquipMenu" },
         };
@@ -77,6 +78,14 @@ namespace UmbraRoR
                 case 1.2f: // Buff Menu
                     {
                         Main._isBuffMenuOpen = false;
+                        menuIndex = 1;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 1.3f: // Stats Modification Menu
+                    {
+                        Main._isEditStatsOpen = false;
                         menuIndex = 1;
                         intraMenuIndex = prevIntraMenuIndex;
                         break;
@@ -138,7 +147,7 @@ namespace UmbraRoR
         }
 
         // Increase value for buttons with +/- options
-        public static void IncreaseValue(int MenuIndex, int BtnIndex)
+        public static void IncreaseValue(float MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
             {
@@ -167,35 +176,47 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 3:
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 1.3f:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
                                 {
                                     if (PlayerMod.damagePerLvl >= 0)
                                         PlayerMod.damagePerLvl += 10;
                                     break;
                                 }
 
-                            case 4:
+                            case 1:
                                 {
                                     if (PlayerMod.CritPerLvl >= 0)
                                         PlayerMod.CritPerLvl += 1;
                                     break;
                                 }
 
-                            case 5:
+                            case 2:
                                 {
                                     if (PlayerMod.attackSpeed >= 0)
                                         PlayerMod.attackSpeed += 1;
                                     break;
                                 }
 
-                            case 6:
+                            case 3:
                                 {
                                     if (PlayerMod.armor >= 0)
                                         PlayerMod.armor += 10;
                                     break;
                                 }
 
-                            case 7:
+                            case 4:
                                 {
                                     if (PlayerMod.movespeed >= 7)
                                         PlayerMod.movespeed += 10;
@@ -244,7 +265,7 @@ namespace UmbraRoR
         }
 
         // Decrease value for buttons with +/- options
-        public static void DecreaseValue(int MenuIndex, int BtnIndex)
+        public static void DecreaseValue(float MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
             {
@@ -273,35 +294,47 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 3:
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 1.3f:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
                                 {
                                     if (PlayerMod.damagePerLvl > 0)
                                         PlayerMod.damagePerLvl -= 10;
                                     break;
                                 }
 
-                            case 4:
+                            case 1:
                                 {
                                     if (PlayerMod.CritPerLvl > 0)
                                         PlayerMod.CritPerLvl -= 1;
                                     break;
                                 }
 
-                            case 5:
+                            case 2:
                                 {
                                     if (PlayerMod.attackSpeed > 0)
                                         PlayerMod.attackSpeed -= 1;
                                     break;
                                 }
 
-                            case 6:
+                            case 3:
                                 {
                                     if (PlayerMod.armor > 0)
                                         PlayerMod.armor -= 10;
                                     break;
                                 }
 
-                            case 7:
+                            case 4:
                                 {
                                     if (PlayerMod.movespeed > 7)
                                         PlayerMod.movespeed -= 10;
@@ -440,35 +473,14 @@ namespace UmbraRoR
 
                             case 3:
                                 {
-                                    Main.damageToggle = !Main.damageToggle;
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 1.3f;
+                                    Main._isEditStatsOpen = !Main._isEditStatsOpen;
                                     break;
                                 }
 
                             case 4:
-                                {
-                                    Main.critToggle = !Main.critToggle;
-                                    break;
-                                }
-
-                            case 5:
-                                {
-                                    Main.attackSpeedToggle = !Main.attackSpeedToggle;
-                                    break;
-                                }
-
-                            case 6:
-                                {
-                                    Main.armorToggle = !Main.armorToggle;
-                                    break;
-                                }
-
-                            case 7:
-                                {
-                                    Main.moveSpeedToggle = !Main.moveSpeedToggle;
-                                    break;
-                                }
-
-                            case 8:
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
@@ -477,13 +489,7 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 9:
-                                {
-                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
-                                    break;
-                                }
-
-                            case 10:
+                            case 5:
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
@@ -492,13 +498,13 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 11:
+                            case 6:
                                 {
                                     PlayerMod.RemoveAllBuffs();
                                     break;
                                 }
 
-                            case 12:
+                            case 7:
                                 {
                                     if (Main.aimBot)
                                     {
@@ -519,13 +525,13 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 13:
+                            case 8:
                                 {
                                     Main.alwaysSprint = !Main.alwaysSprint;
                                     break;
                                 }
 
-                            case 14:
+                            case 9:
                                 {
                                     if (Main.FlightToggle)
                                     {
@@ -542,19 +548,19 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 15:
+                            case 10:
                                 {
                                     Main.godToggle = !Main.godToggle;
                                     break;
                                 }
 
-                            case 16:
+                            case 11:
                                 {
                                     Main.skillToggle = !Main.skillToggle;
                                     break;
                                 }
 
-                            case 17:
+                            case 12:
                                 {
                                     PlayerMod.UnlockAll();
                                     break;
@@ -589,6 +595,55 @@ namespace UmbraRoR
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
                         {
                             Main.LocalPlayerBody.AddBuff(buffIndex);
+                        }
+                        break;
+                    }
+
+                case 1.3f: // Stats Modification Menu
+                    {
+                        switch (intraMenuIndex)
+                        {
+                            case 0:
+                                {
+                                    Main.damageToggle = !Main.damageToggle;
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    Main.critToggle = !Main.critToggle;
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    Main.attackSpeedToggle = !Main.attackSpeedToggle;
+                                    break;
+                                }
+
+                            case 3:
+                                {
+                                    Main.armorToggle = !Main.armorToggle;
+                                    break;
+                                }
+
+                            case 4:
+                                {
+                                    Main.moveSpeedToggle = !Main.moveSpeedToggle;
+                                    break;
+                                }
+
+                            case 5:
+                                {
+                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+
                         }
                         break;
                     }
@@ -891,15 +946,15 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 1: // Player Management Menu 0 - 17
+                case 1: // Player Management Menu 0 - 12
                     {
-                        if (intraMenuIndex > 17)
+                        if (intraMenuIndex > 12)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 17;
+                            intraMenuIndex = 12;
                         }
                         break;
                     }
@@ -948,6 +1003,20 @@ namespace UmbraRoR
                         if (DrawMenu.buffMenuScrollPosition.y < 0)
                         {
                             DrawMenu.buffMenuScrollPosition.y = (Enum.GetNames(typeof(BuffIndex)).Length - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 1.3f: // Stats Modification Menu 0-5
+                    {
+
+                        if (intraMenuIndex > 5)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 5;
                         }
                         break;
                     }
