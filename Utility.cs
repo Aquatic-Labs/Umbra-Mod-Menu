@@ -82,6 +82,7 @@ namespace UmbraRoR
             Main._isEditStatsOpen = false;
             Main._isItemSpawnMenuOpen = false;
             Main._isPlayerMod = false;
+            Main._isMovementOpen = false;
             Main._isEquipmentSpawnMenuOpen = false;
             Main._isBuffMenuOpen = false;
             Main._isItemManagerOpen = false;
@@ -128,6 +129,7 @@ namespace UmbraRoR
             Main._isEquipmentSpawnMenuOpen = false;
             Main._isBuffMenuOpen = false;
             Main._isItemManagerOpen = false;
+            Main._isMovementOpen = false;
         }
 
         // Soft reset when moving to next stage to keep player stat mods and god mode between stages

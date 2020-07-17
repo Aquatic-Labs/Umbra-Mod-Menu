@@ -37,7 +37,7 @@ namespace UmbraRoR
         // Used to make sure navigation intraMenuIndex doesnt go over when in the lobby management menu
         public static int numberOfPlayers;
 
-        public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen };
+        public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen, _isMovementOpen };
         public static List<bool> menusOpen = new List<bool>();
 
         #region Player Variables
@@ -65,15 +65,16 @@ namespace UmbraRoR
         public static bool _isEquipmentSpawnMenuOpen = false;
         public static bool _isBuffMenuOpen = false;
         public static bool _isItemManagerOpen = false;
+        public static bool _isMovementOpen = false;
         public static bool enableRespawnButton = false;
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle;
         public static bool renderActiveMods = true;
-        public static float delay = 0, widthSize = 400;
+        public static float delay = 0, widthSize = 350;
         public static bool navigationToggle = false;
         #endregion
 
@@ -90,6 +91,7 @@ namespace UmbraRoR
         public static Rect playerModRect;
         public static Rect itemManagerRect;
         public static Rect editStatsRect;
+        public static Rect movementRect;
         #endregion
 
         #region Rect Start Position Values
@@ -104,7 +106,7 @@ namespace UmbraRoR
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY;
         public static int btnY, mulY;
 
         public static Rect rect = new Rect(10, 10, 20, 20);
@@ -138,7 +140,7 @@ namespace UmbraRoR
             if (_isStatMenuOpen)
             {
                 statRect = GUI.Window(1, statRect, new GUI.WindowFunction(SetStatsBG), "", new GUIStyle());
-                DrawMenu.DrawStatsMenu(statRect.x, statRect.y, widthSize, StatMulY, MainBgStyle, LabelStyle);
+                DrawMenu.DrawStatsMenu(statRect.x, statRect.y, widthSize, StatMulY, MainBgStyle, StatsStyle, LabelStyle);
             }
             if (_isTeleMenuOpen)
             {
@@ -196,8 +198,14 @@ namespace UmbraRoR
             if (_isEditStatsOpen)
             {
                 editStatsRect = GUI.Window(11, editStatsRect, new GUI.WindowFunction(SetEditStatBG), "", new GUIStyle());
-                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OffStyle, OnStyle, LabelStyle, HighlightBtnStyle);
-                // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
+                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + editStatsRect.x + " Y : " + editStatsRect.y);
+            }
+            if (_isMovementOpen)
+            {
+                movementRect = GUI.Window(12, movementRect, new GUI.WindowFunction(SetMovementBG), "", new GUIStyle());
+                DrawMenu.DrawMovementMenu(movementRect.x, movementRect.y, widthSize, movementMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                // Debug.Log("X : " + movementRect.x + " Y : " + movementRect.y);
             }
             if (_CharacterCollected)
             {
@@ -216,11 +224,12 @@ namespace UmbraRoR
             if (Screen.height > 1080)
             {
                 mainRect = new Rect(10, 10, 20, 20); // start position
-                playerModRect = new Rect(424, 10, 20, 20); // start position
-                itemManagerRect = new Rect(838, 10, 20, 20); // start positions
-                teleRect = new Rect(10, 335, 20, 20); // start position
-                ESPRect = new Rect(10, 705, 20, 20); // start position
-                lobbyRect = new Rect(10, 895, 20, 20); // start position
+                playerModRect = new Rect(374, 10, 20, 20); // start position
+                movementRect = new Rect(374, 560, 20, 20); // start position
+                itemManagerRect = new Rect(738, 10, 20, 20); // start positions
+                teleRect = new Rect(10, 380, 20, 20); // start position
+                ESPRect = new Rect(10, 750, 20, 20); // start position
+                lobbyRect = new Rect(10, 940, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
@@ -233,11 +242,12 @@ namespace UmbraRoR
             else
             {
                 mainRect = new Rect(10, 10, 20, 20); // start position
-                playerModRect = new Rect(424, 10, 20, 20); // start position
-                itemManagerRect = new Rect(838, 10, 20, 20); // start positions
-                teleRect = new Rect(10, 335, 20, 20); // start position
-                ESPRect = new Rect(10, 705, 20, 20); // start position
-                lobbyRect = new Rect(838, 470, 20, 20); // start position
+                playerModRect = new Rect(374, 10, 20, 20); // start position
+                movementRect = new Rect(374, 560, 20, 20); // start position
+                itemManagerRect = new Rect(738, 10, 20, 20); // start positions
+                teleRect = new Rect(10, 380, 20, 20); // start position
+                ESPRect = new Rect(10, 750, 20, 20); // start position
+                lobbyRect = new Rect(374, 750, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
@@ -294,6 +304,18 @@ namespace UmbraRoR
                 LabelStyle.fontSize = 18;
                 LabelStyle.fontStyle = FontStyle.Normal;
                 LabelStyle.alignment = TextAnchor.UpperCenter;
+            }
+
+            if (StatsStyle == null)
+            {
+                StatsStyle = new GUIStyle();
+                StatsStyle.normal.textColor = Color.grey;
+                StatsStyle.onNormal.textColor = Color.grey;
+                StatsStyle.active.textColor = Color.grey;
+                StatsStyle.onActive.textColor = Color.grey;
+                StatsStyle.fontSize = 18;
+                StatsStyle.fontStyle = FontStyle.Normal;
+                StatsStyle.alignment = TextAnchor.MiddleLeft;
             }
 
             if (TitleStyle == null)
@@ -455,6 +477,7 @@ namespace UmbraRoR
                 ModStatsRoutine();
                 FlightRoutine();
                 SprintRoutine();
+                JumpPackRoutine();
                 AimBotRoutine();
                 GodRoutine();
                 UpdateNavIndexRoutine();
@@ -510,7 +533,7 @@ namespace UmbraRoR
                     {
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
-                        bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn)
                         {
                             Navigation.IncreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
@@ -531,7 +554,7 @@ namespace UmbraRoR
                     {
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
-                        bool itemPlusMinusBtn = Navigation.menuIndex == 2 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn)
                         {
                             Navigation.DecreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
@@ -677,6 +700,15 @@ namespace UmbraRoR
                 Navigation.UpdateIndexValues();
             }
         }
+
+        private void JumpPackRoutine()
+        {
+            if (jumpPackToggle)
+            {
+                PlayerMod.JumpPack();
+            }
+        }
+        #endregion Routines
 
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -998,6 +1030,29 @@ namespace UmbraRoR
             GUI.DragWindow();
         }
 
+        public static void SetMovementBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * movementMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isMovementOpen = !_isMovementOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
         #endregion SetBG
 
         #region Draw all Menus
@@ -1038,7 +1093,7 @@ namespace UmbraRoR
                 if (btntexture == null)
                 {
                     btntexture = NewTexture2D;
-                    btntexture.SetPixel(0, 0, new Color32(120, 120, 120, 255));
+                    btntexture.SetPixel(0, 0, new Color32(120, 120, 120, 240));
                     btntexture.Apply();
                 }
                 return btntexture;
@@ -1066,7 +1121,7 @@ namespace UmbraRoR
                 if (btnpresstexture == null)
                 {
                     btnpresstexture = NewTexture2D;
-                    btnpresstexture.SetPixel(0, 0, new Color32(99, 99, 99, 255));
+                    btnpresstexture.SetPixel(0, 0, new Color32(99, 99, 99, 240));
                     btnpresstexture.Apply();
                 }
                 return btnpresstexture;
@@ -1080,7 +1135,7 @@ namespace UmbraRoR
                 if (onpresstexture == null)
                 {
                     onpresstexture = NewTexture2D;
-                    onpresstexture.SetPixel(0, 0, new Color32(50, 50, 50, 255));
+                    onpresstexture.SetPixel(0, 0, new Color32(50, 50, 50, 240));
                     onpresstexture.Apply();
                 }
                 return onpresstexture;
@@ -1094,7 +1149,7 @@ namespace UmbraRoR
                 if (ontexture == null)
                 {
                     ontexture = NewTexture2D;
-                    ontexture.SetPixel(0, 0, new Color32(67, 67, 67, 255));
+                    ontexture.SetPixel(0, 0, new Color32(67, 67, 67, 240));
                     ontexture.Apply();
                 }
                 return ontexture;
@@ -1108,7 +1163,7 @@ namespace UmbraRoR
                 if (offpresstexture == null)
                 {
                     offpresstexture = NewTexture2D;
-                    offpresstexture.SetPixel(0, 0, new Color32(99, 99, 99, 255));
+                    offpresstexture.SetPixel(0, 0, new Color32(99, 99, 99, 240));
                     offpresstexture.Apply();
                 }
                 return offpresstexture;
@@ -1122,7 +1177,7 @@ namespace UmbraRoR
                 if (offtexture == null)
                 {
                     offtexture = NewTexture2D;
-                    offtexture.SetPixel(0, 0, new Color32(120, 120, 120, 255));
+                    offtexture.SetPixel(0, 0, new Color32(120, 120, 120, 240));
                     // byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/OffStyle.png");
                     // offtexture.LoadImage(FileData);
                     offtexture.Apply();
@@ -1137,7 +1192,8 @@ namespace UmbraRoR
                 if (backtexture == null)
                 {
                     backtexture = NewTexture2D;
-                    backtexture.SetPixel(0, 0, new Color32(0, 0, 0, 158));
+                    //backtexture.SetPixel(0, 0, new Color32(0, 0, 0, 158));
+                    backtexture.SetPixel(0, 0, new Color32(0, 0, 0, 120));
                     backtexture.Apply();
                 }
                 return backtexture;
@@ -1189,8 +1245,6 @@ namespace UmbraRoR
         }
 
         #endregion Textures
-
-        #endregion Routines
 
         #region Auto Button Placement
         // Rect for buttons

@@ -17,10 +17,11 @@ namespace UmbraRoR
         {
             { 0, "Menu" },
             { 1, "Player" },
-            { 2, "Item" },
-            { 3, "Teleporter" },
-            { 4, "Render" },
-            { 5, "Lobby" }
+            { 2, "Movement" },
+            { 3, "Item" },
+            { 4, "Teleporter" },
+            { 5, "Render" },
+            { 6, "Lobby" }
         };
 
         public static Dictionary<float, string> ExtentionMenuList = new Dictionary<float, string>()
@@ -28,15 +29,17 @@ namespace UmbraRoR
             { 1.1f, "CharacterMenu" },
             { 1.2f, "BuffMenu" },
             { 1.3f, "StatsModMenu"},
-            { 2.1f, "ItemMenu" },
-            { 2.2f, "EquipMenu" },
+            { 3.1f, "ItemMenu" },
+            { 3.2f, "EquipMenu" },
         };
 
         public static string[] MainBtnNav = { "PlayerMod", "ItemMang", "Teleporter", "Render", "LobbyMang" };
-        public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "CharacterMenu", "Stat", "BuffMenu", "RemoveBuffs", "Aimbot", "AutoSprint", "Flight", "GodMode", "NoSkillCD", "UnlockAll" };
+        public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "CharacterMenu", "Stat", "BuffMenu", "RemoveBuffs", "Aimbot", "GodMode", "NoSkillCD", "UnlockAll" };
+        public static string[] StatsBtnNav = { "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "Stat" };
+        public static string[] MovementBtnNav = { "AutoSprint", "Flight", "JumpPack" };
         public static string[] ItemBtnNav = { "GiveAll", "RollItems", "ItemMenu", "EquipMenu", "DropItems", "DropFromInventory", "NoEquipCD", "StackShrine", "ClearInv" };
         public static string[] TeleBtnNav = { "Skip", "InstaTP", "Mountain", "SpawnAll", "SpawnBlue", "SpawnCele", "SpawnGold" };
-        public static string[] RenderBtnNav = { "InteractESP", "MobESP" };
+        public static string[] RenderBtnNav = { "ActiveMods", "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
 
         // Goes to previous menu when backspace or left arrow is pressed
@@ -91,51 +94,59 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2: // Item Management Menu
+                case 2: // Movement Menu
                     {
-                        Main._isItemManagerOpen = false;
+                        Main._isMovementOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 1;
                         break;
                     }
 
-                case 2.1f: // Give Item Menu
+                case 3: // Item Management Menu
                     {
-                        Main._isItemSpawnMenuOpen = false;
-                        menuIndex = 2;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
-
-                case 2.2f: // Give Equipment Menu
-                    {
-                        Main._isEquipmentSpawnMenuOpen = false;
-                        menuIndex = 2;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
-
-                case 3: // Teleporter Menu
-                    {
-                        Main._isTeleMenuOpen = false;
+                        Main._isItemManagerOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 2;
                         break;
                     }
 
-                case 4: // Render Menu
+                case 3.1f: // Give Item Menu
                     {
-                        Main._isESPMenuOpen = false;
+                        Main._isItemSpawnMenuOpen = false;
+                        menuIndex = 3;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 3.2f: // Give Equipment Menu
+                    {
+                        Main._isEquipmentSpawnMenuOpen = false;
+                        menuIndex = 3;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 4: // Teleporter Menu
+                    {
+                        Main._isTeleMenuOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 3;
                         break;
                     }
 
-                case 5: // Lobby Management Menu
+                case 5: // Render Menu
+                    {
+                        Main._isESPMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 4;
+                        break;
+                    }
+
+                case 6: // Lobby Management Menu
                     {
                         Main._isLobbyMenuOpen = false;
                         menuIndex = 0;
-                        intraMenuIndex = 4;
+                        intraMenuIndex = 5;
                         break;
                     }
 
@@ -231,7 +242,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2:
+                case 3:
                     {
                         switch (BtnIndex)
                         {
@@ -349,7 +360,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2:
+                case 3:
                     {
                         switch (BtnIndex)
                         {
@@ -400,33 +411,40 @@ namespace UmbraRoR
 
                             case 1:
                                 {
-                                    Main._isItemManagerOpen = !Main._isItemManagerOpen;
+                                    Main._isMovementOpen = !Main._isMovementOpen;
                                     Navigation.menuIndex = 2;
                                     break;
                                 }
 
                             case 2:
                                 {
-                                    Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
+                                    Main._isItemManagerOpen = !Main._isItemManagerOpen;
                                     Navigation.menuIndex = 3;
                                     break;
                                 }
 
                             case 3:
                                 {
-                                    Main._isESPMenuOpen = !Main._isESPMenuOpen;
+                                    Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
                                     Navigation.menuIndex = 4;
                                     break;
                                 }
 
                             case 4:
                                 {
-                                    Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Main._isESPMenuOpen = !Main._isESPMenuOpen;
                                     Navigation.menuIndex = 5;
                                     break;
                                 }
 
                             case 5:
+                                {
+                                    Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Navigation.menuIndex = 6;
+                                    break;
+                                }
+
+                            case 6:
                                 {
                                     if (Main.unloadConfirm)
                                     {
@@ -527,40 +545,17 @@ namespace UmbraRoR
 
                             case 8:
                                 {
-                                    Main.alwaysSprint = !Main.alwaysSprint;
+                                    Main.godToggle = !Main.godToggle;
                                     break;
                                 }
 
                             case 9:
                                 {
-                                    if (Main.FlightToggle)
-                                    {
-                                        if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
-                                        {
-                                            Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
-                                        }
-                                        Main.FlightToggle = false;
-                                    }
-                                    else
-                                    {
-                                        Main.FlightToggle = true;
-                                    }
-                                    break;
-                                }
-
-                            case 10:
-                                {
-                                    Main.godToggle = !Main.godToggle;
-                                    break;
-                                }
-
-                            case 11:
-                                {
                                     Main.skillToggle = !Main.skillToggle;
                                     break;
                                 }
 
-                            case 12:
+                            case 10:
                                 {
                                     PlayerMod.UnlockAll();
                                     break;
@@ -648,7 +643,48 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2: // Item Management Menu
+                case 2: // Movement Menu
+                    {
+                        switch (intraMenuIndex)
+                        {
+                            case 0:
+                                {
+                                    Main.alwaysSprint = !Main.alwaysSprint;
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    if (Main.FlightToggle)
+                                    {
+                                        if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
+                                        {
+                                            Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                        }
+                                        Main.FlightToggle = false;
+                                    }
+                                    else
+                                    {
+                                        Main.FlightToggle = true;
+                                    }
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    Main.jumpPackToggle = !Main.jumpPackToggle;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 3: // Item Management Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -668,7 +704,7 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 2.1f;
+                                    menuIndex = 3.1f;
                                     Main._isItemSpawnMenuOpen = !Main._isItemSpawnMenuOpen;
                                     break;
                                 }
@@ -677,7 +713,7 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 2.2f;
+                                    menuIndex = 3.2f;
                                     Main._isEquipmentSpawnMenuOpen = !Main._isEquipmentSpawnMenuOpen;
                                     break;
                                 }
@@ -722,7 +758,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.1f: // Give Item Menu
+                case 3.1f: // Give Item Menu
                     {
                         var localUser = LocalUserManager.GetFirstLocalUser();
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
@@ -752,7 +788,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.2f: // Give Equipment Menu
+                case 3.2f: // Give Equipment Menu
                     {
                         var localUser = LocalUserManager.GetFirstLocalUser();
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
@@ -782,7 +818,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 3: // Teleporter Menu
+                case 4: // Teleporter Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -836,7 +872,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Render Menu
+                case 5: // Render Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -866,7 +902,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5: // Lobby Management Menu
+                case 6: // Lobby Management Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -913,6 +949,7 @@ namespace UmbraRoR
             }
         }
 
+        // Main method for Navigation, Highlights button if its supposed to be highlighted
         public static GUIStyle HighlighedCheck(GUIStyle defaultStyle, GUIStyle highlighted, float currentMenu, int currentBtn)
         {
             if (Main.navigationToggle)
@@ -929,32 +966,33 @@ namespace UmbraRoR
             return defaultStyle;
         }
 
+        // Prevents menuIndex and intraMenuIndex from going out of range
         public static void UpdateIndexValues()
         {
             switch (menuIndex)
             {
-                case 0: // Main Menu 0 - 5
+                case 0: // Main Menu 0 - 6
                     {
-                        if (intraMenuIndex > 5)
+                        if (intraMenuIndex > 6)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 5;
+                            intraMenuIndex = 6;
                         }
                         break;
                     }
 
-                case 1: // Player Management Menu 0 - 12
+                case 1: // Player Management Menu 0 - 10
                     {
-                        if (intraMenuIndex > 12)
+                        if (intraMenuIndex > 10)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 12;
+                            intraMenuIndex = 10;
                         }
                         break;
                     }
@@ -1021,7 +1059,20 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2: // Item Management Menu 0 - 8
+                case 2: // Movement Menu 0 - 2
+                    {
+                        if (intraMenuIndex > 2)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 2;
+                        }
+                        break;
+                    }
+
+                case 3: // Item Management Menu 0 - 8
                     {
                         if (intraMenuIndex > 8)
                         {
@@ -1034,7 +1085,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.1f: // Give Item Menu
+                case 3.1f: // Give Item Menu
                     {
                         DrawMenu.itemSpawnerScrollPosition.y = 40 * intraMenuIndex;
 
@@ -1058,7 +1109,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.2f: // Give Equip Menu
+                case 3.2f: // Give Equip Menu
                     {
                         DrawMenu.equipmentSpawnerScrollPosition.y = 40 * intraMenuIndex;
 
@@ -1082,7 +1133,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 3: // Teleporter Menu 0 - 6
+                case 4: // Teleporter Menu 0 - 6
                     {
                         if (intraMenuIndex > 6)
                         {
@@ -1095,7 +1146,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Render Menu 0 - 2
+                case 5: // Render Menu 0 - 2
                     {
                         if (intraMenuIndex > 2)
                         {
@@ -1108,7 +1159,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5: // Lobby Management Menu 0 - 3
+                case 6: // Lobby Management Menu 0 - 3
                     {
                         if (Main.numberOfPlayers > 0)
                         {

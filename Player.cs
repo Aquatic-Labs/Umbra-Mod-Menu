@@ -16,6 +16,7 @@ namespace UmbraRoR
         public static ulong xpToGive = 50;
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
+        public static int jumpPackMul = 1;
 
         public static void GiveBuff(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
         {
@@ -258,6 +259,42 @@ namespace UmbraRoR
                 if (isGoingDown)
                 {
                     Main.LocalPlayerBody.characterMotor.velocity.y = downDirection * 100;
+                }
+            }
+            catch (NullReferenceException) { }
+        }
+
+        public static void JumpPack()
+        {
+            try
+            {
+                if (GetCurrentCharacter().ToString() != "Loader")
+                {
+                    Main.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                }
+
+                var forwardDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
+                var aimDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
+                var upDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
+                var downDirection = Main.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
+                var isForward = Vector3.Dot(forwardDirection, aimDirection) > 0f;
+
+                var isJumping = Main.LocalNetworkUser.inputPlayer.GetButton("Jump");
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+
+                if (isJumping)
+                {
+                    Main.LocalPlayerBody.characterMotor.velocity.y = upDirection += 0.75f * jumpPackMul;
+                    jumpPackMul++;
+
+                    if (jumpPackMul > 200)
+                    {
+                        jumpPackMul = 200;
+                    }
+                }
+                else
+                {
+                    jumpPackMul = 1;
                 }
             }
             catch (NullReferenceException) { }

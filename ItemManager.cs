@@ -264,7 +264,7 @@ namespace UmbraRoR
             foreach (var itemIndex in Main.items)
             {
                 string itemName = itemIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 2.1f, buttonPlacement)))
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.1f, buttonPlacement)))
                 {
                     var localUser = LocalUserManager.GetFirstLocalUser();
                     if (localUser.cachedMasterController && localUser.cachedMasterController.master)
@@ -304,7 +304,7 @@ namespace UmbraRoR
             foreach (var equipmentIndex in Main.equipment)
             {
                 string equipmentName = equipmentIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 2.2f, buttonPlacement)))
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.2f, buttonPlacement)))
                 {
                     var localUser = LocalUserManager.GetFirstLocalUser();
                     if (localUser.cachedMasterController && localUser.cachedMasterController.master)
