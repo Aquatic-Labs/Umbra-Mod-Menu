@@ -6,6 +6,8 @@ A small collection of hacks and cheats for Risk of Rain 2.
 
 Open to any pull requests.
 
+Doesn't require BepInEx!
+
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
 and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
