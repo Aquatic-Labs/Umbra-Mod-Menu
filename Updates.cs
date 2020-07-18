@@ -1,14 +1,11 @@
 ﻿using Octokit;
-using System;
 
 namespace UmbraRoR
 {
     class Updates
     {
-        public static bool updateAvailable;
+        public static bool updateAvailable, devBuild, upToDate = true;
         public static string latestVersion;
-        public static bool devBuild;
-        public static bool upToDate = true;
 
         public static async void CheckForUpdate()
         {
@@ -40,9 +37,9 @@ namespace UmbraRoR
                     }
                 }
             }
-            catch(Exception e)
+            catch (RateLimitExceededException)
             {
-                UnityEngine.Debug.Log(e);
+                upToDate = true;
             }
         }
     }

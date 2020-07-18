@@ -53,15 +53,18 @@ namespace UmbraRoR
         {
             Main.LocalPlayer.GiveExperience(xpToGive);
         }
+
         public static void GiveMoney()
         {
             Main.LocalPlayer.GiveMoney(moneyToGive);
         }
+
         //uh, duh.
         public static void GiveLunarCoins()
         {
             Main.LocalNetworkUser.AwardLunarCoins(coinsToGive);
         }
+
         public static void LevelPlayersCrit()
         {
             try
@@ -83,6 +86,7 @@ namespace UmbraRoR
             {
             }
         }
+
         public static void SetplayersAttackSpeed()
         {
             try
@@ -93,6 +97,7 @@ namespace UmbraRoR
             {
             }
         }
+
         public static void SetplayersArmor()
         {
             try
@@ -103,6 +108,7 @@ namespace UmbraRoR
             {
             }
         }
+
         public static void SetplayersMoveSpeed()
         {
             try
@@ -158,7 +164,7 @@ namespace UmbraRoR
         public static void AlwaysSprint()
         {
             var isMoving = Main.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f || Main.LocalNetworkUser.inputPlayer.GetAxis("MoveHorizontal") != 0f;
-            var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
+            var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
 
             var controller = localUser.cachedMasterController;

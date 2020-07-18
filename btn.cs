@@ -153,7 +153,7 @@ namespace UmbraRoR
                     return new Rect(Main.editStatsRect.x + 5, Main.editStatsRect.y + 5 + 45 * y, Main.widthSize, 40);
                 }
             }
-            if (buttonType.Equals("movement"))
+            else if (buttonType.Equals("movement"))
             {
                 Main.movementMulY = y;
                 if (isMultButton)
