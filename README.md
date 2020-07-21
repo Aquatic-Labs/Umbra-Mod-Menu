@@ -6,6 +6,8 @@ A small collection of hacks and cheats for Risk of Rain 2.
 
 Open to any pull requests.
 
+Doesn't require BepInEx or R2API!
+
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
 and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
@@ -15,6 +17,7 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 
 - [ ] Unlock All
 - [ ] Change Character
+- [ ] Spawn Mobs and Interactables
 - [ ] God Mode
 - [ ] Flight
 - [ ] Play as mobs/unreleased characters
@@ -152,6 +155,17 @@ pause
 
 
 # Changelog:
+### 7/20/2020 v1.2.5:
+- [ ] Added JumpPack.
+- [ ] Added the ability to Spawn Interactables and Mobs.
+- [ ] Added the ability to insta-kill all Mobs.
+- [ ] Moved Movement mods to their own menu/file.
+- [ ] Moved Stats Modifications/Menu to their own menu.
+- [ ] Made the menu slightly more transparent and smaller.
+- [ ] Fixed View Stats Menu styling.
+- [ ] Some code cleanup.
+
+
 ### 7/11/2020 v1.2.4:
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
@@ -164,7 +178,7 @@ pause
 - [ ] Fixed a bug that sometimes caused mob & interactable ESP to conflict.
 - [ ] Fixed a bug causing Always Sprint & Flight to conflict.
 - [ ] Fixed a bug causing Stats Menu & drag location to reset when insert was pressed while Navigation was toggled.
-- [ ] Some code cleanup
+- [ ] Some code cleanup.
 
 
 ### 7/9/2020 v1.2.3:
@@ -175,27 +189,27 @@ pause
 - [ ] Refactored a few things.
 
 ### 7/3/2020 v1.2.2:
-- [ ] Menu now `checks for updates` on inject and will tell you if its outdated
-- [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu
-- [ ] Improved Flight
- - Can now press `X` to fly down
- - No longer take fall damage while flight is enabled
-- [ ] Improved Roll Item
- - Added Lunar and Boss items to loot pool
- - No longer uses a depricated method
-- [ ] Refactored a few things
+- [ ] Menu now `checks for updates` on inject and will tell you if its outdated.
+- [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu.
+- [ ] Improved Flight:
+ - Can now press `X` to fly down.
+ - No longer take fall damage while flight is enabled.
+- [ ] Improved Roll Item:
+ - Added Lunar and Boss items to loot pool.
+ - No longer uses a depricated method.
+- [ ] Refactored a few things.
  
 ### 6/26/2020 v1.2.1:
- - [ ] Added the ability to navigate the menu with a keyboard
- - [ ] Added the ability to drop items from your inventory
+ - [ ] Added the ability to navigate the menu with a keyboard.
+ - [ ] Added the ability to drop items from your inventory.
  
 ### 4/26/2020 v1.2:
- - [ ] Fixed Equipment not dropping sometimes
- - [ ] Reorganized code
- - [ ] Added comments to code
+ - [ ] Fixed Equipment not dropping sometimes.
+ - [ ] Reorganized code.
+ - [ ] Added comments to code.
 
 ### 4/23/2020 v1.0:
- - [ ] Repo Changed to Public
+ - [ ] Repo Changed to Public.
  
  
 # Resources:

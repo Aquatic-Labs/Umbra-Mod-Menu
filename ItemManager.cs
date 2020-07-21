@@ -21,6 +21,7 @@ namespace UmbraRoR
         {
             public GameObject Player;
             public ItemIndex ItemIndex;
+
             public override void Serialize(NetworkWriter writer)
             {
                 writer.Write(Player);
@@ -33,6 +34,7 @@ namespace UmbraRoR
                 ItemIndex = (ItemIndex)reader.ReadUInt16();
             }
         }
+
         class DropEquipmentPacket : MessageBase
         {
             public GameObject Player;
@@ -49,6 +51,7 @@ namespace UmbraRoR
                 EquipmentIndex = (EquipmentIndex)reader.ReadUInt16();
             }
         }
+
         static void SendDropItem(GameObject player, ItemIndex itemIndex)
         {
             NetworkServer.SendToAll(HandleItemId, new DropItemPacket
@@ -57,6 +60,7 @@ namespace UmbraRoR
                 ItemIndex = itemIndex
             });
         }
+
         static void SendDropEquipment(GameObject player, EquipmentIndex equipmentIndex)
         {
             NetworkServer.SendToAll(HandleEquipmentId, new DropEquipmentPacket
@@ -65,6 +69,7 @@ namespace UmbraRoR
                 EquipmentIndex = equipmentIndex
             });
         }
+
         [RoR2.Networking.NetworkMessageHandler(msgType = HandleItemId, client = true)]
         static void HandleDropItem(NetworkMessage netMsg)
         {
@@ -72,6 +77,7 @@ namespace UmbraRoR
             var body = dropItem.Player.GetComponent<CharacterBody>();
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
         }
+
         [RoR2.Networking.NetworkMessageHandler(msgType = HandleEquipmentId, client = true)]
         static void HandleDropEquipment(NetworkMessage netMsg)
         {
@@ -250,9 +256,9 @@ namespace UmbraRoR
             }
         }
 
+        //Does the same thing as the shrine of order. Orders all your items into stacks of several random items.
         public static void StackInventory()
         {
-            //Does the same thing as the shrine of order. Orders all your items into stacks of several random items.
             Main.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
         }
 
@@ -264,7 +270,7 @@ namespace UmbraRoR
             foreach (var itemIndex in Main.items)
             {
                 string itemName = itemIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 2.1f, buttonPlacement)))
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.1f, buttonPlacement)))
                 {
                     var localUser = LocalUserManager.GetFirstLocalUser();
                     if (localUser.cachedMasterController && localUser.cachedMasterController.master)
@@ -304,7 +310,7 @@ namespace UmbraRoR
             foreach (var equipmentIndex in Main.equipment)
             {
                 string equipmentName = equipmentIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 2.2f, buttonPlacement)))
+                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.2f, buttonPlacement)))
                 {
                     var localUser = LocalUserManager.GetFirstLocalUser();
                     if (localUser.cachedMasterController && localUser.cachedMasterController.master)

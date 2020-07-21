@@ -17,25 +17,32 @@ namespace UmbraRoR
         {
             { 0, "Menu" },
             { 1, "Player" },
-            { 2, "Item" },
-            { 3, "Teleporter" },
-            { 4, "Render" },
-            { 5, "Lobby" }
+            { 2, "Movement" },
+            { 3, "Item" },
+            { 4, "Spawn" },
+            { 5, "Teleporter" },
+            { 6, "Render" },
+            { 7, "Lobby" }
         };
 
         public static Dictionary<float, string> ExtentionMenuList = new Dictionary<float, string>()
         {
             { 1.1f, "CharacterMenu" },
             { 1.2f, "BuffMenu" },
-            { 2.1f, "ItemMenu" },
-            { 2.2f, "EquipMenu" },
+            { 1.3f, "StatsModMenu"},
+            { 3.1f, "ItemMenu" },
+            { 3.2f, "EquipMenu" },
+            { 4.1f, "SpawnListMenu" }
         };
 
         public static string[] MainBtnNav = { "PlayerMod", "ItemMang", "Teleporter", "Render", "LobbyMang" };
-        public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "CharacterMenu", "Stat", "BuffMenu", "RemoveBuffs", "Aimbot", "AutoSprint", "Flight", "GodMode", "NoSkillCD", "UnlockAll" };
+        public static string[] PlayerBtnNav = { "GiveMoney", "GiveCoin", "GiveXP", "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "CharacterMenu", "Stat", "BuffMenu", "RemoveBuffs", "Aimbot", "GodMode", "NoSkillCD", "UnlockAll" };
+        public static string[] StatsBtnNav = { "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "Stat" };
+        public static string[] MovementBtnNav = { "AutoSprint", "Flight", "JumpPack" };
         public static string[] ItemBtnNav = { "GiveAll", "RollItems", "ItemMenu", "EquipMenu", "DropItems", "DropFromInventory", "NoEquipCD", "StackShrine", "ClearInv" };
+        public static string[] SpawnBtnNav = { "minDistance", "MaxDistance", "TeamIndex", "KillAll", "SpawnList" };
         public static string[] TeleBtnNav = { "Skip", "InstaTP", "Mountain", "SpawnAll", "SpawnBlue", "SpawnCele", "SpawnGold" };
-        public static string[] RenderBtnNav = { "InteractESP", "MobESP" };
+        public static string[] RenderBtnNav = { "ActiveMods", "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
 
         // Goes to previous menu when backspace or left arrow is pressed
@@ -82,51 +89,83 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2: // Item Management Menu
+                case 1.3f: // Stats Modification Menu
                     {
-                        Main._isItemManagerOpen = false;
+                        Main._isEditStatsOpen = false;
+                        menuIndex = 1;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 2: // Movement Menu
+                    {
+                        Main._isMovementOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 1;
                         break;
                     }
 
-                case 2.1f: // Give Item Menu
+                case 3: // Item Management Menu
                     {
-                        Main._isItemSpawnMenuOpen = false;
-                        menuIndex = 2;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
-
-                case 2.2f: // Give Equipment Menu
-                    {
-                        Main._isEquipmentSpawnMenuOpen = false;
-                        menuIndex = 2;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
-
-                case 3: // Teleporter Menu
-                    {
-                        Main._isTeleMenuOpen = false;
+                        Main._isItemManagerOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 2;
                         break;
                     }
 
-                case 4: // Render Menu
+                case 3.1f: // Give Item Menu
                     {
-                        Main._isESPMenuOpen = false;
+                        Main._isItemSpawnMenuOpen = false;
+                        menuIndex = 3;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 3.2f: // Give Equipment Menu
+                    {
+                        Main._isEquipmentSpawnMenuOpen = false;
+                        menuIndex = 3;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 4: // Spawn Menu
+                    {
+                        Main._isSpawnMenuOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 3;
                         break;
                     }
 
-                case 5: // Lobby Management Menu
+                case 4.1f: // Spawn List Menu
+                    {
+                        Main._isSpawnListMenuOpen = false;
+                        menuIndex = 4;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 5: // Teleporter Menu
+                    {
+                        Main._isTeleMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 4;
+                        break;
+                    }
+
+                case 6: // Render Menu
+                    {
+                        Main._isESPMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 5;
+                        break;
+                    }
+
+                case 7: // Lobby Management Menu
                     {
                         Main._isLobbyMenuOpen = false;
                         menuIndex = 0;
-                        intraMenuIndex = 4;
+                        intraMenuIndex = 6;
                         break;
                     }
 
@@ -138,7 +177,7 @@ namespace UmbraRoR
         }
 
         // Increase value for buttons with +/- options
-        public static void IncreaseValue(int MenuIndex, int BtnIndex)
+        public static void IncreaseValue(float MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
             {
@@ -167,35 +206,47 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 3:
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 1.3f:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
                                 {
                                     if (PlayerMod.damagePerLvl >= 0)
                                         PlayerMod.damagePerLvl += 10;
                                     break;
                                 }
 
-                            case 4:
+                            case 1:
                                 {
                                     if (PlayerMod.CritPerLvl >= 0)
                                         PlayerMod.CritPerLvl += 1;
                                     break;
                                 }
 
-                            case 5:
+                            case 2:
                                 {
                                     if (PlayerMod.attackSpeed >= 0)
                                         PlayerMod.attackSpeed += 1;
                                     break;
                                 }
 
-                            case 6:
+                            case 3:
                                 {
                                     if (PlayerMod.armor >= 0)
                                         PlayerMod.armor += 10;
                                     break;
                                 }
 
-                            case 7:
+                            case 4:
                                 {
                                     if (PlayerMod.movespeed >= 7)
                                         PlayerMod.movespeed += 10;
@@ -210,7 +261,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2:
+                case 3:
                     {
                         switch (BtnIndex)
                         {
@@ -236,6 +287,49 @@ namespace UmbraRoR
                         break;
                     }
 
+                case 4:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
+                                {
+                                    if (Spawn.minDistance < Spawn.maxDistance)
+                                    {
+                                        Spawn.minDistance += 1;
+                                    }
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    if (Spawn.maxDistance >= Spawn.minDistance)
+                                    {
+                                        Spawn.maxDistance += 1;
+                                    }
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    if (Spawn.teamIndex < 3)
+                                    {
+                                        Spawn.teamIndex += 1;
+                                    }
+                                    else if (Spawn.teamIndex == 3)
+                                    {
+                                        Spawn.teamIndex = 0;
+                                    }
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
                 default:
                     {
                         break;
@@ -244,7 +338,7 @@ namespace UmbraRoR
         }
 
         // Decrease value for buttons with +/- options
-        public static void DecreaseValue(int MenuIndex, int BtnIndex)
+        public static void DecreaseValue(float MenuIndex, int BtnIndex)
         {
             switch (MenuIndex)
             {
@@ -273,35 +367,47 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 3:
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 1.3f:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
                                 {
                                     if (PlayerMod.damagePerLvl > 0)
                                         PlayerMod.damagePerLvl -= 10;
                                     break;
                                 }
 
-                            case 4:
+                            case 1:
                                 {
                                     if (PlayerMod.CritPerLvl > 0)
                                         PlayerMod.CritPerLvl -= 1;
                                     break;
                                 }
 
-                            case 5:
+                            case 2:
                                 {
                                     if (PlayerMod.attackSpeed > 0)
                                         PlayerMod.attackSpeed -= 1;
                                     break;
                                 }
 
-                            case 6:
+                            case 3:
                                 {
                                     if (PlayerMod.armor > 0)
                                         PlayerMod.armor -= 10;
                                     break;
                                 }
 
-                            case 7:
+                            case 4:
                                 {
                                     if (PlayerMod.movespeed > 7)
                                         PlayerMod.movespeed -= 10;
@@ -316,7 +422,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2:
+                case 3:
                     {
                         switch (BtnIndex)
                         {
@@ -331,6 +437,49 @@ namespace UmbraRoR
                                 {
                                     if (ItemManager.itemsToRoll > 5)
                                         ItemManager.itemsToRoll -= 5;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 4:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
+                                {
+                                    if (Spawn.minDistance > 0)
+                                    {
+                                        Spawn.minDistance -= 1;
+                                    }
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    if (Spawn.maxDistance > Spawn.minDistance)
+                                    {
+                                        Spawn.maxDistance -= 1;
+                                    }
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    if (Spawn.teamIndex > 0)
+                                    {
+                                        Spawn.teamIndex -= 1;
+                                    }
+                                    else if (Spawn.teamIndex == 0)
+                                    {
+                                        Spawn.teamIndex = 3;
+                                    }
                                     break;
                                 }
 
@@ -367,33 +516,47 @@ namespace UmbraRoR
 
                             case 1:
                                 {
-                                    Main._isItemManagerOpen = !Main._isItemManagerOpen;
+                                    Main._isMovementOpen = !Main._isMovementOpen;
                                     Navigation.menuIndex = 2;
                                     break;
                                 }
 
                             case 2:
                                 {
-                                    Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
+                                    Main._isItemManagerOpen = !Main._isItemManagerOpen;
                                     Navigation.menuIndex = 3;
                                     break;
                                 }
 
                             case 3:
                                 {
-                                    Main._isESPMenuOpen = !Main._isESPMenuOpen;
+                                    Main._isSpawnMenuOpen = !Main._isSpawnMenuOpen;
                                     Navigation.menuIndex = 4;
                                     break;
                                 }
 
                             case 4:
                                 {
-                                    Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
                                     Navigation.menuIndex = 5;
                                     break;
                                 }
 
                             case 5:
+                                {
+                                    Main._isESPMenuOpen = !Main._isESPMenuOpen;
+                                    Navigation.menuIndex = 6;
+                                    break;
+                                }
+
+                            case 6:
+                                {
+                                    Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Navigation.menuIndex = 7;
+                                    break;
+                                }
+
+                            case 7:
                                 {
                                     if (Main.unloadConfirm)
                                     {
@@ -440,35 +603,14 @@ namespace UmbraRoR
 
                             case 3:
                                 {
-                                    Main.damageToggle = !Main.damageToggle;
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 1.3f;
+                                    Main._isEditStatsOpen = !Main._isEditStatsOpen;
                                     break;
                                 }
 
                             case 4:
-                                {
-                                    Main.critToggle = !Main.critToggle;
-                                    break;
-                                }
-
-                            case 5:
-                                {
-                                    Main.attackSpeedToggle = !Main.attackSpeedToggle;
-                                    break;
-                                }
-
-                            case 6:
-                                {
-                                    Main.armorToggle = !Main.armorToggle;
-                                    break;
-                                }
-
-                            case 7:
-                                {
-                                    Main.moveSpeedToggle = !Main.moveSpeedToggle;
-                                    break;
-                                }
-
-                            case 8:
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
@@ -477,13 +619,7 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 9:
-                                {
-                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
-                                    break;
-                                }
-
-                            case 10:
+                            case 5:
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
@@ -492,13 +628,13 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 11:
+                            case 6:
                                 {
                                     PlayerMod.RemoveAllBuffs();
                                     break;
                                 }
 
-                            case 12:
+                            case 7:
                                 {
                                     if (Main.aimBot)
                                     {
@@ -519,42 +655,19 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 13:
-                                {
-                                    Main.alwaysSprint = !Main.alwaysSprint;
-                                    break;
-                                }
-
-                            case 14:
-                                {
-                                    if (Main.FlightToggle)
-                                    {
-                                        if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
-                                        {
-                                            Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
-                                        }
-                                        Main.FlightToggle = false;
-                                    }
-                                    else
-                                    {
-                                        Main.FlightToggle = true;
-                                    }
-                                    break;
-                                }
-
-                            case 15:
+                            case 8:
                                 {
                                     Main.godToggle = !Main.godToggle;
                                     break;
                                 }
 
-                            case 16:
+                            case 9:
                                 {
                                     Main.skillToggle = !Main.skillToggle;
                                     break;
                                 }
 
-                            case 17:
+                            case 10:
                                 {
                                     PlayerMod.UnlockAll();
                                     break;
@@ -593,7 +706,97 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2: // Item Management Menu
+                case 1.3f: // Stats Modification Menu
+                    {
+                        switch (intraMenuIndex)
+                        {
+                            case 0:
+                                {
+                                    Main.damageToggle = !Main.damageToggle;
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    Main.critToggle = !Main.critToggle;
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    Main.attackSpeedToggle = !Main.attackSpeedToggle;
+                                    break;
+                                }
+
+                            case 3:
+                                {
+                                    Main.armorToggle = !Main.armorToggle;
+                                    break;
+                                }
+
+                            case 4:
+                                {
+                                    Main.moveSpeedToggle = !Main.moveSpeedToggle;
+                                    break;
+                                }
+
+                            case 5:
+                                {
+                                    Main._isStatMenuOpen = !Main._isStatMenuOpen;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+
+                        }
+                        break;
+                    }
+
+                case 2: // Movement Menu
+                    {
+                        switch (intraMenuIndex)
+                        {
+                            case 0:
+                                {
+                                    Main.alwaysSprint = !Main.alwaysSprint;
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    if (Main.FlightToggle)
+                                    {
+                                        if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
+                                        {
+                                            Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
+                                        }
+                                        Main.FlightToggle = false;
+                                    }
+                                    else
+                                    {
+                                        Main.FlightToggle = true;
+                                    }
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    Main.jumpPackToggle = !Main.jumpPackToggle;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 3: // Item Management Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -613,7 +816,7 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 2.1f;
+                                    menuIndex = 3.1f;
                                     Main._isItemSpawnMenuOpen = !Main._isItemSpawnMenuOpen;
                                     break;
                                 }
@@ -622,7 +825,7 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 2.2f;
+                                    menuIndex = 3.2f;
                                     Main._isEquipmentSpawnMenuOpen = !Main._isEquipmentSpawnMenuOpen;
                                     break;
                                 }
@@ -667,7 +870,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.1f: // Give Item Menu
+                case 3.1f: // Give Item Menu
                     {
                         var localUser = LocalUserManager.GetFirstLocalUser();
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
@@ -697,7 +900,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.2f: // Give Equipment Menu
+                case 3.2f: // Give Equipment Menu
                     {
                         var localUser = LocalUserManager.GetFirstLocalUser();
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
@@ -727,7 +930,108 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 3: // Teleporter Menu
+                case 4: // Spawn Menu
+                    {
+                        switch (intraMenuIndex)
+                        {
+                            case 0:
+                                {
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    break;
+                                }
+
+                            case 3:
+                                {
+                                    Spawn.KillAll();
+                                    break;
+                                }
+
+                            case 4:
+                                {
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 4.1f;
+                                    Main._isSpawnListMenuOpen = !Main._isSpawnListMenuOpen;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 4.1f: // Spawn List Menu
+                    {
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        var body = localUser.cachedMasterController.master.GetBody().transform;
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            var directorspawnrequest = new DirectorSpawnRequest(Main.spawnCards[intraMenuIndex], new DirectorPlacementRule
+                            {
+                                placementMode = DirectorPlacementRule.PlacementMode.Approximate,
+                                minDistance = Spawn.minDistance,
+                                maxDistance = Spawn.maxDistance,
+                                position = Main.LocalPlayerBody.footPosition
+                            }, RoR2Application.rng);
+                            directorspawnrequest.ignoreTeamMemberLimit = true;
+                            directorspawnrequest.teamIndexOverride = Spawn.team[Spawn.teamIndex];
+
+                            string cardName = Main.spawnCards[intraMenuIndex].ToString();
+                            string category = "";
+                            string buttonText = "";
+                            if (cardName.Contains("MultiCharacterSpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.MultiCharacterSpawnCard)", "");
+                                category = "CharacterSpawnCard";
+                                buttonText = cardName.Replace("csc", "");
+                            }
+                            else if (cardName.Contains("CharacterSpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.CharacterSpawnCard)", "");
+                                category = "CharacterSpawnCard";
+                                buttonText = cardName.Replace("csc", "");
+                            }
+                            else if (cardName.Contains("InteractableSpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.InteractableSpawnCard)", "");
+                                category = "InteractableSpawnCard";
+                                buttonText = cardName.Replace("isc", "");
+                            }
+                            else if (cardName.Contains("BodySpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.BodySpawnCard)", "");
+                                category = "BodySpawnCard";
+                                buttonText = cardName.Replace("bsc", "");
+                            }
+                            string path = $"SpawnCards/{category}/{cardName}";
+
+                            // Add chat message
+                            if (cardName.Contains("isc"))
+                            {
+                                Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorspawnrequest);
+                            }
+                            else
+                            {
+                                DirectorCore.instance.TrySpawnObject(directorspawnrequest);
+                            }
+                            Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
+                        }
+                        break;
+                    }
+
+                case 5: // Teleporter Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -781,7 +1085,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Render Menu
+                case 6: // Render Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -811,7 +1115,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5: // Lobby Management Menu
+                case 7: // Lobby Management Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -858,6 +1162,7 @@ namespace UmbraRoR
             }
         }
 
+        // Main method for Navigation, Highlights button if its supposed to be highlighted
         public static GUIStyle HighlighedCheck(GUIStyle defaultStyle, GUIStyle highlighted, float currentMenu, int currentBtn)
         {
             if (Main.navigationToggle)
@@ -874,32 +1179,33 @@ namespace UmbraRoR
             return defaultStyle;
         }
 
+        // Prevents menuIndex and intraMenuIndex from going out of range
         public static void UpdateIndexValues()
         {
             switch (menuIndex)
             {
-                case 0: // Main Menu 0 - 5
+                case 0: // Main Menu 0 - 7
                     {
-                        if (intraMenuIndex > 5)
+                        if (intraMenuIndex > 7)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 5;
+                            intraMenuIndex = 7;
                         }
                         break;
                     }
 
-                case 1: // Player Management Menu 0 - 17
+                case 1: // Player Management Menu 0 - 10
                     {
-                        if (intraMenuIndex > 17)
+                        if (intraMenuIndex > 10)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 17;
+                            intraMenuIndex = 10;
                         }
                         break;
                     }
@@ -952,7 +1258,34 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2: // Item Management Menu 0 - 8
+                case 1.3f: // Stats Modification Menu 0-5
+                    {
+
+                        if (intraMenuIndex > 5)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 5;
+                        }
+                        break;
+                    }
+
+                case 2: // Movement Menu 0 - 2
+                    {
+                        if (intraMenuIndex > 2)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 2;
+                        }
+                        break;
+                    }
+
+                case 3: // Item Management Menu 0 - 8
                     {
                         if (intraMenuIndex > 8)
                         {
@@ -965,7 +1298,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.1f: // Give Item Menu
+                case 3.1f: // Give Item Menu
                     {
                         DrawMenu.itemSpawnerScrollPosition.y = 40 * intraMenuIndex;
 
@@ -989,7 +1322,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 2.2f: // Give Equip Menu
+                case 3.2f: // Give Equip Menu
                     {
                         DrawMenu.equipmentSpawnerScrollPosition.y = 40 * intraMenuIndex;
 
@@ -1013,7 +1346,44 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 3: // Teleporter Menu 0 - 6
+                case 4: // Spawn Menu 0 - 4
+                    {
+                        if (intraMenuIndex > 4)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 4;
+                        }
+                        break;
+                    }
+
+                case 4.1f: // Spawn List Menu
+                    {
+                        DrawMenu.spawnScrollPosition.y = 40 * intraMenuIndex;
+
+                        if (intraMenuIndex > Main.spawnCards.Count - 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = Main.spawnCards.Count - 1;
+                        }
+
+                        if (DrawMenu.spawnScrollPosition.y > (Main.spawnCards.Count - 1) * 40)
+                        {
+                            DrawMenu.spawnScrollPosition = Vector2.zero;
+                        }
+                        if (DrawMenu.spawnScrollPosition.y < 0)
+                        {
+                            DrawMenu.spawnScrollPosition.y = (Main.spawnCards.Count - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 5: // Teleporter Menu 0 - 6
                     {
                         if (intraMenuIndex > 6)
                         {
@@ -1026,7 +1396,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Render Menu 0 - 2
+                case 6: // Render Menu 0 - 2
                     {
                         if (intraMenuIndex > 2)
                         {
@@ -1039,7 +1409,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5: // Lobby Management Menu 0 - 3
+                case 7: // Lobby Management Menu 0 - 3
                     {
                         if (Main.numberOfPlayers > 0)
                         {

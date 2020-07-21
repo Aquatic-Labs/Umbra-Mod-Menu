@@ -82,9 +82,12 @@ namespace UmbraRoR
             Main._isEditStatsOpen = false;
             Main._isItemSpawnMenuOpen = false;
             Main._isPlayerMod = false;
+            Main._isMovementOpen = false;
             Main._isEquipmentSpawnMenuOpen = false;
             Main._isBuffMenuOpen = false;
             Main._isItemManagerOpen = false;
+            Main._isSpawnListMenuOpen = false;
+            Main._isSpawnMenuOpen = false;
             Main.damageToggle = false;
             Main.noEquipmentCooldown = false;
             Main.critToggle = false;
@@ -128,6 +131,9 @@ namespace UmbraRoR
             Main._isEquipmentSpawnMenuOpen = false;
             Main._isBuffMenuOpen = false;
             Main._isItemManagerOpen = false;
+            Main._isMovementOpen = false;
+            Main._isSpawnListMenuOpen = false;
+            Main._isSpawnMenuOpen = false;
         }
 
         // Soft reset when moving to next stage to keep player stat mods and god mode between stages
@@ -294,6 +300,12 @@ namespace UmbraRoR
                 }*/
             }
             return trueCnt;
+        }
+
+        public static List<SpawnCard> GetSpawnCards()
+        {
+            List<SpawnCard> spawnCards = Resources.FindObjectsOfTypeAll<SpawnCard>().ToList();
+            return spawnCards;
         }
     }
 }
