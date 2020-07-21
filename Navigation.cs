@@ -19,9 +19,10 @@ namespace UmbraRoR
             { 1, "Player" },
             { 2, "Movement" },
             { 3, "Item" },
-            { 4, "Teleporter" },
-            { 5, "Render" },
-            { 6, "Lobby" }
+            { 4, "Spawn" },
+            { 5, "Teleporter" },
+            { 6, "Render" },
+            { 7, "Lobby" }
         };
 
         public static Dictionary<float, string> ExtentionMenuList = new Dictionary<float, string>()
@@ -31,6 +32,7 @@ namespace UmbraRoR
             { 1.3f, "StatsModMenu"},
             { 3.1f, "ItemMenu" },
             { 3.2f, "EquipMenu" },
+            { 4.1f, "SpawnListMenu" }
         };
 
         public static string[] MainBtnNav = { "PlayerMod", "ItemMang", "Teleporter", "Render", "LobbyMang" };
@@ -38,6 +40,7 @@ namespace UmbraRoR
         public static string[] StatsBtnNav = { "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "Stat" };
         public static string[] MovementBtnNav = { "AutoSprint", "Flight", "JumpPack" };
         public static string[] ItemBtnNav = { "GiveAll", "RollItems", "ItemMenu", "EquipMenu", "DropItems", "DropFromInventory", "NoEquipCD", "StackShrine", "ClearInv" };
+        public static string[] SpawnBtnNav = { "minDistance", "MaxDistance", "TeamIndex", "KillAll", "SpawnList" };
         public static string[] TeleBtnNav = { "Skip", "InstaTP", "Mountain", "SpawnAll", "SpawnBlue", "SpawnCele", "SpawnGold" };
         public static string[] RenderBtnNav = { "ActiveMods", "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
@@ -126,27 +129,43 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Teleporter Menu
+                case 4: // Spawn Menu
                     {
-                        Main._isTeleMenuOpen = false;
+                        Main._isSpawnMenuOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 3;
                         break;
                     }
 
-                case 5: // Render Menu
+                case 4.1f: // Spawn List Menu
                     {
-                        Main._isESPMenuOpen = false;
+                        Main._isSpawnListMenuOpen = false;
+                        menuIndex = 4;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
+                case 5: // Teleporter Menu
+                    {
+                        Main._isTeleMenuOpen = false;
                         menuIndex = 0;
                         intraMenuIndex = 4;
                         break;
                     }
 
-                case 6: // Lobby Management Menu
+                case 6: // Render Menu
+                    {
+                        Main._isESPMenuOpen = false;
+                        menuIndex = 0;
+                        intraMenuIndex = 5;
+                        break;
+                    }
+
+                case 7: // Lobby Management Menu
                     {
                         Main._isLobbyMenuOpen = false;
                         menuIndex = 0;
-                        intraMenuIndex = 5;
+                        intraMenuIndex = 6;
                         break;
                     }
 
@@ -257,6 +276,49 @@ namespace UmbraRoR
                                 {
                                     if (ItemManager.itemsToRoll >= 5)
                                         ItemManager.itemsToRoll += 5;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 4:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
+                                {
+                                    if (Spawn.minDistance < Spawn.maxDistance)
+                                    {
+                                        Spawn.minDistance += 1;
+                                    }
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    if (Spawn.maxDistance >= Spawn.minDistance)
+                                    {
+                                        Spawn.maxDistance += 1;
+                                    }
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    if (Spawn.teamIndex < 3)
+                                    {
+                                        Spawn.teamIndex += 1;
+                                    }
+                                    else if (Spawn.teamIndex == 3)
+                                    {
+                                        Spawn.teamIndex = 0;
+                                    }
                                     break;
                                 }
 
@@ -386,6 +448,49 @@ namespace UmbraRoR
                         break;
                     }
 
+                case 4:
+                    {
+                        switch (BtnIndex)
+                        {
+                            case 0:
+                                {
+                                    if (Spawn.minDistance > 0)
+                                    {
+                                        Spawn.minDistance -= 1;
+                                    }
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    if (Spawn.maxDistance > Spawn.minDistance)
+                                    {
+                                        Spawn.maxDistance -= 1;
+                                    }
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    if (Spawn.teamIndex > 0)
+                                    {
+                                        Spawn.teamIndex -= 1;
+                                    }
+                                    else if (Spawn.teamIndex == 0)
+                                    {
+                                        Spawn.teamIndex = 3;
+                                    }
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
                 default:
                     {
                         break;
@@ -425,26 +530,33 @@ namespace UmbraRoR
 
                             case 3:
                                 {
-                                    Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
+                                    Main._isSpawnMenuOpen = !Main._isSpawnMenuOpen;
                                     Navigation.menuIndex = 4;
                                     break;
                                 }
 
                             case 4:
                                 {
-                                    Main._isESPMenuOpen = !Main._isESPMenuOpen;
+                                    Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
                                     Navigation.menuIndex = 5;
                                     break;
                                 }
 
                             case 5:
                                 {
-                                    Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Main._isESPMenuOpen = !Main._isESPMenuOpen;
                                     Navigation.menuIndex = 6;
                                     break;
                                 }
 
                             case 6:
+                                {
+                                    Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Navigation.menuIndex = 7;
+                                    break;
+                                }
+
+                            case 7:
                                 {
                                     if (Main.unloadConfirm)
                                     {
@@ -818,7 +930,108 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Teleporter Menu
+                case 4: // Spawn Menu
+                    {
+                        switch (intraMenuIndex)
+                        {
+                            case 0:
+                                {
+                                    break;
+                                }
+
+                            case 1:
+                                {
+                                    break;
+                                }
+
+                            case 2:
+                                {
+                                    break;
+                                }
+
+                            case 3:
+                                {
+                                    Spawn.KillAll();
+                                    break;
+                                }
+
+                            case 4:
+                                {
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 4.1f;
+                                    Main._isSpawnListMenuOpen = !Main._isSpawnListMenuOpen;
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+
+                case 4.1f: // Spawn List Menu
+                    {
+                        var localUser = LocalUserManager.GetFirstLocalUser();
+                        var body = localUser.cachedMasterController.master.GetBody().transform;
+                        if (localUser.cachedMasterController && localUser.cachedMasterController.master)
+                        {
+                            var directorspawnrequest = new DirectorSpawnRequest(Main.spawnCards[intraMenuIndex], new DirectorPlacementRule
+                            {
+                                placementMode = DirectorPlacementRule.PlacementMode.Approximate,
+                                minDistance = Spawn.minDistance,
+                                maxDistance = Spawn.maxDistance,
+                                position = Main.LocalPlayerBody.footPosition
+                            }, RoR2Application.rng);
+                            directorspawnrequest.ignoreTeamMemberLimit = true;
+                            directorspawnrequest.teamIndexOverride = Spawn.team[Spawn.teamIndex];
+
+                            string cardName = Main.spawnCards[intraMenuIndex].ToString();
+                            string category = "";
+                            string buttonText = "";
+                            if (cardName.Contains("MultiCharacterSpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.MultiCharacterSpawnCard)", "");
+                                category = "CharacterSpawnCard";
+                                buttonText = cardName.Replace("csc", "");
+                            }
+                            else if (cardName.Contains("CharacterSpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.CharacterSpawnCard)", "");
+                                category = "CharacterSpawnCard";
+                                buttonText = cardName.Replace("csc", "");
+                            }
+                            else if (cardName.Contains("InteractableSpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.InteractableSpawnCard)", "");
+                                category = "InteractableSpawnCard";
+                                buttonText = cardName.Replace("isc", "");
+                            }
+                            else if (cardName.Contains("BodySpawnCard"))
+                            {
+                                cardName = cardName.Replace(" (RoR2.BodySpawnCard)", "");
+                                category = "BodySpawnCard";
+                                buttonText = cardName.Replace("bsc", "");
+                            }
+                            string path = $"SpawnCards/{category}/{cardName}";
+
+                            // Add chat message
+                            if (cardName.Contains("isc"))
+                            {
+                                Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorspawnrequest);
+                            }
+                            else
+                            {
+                                DirectorCore.instance.TrySpawnObject(directorspawnrequest);
+                            }
+                            Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
+                        }
+                        break;
+                    }
+
+                case 5: // Teleporter Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -872,7 +1085,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5: // Render Menu
+                case 6: // Render Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -902,7 +1115,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 6: // Lobby Management Menu
+                case 7: // Lobby Management Menu
                     {
                         switch (intraMenuIndex)
                         {
@@ -971,15 +1184,15 @@ namespace UmbraRoR
         {
             switch (menuIndex)
             {
-                case 0: // Main Menu 0 - 6
+                case 0: // Main Menu 0 - 7
                     {
-                        if (intraMenuIndex > 6)
+                        if (intraMenuIndex > 7)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 6;
+                            intraMenuIndex = 7;
                         }
                         break;
                     }
@@ -1133,7 +1346,44 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Teleporter Menu 0 - 6
+                case 4: // Spawn Menu 0 - 4
+                    {
+                        if (intraMenuIndex > 4)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = 4;
+                        }
+                        break;
+                    }
+
+                case 4.1f: // Spawn List Menu
+                    {
+                        DrawMenu.spawnScrollPosition.y = 40 * intraMenuIndex;
+
+                        if (intraMenuIndex > Main.spawnCards.Count - 1)
+                        {
+                            intraMenuIndex = 0;
+                        }
+                        if (intraMenuIndex < 0)
+                        {
+                            intraMenuIndex = Main.spawnCards.Count - 1;
+                        }
+
+                        if (DrawMenu.spawnScrollPosition.y > (Main.spawnCards.Count - 1) * 40)
+                        {
+                            DrawMenu.spawnScrollPosition = Vector2.zero;
+                        }
+                        if (DrawMenu.spawnScrollPosition.y < 0)
+                        {
+                            DrawMenu.spawnScrollPosition.y = (Main.spawnCards.Count - 1) * 40;
+                        }
+                        break;
+                    }
+
+                case 5: // Teleporter Menu 0 - 6
                     {
                         if (intraMenuIndex > 6)
                         {
@@ -1146,7 +1396,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 5: // Render Menu 0 - 2
+                case 6: // Render Menu 0 - 2
                     {
                         if (intraMenuIndex > 2)
                         {
@@ -1159,7 +1409,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 6: // Lobby Management Menu 0 - 3
+                case 7: // Lobby Management Menu 0 - 3
                     {
                         if (Main.numberOfPlayers > 0)
                         {

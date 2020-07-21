@@ -10,6 +10,7 @@ namespace UmbraRoR
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
         public static Vector2 buffMenuScrollPosition = Vector2.zero;
         public static Vector2 characterScrollPosition = Vector2.zero;
+        public static Vector2 spawnScrollPosition = Vector2.zero;
 
         public static void DrawNotCollectedMenu(GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle)
         {
@@ -71,57 +72,71 @@ namespace UmbraRoR
                 Navigation.prevMenuIndex = (int)Navigation.menuIndex;
                 Navigation.menuIndex = 3;
             }
+            if (Main._isSpawnMenuOpen)
+            {
+                if (GUI.Button(btn.BtnRect(4, false, "main"), "S P A W N : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 4)))
+                {
+                    Main._isSpawnMenuOpen = false;
+                    Navigation.menuIndex = Navigation.prevMenuIndex;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(4, false, "main"), "S P A W N : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 4)))
+            {
+                Main._isSpawnMenuOpen = true;
+                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
+                Navigation.menuIndex = 4;
+            }
             if (Main._isTeleMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(4, false, "main"), "T E L E P O R T E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 4)))
+                if (GUI.Button(btn.BtnRect(5, false, "main"), "T E L E P O R T E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 5)))
                 {
                     Main._isTeleMenuOpen = false;
                     Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(4, false, "main"), "T E L E P O R T E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 4)))
+            else if (GUI.Button(btn.BtnRect(5, false, "main"), "T E L E P O R T E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 5)))
             {
                 Main._isTeleMenuOpen = true;
                 Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 4;
+                Navigation.menuIndex = 5;
             }
             if (Main._isESPMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(5, false, "main"), "R E N D E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 5)))
+                if (GUI.Button(btn.BtnRect(6, false, "main"), "R E N D E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 6)))
                 {
                     Main._isESPMenuOpen = false;
                     Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(5, false, "main"), "R E N D E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 5)))
+            else if (GUI.Button(btn.BtnRect(6, false, "main"), "R E N D E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 6)))
             {
                 Main._isESPMenuOpen = true;
                 Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 5;
+                Navigation.menuIndex = 6;
             }
             if (Main._isLobbyMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(6, false, "main"), "L O B B Y : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 6)))
+                if (GUI.Button(btn.BtnRect(7, false, "main"), "L O B B Y : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 7)))
                 {
                     Main._isLobbyMenuOpen = false;
                     Navigation.menuIndex = Navigation.prevMenuIndex;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(6, false, "main"), "L O B B Y : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 6)))
+            else if (GUI.Button(btn.BtnRect(7, false, "main"), "L O B B Y : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 7)))
             {
                 Main._isLobbyMenuOpen = true;
                 Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 6;
+                Navigation.menuIndex = 7;
             }
             if (Main.unloadConfirm)
             {
-                if (GUI.Button(btn.BtnRect(7, false, "main"), "C O N F I R M ?", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 7)))
+                if (GUI.Button(btn.BtnRect(8, false, "main"), "C O N F I R M ?", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 8)))
                 {
                     Utility.ResetMenu();
                     Loader.Unload();
                 }
             }
-            else if (GUI.Button(btn.BtnRect(7, false, "main"), "U N L O A D   M E N U", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 7)))
+            else if (GUI.Button(btn.BtnRect(8, false, "main"), "U N L O A D   M E N U", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 8)))
             {
                 Main.unloadConfirm = true;
             }
@@ -413,24 +428,101 @@ namespace UmbraRoR
             }
         }
 
+        public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   M E N U", LabelStyle);
+
+            if (GUI.Button(btn.BtnRect(1, true, "spawn"), $"M I N   D I S T A N C E : {Spawn.minDistance}", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 1))) { return; }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
+            {
+                if (Spawn.minDistance > 0)
+                {
+                    Spawn.minDistance -= 1;
+                }
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", OffStyle))
+            {
+                if (Spawn.minDistance < Spawn.maxDistance)
+                {
+                    Spawn.minDistance += 1;
+                }
+            }
+
+            if (GUI.Button(btn.BtnRect(2, true, "spawn"), $"M A X   D I S T A N C E : {Spawn.maxDistance}", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 2))) { return; }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
+            {
+                if (Spawn.maxDistance > Spawn.minDistance)
+                {
+                    Spawn.maxDistance -= 1;
+                }
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", OffStyle))
+            {
+                if (Spawn.maxDistance >= Spawn.minDistance)
+                {
+                    Spawn.maxDistance += 1;
+                }
+            }
+
+            if (GUI.Button(btn.BtnRect(3, true, "spawn"), $"T E A M : {Spawn.team[Spawn.teamIndex]}", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 3))) { return; }
+            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
+            {
+                if (Spawn.teamIndex > 0)
+                {
+                    Spawn.teamIndex -= 1;
+                }
+                else if (Spawn.teamIndex == 0)
+                {
+                    Spawn.teamIndex = 3;
+                }
+            }
+            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", buttonStyle))
+            {
+                if (Spawn.teamIndex < 3)
+                {
+                    Spawn.teamIndex += 1;
+                }
+                else if (Spawn.teamIndex == 3)
+                {
+                    Spawn.teamIndex = 0;
+                }
+            }
+            if (GUI.Button(btn.BtnRect(4, false, "spawn"), $"K I L L   A L L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 4)))
+            {
+                Spawn.KillAll();
+            }
+            if (Main._isSpawnListMenuOpen)
+            {
+                if (GUI.Button(btn.BtnRect(5, false, "spawn"), "S P A W N   L I S T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 5)))
+                {
+                    Main._isSpawnListMenuOpen = false;
+                }
+            }
+            else if (GUI.Button(btn.BtnRect(5, false, "spawn"), "S P A W N   L I S T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 5)))
+            {
+                Main._isSpawnListMenuOpen = true;
+            }
+        }
+
         public static void DrawTeleMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "T E L E P O R T E R   M E N U", LabelStyle);
 
-            if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 1)))
+            if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 1)))
                 Teleporter.skipStage();
-            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 2)))
+            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 2)))
                 Teleporter.InstaTeleporter();
-            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 3)))
+            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 3)))
                 Teleporter.addMountain();
-            if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 4)))
+            if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 4)))
                 Teleporter.SpawnPortals("all");
-            if (GUI.Button(btn.BtnRect(5, false, "tele"), "S P A W N   B L U E   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 5)))
+            if (GUI.Button(btn.BtnRect(5, false, "tele"), "S P A W N   B L U E   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 5)))
                 Teleporter.SpawnPortals("newt");
-            if (GUI.Button(btn.BtnRect(6, false, "tele"), "S P A W N   C E L E S T A L   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 6)))
+            if (GUI.Button(btn.BtnRect(6, false, "tele"), "S P A W N   C E L E S T A L   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 6)))
                 Teleporter.SpawnPortals("blue");
-            if (GUI.Button(btn.BtnRect(7, false, "tele"), "S P A W N   G O L D   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 7)))
+            if (GUI.Button(btn.BtnRect(7, false, "tele"), "S P A W N   G O L D   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 7)))
                 Teleporter.SpawnPortals("gold");
         }
 
@@ -441,34 +533,34 @@ namespace UmbraRoR
 
             if (Main.renderActiveMods)
             {
-                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 5, 1)))
+                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 6, 1)))
                 {
                     Main.renderActiveMods = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 5, 1)))
+            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 6, 1)))
             {
                 Main.renderActiveMods = true;
             }
             if (Main.renderInteractables)
             {
-                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 5, 2)))
+                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 6, 2)))
                 {
                     Main.renderInteractables = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 5, 2)))
+            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 6, 2)))
             {
                 Main.renderInteractables = true;
             }
             if (Main.renderMobs)
             {
-                if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 5, 3)))
+                if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 6, 3)))
                 {
                     Main.renderMobs = false;
                 }
             }
-            else if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 5, 3)))
+            else if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 6, 3)))
             {
                 Main.renderMobs = true;
             }
@@ -489,7 +581,7 @@ namespace UmbraRoR
                     {
                         if (Main.Players[i] != null)
                         {
-                            if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[i]}</color>", Navigation.HighlighedCheck(buttonStyle, Highlighted, 6, buttonPlacement)))
+                            if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[i]}</color>", Navigation.HighlighedCheck(buttonStyle, Highlighted, 7, buttonPlacement)))
                             {
                                 Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[i]}</color>");
                                 Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[i].ToString()), Main.LocalNetworkUser);
@@ -515,7 +607,7 @@ namespace UmbraRoR
             GUI.EndScrollView();
         }
 
-        public static void DrawStatsModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle,GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawStatsModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S T A T S   M E N U", LabelStyle);
@@ -645,6 +737,16 @@ namespace UmbraRoR
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             ItemManager.GiveItem(buttonStyle, Highlighted, "itemSpawner");
+            GUI.EndScrollView();
+        }
+
+        public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
+
+            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            Spawn.SpawnMob(buttonStyle, Highlighted, "spawnMob");
             GUI.EndScrollView();
         }
 

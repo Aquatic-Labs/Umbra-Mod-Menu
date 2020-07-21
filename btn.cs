@@ -54,6 +54,19 @@ namespace UmbraRoR
                     return new Rect(Main.ESPRect.x + 5, Main.ESPRect.y + 5 + 45 * y, Main.widthSize, 40);
                 }
             }
+            else if (buttonType.Equals("spawn"))
+            {
+                Main.spawnMulY = y;
+                Main.spawnBtnY = 5 + 45 * y;
+                if (isMultButton)
+                {
+                    return new Rect(Main.spawnRect.x + 5, Main.spawnRect.y + 5 + 45 * y, Main.widthSize - 90, 40);
+                }
+                else
+                {
+                    return new Rect(Main.spawnRect.x + 5, Main.spawnRect.y + 5 + 45 * y, Main.widthSize, 40);
+                }
+            }
             else if (buttonType.Equals("itemSpawner"))
             {
                 Main.itemSpawnerMulY = y;
@@ -163,6 +176,18 @@ namespace UmbraRoR
                 else
                 {
                     return new Rect(Main.movementRect.x + 5, Main.movementRect.y + 5 + 45 * y, Main.widthSize, 40);
+                }
+            }
+            else if (buttonType.Equals("spawnMob"))
+            {
+                Main.spawnListMulY = y;
+                if (isMultButton)
+                {
+                    return new Rect(Main.spawnListRect.x + 5, Main.spawnListRect.y + 5 + 45 * y, Main.widthSize - 90, 40);
+                }
+                else
+                {
+                    return new Rect(Main.spawnListRect.x + 5, Main.spawnListRect.y + 5 + 45 * y, Main.widthSize, 40);
                 }
             }
             else

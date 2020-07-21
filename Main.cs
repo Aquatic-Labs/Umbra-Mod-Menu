@@ -30,6 +30,7 @@ namespace UmbraRoR
         public static List<GameObject> bodyPrefabs = Utility.GetBodyPrefabs();
         public static List<EquipmentIndex> equipment = Utility.GetEquipment();
         public static List<ItemIndex> items = Utility.GetItems();
+        public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
         // Used for RollItems
         public static WeightedSelection<List<ItemIndex>> weightedSelection = ItemManager.BuildRollItemsDropTable();
@@ -37,7 +38,7 @@ namespace UmbraRoR
         // Used to make sure navigation intraMenuIndex doesnt go over when in the lobby management menu
         public static int numberOfPlayers;
 
-        public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen, _isMovementOpen };
+        public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen, _isMovementOpen, _isSpawnMenuOpen };
         public static List<bool> menusOpen = new List<bool>();
 
         #region Player Variables
@@ -66,6 +67,8 @@ namespace UmbraRoR
         public static bool _isBuffMenuOpen = false;
         public static bool _isItemManagerOpen = false;
         public static bool _isMovementOpen = false;
+        public static bool _isSpawnListMenuOpen = false;
+        public static bool _isSpawnMenuOpen = false;
         public static bool enableRespawnButton = false;
         #endregion
 
@@ -92,6 +95,8 @@ namespace UmbraRoR
         public static Rect itemManagerRect;
         public static Rect editStatsRect;
         public static Rect movementRect;
+        public static Rect spawnListRect;
+        public static Rect spawnRect;
         #endregion
 
         #region Rect Start Position Values
@@ -106,7 +111,7 @@ namespace UmbraRoR
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY, spawnListMulY, spawnMulY, spawnBtnY;
         public static int btnY, mulY;
 
         public static Rect rect = new Rect(10, 10, 20, 20);
@@ -162,7 +167,7 @@ namespace UmbraRoR
             }
             if (_isItemSpawnMenuOpen)
             {
-                itemSpawnerRect = GUI.Window(5, itemSpawnerRect, new GUI.WindowFunction(SetSpawnerBG), "", new GUIStyle());
+                itemSpawnerRect = GUI.Window(5, itemSpawnerRect, new GUI.WindowFunction(SetItemSpawnerBG), "", new GUIStyle());
                 DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
                 // Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
             }
@@ -207,6 +212,16 @@ namespace UmbraRoR
                 DrawMenu.DrawMovementMenu(movementRect.x, movementRect.y, widthSize, movementMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
                 // Debug.Log("X : " + movementRect.x + " Y : " + movementRect.y);
             }
+            if (_isSpawnMenuOpen)
+            {
+                spawnRect = GUI.Window(13, spawnRect, new GUI.WindowFunction(SetSpawnBG), "", new GUIStyle());
+                DrawMenu.DrawSpawnMenu(spawnRect.x, spawnRect.y, widthSize, spawnMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+            }
+            if (_isSpawnListMenuOpen)
+            {
+                spawnListRect = GUI.Window(14, spawnListRect, new GUI.WindowFunction(SetSpawnListBG), "", new GUIStyle());
+                DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+            }
             if (_CharacterCollected)
             {
                 ESPRoutine();
@@ -227,12 +242,14 @@ namespace UmbraRoR
                 playerModRect = new Rect(374, 10, 20, 20); // start position
                 movementRect = new Rect(374, 560, 20, 20); // start position
                 itemManagerRect = new Rect(738, 10, 20, 20); // start positions
-                teleRect = new Rect(10, 380, 20, 20); // start position
-                ESPRect = new Rect(10, 750, 20, 20); // start position
-                lobbyRect = new Rect(10, 940, 20, 20); // start position
+                teleRect = new Rect(10, 425, 20, 20); // start position
+                ESPRect = new Rect(10, 795, 20, 20); // start position
+                lobbyRect = new Rect(10, 985, 20, 20); // start position
+                spawnRect = new Rect(738, 470, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
+                spawnListRect = new Rect(1503, 10, 20, 20); // start position
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
                 buffMenuRect = new Rect(1503, 10, 20, 20); // start position
@@ -245,12 +262,14 @@ namespace UmbraRoR
                 playerModRect = new Rect(374, 10, 20, 20); // start position
                 movementRect = new Rect(374, 560, 20, 20); // start position
                 itemManagerRect = new Rect(738, 10, 20, 20); // start positions
-                teleRect = new Rect(10, 380, 20, 20); // start position
-                ESPRect = new Rect(10, 750, 20, 20); // start position
+                teleRect = new Rect(10, 425, 20, 20); // start position
+                ESPRect = new Rect(10, 795, 20, 20); // start position
                 lobbyRect = new Rect(374, 750, 20, 20); // start position
+                spawnRect = new Rect(738, 470, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
+                spawnListRect = new Rect(1503, 10, 20, 20);// start position
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
                 buffMenuRect = new Rect(1503, 10, 20, 20); // start position
@@ -534,7 +553,8 @@ namespace UmbraRoR
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
-                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn)
+                        bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
+                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
                         {
                             Navigation.IncreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
                         }
@@ -555,7 +575,8 @@ namespace UmbraRoR
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
-                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn)
+                        bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
+                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
                         {
                             Navigation.DecreaseValue(Navigation.menuIndex, Navigation.intraMenuIndex);
                         }
@@ -581,6 +602,7 @@ namespace UmbraRoR
             {
                 unloadConfirm = false;
                 numberOfPlayers = Utility.NumberOfPlayers();
+                spawnCards = Utility.GetSpawnCards();
                 if (_isMenuOpen && navigationToggle)
                 {
                     Utility.CloseAllMenus();
@@ -654,14 +676,14 @@ namespace UmbraRoR
         private void SprintRoutine()
         {
             if (alwaysSprint)
-                PlayerMod.AlwaysSprint();
+                Movement.AlwaysSprint();
         }
 
         private void FlightRoutine()
         {
             if (FlightToggle)
             {
-                PlayerMod.Flight();
+                Movement.Flight();
             }
         }
 
@@ -705,7 +727,7 @@ namespace UmbraRoR
         {
             if (jumpPackToggle)
             {
-                PlayerMod.JumpPack();
+                Movement.JumpPack();
             }
         }
         #endregion Routines
@@ -961,7 +983,7 @@ namespace UmbraRoR
             GUI.DragWindow();
         }
 
-        public static void SetSpawnerBG(int windowID)
+        public static void SetItemSpawnerBG(int windowID)
         {
             GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * MainMulY), "", CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
@@ -1047,6 +1069,52 @@ namespace UmbraRoR
                 if (!_ifDragged)
                 {
                     _isMovementOpen = !_isMovementOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
+        public static void SetSpawnListBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * spawnListMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isSpawnListMenuOpen = !_isSpawnListMenuOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
+        public static void SetSpawnBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * spawnMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isSpawnMenuOpen = !_isSpawnMenuOpen;
                 }
                 _ifDragged = false;
             }
