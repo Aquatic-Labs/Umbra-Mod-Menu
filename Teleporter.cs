@@ -13,12 +13,12 @@ namespace UmbraRoR
             }
         }
 
-        public static void skipStage()
+        public static void SkipStage()
         {
             Run.instance.AdvanceStage(Run.instance.nextStageScene);
         }
 
-        public static void addMountain()
+        public static void AddMountain()
         {
             TeleporterInteraction.instance.AddShrineStack();
         }

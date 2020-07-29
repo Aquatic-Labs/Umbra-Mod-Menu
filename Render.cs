@@ -112,6 +112,7 @@ namespace UmbraRoR
                 { "Drop-Items-from-Inventory", ItemManager.isDropItemFromInventory },
                 { "Flight", Main.FlightToggle },
                 { "God-Mode", Main.godToggle },
+                { "Jump-Pack", Main.jumpPackToggle },
                 { "Keyboard-Navigation", Main.navigationToggle },
                 { "Modified-Armor", Main.armorToggle },
                 { "Modified-Attack Speed", Main.attackSpeedToggle },
@@ -126,7 +127,6 @@ namespace UmbraRoR
             };
 
             string modsBoxText = "";
-            Vector2 farRight = new Vector2(Screen.width, 0);
             Vector2 bottom = new Vector2(0, Screen.height);
 
             foreach (string modName in allMods.Keys)
@@ -152,7 +152,6 @@ namespace UmbraRoR
 
                 if (modsBoxText != "")
                 {
-                    //GUI.Label(new Rect(farRight.x - 210f, 20f, 200f, 16.66666667f * modsActive.Count), modsBoxText, Main.ActiveModsStyle);
                     GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Main.ActiveModsStyle);
                     GUI.Label(new Rect((Screen.width / 16) + 124, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
                 }

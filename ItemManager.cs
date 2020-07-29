@@ -165,8 +165,7 @@ namespace UmbraRoR
         {
             try
             {
-                int num;
-                TextSerialization.TryParseInvariant(ammount, out num);
+                TextSerialization.TryParseInvariant(ammount, out int num);
                 if (num > 0)
                 {
                     for (int i = 0; i < num; i++)
@@ -263,81 +262,27 @@ namespace UmbraRoR
         }
 
         //Draws list of items and gives item selected
-        public static void GiveItem(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
+        public static void GiveItem(GUIStyle buttonStyle, string buttonId)
         {
             //Removes null items and no icon items from item list. Might change if requested.
             int buttonPlacement = 1;
             foreach (var itemIndex in Main.items)
             {
                 string itemName = itemIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.1f, buttonPlacement)))
-                {
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
-                    {
-                        if (isDropItemForAll)
-                        {
-                            DropItemMethod(itemIndex);
-                        }
-                        else if (isDropItemFromInventory)
-                        {
-                            if (CurrentInventory().Contains(itemName))
-                            {
-                                Main.LocalPlayerInv.RemoveItem(itemIndex, 1);
-                                DropItemMethod(itemIndex);
-                            }
-                            else
-                            {
-                                Chat.AddMessage($"<color=yellow> You do not have that item and therefore cannot drop it from your inventory.</color>");
-                                Chat.AddMessage($" ");
-                            }
-                        }
-                        else
-                        {
-                            Main.LocalPlayerInv.GiveItem(itemIndex, 1);
-                        }
-                    }
-                }
+                DrawMenu.DrawButton(buttonPlacement, buttonId, itemName, buttonStyle);
                 buttonPlacement++;
             }
         }
 
         //Draws list of equipment and gives equipment selected
-        public static void GiveEquipment(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
+        public static void GiveEquipment(GUIStyle buttonStyle, string buttonId)
         {
             //Removes null equipment and no icon equipment from item list. Might change if requested.
             int buttonPlacement = 1;
             foreach (var equipmentIndex in Main.equipment)
             {
                 string equipmentName = equipmentIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.2f, buttonPlacement)))
-                {
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
-                    {
-                        if (isDropItemForAll)
-                        {
-                            DropEquipmentMethod(equipmentIndex);
-                        }
-                        else if (isDropItemFromInventory)
-                        {
-                            if (Main.LocalPlayerInv.currentEquipmentIndex == equipmentIndex)
-                            {
-                                Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
-                                DropEquipmentMethod(equipmentIndex);
-                            }
-                            else
-                            {
-                                Chat.AddMessage($"<color=yellow> You do not have that equipment and therefore cannot drop it from your inventory.</color>");
-                                Chat.AddMessage($" ");
-                            }
-                        }
-                        else
-                        {
-                            Main.LocalPlayerInv.SetEquipmentIndex(equipmentIndex);
-                        }
-                    }
-                }
+                DrawMenu.DrawButton(buttonPlacement, buttonId, equipmentName, buttonStyle);
                 buttonPlacement++;
             }
         }

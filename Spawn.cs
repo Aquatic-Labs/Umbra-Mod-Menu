@@ -10,7 +10,7 @@ namespace UmbraRoR
         public static float minDistance = 3f;
         public static float maxDistance = 40f;
 
-        public static void SpawnMob(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
+        public static void SpawnMob(GUIStyle buttonStyle, string buttonId)
         {
             int buttonPlacement = 1;
             foreach (var spawnCard in Main.spawnCards)
@@ -44,34 +44,7 @@ namespace UmbraRoR
                 }
                 string path = $"SpawnCards/{category}/{cardName}";
 
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buttonText, Navigation.HighlighedCheck(buttonStyle, Highlighted, 4.1f, buttonPlacement)))
-                {
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    var body = localUser.cachedMasterController.master.GetBody().transform;
-                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
-                    {
-                        var directorspawnrequest = new DirectorSpawnRequest(spawnCard, new DirectorPlacementRule
-                        {
-                            placementMode = DirectorPlacementRule.PlacementMode.Approximate,
-                            minDistance = minDistance,
-                            maxDistance = maxDistance,
-                            position = Main.LocalPlayerBody.footPosition
-                        }, RoR2Application.rng);
-                        directorspawnrequest.ignoreTeamMemberLimit = true;
-                        directorspawnrequest.teamIndexOverride = team[teamIndex];
-
-                        // Add chat message
-                        if (cardName.Contains("isc"))
-                        {
-                            Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * minDistance), body.rotation, directorspawnrequest);
-                        }
-                        else
-                        {
-                            DirectorCore.instance.TrySpawnObject(directorspawnrequest);
-                        }
-                        Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{team[teamIndex]}\" </color>");
-                    }
-                }
+                DrawMenu.DrawButton(buttonPlacement, buttonId, buttonText, buttonStyle);
                 buttonPlacement++;
             }
         }

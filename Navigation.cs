@@ -9,7 +9,6 @@ namespace UmbraRoR
     {
         public static float menuIndex = 0;
         public static int intraMenuIndex = -1;
-        public static int prevMenuIndex;
         public static int prevIntraMenuIndex;
         public static Tuple<float, float> highlightedBtn = new Tuple<float, float>(menuIndex, intraMenuIndex);
 
@@ -499,13 +498,13 @@ namespace UmbraRoR
         }
 
         // Basically recreates menu buttons based on what button is highlighted
-        public static void PressBtn()
+        public static void PressBtn(float pressMenuIndex, int pressIntraMenuIndex)
         {
-            switch (menuIndex)
+            switch (pressMenuIndex)
             {
                 case 0: // Main Menu 
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -581,7 +580,7 @@ namespace UmbraRoR
 
                 case 1: // Player Management Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -683,7 +682,7 @@ namespace UmbraRoR
 
                 case 1.1f: // Character Menu
                     {
-                        GameObject newBody = BodyCatalog.FindBodyPrefab(Main.bodyPrefabs[intraMenuIndex].name);
+                        GameObject newBody = BodyCatalog.FindBodyPrefab(Main.bodyPrefabs[pressIntraMenuIndex].name);
                         if (newBody == null) return;
                         var localUser = LocalUserManager.GetFirstLocalUser();
                         if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
@@ -697,7 +696,7 @@ namespace UmbraRoR
 
                 case 1.2f: // Buff Menu
                     {
-                        BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), Enum.GetNames(typeof(BuffIndex))[intraMenuIndex]);
+                        BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), Enum.GetNames(typeof(BuffIndex))[pressIntraMenuIndex]);
                         var localUser = LocalUserManager.GetFirstLocalUser();
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
                         {
@@ -708,7 +707,7 @@ namespace UmbraRoR
 
                 case 1.3f: // Stats Modification Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -757,7 +756,7 @@ namespace UmbraRoR
 
                 case 2: // Movement Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -798,7 +797,7 @@ namespace UmbraRoR
 
                 case 3: // Item Management Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -877,14 +876,14 @@ namespace UmbraRoR
                         {
                             if (ItemManager.isDropItemForAll)
                             {
-                                ItemManager.DropItemMethod(Main.items[intraMenuIndex]);
+                                ItemManager.DropItemMethod(Main.items[pressIntraMenuIndex]);
                             }
                             else if (ItemManager.isDropItemFromInventory)
                             {
-                                if (ItemManager.CurrentInventory().Contains(Main.items[intraMenuIndex].ToString()))
+                                if (ItemManager.CurrentInventory().Contains(Main.items[pressIntraMenuIndex].ToString()))
                                 {
-                                    Main.LocalPlayerInv.RemoveItem(Main.items[intraMenuIndex], 1);
-                                    ItemManager.DropItemMethod(Main.items[intraMenuIndex]);
+                                    Main.LocalPlayerInv.RemoveItem(Main.items[pressIntraMenuIndex], 1);
+                                    ItemManager.DropItemMethod(Main.items[pressIntraMenuIndex]);
                                 }
                                 else
                                 {
@@ -894,7 +893,7 @@ namespace UmbraRoR
                             }
                             else
                             {
-                                Main.LocalPlayerInv.GiveItem(Main.items[intraMenuIndex], 1);
+                                Main.LocalPlayerInv.GiveItem(Main.items[pressIntraMenuIndex], 1);
                             }
                         }
                         break;
@@ -907,14 +906,14 @@ namespace UmbraRoR
                         {
                             if (ItemManager.isDropItemForAll)
                             {
-                                ItemManager.DropEquipmentMethod(Main.equipment[intraMenuIndex]);
+                                ItemManager.DropEquipmentMethod(Main.equipment[pressIntraMenuIndex]);
                             }
                             else if (ItemManager.isDropItemFromInventory)
                             {
-                                if (Main.LocalPlayerInv.currentEquipmentIndex == Main.equipment[intraMenuIndex])
+                                if (Main.LocalPlayerInv.currentEquipmentIndex == Main.equipment[pressIntraMenuIndex])
                                 {
                                     Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
-                                    ItemManager.DropEquipmentMethod(Main.equipment[intraMenuIndex]);
+                                    ItemManager.DropEquipmentMethod(Main.equipment[pressIntraMenuIndex]);
                                 }
                                 else
                                 {
@@ -924,7 +923,7 @@ namespace UmbraRoR
                             }
                             else
                             {
-                                Main.LocalPlayerInv.SetEquipmentIndex(Main.equipment[intraMenuIndex]);
+                                Main.LocalPlayerInv.SetEquipmentIndex(Main.equipment[pressIntraMenuIndex]);
                             }
                         }
                         break;
@@ -932,7 +931,7 @@ namespace UmbraRoR
 
                 case 4: // Spawn Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -978,17 +977,19 @@ namespace UmbraRoR
                         var body = localUser.cachedMasterController.master.GetBody().transform;
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
                         {
-                            var directorspawnrequest = new DirectorSpawnRequest(Main.spawnCards[intraMenuIndex], new DirectorPlacementRule
+                            var directorspawnrequest = new DirectorSpawnRequest(Main.spawnCards[pressIntraMenuIndex], new DirectorPlacementRule
                             {
                                 placementMode = DirectorPlacementRule.PlacementMode.Approximate,
                                 minDistance = Spawn.minDistance,
                                 maxDistance = Spawn.maxDistance,
                                 position = Main.LocalPlayerBody.footPosition
-                            }, RoR2Application.rng);
-                            directorspawnrequest.ignoreTeamMemberLimit = true;
-                            directorspawnrequest.teamIndexOverride = Spawn.team[Spawn.teamIndex];
+                            }, RoR2Application.rng)
+                            {
+                                ignoreTeamMemberLimit = true,
+                                teamIndexOverride = Spawn.team[Spawn.teamIndex]
+                            };
 
-                            string cardName = Main.spawnCards[intraMenuIndex].ToString();
+                            string cardName = Main.spawnCards[pressIntraMenuIndex].ToString();
                             string category = "";
                             string buttonText = "";
                             if (cardName.Contains("MultiCharacterSpawnCard"))
@@ -1033,11 +1034,11 @@ namespace UmbraRoR
 
                 case 5: // Teleporter Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
-                                    Teleporter.skipStage();
+                                    Teleporter.SkipStage();
                                     break;
                                 }
 
@@ -1049,7 +1050,7 @@ namespace UmbraRoR
 
                             case 2:
                                 {
-                                    Teleporter.addMountain();
+                                    Teleporter.AddMountain();
                                     break;
                                 }
 
@@ -1087,7 +1088,7 @@ namespace UmbraRoR
 
                 case 6: // Render Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -1117,7 +1118,7 @@ namespace UmbraRoR
 
                 case 7: // Lobby Management Menu
                     {
-                        switch (intraMenuIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {

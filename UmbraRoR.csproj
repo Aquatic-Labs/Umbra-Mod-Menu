@@ -57,7 +57,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="btn.cs" />
     <Compile Include="Movement.cs" />
     <Compile Include="Spawn.cs" />
     <Compile Include="Updates.cs" />

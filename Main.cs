@@ -19,7 +19,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.5";
+            VERSION = "1.2.6";
 
         public static string log = "[" + NAME + "] ";
 
@@ -150,77 +150,77 @@ namespace UmbraRoR
             if (_isTeleMenuOpen)
             {
                 teleRect = GUI.Window(2, teleRect, new GUI.WindowFunction(SetTeleBG), "", new GUIStyle());
-                DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + teleRect.x + " Y : " + teleRect.y);
             }
             if (_isESPMenuOpen)
             {
                 ESPRect = GUI.Window(3, ESPRect, new GUI.WindowFunction(SetESPBG), "", new GUIStyle());
-                DrawMenu.DrawESPMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawESPMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + ESPRect.x + " Y : " + ESPRect.y);
             }
             if (_isLobbyMenuOpen)
             {
                 lobbyRect = GUI.Window(4, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
-                DrawMenu.DrawLobbyMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawLobbyMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
             if (_isItemSpawnMenuOpen)
             {
                 itemSpawnerRect = GUI.Window(5, itemSpawnerRect, new GUI.WindowFunction(SetItemSpawnerBG), "", new GUIStyle());
-                DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
             }
             if (_isPlayerMod)
             {
                 playerModRect = GUI.Window(6, playerModRect, new GUI.WindowFunction(SetPlayerModBG), "", new GUIStyle());
-                DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + playerModRect.x + " Y : " + playerModRect.y);
             }
             if (_isEquipmentSpawnMenuOpen)
             {
                 equipmentSpawnerRect = GUI.Window(7, equipmentSpawnerRect, new GUI.WindowFunction(SetEquipmentBG), "", new GUIStyle());
-                DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle, HighlightBtnStyle);
+                DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
                 // Debug.Log("X : " + equipmentSpawnerRect.x + " Y : " + equipmentSpawnerRect.y);
             }
             if (_isBuffMenuOpen)
             {
                 buffMenuRect = GUI.Window(8, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
-                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle, HighlightBtnStyle);
+                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
             }
             if (_isChangeCharacterMenuOpen)
             {
                 characterRect = GUI.Window(9, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
-                DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
             }
             if (_isItemManagerOpen)
             {
                 itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
-                DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
             if (_isEditStatsOpen)
             {
                 editStatsRect = GUI.Window(11, editStatsRect, new GUI.WindowFunction(SetEditStatBG), "", new GUIStyle());
-                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + editStatsRect.x + " Y : " + editStatsRect.y);
             }
             if (_isMovementOpen)
             {
                 movementRect = GUI.Window(12, movementRect, new GUI.WindowFunction(SetMovementBG), "", new GUIStyle());
-                DrawMenu.DrawMovementMenu(movementRect.x, movementRect.y, widthSize, movementMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawMovementMenu(movementRect.x, movementRect.y, widthSize, movementMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + movementRect.x + " Y : " + movementRect.y);
             }
             if (_isSpawnMenuOpen)
             {
                 spawnRect = GUI.Window(13, spawnRect, new GUI.WindowFunction(SetSpawnBG), "", new GUIStyle());
-                DrawMenu.DrawSpawnMenu(spawnRect.x, spawnRect.y, widthSize, spawnMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawSpawnMenu(spawnRect.x, spawnRect.y, widthSize, spawnMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
             }
             if (_isSpawnListMenuOpen)
             {
                 spawnListRect = GUI.Window(14, spawnListRect, new GUI.WindowFunction(SetSpawnListBG), "", new GUIStyle());
-                DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle);
             }
             if (_CharacterCollected)
             {
@@ -375,9 +375,11 @@ namespace UmbraRoR
 
             if (renderTeleporterStyle == null)
             {
-                renderTeleporterStyle = new GUIStyle();
-                renderTeleporterStyle.fontStyle = FontStyle.Normal;
-                renderTeleporterStyle.alignment = TextAnchor.MiddleLeft;
+                renderTeleporterStyle = new GUIStyle
+                {
+                    fontStyle = FontStyle.Normal,
+                    alignment = TextAnchor.MiddleLeft
+                };
             }
 
             if (renderMobsStyle == null)
@@ -540,7 +542,7 @@ namespace UmbraRoR
                     if (Input.GetKeyDown(KeyCode.V))
                     {
                         int oldMenuIndex = (int)Navigation.menuIndex;
-                        Navigation.PressBtn();
+                        Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
                         int newMenuIndex = (int)Navigation.menuIndex;
 
                         if (oldMenuIndex != newMenuIndex)
@@ -561,7 +563,7 @@ namespace UmbraRoR
                         else
                         {
                             float oldMenuIndex = Navigation.menuIndex;
-                            Navigation.PressBtn();
+                            Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
                             float newMenuIndex = Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
@@ -1147,7 +1149,7 @@ namespace UmbraRoR
             }
             if (_CharacterCollected)
             {
-                DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle, HighlightBtnStyle);
+                DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle);
             }
         }
         #endregion
