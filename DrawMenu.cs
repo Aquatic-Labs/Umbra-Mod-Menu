@@ -378,11 +378,11 @@ namespace UmbraRoR
 
             if (Main._isSpawnListMenuOpen)
             {
-                DrawButton(5, "spawn", "S P A W N   L I S T: O N", OnStyle);
+                DrawButton(5, "spawn", "S P A W N   L I S T : O N", OnStyle);
             }
             else
             {
-                DrawButton(5, "spawn", "S P A W N   L I S T: O N", OffStyle);
+                DrawButton(5, "spawn", "S P A W N   L I S T : O F F", OffStyle);
             }
         }
 
@@ -576,7 +576,7 @@ namespace UmbraRoR
             }
             else
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O F F", OnStyle);
+                DrawButton(6, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
             }
         }
 
@@ -893,9 +893,6 @@ namespace UmbraRoR
                     Navigation.PressBtn(menuIndex, intraMenuIndex);
                 }
             }
-
-
-
         }
     }
 }
