@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using RoR2;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace UmbraRoR
 {
@@ -70,17 +73,25 @@ namespace UmbraRoR
                 maxAngleFilter = float.MaxValue
             };
 
-            var team = body.GetComponent<TeamComponent>();
-            bullseyeSearch.teamMaskFilter = TeamMask.AllExcept(team.teamIndex);
+            //var team = body.GetComponent<TeamComponent>();
+            //bullseyeSearch.teamMaskFilter = TeamMask.AllExcept(team.teamIndex);
             bullseyeSearch.RefreshCandidates();
             var hurtBoxList = bullseyeSearch.GetResults();
             foreach (var hurtbox in hurtBoxList)
             {
                 var mob = HurtBox.FindEntityObject(hurtbox);
                 string mobName = mob.name.Replace("Body(Clone)", ""); // Create Chat message with this.
-                var health = mob.GetComponent<HealthComponent>();
-                health.Suicide();
-                Chat.AddMessage($"<color=yellow>Killed {mobName} </color>");
+                if (Enum.GetNames(typeof(SurvivorIndex)).Contains(mobName))
+                {
+                    continue;
+                }
+                else
+                {
+                    var health = mob.GetComponent<HealthComponent>();
+                    health.Suicide();
+                    Chat.AddMessage($"<color=yellow>Killed {mobName} </color>");
+                }
+
             }
         }
     }
