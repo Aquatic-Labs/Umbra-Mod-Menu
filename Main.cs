@@ -72,6 +72,7 @@ namespace UmbraRoR
         public static bool _isSpawnListMenuOpen = false;
         public static bool _isSpawnMenuOpen = false;
         public static bool enableRespawnButton = false;
+        public static bool inGame = false;
         #endregion
 
         #region Button Styles / Toggles
@@ -138,7 +139,6 @@ namespace UmbraRoR
             }
 
             #region GenerateMenus
-
             mainRect = GUI.Window(0, mainRect, new GUI.WindowFunction(SetMainBG), "", new GUIStyle());
             if (_isMenuOpen)
             {
@@ -742,14 +742,10 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            bool inGame = scene.name != "title";
+            inGame = scene.name != "title" && scene.name != "lobby" && scene.name != "" && scene.name != " ";
             if (!inGame)
             {
                 Utility.ResetMenu();
-            }
-            else if (scene.name == "lobby")
-            {
-
             }
             else
             {
@@ -760,7 +756,6 @@ namespace UmbraRoR
         #endregion
 
         #region SetBG
-
         public static void SetBG(int windowID)
         {
             GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * mulY), "", CornerStyle);
@@ -1160,7 +1155,6 @@ namespace UmbraRoR
         #endregion
 
         #region Textures
-
         public static Texture2D BtnTexture
         {
             get
@@ -1323,25 +1317,28 @@ namespace UmbraRoR
 
         #region Get Character
         // try and setup our character, if we hit an error we set it to false
-        // TODO: Find a way to stop it from checking whilst in main menu/lobby menu
+        // TODO: Still tries to collect character after death and returning to lobby/title.
         public static void GetCharacter()
         {
             try
             {
-                LocalNetworkUser = null;
-                foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)
+                if (inGame)
                 {
-                    //localplayer == you!
-                    if (readOnlyInstance.isLocalPlayer)
+                    LocalNetworkUser = null;
+                    foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)
                     {
-                        LocalNetworkUser = readOnlyInstance;
-                        LocalPlayer = LocalNetworkUser.master;
-                        LocalPlayerInv = LocalPlayer.GetComponent<Inventory>();
-                        LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
-                        LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
-                        LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
-                        if (LocalHealth.alive) _CharacterCollected = true;
-                        else _CharacterCollected = false;
+                        //localplayer is you!
+                        if (readOnlyInstance.isLocalPlayer)
+                        {
+                            LocalNetworkUser = readOnlyInstance;
+                            LocalPlayer = LocalNetworkUser.master;
+                            LocalPlayerInv = LocalPlayer.GetComponent<Inventory>();
+                            LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
+                            LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
+                            LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
+                            if (LocalHealth.alive) _CharacterCollected = true;
+                            else _CharacterCollected = false;
+                        }
                     }
                 }
             }
