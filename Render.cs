@@ -92,10 +92,21 @@ namespace UmbraRoR
                     float distanceToMob = Vector3.Distance(Camera.main.transform.position, mob.transform.position);
                     if (MobBoundingVector.z > 0.01)
                     {
+                        float width = 100f * (distanceToMob / 100);
+                        if (width > 125)
+                        {
+                            width = 125;
+                        }
+                        float height = 100f * (distanceToMob / 100);
+                        if (height > 125)
+                        {
+                            height = 125;
+                        }
                         string mobName = mob.name.Replace("Body(Clone)", "");
                         int mobDistance = (int)distanceToMob;
                         string mobBoxText = $"{mobName}\n{mobDistance}m";
-                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
+                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 50f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
+                        ESPHelper.DrawBox(MobBoundingVector.x - width / 2, (float)Screen.height - MobBoundingVector.y - height / 2, width, height, new Color32(255, 0, 0, 255));
                     }
                 }
             }
