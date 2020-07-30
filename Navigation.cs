@@ -10,7 +10,7 @@ namespace UmbraRoR
         public static float menuIndex = 0;
         public static int intraMenuIndex = -1;
         public static int prevIntraMenuIndex;
-        public static Tuple<float, float> highlightedBtn = new Tuple<float, float>(menuIndex, intraMenuIndex);
+        public static Tuple<float, int> highlightedBtn = new Tuple<float, int>(menuIndex, intraMenuIndex);
 
         public static Dictionary<float, string> MenuList = new Dictionary<float, string>()
         {
