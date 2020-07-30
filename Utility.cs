@@ -116,7 +116,7 @@ namespace UmbraRoR
             PlayerMod.xpToGive = 50;
             PlayerMod.moneyToGive = 50;
             PlayerMod.coinsToGive = 50;
-    }
+        }
 
         public static void CloseAllMenus()
         {

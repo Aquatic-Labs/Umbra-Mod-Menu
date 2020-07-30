@@ -39,7 +39,7 @@ namespace UmbraRoR
         public static string[] StatsBtnNav = { "DmgPerLVL", "CritPerLVL", "AttSpeed", "Armor", "MoveSpeed", "Stat" };
         public static string[] MovementBtnNav = { "AutoSprint", "Flight", "JumpPack" };
         public static string[] ItemBtnNav = { "GiveAll", "RollItems", "ItemMenu", "EquipMenu", "DropItems", "DropFromInventory", "NoEquipCD", "StackShrine", "ClearInv" };
-        public static string[] SpawnBtnNav = { "minDistance", "MaxDistance", "TeamIndex", "KillAll", "SpawnList" };
+        public static string[] SpawnBtnNav = { "MinDistance", "MaxDistance", "TeamIndex", "KillAll", "SpawnList" };
         public static string[] TeleBtnNav = { "Skip", "InstaTP", "Mountain", "SpawnAll", "SpawnBlue", "SpawnCele", "SpawnGold" };
         public static string[] RenderBtnNav = { "ActiveMods", "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
