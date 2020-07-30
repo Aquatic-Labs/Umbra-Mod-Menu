@@ -288,7 +288,7 @@ namespace UmbraRoR
             DrawButton(7, "tele", "S P A W N   G O L D   P O R T A L", buttonStyle);
         }
 
-        public static void DrawESPMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
+        public static void DrawRenderMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
@@ -328,7 +328,7 @@ namespace UmbraRoR
 
             if (Main._CharacterCollected)
             {
-                Utility.GetPlayers(Main.Players); //update this asap
+                Lobby.GetPlayers(Main.Players); //update this asap
                 int buttonPlacement = 1;
                 for (int i = 0; i < Main.Players.Length; i++)
                 {
@@ -355,6 +355,16 @@ namespace UmbraRoR
 
             characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.ChangeCharacter(buttonStyle, "character");
+            GUI.EndScrollView();
+        }
+
+        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
+
+            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            PlayerMod.GiveBuff(buttonStyle, "giveBuff");
             GUI.EndScrollView();
         }
 
@@ -429,16 +439,6 @@ namespace UmbraRoR
             GUI.EndScrollView();
         }
 
-        public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
-        {
-            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
-
-            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            Spawn.SpawnMob(buttonStyle, "spawnMob");
-            GUI.EndScrollView();
-        }
-
         public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
@@ -455,13 +455,13 @@ namespace UmbraRoR
             GUI.EndScrollView();
         }
 
-        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
 
-            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            PlayerMod.GiveBuff(buttonStyle, "giveBuff");
+            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            Spawn.SpawnMob(buttonStyle, "spawnMob");
             GUI.EndScrollView();
         }
 
@@ -573,22 +573,6 @@ namespace UmbraRoR
                         else
                         {
                             rect = new Rect(Main.editStatsRect.x + 5, Main.editStatsRect.y + 5 + 45 * position, Main.widthSize, 40);
-                        }
-                        break;
-                    }
-
-                case "stats":
-                    {
-                        menuIndex = 8f;
-                        menuBg = Main.statRect;
-                        Main.StatMulY = position;
-                        if (isMultButton)
-                        {
-                            rect = new Rect(Main.statRect.x + 5, Main.statRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
-                        }
-                        else
-                        {
-                            rect = new Rect(Main.statRect.x + 5, Main.statRect.y + 5 + 45 * position, Main.widthSize, 40);
                         }
                         break;
                     }
@@ -735,6 +719,22 @@ namespace UmbraRoR
                         else
                         {
                             rect = new Rect(Main.lobbyRect.x + 5, Main.lobbyRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "stats":
+                    {
+                        menuIndex = 99f;
+                        menuBg = Main.statRect;
+                        Main.StatMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.statRect.x + 5, Main.statRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.statRect.x + 5, Main.statRect.y + 5 + 45 * position, Main.widthSize, 40);
                         }
                         break;
                     }

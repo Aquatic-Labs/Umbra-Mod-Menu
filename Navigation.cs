@@ -12,6 +12,7 @@ namespace UmbraRoR
         public static int prevIntraMenuIndex;
         public static Tuple<float, int> highlightedBtn = new Tuple<float, int>(menuIndex, intraMenuIndex);
 
+        #region Menu Layout Variables
         public static Dictionary<float, string> MenuList = new Dictionary<float, string>()
         {
             { 0, "Menu" },
@@ -43,6 +44,7 @@ namespace UmbraRoR
         public static string[] TeleBtnNav = { "Skip", "InstaTP", "Mountain", "SpawnAll", "SpawnBlue", "SpawnCele", "SpawnGold" };
         public static string[] RenderBtnNav = { "ActiveMods", "InteractESP", "MobESP" };
         public static string[] LobbyBtnNav = { "Player1", "Player2", "Player3", "Player4" };
+        #endregion
 
         // Goes to previous menu when backspace or left arrow is pressed
         public static void GoBackAMenu()
@@ -1131,28 +1133,28 @@ namespace UmbraRoR
                             case 0: // Kick Player 1
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[0]}</color>");
-                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[0].ToString()), Main.LocalNetworkUser);
+                                    Lobby.KickPlayer(Lobby.GetNetUserFromString(Main.Players[0].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 1: // Kick Player 2
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[1]}</color>");
-                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[1].ToString()), Main.LocalNetworkUser);
+                                    Lobby.KickPlayer(Lobby.GetNetUserFromString(Main.Players[1].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 2: // Kick Player 3
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[2]}</color>");
-                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[2].ToString()), Main.LocalNetworkUser);
+                                    Lobby.KickPlayer(Lobby.GetNetUserFromString(Main.Players[2].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 
                             case 3: // Kick Player 4
                                 {
                                     Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[3]}</color>");
-                                    Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[3].ToString()), Main.LocalNetworkUser);
+                                    Lobby.KickPlayer(Lobby.GetNetUserFromString(Main.Players[3].ToString()), Main.LocalNetworkUser);
                                     break;
                                 }
 

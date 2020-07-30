@@ -158,7 +158,7 @@ namespace UmbraRoR
             if (_isESPMenuOpen)
             {
                 ESPRect = GUI.Window(3, ESPRect, new GUI.WindowFunction(SetESPBG), "", new GUIStyle());
-                DrawMenu.DrawESPMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
+                DrawMenu.DrawRenderMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + ESPRect.x + " Y : " + ESPRect.y);
             }
             if (_isLobbyMenuOpen)
@@ -608,7 +608,7 @@ namespace UmbraRoR
             if (Input.GetKeyDown(KeyCode.Insert))
             {
                 unloadConfirm = false;
-                numberOfPlayers = Utility.NumberOfPlayers();
+                numberOfPlayers = Lobby.NumberOfPlayers();
                 spawnCards = Utility.GetSpawnCards();
                 if (_isMenuOpen && navigationToggle)
                 {
