@@ -419,7 +419,13 @@ namespace UmbraRoR
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M S   L I S T", LabelStyle);
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            ItemManager.GiveItem(buttonStyle, "itemSpawner");
+            int buttonPlacement = 1;
+            foreach (var itemIndex in Main.items)
+            {
+                string itemName = itemIndex.ToString();
+                DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
+                buttonPlacement++;
+            }
             GUI.EndScrollView();
         }
 
@@ -439,7 +445,13 @@ namespace UmbraRoR
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            ItemManager.GiveEquipment(buttonStyle, "equipmentSpawner");
+            int buttonPlacement = 1;
+            foreach (var equipmentIndex in Main.equipment)
+            {
+                string equipmentName = equipmentIndex.ToString();
+                DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                buttonPlacement++;
+            }
             GUI.EndScrollView();
         }
 
