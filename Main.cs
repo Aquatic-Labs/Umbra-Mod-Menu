@@ -1319,21 +1319,6 @@ namespace UmbraRoR
 
         #endregion Textures
 
-        #region Auto Button Placement
-        // Rect for buttons
-        // It automatically auto position buttons. There is no need to change it
-        public static Rect BtnRect(int y, bool multiplyBtn)
-        {
-            mulY = y;
-            if (multiplyBtn)
-            {
-                btnY = 5 + 45 * y;
-                return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize - 90, 20);
-            }
-            return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 20);
-        }
-        #endregion
-
         #region Get Character
         // try and setup our character, if we hit an error we set it to false
         // TODO: Find a way to stop it from checking whilst in main menu/lobby menu
