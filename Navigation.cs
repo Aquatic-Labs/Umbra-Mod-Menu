@@ -1355,15 +1355,15 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 4: // Spawn Menu 0 - 4
+                case 4: // Spawn Menu 0 - 5
                     {
-                        if (intraMenuIndex > 4)
+                        if (intraMenuIndex > 5)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 4;
+                            intraMenuIndex = 5;
                         }
                         break;
                     }
