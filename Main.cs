@@ -517,25 +517,28 @@ namespace UmbraRoR
             if (_isMenuOpen)
             {
                 Cursor.visible = true;
-                if (Input.GetKeyDown(KeyCode.DownArrow))
+                if (_CharacterCollected)
                 {
-                    if (!navigationToggle)
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
-                        Utility.CloseAllMenus();
-                    }
+                        if (!navigationToggle)
+                        {
+                            Utility.CloseAllMenus();
+                        }
 
-                    navigationToggle = true;
-                    Navigation.intraMenuIndex++;
-                }
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    if (!navigationToggle)
+                        navigationToggle = true;
+                        Navigation.intraMenuIndex++;
+                    }
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
-                        Utility.CloseAllMenus();
-                    }
+                        if (!navigationToggle)
+                        {
+                            Utility.CloseAllMenus();
+                        }
 
-                    navigationToggle = true;
-                    Navigation.intraMenuIndex--;
+                        navigationToggle = true;
+                        Navigation.intraMenuIndex--;
+                    }
                 }
                 if (navigationToggle)
                 {
