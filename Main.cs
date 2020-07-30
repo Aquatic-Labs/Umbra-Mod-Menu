@@ -7,6 +7,7 @@ Clear Items despawn beatle guards from UI
 
 // On Risk of Rain 2 Update: Update Unlockables.txt, Update Unreleased items list if needed
 // On Menu update, Update Version Variable and ffs Update Assembly Version...
+// When Adding A Button To A Menu, Update Menu Value Range in Navigation.UpdateIndexValues
 using System;
 using System.Collections.Generic;
 using UnityEngine;
