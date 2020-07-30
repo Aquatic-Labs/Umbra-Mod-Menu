@@ -35,7 +35,7 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (PurchaseInteraction purchaseInteraction in PurchaseInteraction.FindObjectsOfType(typeof(PurchaseInteraction)))
+            foreach (PurchaseInteraction purchaseInteraction in FindObjectsOfType(typeof(PurchaseInteraction)))
             {
                 if (purchaseInteraction.available)
                 {
