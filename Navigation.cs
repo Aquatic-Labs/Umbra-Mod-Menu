@@ -977,7 +977,7 @@ namespace UmbraRoR
                         var body = localUser.cachedMasterController.master.GetBody().transform;
                         if (localUser.cachedMasterController && localUser.cachedMasterController.master)
                         {
-                            var directorspawnrequest = new DirectorSpawnRequest(Main.spawnCards[pressIntraMenuIndex], new DirectorPlacementRule
+                            var directorSpawnRequest = new DirectorSpawnRequest(Main.spawnCards[pressIntraMenuIndex], new DirectorPlacementRule
                             {
                                 placementMode = DirectorPlacementRule.PlacementMode.Approximate,
                                 minDistance = Spawn.minDistance,
@@ -1021,11 +1021,11 @@ namespace UmbraRoR
                             // Add chat message
                             if (cardName.Contains("isc"))
                             {
-                                Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorspawnrequest);
+                                Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorSpawnRequest);
                             }
                             else
                             {
-                                DirectorCore.instance.TrySpawnObject(directorspawnrequest);
+                                DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
                             }
                             Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
                         }
