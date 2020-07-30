@@ -637,12 +637,15 @@ namespace UmbraRoR
 
         }
 
+        // A Wrapper Method For Drawing Buttons
         public static void DrawButton(int position, string id, string text, GUIStyle defaultStyle, bool isMultButton = false, bool justText = false)
         {
             Rect rect;
             GUIStyle highlighted = Main.HighlightBtnStyle;
             float menuIndex;
             int intraMenuIndex = position - 1;
+            // Rect for buttons
+            // It automatically position buttons based on id and position. There is no need to change it
             switch (id)
             {
                 case "main":
@@ -882,6 +885,8 @@ namespace UmbraRoR
                     }
             }
 
+            // Creates the button and its OnClick action based on PressBtn() input
+            // Dont want text to be highlighted so remove that from the Button() call
             if (justText)
             {
                 GUI.Button(rect, text, defaultStyle);
