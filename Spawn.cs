@@ -12,6 +12,7 @@ namespace UmbraRoR
         public static int teamIndex = 0;
         public static float minDistance = 3f;
         public static float maxDistance = 40f;
+        public static List<GameObject> spawnedObjects = new List<GameObject>();
 
         public static void SpawnMob(GUIStyle buttonStyle, string buttonId)
         {
@@ -52,7 +53,7 @@ namespace UmbraRoR
             }
         }
 
-        public static void KillAll()
+        public static void KillAllMobs()
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
@@ -73,14 +74,12 @@ namespace UmbraRoR
                 maxAngleFilter = float.MaxValue
             };
 
-            //var team = body.GetComponent<TeamComponent>();
-            //bullseyeSearch.teamMaskFilter = TeamMask.AllExcept(team.teamIndex);
             bullseyeSearch.RefreshCandidates();
             var hurtBoxList = bullseyeSearch.GetResults();
             foreach (var hurtbox in hurtBoxList)
             {
                 var mob = HurtBox.FindEntityObject(hurtbox);
-                string mobName = mob.name.Replace("Body(Clone)", ""); // Create Chat message with this.
+                string mobName = mob.name.Replace("Body(Clone)", "");
                 if (Enum.GetNames(typeof(SurvivorIndex)).Contains(mobName))
                 {
                     continue;
@@ -92,6 +91,31 @@ namespace UmbraRoR
                     Chat.AddMessage($"<color=yellow>Killed {mobName} </color>");
                 }
 
+            }
+        }
+
+        public static void DestroySpawnedInteractables()
+        {
+            var localUser = LocalUserManager.GetFirstLocalUser();
+            var controller = localUser.cachedMasterController;
+            if (!controller)
+            {
+                return;
+            }
+            var body = controller.master.GetBody();
+            if (!body)
+            {
+                return;
+            }
+
+            if (spawnedObjects != null)
+            {
+                foreach (var gameObject in spawnedObjects)
+                {
+                    UnityEngine.Object.Destroy(gameObject);
+                    Chat.AddMessage($"<color=yellow>Destroyed {gameObject.name.Replace("(Clone)", "")} </color>");
+                }
+                spawnedObjects = new List<GameObject>();
             }
         }
     }

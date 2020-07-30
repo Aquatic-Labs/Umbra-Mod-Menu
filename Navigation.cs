@@ -176,13 +176,13 @@ namespace UmbraRoR
         }
 
         // Increase value for buttons with +/- options
-        public static void IncreaseValue(float MenuIndex, int BtnIndex)
+        public static void IncreaseValue(float pressMenuIndex, int pressIntraMenuIndex)
         {
-            switch (MenuIndex)
+            switch (pressMenuIndex)
             {
                 case 1:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -215,7 +215,7 @@ namespace UmbraRoR
 
                 case 1.3f:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -262,7 +262,7 @@ namespace UmbraRoR
 
                 case 3:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -288,7 +288,7 @@ namespace UmbraRoR
 
                 case 4:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -337,13 +337,13 @@ namespace UmbraRoR
         }
 
         // Decrease value for buttons with +/- options
-        public static void DecreaseValue(float MenuIndex, int BtnIndex)
+        public static void DecreaseValue(float pressMenuIndex, int pressIntraMenuIndex)
         {
-            switch (MenuIndex)
+            switch (pressMenuIndex)
             {
                 case 1:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -376,7 +376,7 @@ namespace UmbraRoR
 
                 case 1.3f:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -423,7 +423,7 @@ namespace UmbraRoR
 
                 case 3:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -449,7 +449,7 @@ namespace UmbraRoR
 
                 case 4:
                     {
-                        switch (BtnIndex)
+                        switch (pressIntraMenuIndex)
                         {
                             case 0:
                                 {
@@ -948,18 +948,24 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 3: // Kill All
-                                {
-                                    Spawn.KillAll();
-                                    break;
-                                }
-
-                            case 4: // Toggle Spawn Menu
+                            case 3: // Toggle Spawn Menu
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
                                     menuIndex = 4.1f;
                                     Main._isSpawnListMenuOpen = !Main._isSpawnListMenuOpen;
+                                    break;
+                                }
+
+                            case 4: // Kill All Mobs
+                                {
+                                    Spawn.KillAllMobs();
+                                    break;
+                                }
+
+                            case 5: // Destroy Spawned Interactables
+                                {
+                                    Spawn.DestroySpawnedInteractables();
                                     break;
                                 }
 
@@ -1021,13 +1027,15 @@ namespace UmbraRoR
                             // Add chat message
                             if (cardName.Contains("isc"))
                             {
-                                Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorSpawnRequest);
+                                var interactable = Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorSpawnRequest).spawnedInstance.gameObject;
+                                Spawn.spawnedObjects.Add(interactable);
+                                Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\"</color>");
                             }
                             else
                             {
                                 DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
+                                Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
                             }
-                            Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
                         }
                         break;
                     }
