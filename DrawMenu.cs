@@ -108,41 +108,9 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "P L A Y E R   M E N U", LabelStyle);
 
-            DrawButton(1, "playermod", $"G I V E   M O N E Y : {PlayerMod.moneyToGive}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.moneyToGive > 50)
-                    PlayerMod.moneyToGive -= 50;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.moneyToGive >= 50)
-                    PlayerMod.moneyToGive += 50;
-            }
-
-            DrawButton(2, "playermod", $"G I V E   L U N A R   C O I N S : {PlayerMod.coinsToGive}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.coinsToGive > 10)
-                    PlayerMod.coinsToGive -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.coinsToGive >= 10)
-                    PlayerMod.coinsToGive += 10;
-            }
-
-            DrawButton(3, "playermod", $"G I V E   E X P E R I E N C E : {PlayerMod.xpToGive}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.xpToGive > 50)
-                    PlayerMod.xpToGive -= 50;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.xpToGive >= 50)
-                    PlayerMod.xpToGive += 50;
-            }
+            DrawButton(1, "playermod", $"G I V E   M O N E Y : {PlayerMod.moneyToGive}", buttonStyle, isMultButton: true);
+            DrawButton(2, "playermod", $"G I V E   L U N A R   C O I N S : {PlayerMod.coinsToGive}", buttonStyle, isMultButton: true);
+            DrawButton(3, "playermod", $"G I V E   E X P E R I E N C E : {PlayerMod.xpToGive}", buttonStyle, isMultButton: true);
 
             if (Main._isEditStatsOpen)
             {
@@ -152,7 +120,6 @@ namespace UmbraRoR
             {
                 DrawButton(4, "playermod", "S T A T S   M E N U : OFF", OffStyle);
             }
-
             if (Main._isChangeCharacterMenuOpen)
             {
                 DrawButton(5, "playermod", "C H A N G E   C H A R A C T E R : ON", OnStyle);
@@ -161,7 +128,6 @@ namespace UmbraRoR
             {
                 DrawButton(5, "playermod", "C H A N G E   C H A R A C T E R : OFF", OffStyle);
             }
-
             if (Main._isBuffMenuOpen)
             {
                 DrawButton(6, "playermod", "G I V E   B U F F   M E N U : O N", OnStyle);
@@ -181,7 +147,6 @@ namespace UmbraRoR
             {
                 DrawButton(8, "playermod", "A I M B O T : O F F", OffStyle);
             }
-
             if (Main.godToggle)
             {
                 DrawButton(9, "playermod", "G O D   M O D E : O N", OnStyle);
@@ -190,7 +155,6 @@ namespace UmbraRoR
             {
                 DrawButton(9, "playermod", "G O D   M O D E : O F F", OffStyle);
             }
-
             if (Main.skillToggle)
             {
                 DrawButton(10, "playermod", "I N F I N I T E   S K I L L S : O N", OnStyle);
@@ -199,7 +163,6 @@ namespace UmbraRoR
             {
                 DrawButton(10, "playermod", "I N F I N I T E   S K I L L S : O F F", OffStyle);
             }
-
             DrawButton(11, "playermod", "U N L O C K   A L L", buttonStyle);
         }
 
@@ -241,29 +204,8 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "I T E M S   M E N U", LabelStyle);
 
-            DrawButton(1, "itemmanager", $"G I V E   A L L   I T E M S : {ItemManager.allItemsQuantity}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.ItemManagerBtnY, 40, 40), "-", OffStyle))
-            {
-                if (ItemManager.allItemsQuantity > 1)
-                    ItemManager.allItemsQuantity -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.ItemManagerBtnY, 40, 40), "+", OffStyle))
-            {
-                if (ItemManager.allItemsQuantity >= 1)
-                    ItemManager.allItemsQuantity += 1;
-            }
-
-            DrawButton(2, "itemmanager", $"R O L L   I T E M S : {ItemManager.itemsToRoll}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.ItemManagerBtnY, 40, 40), "-", OffStyle))
-            {
-                if (ItemManager.itemsToRoll > 5)
-                    ItemManager.itemsToRoll -= 5;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.ItemManagerBtnY, 40, 40), "+", OffStyle))
-            {
-                if (ItemManager.itemsToRoll >= 5)
-                    ItemManager.itemsToRoll += 5;
-            }
+            DrawButton(1, "itemmanager", $"G I V E   A L L   I T E M S : {ItemManager.allItemsQuantity}", buttonStyle, isMultButton: true);
+            DrawButton(2, "itemmanager", $"R O L L   I T E M S : {ItemManager.itemsToRoll}", buttonStyle, isMultButton: true);
 
             if (Main._isItemSpawnMenuOpen)
             {
@@ -273,7 +215,6 @@ namespace UmbraRoR
             {
                 DrawButton(3, "itemmanager", "I T E M   S P A W N   M E N U : O F F", OffStyle);
             }
-
             if (Main._isEquipmentSpawnMenuOpen)
             {
                 DrawButton(4, "itemmanager", "E Q U I P M E N T   S P A W N   M E N U : O N", OnStyle);
@@ -282,7 +223,6 @@ namespace UmbraRoR
             {
                 DrawButton(4, "itemmanager", "E Q U I P M E N T   S P A W N   M E N U : O F F", OffStyle);
             }
-
             if (ItemManager.isDropItemForAll)
             {
                 DrawButton(5, "itemmanager", "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle);
@@ -291,7 +231,6 @@ namespace UmbraRoR
             {
                 DrawButton(5, "itemmanager", "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle);
             }
-
             if (ItemManager.isDropItemFromInventory)
             {
                 DrawButton(6, "itemmanager", "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle);
@@ -300,7 +239,6 @@ namespace UmbraRoR
             {
                 DrawButton(6, "itemmanager", "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle);
             }
-
             if (Main.noEquipmentCooldown)
             {
                 DrawButton(7, "itemmanager", "I N F I N I T E   E Q U I P M E N T : O N", OnStyle);
@@ -309,6 +247,7 @@ namespace UmbraRoR
             {
                 DrawButton(7, "itemmanager", "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle);
             }
+
             DrawButton(8, "itemmanager", "S T A C K   I N V E N T O R Y", buttonStyle);
             DrawButton(9, "itemmanager", "C L E A R   I N V E N T O R Y", buttonStyle);
         }
@@ -318,72 +257,21 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   M E N U", LabelStyle);
 
-            DrawButton(1, "spawn", $"M I N   D I S T A N C E : {Spawn.minDistance}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
-            {
-                if (Spawn.minDistance > 0)
-                {
-                    Spawn.minDistance -= 1;
-                }
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", OffStyle))
-            {
-                if (Spawn.minDistance < Spawn.maxDistance)
-                {
-                    Spawn.minDistance += 1;
-                }
-            }
-
-            DrawButton(2, "spawn", $"M A X   D I S T A N C E : {Spawn.maxDistance}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
-            {
-                if (Spawn.maxDistance > Spawn.minDistance)
-                {
-                    Spawn.maxDistance -= 1;
-                }
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", OffStyle))
-            {
-                if (Spawn.maxDistance >= Spawn.minDistance)
-                {
-                    Spawn.maxDistance += 1;
-                }
-            }
-
-            DrawButton(3, "spawn", $"T E A M : {Spawn.team[Spawn.teamIndex]}", buttonStyle, true);
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
-            {
-                if (Spawn.teamIndex > 0)
-                {
-                    Spawn.teamIndex -= 1;
-                }
-                else if (Spawn.teamIndex == 0)
-                {
-                    Spawn.teamIndex = 3;
-                }
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", buttonStyle))
-            {
-                if (Spawn.teamIndex < 3)
-                {
-                    Spawn.teamIndex += 1;
-                }
-                else if (Spawn.teamIndex == 3)
-                {
-                    Spawn.teamIndex = 0;
-                }
-            }
-
-            DrawButton(4, "spawn", "K I L L   A L L", buttonStyle);
+            DrawButton(1, "spawn", $"M I N   D I S T A N C E : {Spawn.minDistance}", buttonStyle, isMultButton: true);
+            DrawButton(2, "spawn", $"M A X   D I S T A N C E : {Spawn.maxDistance}", buttonStyle, isMultButton: true);
+            DrawButton(3, "spawn", $"T E A M : {Spawn.team[Spawn.teamIndex]}", buttonStyle, isMultButton: true);
 
             if (Main._isSpawnListMenuOpen)
             {
-                DrawButton(5, "spawn", "S P A W N   L I S T : O N", OnStyle);
+                DrawButton(4, "spawn", "S P A W N   L I S T : O N", OnStyle);
             }
             else
             {
-                DrawButton(5, "spawn", "S P A W N   L I S T : O F F", OffStyle);
+                DrawButton(4, "spawn", "S P A W N   L I S T : O F F", OffStyle);
             }
+
+            DrawButton(5, "spawn", "K I L L   A L L", buttonStyle);
+            DrawButton(6, "spawn", "D E S T R O Y   I N T E R A C T A B L E S", buttonStyle);
         }
 
         public static void DrawTeleMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
@@ -483,17 +371,6 @@ namespace UmbraRoR
             {
                 DrawButton(1, "statsmod", $"D A M A G E / L V L ( O F F ) : {PlayerMod.damagePerLvl}", OffStyle, true);
             }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.damagePerLvl > 0)
-                    PlayerMod.damagePerLvl -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.damagePerLvl >= 0)
-                    PlayerMod.damagePerLvl += 10;
-            }
-
             if (Main.critToggle)
             {
                 DrawButton(2, "statsmod", $"C R I T / L V L ( O N ) : {PlayerMod.CritPerLvl}", OnStyle, true);
@@ -502,17 +379,6 @@ namespace UmbraRoR
             {
                 DrawButton(2, "statsmod", $"C R I T / L V L ( O F F ) : {PlayerMod.CritPerLvl}", OffStyle, true);
             }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.CritPerLvl > 0)
-                    PlayerMod.CritPerLvl -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.CritPerLvl >= 0)
-                    PlayerMod.CritPerLvl += 1;
-            }
-
             if (Main.attackSpeedToggle)
             {
                 DrawButton(3, "statsmod", $"A T T A C K   S P E E D ( O N ) : {PlayerMod.attackSpeed}", OnStyle, true);
@@ -521,17 +387,6 @@ namespace UmbraRoR
             {
                 DrawButton(3, "statsmod", $"A T T A C K   S P E E D ( O F F ) : {PlayerMod.attackSpeed}", OffStyle, true);
             }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.attackSpeed > 0)
-                    PlayerMod.attackSpeed -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.attackSpeed >= 0)
-                    PlayerMod.attackSpeed += 1;
-            }
-
             if (Main.armorToggle)
             {
                 DrawButton(4, "statsmod", $"A R M O R ( O N ) : {PlayerMod.armor}", OnStyle, true);
@@ -540,17 +395,6 @@ namespace UmbraRoR
             {
                 DrawButton(4, "statsmod", $"A R M O R ( O F F ) : {PlayerMod.armor}", OffStyle, true);
             }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.armor > 0)
-                    PlayerMod.armor -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.armor >= 0)
-                    PlayerMod.armor += 10;
-            }
-
             if (Main.moveSpeedToggle)
             {
                 DrawButton(5, "statsmod", $"M O V E   S P E E D ( O N ) : {PlayerMod.movespeed}", OnStyle, true);
@@ -559,17 +403,6 @@ namespace UmbraRoR
             {
                 DrawButton(5, "statsmod", $"M O V E   S P E E D ( O F F ) : {PlayerMod.movespeed}", OffStyle, true);
             }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.movespeed > 7)
-                    PlayerMod.movespeed -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.movespeed >= 7)
-                    PlayerMod.movespeed += 10;
-            }
-
             if (Main._isStatMenuOpen)
             {
                 DrawButton(6, "statsmod", "S H O W   S T A T S : O N", OnStyle);
@@ -641,9 +474,11 @@ namespace UmbraRoR
         public static void DrawButton(int position, string id, string text, GUIStyle defaultStyle, bool isMultButton = false, bool justText = false)
         {
             Rect rect;
+            Rect menuBg;
             GUIStyle highlighted = Main.HighlightBtnStyle;
             float menuIndex;
             int intraMenuIndex = position - 1;
+            int btnY = 5 + 45 * position;
             // Rect for buttons
             // It automatically position buttons based on id and position. There is no need to change it
             switch (id)
@@ -651,6 +486,7 @@ namespace UmbraRoR
                 case "main":
                     {
                         menuIndex = 0;
+                        menuBg = Main.mainRect;
                         Main.MainMulY = position;
                         if (isMultButton)
                         {
@@ -666,8 +502,9 @@ namespace UmbraRoR
                 case "playermod":
                     {
                         menuIndex = 1;
+                        menuBg = Main.playerModRect;
                         Main.PlayerModMulY = position;
-                        Main.PlayerModBtnY = 5 + 45 * position;
+                        Main.PlayerModBtnY = btnY;
                         if (isMultButton)
                         {
                             rect = new Rect(Main.playerModRect.x + 5, Main.playerModRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
@@ -682,6 +519,7 @@ namespace UmbraRoR
                 case "character":
                     {
                         menuIndex = 1.1f;
+                        menuBg = Main.characterRect;
                         Main.CharacterMulY = position;
                         if (isMultButton)
                         {
@@ -697,6 +535,7 @@ namespace UmbraRoR
                 case "giveBuff":
                     {
                         menuIndex = 1.2f;
+                        menuBg = Main.buffMenuRect;
                         Main.buffMenuMulY = position;
                         if (isMultButton)
                         {
@@ -712,8 +551,9 @@ namespace UmbraRoR
                 case "statsmod":
                     {
                         menuIndex = 1.3f;
+                        menuBg = Main.editStatsRect;
                         Main.editStatsMulY = position;
-                        Main.editStatsBtnY = 5 + 45 * position;
+                        Main.editStatsBtnY = btnY;
                         if (isMultButton)
                         {
                             rect = new Rect(Main.editStatsRect.x + 5, Main.editStatsRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
@@ -728,6 +568,7 @@ namespace UmbraRoR
                 case "stats":
                     {
                         menuIndex = 8f;
+                        menuBg = Main.statRect;
                         Main.StatMulY = position;
                         if (isMultButton)
                         {
@@ -743,6 +584,7 @@ namespace UmbraRoR
                 case "movement":
                     {
                         menuIndex = 2f;
+                        menuBg = Main.movementRect;
                         Main.movementMulY = position;
                         if (isMultButton)
                         {
@@ -758,8 +600,9 @@ namespace UmbraRoR
                 case "itemmanager":
                     {
                         menuIndex = 3f;
+                        menuBg = Main.itemManagerRect;
                         Main.ItemManagerMulY = position;
-                        Main.ItemManagerBtnY = 5 + 45 * position;
+                        Main.ItemManagerBtnY = btnY;
                         if (isMultButton)
                         {
                             rect = new Rect(Main.itemManagerRect.x + 5, Main.itemManagerRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
@@ -774,6 +617,7 @@ namespace UmbraRoR
                 case "itemSpawner":
                     {
                         menuIndex = 3.1f;
+                        menuBg = Main.itemSpawnerRect;
                         Main.itemSpawnerMulY = position;
                         if (isMultButton)
                         {
@@ -789,6 +633,7 @@ namespace UmbraRoR
                 case "equipmentSpawner":
                     {
                         menuIndex = 3.2f;
+                        menuBg = Main.equipmentSpawnerRect;
                         Main.equipmentSpawnerMulY = position;
                         if (isMultButton)
                         {
@@ -804,8 +649,9 @@ namespace UmbraRoR
                 case "spawn":
                     {
                         menuIndex = 4f;
+                        menuBg = Main.spawnRect;
                         Main.spawnMulY = position;
-                        Main.spawnBtnY = 5 + 45 * position;
+                        Main.spawnBtnY = btnY;
                         if (isMultButton)
                         {
                             rect = new Rect(Main.spawnRect.x + 5, Main.spawnRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
@@ -820,6 +666,7 @@ namespace UmbraRoR
                 case "spawnMob":
                     {
                         menuIndex = 4.1f;
+                        menuBg = Main.spawnListRect;
                         Main.spawnListMulY = position;
                         if (isMultButton)
                         {
@@ -835,6 +682,7 @@ namespace UmbraRoR
                 case "tele":
                     {
                         menuIndex = 5f;
+                        menuBg = Main.teleRect;
                         Main.TeleMulY = position;
                         if (isMultButton)
                         {
@@ -850,6 +698,7 @@ namespace UmbraRoR
                 case "ESP":
                     {
                         menuIndex = 6f;
+                        menuBg = Main.ESPRect;
                         Main.ESPMulY = position;
                         if (isMultButton)
                         {
@@ -865,6 +714,7 @@ namespace UmbraRoR
                 case "lobby":
                     {
                         menuIndex = 7f;
+                        menuBg = Main.lobbyRect;
                         Main.LobbyMulY = position;
                         if (isMultButton)
                         {
@@ -879,6 +729,7 @@ namespace UmbraRoR
 
                 default:
                     {
+                        menuBg = Main.mainRect;
                         menuIndex = 0;
                         rect = new Rect(Main.mainRect.x + 5, Main.mainRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
                         break;
@@ -887,9 +738,31 @@ namespace UmbraRoR
 
             // Creates the button and its OnClick action based on PressBtn() input
             // Dont want text to be highlighted so remove that from the Button() call
-            if (justText)
+            if (justText && isMultButton)
+            {
+                throw new Exception($"justText and isMultButton cannot both be true. Thrown in \"{text}\" button.");
+            }
+            else if (justText)
             {
                 GUI.Button(rect, text, defaultStyle);
+            }
+            else if (isMultButton)
+            {
+                if (GUI.Button(rect, text, Navigation.HighlighedCheck(defaultStyle, highlighted, menuIndex, position)))
+                {
+                    Navigation.PressBtn(menuIndex, intraMenuIndex);
+                }
+                if (GUI.Button(new Rect(menuBg.x + Main.widthSize - 80, menuBg.y + btnY, 40, 40), "-", Main.OffStyle))
+                {
+                    Navigation.DecreaseValue(menuIndex, intraMenuIndex);
+                }
+                if (GUI.Button(new Rect(menuBg.x + Main.widthSize - 35, menuBg.y + btnY, 40, 40), "+", Main.OffStyle))
+                {
+                    if (Spawn.minDistance < Spawn.maxDistance)
+                    {
+                        Navigation.IncreaseValue(menuIndex, intraMenuIndex);
+                    }
+                }
             }
             else
             {
