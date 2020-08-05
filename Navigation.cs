@@ -997,6 +997,8 @@ namespace UmbraRoR
                                 teamIndexOverride = Spawn.team[Spawn.teamIndex]
                             };
 
+                            directorSpawnRequest.spawnCard.sendOverNetwork = true;
+
                             string cardName = Main.spawnCards[pressIntraMenuIndex].ToString();
                             string category = "";
                             string buttonText = "";
