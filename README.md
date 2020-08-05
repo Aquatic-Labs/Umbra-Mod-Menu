@@ -164,6 +164,7 @@ pause
 - [ ] Added some comments to my source code.
 - [ ] Made a wrapper method for drawing buttons.
 - [ ] Bunch of code formatting/organization/refactoring.
+- [ ] Various other minor improvements.
 
 
 ### 7/20/2020 v1.2.5:
