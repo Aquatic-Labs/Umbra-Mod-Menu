@@ -154,6 +154,29 @@ pause
 
 
 # Changelog:
+### 8/5/2020 v1.2.6:
+- [ ] Added a box around mobs for Render Mobs.
+- [ ] Added the ability to despawn spawned interactables.
+- [ ] Improved Kill All. Now kills mobs spawned on the players team.
+- [ ] Improved Show Stats Menu Style.
+- [ ] Improved how the menu gets the local player.
+- [ ] Fixed a bug allowing navigation to be enabled in the main menu.
+- [ ] Added some comments to my source code.
+- [ ] Made a wrapper method for drawing buttons.
+- [ ] Bunch of code formatting/organization/refactoring.
+
+
+### 7/20/2020 v1.2.5:
+- [ ] Added JumpPack.
+- [ ] Added the ability to Spawn Interactables and Mobs.
+- [ ] Added the ability to insta-kill all Mobs.
+- [ ] Moved Movement mods to their own menu/file.
+- [ ] Moved Stats Modifications/Menu to their own menu.
+- [ ] Made the menu slightly more transparent and smaller.
+- [ ] Fixed View Stats Menu styling.
+- [ ] Some code cleanup.
+
+
 ### 7/11/2020 v1.2.4:
 - [ ] Added Active Mobs list to bottom of screen.
 - [ ] Added Unload button to the main menu.
