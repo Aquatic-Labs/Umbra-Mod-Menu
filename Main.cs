@@ -42,6 +42,7 @@ namespace UmbraRoR
 
         public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen, _isMovementOpen, _isSpawnMenuOpen };
         public static List<bool> menusOpen = new List<bool>();
+        public static Scene currentScene;
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -72,7 +73,6 @@ namespace UmbraRoR
         public static bool _isSpawnListMenuOpen = false;
         public static bool _isSpawnMenuOpen = false;
         public static bool enableRespawnButton = false;
-        public static bool inGame = false;
         #endregion
 
         #region Button Styles / Toggles
@@ -513,6 +513,13 @@ namespace UmbraRoR
         }
         #endregion Update
 
+        #region FixedUpdate
+        public void FixedUpdate()
+        {
+            currentScene = SceneManager.GetActiveScene();
+        }
+        #endregion
+
         #region Inputs
         private void CheckInputs()
         {
@@ -742,8 +749,7 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            inGame = scene.name != "title" && scene.name != "lobby" && scene.name != "" && scene.name != " ";
-            if (!inGame)
+            if (!InGameCheck())
             {
                 Utility.ResetMenu();
             }
@@ -752,6 +758,18 @@ namespace UmbraRoR
                 ModStatsRoutine();
                 Utility.SoftResetMenu();
             }
+        }
+        #endregion
+
+        #region In Game Check
+        public static bool InGameCheck()
+        {
+            if (currentScene != null)
+            {
+                bool inGame = currentScene.name != "title" && currentScene.name != "lobby" && currentScene.name != "" && currentScene.name != " ";
+                return inGame;
+            }
+            return false;
         }
         #endregion
 
@@ -1322,7 +1340,7 @@ namespace UmbraRoR
         {
             try
             {
-                if (inGame)
+                if (InGameCheck())
                 {
                     LocalNetworkUser = null;
                     foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)
