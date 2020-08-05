@@ -2,7 +2,6 @@
 /*
 Add filters to ESPs?
 Make ESP less laggy??
-Clear Items despawn beatle guards from UI
 */
 
 // On Risk of Rain 2 Update: Update Unlockables.txt, Update Unreleased items list if needed
@@ -671,11 +670,13 @@ namespace UmbraRoR
                 }
             }
         }
+
         private void AimBotRoutine()
         {
             if (aimBot)
                 PlayerMod.AimBot();
         }
+
         private void GodRoutine()
         {
             if (godToggle)
@@ -687,6 +688,7 @@ namespace UmbraRoR
                 LocalHealth.godMode = false;
             }
         }
+
         private void SprintRoutine()
         {
             if (alwaysSprint)
