@@ -155,6 +155,19 @@ pause
 
 
 # Changelog:
+### 8/5/2020 v1.2.6:
+- [ ] Added a box around mobs for Render Mobs.
+- [ ] Added the ability to despawn spawned interactables.
+- [ ] Improved Kill All. Now kills mobs spawned on the players team.
+- [ ] Improved Show Stats Menu Style.
+- [ ] Improved how the menu gets the local player.
+- [ ] Fixed a bug allowing navigation to be enabled in the main menu.
+- [ ] Added some comments to my source code.
+- [ ] Made a wrapper method for drawing buttons.
+- [ ] Bunch of code formatting/organization/refactoring.
+- [ ] Various other minor improvements.
+
+
 ### 7/20/2020 v1.2.5:
 - [ ] Added JumpPack.
 - [ ] Added the ability to Spawn Interactables and Mobs.
@@ -188,6 +201,7 @@ pause
 - [ ] Made the menu more compact.
 - [ ] Refactored a few things.
 
+
 ### 7/3/2020 v1.2.2:
 - [ ] Menu now `checks for updates` on inject and will tell you if its outdated.
 - [ ] Added ability to disable keyboard navigation if `Backspace` or `Left Arrow` is pressed in the main menu.
@@ -199,14 +213,17 @@ pause
  - No longer uses a depricated method.
 - [ ] Refactored a few things.
  
+ 
 ### 6/26/2020 v1.2.1:
  - [ ] Added the ability to navigate the menu with a keyboard.
  - [ ] Added the ability to drop items from your inventory.
+ 
  
 ### 4/26/2020 v1.2:
  - [ ] Fixed Equipment not dropping sometimes.
  - [ ] Reorganized code.
  - [ ] Added comments to code.
+
 
 ### 4/23/2020 v1.0:
  - [ ] Repo Changed to Public.

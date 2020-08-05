@@ -16,564 +16,319 @@ namespace UmbraRoR
         {
             if (Updates.updateAvailable)
             {
-                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
-                GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle);
-                GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>", buttonStyle);
+                DrawButton(2, "main", "<color=yellow>Buttons will be availble in game.</color>", buttonStyle, justText: true);
+                DrawButton(3, "main", "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle, justText: true);
+                DrawButton(4, "main", "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>", buttonStyle, justText: true);
             }
             else if (Updates.upToDate || Updates.devBuild)
             {
-                GUI.Button(btn.BtnRect(2, false, "main"), "<color=yellow>Buttons will be availble in game.</color>", buttonStyle);
-                GUI.Button(btn.BtnRect(3, false, "main"), "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord</color>", buttonStyle);
-                GUI.Button(btn.BtnRect(4, false, "main"), "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle);
+                DrawButton(2, "main", "<color=yellow>Buttons will be availble in game.</color>", buttonStyle, justText: true);
+                DrawButton(3, "main", "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle, justText: true);
+                DrawButton(4, "main", "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle, justText: true);
             }
         }
 
-        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle ButtonStyle, GUIStyle Highlighted)
+        public static void DrawMainMenu(float x, float y, float widthSize, float mulY, GUIStyle BGstyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle ButtonStyle)
         {
             if (Main._isPlayerMod)
             {
-                if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 1)))
-                {
-                    Main._isPlayerMod = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(1, "main", "P L A Y E R : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(1, false, "main"), "P L A Y E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 1)))
+            else
             {
-                Main._isPlayerMod = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 1;
+                DrawButton(1, "main", "P L A Y E R : O F F", OffStyle);
             }
+
             if (Main._isMovementOpen)
             {
-                if (GUI.Button(btn.BtnRect(2, false, "main"), "M O V E M E N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 2)))
-                {
-                    Main._isMovementOpen = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(2, "main", "M O V E M E N T : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(2, false, "main"), "M O V E M E N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 2)))
+            else
             {
-                Main._isMovementOpen = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 2;
+                DrawButton(2, "main", "M O V E M E N T : O F F", OffStyle);
             }
+
             if (Main._isItemManagerOpen)
             {
-                if (GUI.Button(btn.BtnRect(3, false, "main"), "I T E M S : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 3)))
-                {
-                    Main._isItemManagerOpen = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(3, "main", "I T E M S : ON", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(3, false, "main"), "I T E M S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 3)))
+            else
             {
-                Main._isItemManagerOpen = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 3;
+                DrawButton(3, "main", "I T E M S : O F F", OffStyle);
             }
+
             if (Main._isSpawnMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(4, false, "main"), "S P A W N : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 4)))
-                {
-                    Main._isSpawnMenuOpen = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(4, "main", "S P A W N : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(4, false, "main"), "S P A W N : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 4)))
+            else
             {
-                Main._isSpawnMenuOpen = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 4;
+                DrawButton(4, "main", "S P A W N : O F F", OffStyle);
             }
+
             if (Main._isTeleMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(5, false, "main"), "T E L E P O R T E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 5)))
-                {
-                    Main._isTeleMenuOpen = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(5, "main", "T E L E P O R T E R : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(5, false, "main"), "T E L E P O R T E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 5)))
+            else
             {
-                Main._isTeleMenuOpen = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 5;
+                DrawButton(5, "main", "T E L E P O R T E R : O F F", OffStyle);
             }
+
             if (Main._isESPMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(6, false, "main"), "R E N D E R : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 6)))
-                {
-                    Main._isESPMenuOpen = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(6, "main", "R E N D E R : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(6, false, "main"), "R E N D E R : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 6)))
+            else
             {
-                Main._isESPMenuOpen = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 6;
+                DrawButton(6, "main", "R E N D E R : O F F", OffStyle);
             }
+
             if (Main._isLobbyMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(7, false, "main"), "L O B B Y : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 0, 7)))
-                {
-                    Main._isLobbyMenuOpen = false;
-                    Navigation.menuIndex = Navigation.prevMenuIndex;
-                }
+                DrawButton(7, "main", "L O B B Y : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(7, false, "main"), "L O B B Y : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 0, 7)))
+            else
             {
-                Main._isLobbyMenuOpen = true;
-                Navigation.prevMenuIndex = (int)Navigation.menuIndex;
-                Navigation.menuIndex = 7;
+                DrawButton(7, "main", "L O B B Y : O F F", OffStyle);
             }
+
             if (Main.unloadConfirm)
             {
-                if (GUI.Button(btn.BtnRect(8, false, "main"), "C O N F I R M ?", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 8)))
-                {
-                    Utility.ResetMenu();
-                    Loader.Unload();
-                }
+                DrawButton(8, "main", "C O N F I R M ?", ButtonStyle);
             }
-            else if (GUI.Button(btn.BtnRect(8, false, "main"), "U N L O A D   M E N U", Navigation.HighlighedCheck(ButtonStyle, Highlighted, 0, 8)))
+            else
             {
-                Main.unloadConfirm = true;
+                DrawButton(8, "main", "U N L O A D   M E N U", ButtonStyle);
             }
         }
 
-        public static void DrawPlayerModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawPlayerModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "P L A Y E R   M E N U", LabelStyle);
 
-            if (GUI.Button(btn.BtnRect(1, true, "playermod"), "G I V E   M O N E Y : " + PlayerMod.moneyToGive.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 1)))
-            {
-                PlayerMod.GiveMoney();
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.moneyToGive > 50)
-                    PlayerMod.moneyToGive -= 50;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.moneyToGive >= 50)
-                    PlayerMod.moneyToGive += 50;
-            }
-            if (GUI.Button(btn.BtnRect(2, true, "playermod"), "G I V E   L U N A R   C O I N S : " + PlayerMod.coinsToGive.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 2)))
-            {
-                PlayerMod.GiveLunarCoins();
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.coinsToGive > 10)
-                    PlayerMod.coinsToGive -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.coinsToGive >= 10)
-                    PlayerMod.coinsToGive += 10;
-            }
-            if (GUI.Button(btn.BtnRect(3, true, "playermod"), "G I V E   E X P E R I E N C E : " + PlayerMod.xpToGive.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 3)))
-            {
-                PlayerMod.GiveXP();
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.PlayerModBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.xpToGive > 50)
-                    PlayerMod.xpToGive -= 50;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.PlayerModBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.xpToGive >= 50)
-                    PlayerMod.xpToGive += 50;
-            }
+            DrawButton(1, "playermod", $"G I V E   M O N E Y : {PlayerMod.moneyToGive}", buttonStyle, isMultButton: true);
+            DrawButton(2, "playermod", $"G I V E   L U N A R   C O I N S : {PlayerMod.coinsToGive}", buttonStyle, isMultButton: true);
+            DrawButton(3, "playermod", $"G I V E   E X P E R I E N C E : {PlayerMod.xpToGive}", buttonStyle, isMultButton: true);
+
             if (Main._isEditStatsOpen)
             {
-                if (GUI.Button(btn.BtnRect(4, false, "playermod"), "S T A T S   M E N U : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 4)))
-                {
-                    Main._isEditStatsOpen = false;
-                }
+                DrawButton(4, "playermod", "S T A T S   M E N U : ON", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(4, false, "playermod"), "S T A T S   M E N U : OFF", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 4)))
+            else
             {
-                Main._isEditStatsOpen = true;
+                DrawButton(4, "playermod", "S T A T S   M E N U : OFF", OffStyle);
             }
             if (Main._isChangeCharacterMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(5, false, "playermod"), "C H A N G E   C H A R A C T E R : ON", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 5)))
-                {
-                    Main._isChangeCharacterMenuOpen = false;
-                }
+                DrawButton(5, "playermod", "C H A N G E   C H A R A C T E R : ON", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(5, false, "playermod"), "C H A N G E   C H A R A C T E R : OFF", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 5)))
+            else
             {
-                Main._isChangeCharacterMenuOpen = true;
+                DrawButton(5, "playermod", "C H A N G E   C H A R A C T E R : OFF", OffStyle);
             }
-
             if (Main._isBuffMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(6, false, "playermod"), "G I V E   B U F F   M E N U : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 6)))
-                {
-                    Main._isBuffMenuOpen = false;
-                }
+                DrawButton(6, "playermod", "G I V E   B U F F   M E N U : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(6, false, "playermod"), "G I V E   B U F F   M E N U : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 6)))
+            else
             {
-                Main._isBuffMenuOpen = true;
+                DrawButton(6, "playermod", "G I V E   B U F F   M E N U : O F F", OffStyle);
             }
-            if (GUI.Button(btn.BtnRect(7, false, "playermod"), "R E M O V E   A L L   B U F F S", Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 7)))
-            {
-                PlayerMod.RemoveAllBuffs();
-            }
+
+            DrawButton(7, "playermod", "R E M O V E   A L L   B U F F S", buttonStyle);
+
             if (Main.aimBot)
             {
-                if (GUI.Button(btn.BtnRect(8, false, "playermod"), "A I M B O T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 8)))
-                {
-                    EntityStates.FireNailgun.spreadPitchScale = 0.5f;
-                    EntityStates.FireNailgun.spreadYawScale = 1f;
-                    EntityStates.FireNailgun.spreadBloomValue = 0.2f;
-                    Main.aimBot = false;
-                }
+                DrawButton(8, "playermod", "A I M B O T : O N", OnStyle);
             }
-            else if (!Main.aimBot)
+            else
             {
-                if (GUI.Button(btn.BtnRect(8, false, "playermod"), "A I M B O T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 8)))
-                {
-                    EntityStates.FireNailgun.spreadPitchScale = 0;
-                    EntityStates.FireNailgun.spreadYawScale = 0;
-                    EntityStates.FireNailgun.spreadBloomValue = 0;
-                    Main.aimBot = true;
-                }
+                DrawButton(8, "playermod", "A I M B O T : O F F", OffStyle);
             }
             if (Main.godToggle)
             {
-                if (GUI.Button(btn.BtnRect(9, false, "playermod"), "G O D   M O D E : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 9)))
-                {
-                    Main.godToggle = false;
-                }
+                DrawButton(9, "playermod", "G O D   M O D E : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(9, false, "playermod"), "G O D   M O D E : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 9)))
+            else
             {
-                Main.godToggle = true;
+                DrawButton(9, "playermod", "G O D   M O D E : O F F", OffStyle);
             }
             if (Main.skillToggle)
             {
-                if (GUI.Button(btn.BtnRect(10, false, "playermod"), "I N F I N I T E   S K I L L S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1, 10)))
-                {
-                    Main.skillToggle = false;
-                }
+                DrawButton(10, "playermod", "I N F I N I T E   S K I L L S : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(10, false, "playermod"), "I N F I N I T E   S K I L L S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1, 10)))
+            else
             {
-                Main.skillToggle = true;
+                DrawButton(10, "playermod", "I N F I N I T E   S K I L L S : O F F", OffStyle);
             }
-            if (GUI.Button(btn.BtnRect(11, false, "playermod"), "U N L O C K   A L L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 1, 11)))
-            {
-                PlayerMod.UnlockAll();
-            }
+            DrawButton(11, "playermod", "U N L O C K   A L L", buttonStyle);
         }
 
-        public static void DrawMovementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawMovementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "M O V E M E N T   M E N U", LabelStyle);
 
             if (Main.alwaysSprint)
             {
-                if (GUI.Button(btn.BtnRect(1, false, "movement"), "A L W A Y S   S P R I N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 2, 1)))
-                {
-                    Main.alwaysSprint = false;
-                }
+                DrawButton(1, "movement", "A L W A Y S   S P R I N T : O N", OnStyle);
             }
-            else if (!Main.alwaysSprint)
+            else
             {
-                if (GUI.Button(btn.BtnRect(1, false, "movement"), "A L W A Y S   S P R I N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 2, 1)))
-                {
-                    Main.alwaysSprint = true;
-                }
+                DrawButton(1, "movement", "A L W A Y S   S P R I N T : O F F", OffStyle);
             }
+
             if (Main.FlightToggle)
             {
-                if (GUI.Button(btn.BtnRect(2, false, "movement"), "F L I G H T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 2, 2)))
-                {
-                    if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
-                    {
-                        Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
-                    }
-                    Main.FlightToggle = false;
-                }
+                DrawButton(2, "movement", "F L I G H T : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(2, false, "movement"), "F L I G H T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 2, 2)))
+            else
             {
-                Main.FlightToggle = true;
+                DrawButton(2, "movement", "F L I G H T : O F F", OffStyle);
             }
+
             if (Main.jumpPackToggle)
             {
-                if (GUI.Button(btn.BtnRect(3, false, "movement"), "J U M P - P A C K : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 2, 3)))
-                {
-                    if (PlayerMod.GetCurrentCharacter().ToString() != "Loader")
-                    {
-                        Main.LocalPlayerBody.bodyFlags &= CharacterBody.BodyFlags.None;
-                    }
-                    Main.jumpPackToggle = false;
-                }
+                DrawButton(3, "movement", "J U M P - P A C K : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(3, false, "movement"), "J U M P - P A C K : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 2, 3)))
+            else
             {
-                Main.jumpPackToggle = true;
+                DrawButton(3, "movement", "J U M P - P A C K : O F F", OffStyle);
             }
         }
 
-        public static void DrawItemManagementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawItemManagementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "I T E M S   M E N U", LabelStyle);
 
-            if (GUI.Button(btn.BtnRect(1, true, "itemmanager"), "G I V E   A L L   I T E M S : " + ItemManager.allItemsQuantity.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 3, 1)))
-            {
-                ItemManager.GiveAllItems();
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.ItemManagerBtnY, 40, 40), "-", OffStyle))
-            {
-                if (ItemManager.allItemsQuantity > 1)
-                    ItemManager.allItemsQuantity -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.ItemManagerBtnY, 40, 40), "+", OffStyle))
-            {
-                if (ItemManager.allItemsQuantity >= 1)
-                    ItemManager.allItemsQuantity += 1;
-            }
-            if (GUI.Button(btn.BtnRect(2, true, "itemmanager"), "R O L L   I T E M S : " + ItemManager.itemsToRoll.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 3, 2)))
-            {
-                ItemManager.RollItems(ItemManager.itemsToRoll.ToString());
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.ItemManagerBtnY, 40, 40), "-", OffStyle))
-            {
-                if (ItemManager.itemsToRoll > 5)
-                    ItemManager.itemsToRoll -= 5;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.ItemManagerBtnY, 40, 40), "+", OffStyle))
-            {
-                if (ItemManager.itemsToRoll >= 5)
-                    ItemManager.itemsToRoll += 5;
-            }
+            DrawButton(1, "itemmanager", $"G I V E   A L L   I T E M S : {ItemManager.allItemsQuantity}", buttonStyle, isMultButton: true);
+            DrawButton(2, "itemmanager", $"R O L L   I T E M S : {ItemManager.itemsToRoll}", buttonStyle, isMultButton: true);
+
             if (Main._isItemSpawnMenuOpen)
             {
-                Main._isEquipmentSpawnMenuOpen = false;
-                if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "I T E M   S P A W N   M E N U : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 3, 3)))
-                {
-                    Main._isItemSpawnMenuOpen = false;
-                }
+                DrawButton(3, "itemmanager", "I T E M   S P A W N   M E N U : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(3, false, "itemmanager"), "I T E M   S P A W N   M E N U : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 3, 3)))
+            else
             {
-                Main._isItemSpawnMenuOpen = true;
+                DrawButton(3, "itemmanager", "I T E M   S P A W N   M E N U : O F F", OffStyle);
             }
             if (Main._isEquipmentSpawnMenuOpen)
             {
-                Main._isItemSpawnMenuOpen = false;
-                if (GUI.Button(btn.BtnRect(4, false, "itemmanager"), "E Q U I P M E N T   S P A W N   M E N U : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 3, 4)))
-                {
-                    Main._isEquipmentSpawnMenuOpen = false;
-                }
+                DrawButton(4, "itemmanager", "E Q U I P M E N T   S P A W N   M E N U : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(4, false, "itemmanager"), "E Q U I P M E N T   S P A W N   M E N U : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 3, 4)))
+            else
             {
-                Main._isEquipmentSpawnMenuOpen = true;
+                DrawButton(4, "itemmanager", "E Q U I P M E N T   S P A W N   M E N U : O F F", OffStyle);
             }
             if (ItemManager.isDropItemForAll)
             {
-                if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 3, 5)))
-                {
-                    ItemManager.isDropItemForAll = false;
-                }
+                DrawButton(5, "itemmanager", "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(5, false, "itemmanager"), "D R O P   I T E M S / E Q U I P M E N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 3, 5)))
+            else
             {
-                ItemManager.isDropItemForAll = true;
-                ItemManager.isDropItemFromInventory = false;
+                DrawButton(5, "itemmanager", "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle);
             }
             if (ItemManager.isDropItemFromInventory)
             {
-                if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 3, 6)))
-                {
-                    ItemManager.isDropItemFromInventory = false;
-                }
+                DrawButton(6, "itemmanager", "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(6, false, "itemmanager"), "D R O P   F R O M   I N V E N T O R Y : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 3, 6)))
+            else
             {
-                ItemManager.isDropItemFromInventory = true;
-                ItemManager.isDropItemForAll = false;
+                DrawButton(6, "itemmanager", "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle);
             }
             if (Main.noEquipmentCooldown)
             {
-                if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 3, 7)))
-                {
-                    Main.noEquipmentCooldown = false;
-                }
+                DrawButton(7, "itemmanager", "I N F I N I T E   E Q U I P M E N T : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(7, false, "itemmanager"), "I N F I N I T E   E Q U I P M E N T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 3, 7)))
+            else
             {
-                Main.noEquipmentCooldown = true;
+                DrawButton(7, "itemmanager", "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle);
             }
-            if (GUI.Button(btn.BtnRect(8, false, "itemmanager"), "S T A C K   I N V E N T O R Y", Navigation.HighlighedCheck(buttonStyle, Highlighted, 3, 8)))
-            {
-                ItemManager.StackInventory();
-            }
-            if (GUI.Button(btn.BtnRect(9, false, "itemmanager"), "C L E A R   I N V E N T O R Y", Navigation.HighlighedCheck(buttonStyle, Highlighted, 3, 9)))
-            {
-                ItemManager.ClearInventory();
-            }
+
+            DrawButton(8, "itemmanager", "S T A C K   I N V E N T O R Y", buttonStyle);
+            DrawButton(9, "itemmanager", "C L E A R   I N V E N T O R Y", buttonStyle);
         }
 
-        public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   M E N U", LabelStyle);
 
-            if (GUI.Button(btn.BtnRect(1, true, "spawn"), $"M I N   D I S T A N C E : {Spawn.minDistance}", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 1))) { return; }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
-            {
-                if (Spawn.minDistance > 0)
-                {
-                    Spawn.minDistance -= 1;
-                }
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", OffStyle))
-            {
-                if (Spawn.minDistance < Spawn.maxDistance)
-                {
-                    Spawn.minDistance += 1;
-                }
-            }
+            DrawButton(1, "spawn", $"M I N   D I S T A N C E : {Spawn.minDistance}", buttonStyle, isMultButton: true);
+            DrawButton(2, "spawn", $"M A X   D I S T A N C E : {Spawn.maxDistance}", buttonStyle, isMultButton: true);
+            DrawButton(3, "spawn", $"T E A M : {Spawn.team[Spawn.teamIndex]}", buttonStyle, isMultButton: true);
 
-            if (GUI.Button(btn.BtnRect(2, true, "spawn"), $"M A X   D I S T A N C E : {Spawn.maxDistance}", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 2))) { return; }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
-            {
-                if (Spawn.maxDistance > Spawn.minDistance)
-                {
-                    Spawn.maxDistance -= 1;
-                }
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", OffStyle))
-            {
-                if (Spawn.maxDistance >= Spawn.minDistance)
-                {
-                    Spawn.maxDistance += 1;
-                }
-            }
-
-            if (GUI.Button(btn.BtnRect(3, true, "spawn"), $"T E A M : {Spawn.team[Spawn.teamIndex]}", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 3))) { return; }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.spawnBtnY, 40, 40), "-", OffStyle))
-            {
-                if (Spawn.teamIndex > 0)
-                {
-                    Spawn.teamIndex -= 1;
-                }
-                else if (Spawn.teamIndex == 0)
-                {
-                    Spawn.teamIndex = 3;
-                }
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.spawnBtnY, 40, 40), "+", buttonStyle))
-            {
-                if (Spawn.teamIndex < 3)
-                {
-                    Spawn.teamIndex += 1;
-                }
-                else if (Spawn.teamIndex == 3)
-                {
-                    Spawn.teamIndex = 0;
-                }
-            }
-            if (GUI.Button(btn.BtnRect(4, false, "spawn"), $"K I L L   A L L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 4, 4)))
-            {
-                Spawn.KillAll();
-            }
             if (Main._isSpawnListMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(5, false, "spawn"), "S P A W N   L I S T : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 4, 5)))
-                {
-                    Main._isSpawnListMenuOpen = false;
-                }
+                DrawButton(4, "spawn", "S P A W N   L I S T : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(5, false, "spawn"), "S P A W N   L I S T : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 4, 5)))
+            else
             {
-                Main._isSpawnListMenuOpen = true;
+                DrawButton(4, "spawn", "S P A W N   L I S T : O F F", OffStyle);
             }
+
+            DrawButton(5, "spawn", "K I L L   A L L", buttonStyle);
+            DrawButton(6, "spawn", "D E S T R O Y   I N T E R A C T A B L E S", buttonStyle);
         }
 
-        public static void DrawTeleMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawTeleMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "T E L E P O R T E R   M E N U", LabelStyle);
 
-            if (GUI.Button(btn.BtnRect(1, false, "tele"), "S K I P   S T A G E", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 1)))
-                Teleporter.skipStage();
-            if (GUI.Button(btn.BtnRect(2, false, "tele"), "I N S T A N T   T E L E P O R T E R", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 2)))
-                Teleporter.InstaTeleporter();
-            if (GUI.Button(btn.BtnRect(3, false, "tele"), "A D D   M O U N T A I N - C O U N T : " + TeleporterInteraction.instance.shrineBonusStacks.ToString(), Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 3)))
-                Teleporter.addMountain();
-            if (GUI.Button(btn.BtnRect(4, false, "tele"), "S P A W N   A L L   P O R T A L S", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 4)))
-                Teleporter.SpawnPortals("all");
-            if (GUI.Button(btn.BtnRect(5, false, "tele"), "S P A W N   B L U E   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 5)))
-                Teleporter.SpawnPortals("newt");
-            if (GUI.Button(btn.BtnRect(6, false, "tele"), "S P A W N   C E L E S T A L   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 6)))
-                Teleporter.SpawnPortals("blue");
-            if (GUI.Button(btn.BtnRect(7, false, "tele"), "S P A W N   G O L D   P O R T A L", Navigation.HighlighedCheck(buttonStyle, Highlighted, 5, 7)))
-                Teleporter.SpawnPortals("gold");
+            DrawButton(1, "tele", "S K I P   S T A G E", buttonStyle);
+            DrawButton(2, "tele", "I N S T A N T   T E L E P O R T E R", buttonStyle);
+            DrawButton(3, "tele", $"A D D   M O U N T A I N - C O U N T : {TeleporterInteraction.instance.shrineBonusStacks}", buttonStyle);
+            DrawButton(4, "tele", "S P A W N   A L L   P O R T A L S", buttonStyle);
+            DrawButton(5, "tele", "S P A W N   B L U E   P O R T A L", buttonStyle);
+            DrawButton(6, "tele", "S P A W N   C E L E S T A L   P O R T A L", buttonStyle);
+            DrawButton(7, "tele", "S P A W N   G O L D   P O R T A L", buttonStyle);
         }
 
-        public static void DrawESPMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawRenderMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
 
             if (Main.renderActiveMods)
             {
-                if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 6, 1)))
-                {
-                    Main.renderActiveMods = false;
-                }
+                DrawButton(1, "ESP", "A C T I V E   M O D S : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(1, false, "ESP"), "A C T I V E   M O D S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 6, 1)))
+            else
             {
-                Main.renderActiveMods = true;
+                DrawButton(1, "ESP", "A C T I V E   M O D S : O F F", OffStyle);
             }
+
             if (Main.renderInteractables)
             {
-                if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 6, 2)))
-                {
-                    Main.renderInteractables = false;
-                }
+                DrawButton(2, "ESP", "I N T E R A C T A B L E S   E S P : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(2, false, "ESP"), "I N T E R A C T A B L E S   E S P : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 6, 2)))
+            else
             {
-                Main.renderInteractables = true;
+                DrawButton(2, "ESP", "I N T E R A C T A B L E S   E S P : O F F", OffStyle);
             }
+
             if (Main.renderMobs)
             {
-                if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OnStyle, Highlighted, 6, 3)))
-                {
-                    Main.renderMobs = false;
-                }
+                DrawButton(3, "ESP", "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(3, false, "ESP"), "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", Navigation.HighlighedCheck(OffStyle, Highlighted, 6, 3)))
+            else
             {
-                Main.renderMobs = true;
+                DrawButton(3, "ESP", "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", OffStyle);
             }
         }
 
-        public static void DrawLobbyMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawLobbyMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "L O B B Y   M E N U", LabelStyle);
 
             if (Main._CharacterCollected)
             {
-                Utility.GetPlayers(Main.Players); //update this asap
+                Lobby.GetPlayers(Main.Players); //update this asap
                 int buttonPlacement = 1;
                 for (int i = 0; i < Main.Players.Length; i++)
                 {
@@ -581,11 +336,7 @@ namespace UmbraRoR
                     {
                         if (Main.Players[i] != null)
                         {
-                            if (GUI.Button(btn.BtnRect(buttonPlacement, false, "lobby"), $"K I C K  <color=yellow>{Main.Players[i]}</color>", Navigation.HighlighedCheck(buttonStyle, Highlighted, 7, buttonPlacement)))
-                            {
-                                Chat.AddMessage("<color=#42f5d4>Kicked Player </color>" + $"<color=yellow>{Main.Players[i]}</color>");
-                                Utility.KickPlayer(Utility.GetNetUserFromString(Main.Players[i].ToString()), Main.LocalNetworkUser);
-                            }
+                            DrawButton(buttonPlacement, "lobby", $"K I C K  <color=yellow>{Main.Players[i]}</color>", buttonStyle);
                             buttonPlacement++;
                         }
                     }
@@ -597,176 +348,120 @@ namespace UmbraRoR
             }
         }
 
-        public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "C H A R A C T E R   M E N U", LabelStyle);
 
             characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            PlayerMod.ChangeCharacter(buttonStyle, Highlighted, "character");
+            PlayerMod.ChangeCharacter(buttonStyle, "character");
             GUI.EndScrollView();
         }
 
-        public static void DrawStatsModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
+
+            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            PlayerMod.GiveBuff(buttonStyle, "giveBuff");
+            GUI.EndScrollView();
+        }
+
+        public static void DrawStatsModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S T A T S   M E N U", LabelStyle);
 
             if (Main.damageToggle)
             {
-                if (GUI.Button(btn.BtnRect(1, true, "statsmod"), "D A M A G E / L V L ( O N ) : " + PlayerMod.damagePerLvl.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 1)))
-                {
-                    Main.damageToggle = false;
-                }
+                DrawButton(1, "statsmod", $"D A M A G E / L V L ( O N ) : {PlayerMod.damagePerLvl}", OnStyle, true);
             }
-            else if (GUI.Button(btn.BtnRect(1, true, "statsmod"), "D A M A G E / L V L ( O F F ) : " + PlayerMod.damagePerLvl.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 1)))
+            else
             {
-                Main.damageToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.damagePerLvl > 0)
-                    PlayerMod.damagePerLvl -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.damagePerLvl >= 0)
-                    PlayerMod.damagePerLvl += 10;
+                DrawButton(1, "statsmod", $"D A M A G E / L V L ( O F F ) : {PlayerMod.damagePerLvl}", OffStyle, true);
             }
             if (Main.critToggle)
             {
-                if (GUI.Button(btn.BtnRect(2, true, "statsmod"), "C R I T / L V L ( O N ) : " + PlayerMod.CritPerLvl.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 2)))
-                {
-                    Main.critToggle = false;
-                }
+                DrawButton(2, "statsmod", $"C R I T / L V L ( O N ) : {PlayerMod.CritPerLvl}", OnStyle, true);
             }
-            else if (GUI.Button(btn.BtnRect(2, true, "statsmod"), "C R I T / L V L ( O F F ) : " + PlayerMod.CritPerLvl.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 2)))
+            else
             {
-                Main.critToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.CritPerLvl > 0)
-                    PlayerMod.CritPerLvl -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.CritPerLvl >= 0)
-                    PlayerMod.CritPerLvl += 1;
+                DrawButton(2, "statsmod", $"C R I T / L V L ( O F F ) : {PlayerMod.CritPerLvl}", OffStyle, true);
             }
             if (Main.attackSpeedToggle)
             {
-                if (GUI.Button(btn.BtnRect(3, true, "statsmod"), "A T T A C K   S P E E D ( O N ) : " + PlayerMod.attackSpeed.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 3)))
-                {
-                    Main.attackSpeedToggle = false;
-                }
+                DrawButton(3, "statsmod", $"A T T A C K   S P E E D ( O N ) : {PlayerMod.attackSpeed}", OnStyle, true);
             }
-            else if (GUI.Button(btn.BtnRect(3, true, "statsmod"), "A T T A C K   S P E E D ( O F F ) : " + PlayerMod.attackSpeed.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 3)))
+            else
             {
-                Main.attackSpeedToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.attackSpeed > 0)
-                    PlayerMod.attackSpeed -= 1;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.attackSpeed >= 0)
-                    PlayerMod.attackSpeed += 1;
+                DrawButton(3, "statsmod", $"A T T A C K   S P E E D ( O F F ) : {PlayerMod.attackSpeed}", OffStyle, true);
             }
             if (Main.armorToggle)
             {
-                if (GUI.Button(btn.BtnRect(4, true, "statsmod"), "A R M O R ( O N ) : " + PlayerMod.armor.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 4)))
-                {
-                    Main.armorToggle = false;
-                }
+                DrawButton(4, "statsmod", $"A R M O R ( O N ) : {PlayerMod.armor}", OnStyle, true);
             }
-            else if (GUI.Button(btn.BtnRect(4, true, "statsmod"), "A R M O R ( O F F ) : " + PlayerMod.armor.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 4)))
+            else
             {
-                Main.armorToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.armor > 0)
-                    PlayerMod.armor -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.armor >= 0)
-                    PlayerMod.armor += 10;
+                DrawButton(4, "statsmod", $"A R M O R ( O F F ) : {PlayerMod.armor}", OffStyle, true);
             }
             if (Main.moveSpeedToggle)
             {
-                if (GUI.Button(btn.BtnRect(5, true, "statsmod"), "M O V E   S P E E D ( O N ) : " + PlayerMod.movespeed.ToString(), Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 5)))
-                {
-                    Main.moveSpeedToggle = false;
-                }
+                DrawButton(5, "statsmod", $"M O V E   S P E E D ( O N ) : {PlayerMod.movespeed}", OnStyle, true);
             }
-            else if (GUI.Button(btn.BtnRect(5, true, "statsmod"), "M O V E   S P E E D ( O F F ) : " + PlayerMod.movespeed.ToString(), Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 5)))
+            else
             {
-                Main.moveSpeedToggle = true;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 80, y + Main.editStatsBtnY, 40, 40), "-", OffStyle))
-            {
-                if (PlayerMod.movespeed > 7)
-                    PlayerMod.movespeed -= 10;
-            }
-            if (GUI.Button(new Rect(x + widthSize - 35, y + Main.editStatsBtnY, 40, 40), "+", OffStyle))
-            {
-                if (PlayerMod.movespeed >= 7)
-                    PlayerMod.movespeed += 10;
+                DrawButton(5, "statsmod", $"M O V E   S P E E D ( O F F ) : {PlayerMod.movespeed}", OffStyle, true);
             }
             if (Main._isStatMenuOpen)
             {
-                if (GUI.Button(btn.BtnRect(6, false, "statsmod"), "S H O W   S T A T S : O N", Navigation.HighlighedCheck(OnStyle, Highlighted, 1.3f, 6)))
-                {
-                    Main._isStatMenuOpen = false;
-                }
+                DrawButton(6, "statsmod", "S H O W   S T A T S : O N", OnStyle);
             }
-            else if (GUI.Button(btn.BtnRect(6, false, "statsmod"), "S H O W   S T A T S : O F F", Navigation.HighlighedCheck(OffStyle, Highlighted, 1.3f, 6)))
+            else
             {
-                Main._isStatMenuOpen = true;
+                DrawButton(6, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
             }
         }
 
-        public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
+        public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M S   L I S T", LabelStyle);
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            ItemManager.GiveItem(buttonStyle, Highlighted, "itemSpawner");
+            int buttonPlacement = 1;
+            foreach (var itemIndex in Main.items)
+            {
+                string itemName = itemIndex.ToString();
+                DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
+                buttonPlacement++;
+            }
             GUI.EndScrollView();
         }
 
-        public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle Highlighted)
-        {
-            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
-
-            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            Spawn.SpawnMob(buttonStyle, Highlighted, "spawnMob");
-            GUI.EndScrollView();
-        }
-
-        public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle, GUIStyle Highlighted)
+        public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            ItemManager.GiveEquipment(buttonStyle, Highlighted, "equipmentSpawner");
+            int buttonPlacement = 1;
+            foreach (var equipmentIndex in Main.equipment)
+            {
+                string equipmentName = equipmentIndex.ToString();
+                DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                buttonPlacement++;
+            }
             GUI.EndScrollView();
         }
 
-        public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle, GUIStyle Highlighted)
+        public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
 
-            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
-            PlayerMod.GiveBuff(buttonStyle, Highlighted, "giveBuff");
+            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            Spawn.SpawnMob(buttonStyle, "spawnMob");
             GUI.EndScrollView();
         }
 
@@ -775,15 +470,319 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize, 50f + 45 * mulY), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 50f), "S T A T S   M E N U", LabelStyle);
 
-            GUI.Button(btn.BtnRect(1, false, "stats"), $"D A M A G E : {Main.LocalPlayerBody.damage}", buttonStyle);
-            GUI.Button(btn.BtnRect(2, false, "stats"), $"C R I T : {Main.LocalPlayerBody.crit}", buttonStyle);
-            GUI.Button(btn.BtnRect(3, false, "stats"), $"A T T A C K   S P E E D : {Main.LocalPlayerBody.attackSpeed}", buttonStyle);
-            GUI.Button(btn.BtnRect(4, false, "stats"), $"A R M O R : {Main.LocalPlayerBody.armor}", buttonStyle);
-            GUI.Button(btn.BtnRect(5, false, "stats"), $"R E G E N : {Main.LocalPlayerBody.regen}", buttonStyle);
-            GUI.Button(btn.BtnRect(6, false, "stats"), $"M O V E   S P E E D : {Main.LocalPlayerBody.moveSpeed}", buttonStyle);
-            GUI.Button(btn.BtnRect(7, false, "stats"), $"J U M P   C O U N T : {Main.LocalPlayerBody.maxJumpCount}", buttonStyle);
-            GUI.Button(btn.BtnRect(8, false, "stats"), $"E X P E R I E N C E : {Main.LocalPlayerBody.experience}", buttonStyle);
-            GUI.Button(btn.BtnRect(9, false, "stats"), $"K I L L S: {Main.LocalPlayerBody.killCount}", buttonStyle);
+            DrawButton(1, "stats", $"D A M A G E : {Main.LocalPlayerBody.damage}", buttonStyle, justText: true);
+            DrawButton(2, "stats", $"C R I T : {Main.LocalPlayerBody.crit}", buttonStyle, justText: true);
+            DrawButton(3, "stats", $"A T T A C K   S P E E D : {Main.LocalPlayerBody.attackSpeed}", buttonStyle, justText: true);
+            DrawButton(4, "stats", $"A R M O R : {Main.LocalPlayerBody.armor}", buttonStyle, justText: true);
+            DrawButton(5, "stats", $"R E G E N : {Main.LocalPlayerBody.regen}", buttonStyle, justText: true);
+            DrawButton(6, "stats", $"M O V E   S P E E D : {Main.LocalPlayerBody.moveSpeed}", buttonStyle, justText: true);
+            DrawButton(7, "stats", $"J U M P   C O U N T : {Main.LocalPlayerBody.maxJumpCount}", buttonStyle, justText: true);
+            DrawButton(8, "stats", $"E X P E R I E N C E : {Main.LocalPlayerBody.experience}", buttonStyle, justText: true);
+            DrawButton(9, "stats", $"K I L L S: {Main.LocalPlayerBody.killCount}", buttonStyle, justText: true);
+
+        }
+
+        // A Wrapper Method For Drawing Buttons
+        public static void DrawButton(int position, string id, string text, GUIStyle defaultStyle, bool isMultButton = false, bool justText = false)
+        {
+            Rect rect;
+            Rect menuBg;
+            GUIStyle highlighted = Main.HighlightBtnStyle;
+            float menuIndex;
+            int intraMenuIndex = position - 1;
+            int btnY = 5 + 45 * position;
+            // Rect for buttons
+            // It automatically position buttons based on id and position. There is no need to change it
+            switch (id)
+            {
+                case "main":
+                    {
+                        menuIndex = 0;
+                        menuBg = Main.mainRect;
+                        Main.MainMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.mainRect.x + 5, Main.mainRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.mainRect.x + 5, Main.mainRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "playermod":
+                    {
+                        menuIndex = 1;
+                        menuBg = Main.playerModRect;
+                        Main.PlayerModMulY = position;
+                        Main.PlayerModBtnY = btnY;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.playerModRect.x + 5, Main.playerModRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.playerModRect.x + 5, Main.playerModRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "character":
+                    {
+                        menuIndex = 1.1f;
+                        menuBg = Main.characterRect;
+                        Main.CharacterMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.characterRect.x + 5, Main.characterRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.characterRect.x + 5, Main.characterRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "giveBuff":
+                    {
+                        menuIndex = 1.2f;
+                        menuBg = Main.buffMenuRect;
+                        Main.buffMenuMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.buffMenuRect.x + 5, Main.buffMenuRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.buffMenuRect.x + 5, Main.buffMenuRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "statsmod":
+                    {
+                        menuIndex = 1.3f;
+                        menuBg = Main.editStatsRect;
+                        Main.editStatsMulY = position;
+                        Main.editStatsBtnY = btnY;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.editStatsRect.x + 5, Main.editStatsRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.editStatsRect.x + 5, Main.editStatsRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "movement":
+                    {
+                        menuIndex = 2f;
+                        menuBg = Main.movementRect;
+                        Main.movementMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.movementRect.x + 5, Main.movementRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.movementRect.x + 5, Main.movementRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "itemmanager":
+                    {
+                        menuIndex = 3f;
+                        menuBg = Main.itemManagerRect;
+                        Main.ItemManagerMulY = position;
+                        Main.ItemManagerBtnY = btnY;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.itemManagerRect.x + 5, Main.itemManagerRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.itemManagerRect.x + 5, Main.itemManagerRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "itemSpawner":
+                    {
+                        menuIndex = 3.1f;
+                        menuBg = Main.itemSpawnerRect;
+                        Main.itemSpawnerMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.itemSpawnerRect.x + 5, Main.itemSpawnerRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.itemSpawnerRect.x + 5, Main.itemSpawnerRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "equipmentSpawner":
+                    {
+                        menuIndex = 3.2f;
+                        menuBg = Main.equipmentSpawnerRect;
+                        Main.equipmentSpawnerMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.equipmentSpawnerRect.x + 5, Main.equipmentSpawnerRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.equipmentSpawnerRect.x + 5, Main.equipmentSpawnerRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "spawn":
+                    {
+                        menuIndex = 4f;
+                        menuBg = Main.spawnRect;
+                        Main.spawnMulY = position;
+                        Main.spawnBtnY = btnY;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.spawnRect.x + 5, Main.spawnRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.spawnRect.x + 5, Main.spawnRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "spawnMob":
+                    {
+                        menuIndex = 4.1f;
+                        menuBg = Main.spawnListRect;
+                        Main.spawnListMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.spawnListRect.x + 5, Main.spawnListRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.spawnListRect.x + 5, Main.spawnListRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "tele":
+                    {
+                        menuIndex = 5f;
+                        menuBg = Main.teleRect;
+                        Main.TeleMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.teleRect.x + 5, Main.teleRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.teleRect.x + 5, Main.teleRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "ESP":
+                    {
+                        menuIndex = 6f;
+                        menuBg = Main.ESPRect;
+                        Main.ESPMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.ESPRect.x + 5, Main.ESPRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.ESPRect.x + 5, Main.ESPRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "lobby":
+                    {
+                        menuIndex = 7f;
+                        menuBg = Main.lobbyRect;
+                        Main.LobbyMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.lobbyRect.x + 5, Main.lobbyRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.lobbyRect.x + 5, Main.lobbyRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "stats":
+                    {
+                        menuIndex = 99f;
+                        menuBg = Main.statRect;
+                        Main.StatMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.statRect.x + 5, Main.statRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.statRect.x + 5, Main.statRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                default:
+                    {
+                        menuBg = Main.mainRect;
+                        menuIndex = 0;
+                        rect = new Rect(Main.mainRect.x + 5, Main.mainRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        break;
+                    }
+            }
+
+            // Creates the button and its OnClick action based on PressBtn() input
+            // Dont want text to be highlighted so remove that from the Button() call
+            if (justText && isMultButton)
+            {
+                throw new Exception($"justText and isMultButton cannot both be true. Thrown in \"{text}\" button.");
+            }
+            else if (justText)
+            {
+                GUI.Button(rect, text, defaultStyle);
+            }
+            else if (isMultButton)
+            {
+                if (GUI.Button(rect, text, Navigation.HighlighedCheck(defaultStyle, highlighted, menuIndex, position)))
+                {
+                    Navigation.PressBtn(menuIndex, intraMenuIndex);
+                }
+                if (GUI.Button(new Rect(menuBg.x + Main.widthSize - 80, menuBg.y + btnY, 40, 40), "-", Main.OffStyle))
+                {
+                    Navigation.DecreaseValue(menuIndex, intraMenuIndex);
+                }
+                if (GUI.Button(new Rect(menuBg.x + Main.widthSize - 35, menuBg.y + btnY, 40, 40), "+", Main.OffStyle))
+                {
+                    if (Spawn.minDistance < Spawn.maxDistance)
+                    {
+                        Navigation.IncreaseValue(menuIndex, intraMenuIndex);
+                    }
+                }
+            }
+            else
+            {
+                if (GUI.Button(rect, text, Navigation.HighlighedCheck(defaultStyle, highlighted, menuIndex, position)))
+                {
+                    Navigation.PressBtn(menuIndex, intraMenuIndex);
+                }
+            }
         }
     }
 }

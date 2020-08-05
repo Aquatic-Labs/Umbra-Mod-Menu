@@ -5,6 +5,8 @@ Make ESP less laggy??
 */
 
 // On Risk of Rain 2 Update: Update Unlockables.txt, Update Unreleased items list if needed
+// On Menu update, Update Version Variable and ffs Update Assembly Version...
+// When Adding A Button To A Menu, Update Menu Value Range in Navigation.UpdateIndexValues
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +20,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.5";
+            VERSION = "1.2.6";
 
         public static string log = "[" + NAME + "] ";
 
@@ -39,6 +41,7 @@ namespace UmbraRoR
 
         public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen, _isMovementOpen, _isSpawnMenuOpen };
         public static List<bool> menusOpen = new List<bool>();
+        public static Scene currentScene;
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -135,7 +138,6 @@ namespace UmbraRoR
             }
 
             #region GenerateMenus
-
             mainRect = GUI.Window(0, mainRect, new GUI.WindowFunction(SetMainBG), "", new GUIStyle());
             if (_isMenuOpen)
             {
@@ -149,77 +151,77 @@ namespace UmbraRoR
             if (_isTeleMenuOpen)
             {
                 teleRect = GUI.Window(2, teleRect, new GUI.WindowFunction(SetTeleBG), "", new GUIStyle());
-                DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawTeleMenu(teleRect.x, teleRect.y, widthSize, TeleMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + teleRect.x + " Y : " + teleRect.y);
             }
             if (_isESPMenuOpen)
             {
                 ESPRect = GUI.Window(3, ESPRect, new GUI.WindowFunction(SetESPBG), "", new GUIStyle());
-                DrawMenu.DrawESPMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawRenderMenu(ESPRect.x, ESPRect.y, widthSize, ESPMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + ESPRect.x + " Y : " + ESPRect.y);
             }
             if (_isLobbyMenuOpen)
             {
                 lobbyRect = GUI.Window(4, lobbyRect, new GUI.WindowFunction(SetLobbyBG), "", new GUIStyle());
-                DrawMenu.DrawLobbyMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawLobbyMenu(lobbyRect.x, lobbyRect.y, widthSize, LobbyMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + lobbyRect.x + " Y : " + lobbyRect.y);
             }
             if (_isItemSpawnMenuOpen)
             {
                 itemSpawnerRect = GUI.Window(5, itemSpawnerRect, new GUI.WindowFunction(SetItemSpawnerBG), "", new GUIStyle());
-                DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawItemMenu(itemSpawnerRect.x, itemSpawnerRect.y, widthSize, itemSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + itemSpawnerRect.x + " Y : " + itemSpawnerRect.y);
             }
             if (_isPlayerMod)
             {
                 playerModRect = GUI.Window(6, playerModRect, new GUI.WindowFunction(SetPlayerModBG), "", new GUIStyle());
-                DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawPlayerModMenu(playerModRect.x, playerModRect.y, widthSize, PlayerModMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + playerModRect.x + " Y : " + playerModRect.y);
             }
             if (_isEquipmentSpawnMenuOpen)
             {
                 equipmentSpawnerRect = GUI.Window(7, equipmentSpawnerRect, new GUI.WindowFunction(SetEquipmentBG), "", new GUIStyle());
-                DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle, HighlightBtnStyle);
+                DrawMenu.DrawEquipmentMenu(equipmentSpawnerRect.x, equipmentSpawnerRect.y, widthSize, equipmentSpawnerMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
                 // Debug.Log("X : " + equipmentSpawnerRect.x + " Y : " + equipmentSpawnerRect.y);
             }
             if (_isBuffMenuOpen)
             {
                 buffMenuRect = GUI.Window(8, buffMenuRect, new GUI.WindowFunction(SetBuffBG), "", new GUIStyle());
-                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle, HighlightBtnStyle);
+                DrawMenu.DrawBuffMenu(buffMenuRect.x, buffMenuRect.y, widthSize, buffMenuMulY, MainBgStyle, BtnStyle, LabelStyle, OffStyle);
             }
             if (_isChangeCharacterMenuOpen)
             {
                 characterRect = GUI.Window(9, characterRect, new GUI.WindowFunction(SetCharacterBG), "", new GUIStyle());
-                DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.CharacterWindowMethod(characterRect.x, characterRect.y, widthSize, CharacterMulY, MainBgStyle, BtnStyle, LabelStyle);
                 // Debug.Log("X : " + characterRect.x + " Y : " + characterRect.y);
             }
             if (_isItemManagerOpen)
             {
                 itemManagerRect = GUI.Window(10, itemManagerRect, new GUI.WindowFunction(SetItemManagerBG), "", new GUIStyle());
-                DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawItemManagementMenu(itemManagerRect.x, itemManagerRect.y, widthSize, ItemManagerMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + itemManagerRect.x + " Y : " + itemManagerRect.y);
             }
             if (_isEditStatsOpen)
             {
                 editStatsRect = GUI.Window(11, editStatsRect, new GUI.WindowFunction(SetEditStatBG), "", new GUIStyle());
-                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawStatsModMenu(editStatsRect.x, editStatsRect.y, widthSize, editStatsMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + editStatsRect.x + " Y : " + editStatsRect.y);
             }
             if (_isMovementOpen)
             {
                 movementRect = GUI.Window(12, movementRect, new GUI.WindowFunction(SetMovementBG), "", new GUIStyle());
-                DrawMenu.DrawMovementMenu(movementRect.x, movementRect.y, widthSize, movementMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawMovementMenu(movementRect.x, movementRect.y, widthSize, movementMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
                 // Debug.Log("X : " + movementRect.x + " Y : " + movementRect.y);
             }
             if (_isSpawnMenuOpen)
             {
                 spawnRect = GUI.Window(13, spawnRect, new GUI.WindowFunction(SetSpawnBG), "", new GUIStyle());
-                DrawMenu.DrawSpawnMenu(spawnRect.x, spawnRect.y, widthSize, spawnMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawSpawnMenu(spawnRect.x, spawnRect.y, widthSize, spawnMulY, MainBgStyle, BtnStyle, OnStyle, OffStyle, LabelStyle);
             }
             if (_isSpawnListMenuOpen)
             {
                 spawnListRect = GUI.Window(14, spawnListRect, new GUI.WindowFunction(SetSpawnListBG), "", new GUIStyle());
-                DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle, HighlightBtnStyle);
+                DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle);
             }
             if (_CharacterCollected)
             {
@@ -374,9 +376,11 @@ namespace UmbraRoR
 
             if (renderTeleporterStyle == null)
             {
-                renderTeleporterStyle = new GUIStyle();
-                renderTeleporterStyle.fontStyle = FontStyle.Normal;
-                renderTeleporterStyle.alignment = TextAnchor.MiddleLeft;
+                renderTeleporterStyle = new GUIStyle
+                {
+                    fontStyle = FontStyle.Normal,
+                    alignment = TextAnchor.MiddleLeft
+                };
             }
 
             if (renderMobsStyle == null)
@@ -508,38 +512,48 @@ namespace UmbraRoR
         }
         #endregion Update
 
+        #region FixedUpdate
+        public void FixedUpdate()
+        {
+            currentScene = SceneManager.GetActiveScene();
+        }
+        #endregion
+
         #region Inputs
         private void CheckInputs()
         {
             if (_isMenuOpen)
             {
                 Cursor.visible = true;
-                if (Input.GetKeyDown(KeyCode.DownArrow))
+                if (_CharacterCollected)
                 {
-                    if (!navigationToggle)
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
-                        Utility.CloseAllMenus();
-                    }
+                        if (!navigationToggle)
+                        {
+                            Utility.CloseAllMenus();
+                        }
 
-                    navigationToggle = true;
-                    Navigation.intraMenuIndex++;
-                }
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    if (!navigationToggle)
+                        navigationToggle = true;
+                        Navigation.intraMenuIndex++;
+                    }
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
-                        Utility.CloseAllMenus();
-                    }
+                        if (!navigationToggle)
+                        {
+                            Utility.CloseAllMenus();
+                        }
 
-                    navigationToggle = true;
-                    Navigation.intraMenuIndex--;
+                        navigationToggle = true;
+                        Navigation.intraMenuIndex--;
+                    }
                 }
                 if (navigationToggle)
                 {
                     if (Input.GetKeyDown(KeyCode.V))
                     {
                         int oldMenuIndex = (int)Navigation.menuIndex;
-                        Navigation.PressBtn();
+                        Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
                         int newMenuIndex = (int)Navigation.menuIndex;
 
                         if (oldMenuIndex != newMenuIndex)
@@ -560,7 +574,7 @@ namespace UmbraRoR
                         else
                         {
                             float oldMenuIndex = Navigation.menuIndex;
-                            Navigation.PressBtn();
+                            Navigation.PressBtn(Navigation.menuIndex, Navigation.intraMenuIndex);
                             float newMenuIndex = Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
@@ -600,7 +614,7 @@ namespace UmbraRoR
             if (Input.GetKeyDown(KeyCode.Insert))
             {
                 unloadConfirm = false;
-                numberOfPlayers = Utility.NumberOfPlayers();
+                numberOfPlayers = Lobby.NumberOfPlayers();
                 spawnCards = Utility.GetSpawnCards();
                 if (_isMenuOpen && navigationToggle)
                 {
@@ -737,14 +751,9 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            bool inGame = scene.name != "title";
-            if (!inGame)
+            if (!InGameCheck())
             {
                 Utility.ResetMenu();
-            }
-            else if (scene.name == "lobby")
-            {
-
             }
             else
             {
@@ -754,8 +763,19 @@ namespace UmbraRoR
         }
         #endregion
 
-        #region SetBG
+        #region In Game Check
+        public static bool InGameCheck()
+        {
+            if (currentScene != null)
+            {
+                bool inGame = currentScene.name != "title" && currentScene.name != "lobby" && currentScene.name != "" && currentScene.name != " ";
+                return inGame;
+            }
+            return false;
+        }
+        #endregion
 
+        #region SetBG
         public static void SetBG(int windowID)
         {
             GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * mulY), "", CornerStyle);
@@ -1149,13 +1169,12 @@ namespace UmbraRoR
             }
             if (_CharacterCollected)
             {
-                DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle, HighlightBtnStyle);
+                DrawMenu.DrawMainMenu(mainRect.x, mainRect.y, widthSize, MainMulY, MainBgStyle, OnStyle, OffStyle, BtnStyle);
             }
         }
         #endregion
 
         #region Textures
-
         public static Texture2D BtnTexture
         {
             get
@@ -1316,42 +1335,30 @@ namespace UmbraRoR
 
         #endregion Textures
 
-        #region Auto Button Placement
-        // Rect for buttons
-        // It automatically auto position buttons. There is no need to change it
-        public static Rect BtnRect(int y, bool multiplyBtn)
-        {
-            mulY = y;
-            if (multiplyBtn)
-            {
-                btnY = 5 + 45 * y;
-                return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize - 90, 20);
-            }
-            return new Rect(rect.x + 5, rect.y + 5 + 45 * y, widthSize, 20);
-        }
-        #endregion
-
         #region Get Character
         // try and setup our character, if we hit an error we set it to false
-        // TODO: Find a way to stop it from checking whilst in main menu/lobby menu
+        // TODO: Still tries to collect character after death and returning to lobby/title.
         public static void GetCharacter()
         {
             try
             {
-                LocalNetworkUser = null;
-                foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)
+                if (InGameCheck())
                 {
-                    //localplayer == you!
-                    if (readOnlyInstance.isLocalPlayer)
+                    LocalNetworkUser = null;
+                    foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)
                     {
-                        LocalNetworkUser = readOnlyInstance;
-                        LocalPlayer = LocalNetworkUser.master;
-                        LocalPlayerInv = LocalPlayer.GetComponent<Inventory>();
-                        LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
-                        LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
-                        LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
-                        if (LocalHealth.alive) _CharacterCollected = true;
-                        else _CharacterCollected = false;
+                        //localplayer is you!
+                        if (readOnlyInstance.isLocalPlayer)
+                        {
+                            LocalNetworkUser = readOnlyInstance;
+                            LocalPlayer = LocalNetworkUser.master;
+                            LocalPlayerInv = LocalPlayer.GetComponent<Inventory>();
+                            LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
+                            LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
+                            LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
+                            if (LocalHealth.alive) _CharacterCollected = true;
+                            else _CharacterCollected = false;
+                        }
                     }
                 }
             }

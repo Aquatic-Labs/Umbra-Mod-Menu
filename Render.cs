@@ -35,7 +35,7 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (PurchaseInteraction purchaseInteraction in PurchaseInteraction.FindObjectsOfType(typeof(PurchaseInteraction)))
+            foreach (PurchaseInteraction purchaseInteraction in FindObjectsOfType(typeof(PurchaseInteraction)))
             {
                 if (purchaseInteraction.available)
                 {
@@ -92,10 +92,21 @@ namespace UmbraRoR
                     float distanceToMob = Vector3.Distance(Camera.main.transform.position, mob.transform.position);
                     if (MobBoundingVector.z > 0.01)
                     {
+                        float width = 100f * (distanceToMob / 100);
+                        if (width > 125)
+                        {
+                            width = 125;
+                        }
+                        float height = 100f * (distanceToMob / 100);
+                        if (height > 125)
+                        {
+                            height = 125;
+                        }
                         string mobName = mob.name.Replace("Body(Clone)", "");
                         int mobDistance = (int)distanceToMob;
                         string mobBoxText = $"{mobName}\n{mobDistance}m";
-                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 30f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
+                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 50f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
+                        ESPHelper.DrawBox(MobBoundingVector.x - width / 2, (float)Screen.height - MobBoundingVector.y - height / 2, width, height, new Color32(255, 0, 0, 255));
                     }
                 }
             }
@@ -112,6 +123,7 @@ namespace UmbraRoR
                 { "Drop-Items-from-Inventory", ItemManager.isDropItemFromInventory },
                 { "Flight", Main.FlightToggle },
                 { "God-Mode", Main.godToggle },
+                { "Jump-Pack", Main.jumpPackToggle },
                 { "Keyboard-Navigation", Main.navigationToggle },
                 { "Modified-Armor", Main.armorToggle },
                 { "Modified-Attack Speed", Main.attackSpeedToggle },
@@ -126,7 +138,6 @@ namespace UmbraRoR
             };
 
             string modsBoxText = "";
-            Vector2 farRight = new Vector2(Screen.width, 0);
             Vector2 bottom = new Vector2(0, Screen.height);
 
             foreach (string modName in allMods.Keys)
@@ -152,7 +163,6 @@ namespace UmbraRoR
 
                 if (modsBoxText != "")
                 {
-                    //GUI.Label(new Rect(farRight.x - 210f, 20f, 200f, 16.66666667f * modsActive.Count), modsBoxText, Main.ActiveModsStyle);
                     GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Main.ActiveModsStyle);
                     GUI.Label(new Rect((Screen.width / 16) + 124, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
                 }

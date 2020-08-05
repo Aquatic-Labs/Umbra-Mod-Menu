@@ -14,8 +14,8 @@ namespace UmbraRoR
         public static bool isDropItemFromInventory = false;
         public static int allItemsQuantity = 1;
 
+        #region Drop Item Handle
         const Int16 HandleItemId = 99;
-        const Int16 HandleEquipmentId = 98;
 
         class DropItemPacket : MessageBase
         {
@@ -35,6 +35,38 @@ namespace UmbraRoR
             }
         }
 
+        static void SendDropItem(GameObject player, ItemIndex itemIndex)
+        {
+            NetworkServer.SendToAll(HandleItemId, new DropItemPacket
+            {
+                Player = player,
+                ItemIndex = itemIndex
+            });
+        }
+
+        [RoR2.Networking.NetworkMessageHandler(msgType = HandleItemId, client = true)]
+        static void HandleDropItem(NetworkMessage netMsg)
+        {
+            var dropItem = netMsg.ReadMessage<DropItemPacket>();
+            var body = dropItem.Player.GetComponent<CharacterBody>();
+            PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
+        }
+
+        public static void DropItemMethod(ItemIndex itemIndex)
+        {
+            var user = LocalUserManager.GetFirstLocalUser();
+            var networkClient = NetworkClient.allClients.FirstOrDefault();
+            if (networkClient != null)
+            {
+                networkClient.RegisterHandlerSafe(HandleItemId, HandleDropItem);
+            }
+            SendDropItem(user.cachedBody.gameObject, itemIndex);
+        }
+        #endregion
+
+        #region Drop Equipment Handle
+        const Int16 HandleEquipmentId = 98;
+
         class DropEquipmentPacket : MessageBase
         {
             public GameObject Player;
@@ -52,15 +84,6 @@ namespace UmbraRoR
             }
         }
 
-        static void SendDropItem(GameObject player, ItemIndex itemIndex)
-        {
-            NetworkServer.SendToAll(HandleItemId, new DropItemPacket
-            {
-                Player = player,
-                ItemIndex = itemIndex
-            });
-        }
-
         static void SendDropEquipment(GameObject player, EquipmentIndex equipmentIndex)
         {
             NetworkServer.SendToAll(HandleEquipmentId, new DropEquipmentPacket
@@ -70,31 +93,12 @@ namespace UmbraRoR
             });
         }
 
-        [RoR2.Networking.NetworkMessageHandler(msgType = HandleItemId, client = true)]
-        static void HandleDropItem(NetworkMessage netMsg)
-        {
-            var dropItem = netMsg.ReadMessage<DropItemPacket>();
-            var body = dropItem.Player.GetComponent<CharacterBody>();
-            PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropItem.ItemIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
-        }
-
         [RoR2.Networking.NetworkMessageHandler(msgType = HandleEquipmentId, client = true)]
         static void HandleDropEquipment(NetworkMessage netMsg)
         {
             var dropEquipment = netMsg.ReadMessage<DropEquipmentPacket>();
             var body = dropEquipment.Player.GetComponent<CharacterBody>();
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(dropEquipment.EquipmentIndex), body.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + body.transform.forward * 2f);
-        }
-
-        public static void DropItemMethod(ItemIndex itemIndex)
-        {
-            var user = RoR2.LocalUserManager.GetFirstLocalUser();
-            var networkClient = NetworkClient.allClients.FirstOrDefault();
-            if (networkClient != null)
-            {
-                networkClient.RegisterHandlerSafe(HandleItemId, HandleDropItem);
-            }
-            SendDropItem(user.cachedBody.gameObject, itemIndex);
         }
 
         public static void DropEquipmentMethod(EquipmentIndex equipmentIndex)
@@ -107,6 +111,7 @@ namespace UmbraRoR
             }
             SendDropEquipment(user.cachedBody.gameObject, equipmentIndex);
         }
+        #endregion
 
         // Clears inventory, duh.
         public static void ClearInventory()
@@ -165,8 +170,7 @@ namespace UmbraRoR
         {
             try
             {
-                int num;
-                TextSerialization.TryParseInvariant(ammount, out num);
+                TextSerialization.TryParseInvariant(ammount, out int num);
                 if (num > 0)
                 {
                     for (int i = 0; i < num; i++)
@@ -260,86 +264,6 @@ namespace UmbraRoR
         public static void StackInventory()
         {
             Main.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
-        }
-
-        //Draws list of items and gives item selected
-        public static void GiveItem(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
-        {
-            //Removes null items and no icon items from item list. Might change if requested.
-            int buttonPlacement = 1;
-            foreach (var itemIndex in Main.items)
-            {
-                string itemName = itemIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), itemName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.1f, buttonPlacement)))
-                {
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
-                    {
-                        if (isDropItemForAll)
-                        {
-                            DropItemMethod(itemIndex);
-                        }
-                        else if (isDropItemFromInventory)
-                        {
-                            if (CurrentInventory().Contains(itemName))
-                            {
-                                Main.LocalPlayerInv.RemoveItem(itemIndex, 1);
-                                DropItemMethod(itemIndex);
-                            }
-                            else
-                            {
-                                Chat.AddMessage($"<color=yellow> You do not have that item and therefore cannot drop it from your inventory.</color>");
-                                Chat.AddMessage($" ");
-                            }
-                        }
-                        else
-                        {
-                            Main.LocalPlayerInv.GiveItem(itemIndex, 1);
-                        }
-                    }
-                }
-                buttonPlacement++;
-            }
-        }
-
-        //Draws list of equipment and gives equipment selected
-        public static void GiveEquipment(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
-        {
-            //Removes null equipment and no icon equipment from item list. Might change if requested.
-            int buttonPlacement = 1;
-            foreach (var equipmentIndex in Main.equipment)
-            {
-                string equipmentName = equipmentIndex.ToString();
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), equipmentName, Navigation.HighlighedCheck(buttonStyle, Highlighted, 3.2f, buttonPlacement)))
-                {
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
-                    {
-                        if (isDropItemForAll)
-                        {
-                            DropEquipmentMethod(equipmentIndex);
-                        }
-                        else if (isDropItemFromInventory)
-                        {
-                            if (Main.LocalPlayerInv.currentEquipmentIndex == equipmentIndex)
-                            {
-                                Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
-                                DropEquipmentMethod(equipmentIndex);
-                            }
-                            else
-                            {
-                                Chat.AddMessage($"<color=yellow> You do not have that equipment and therefore cannot drop it from your inventory.</color>");
-                                Chat.AddMessage($" ");
-                            }
-                        }
-                        else
-                        {
-                            Main.LocalPlayerInv.SetEquipmentIndex(equipmentIndex);
-                        }
-                    }
-                }
-                buttonPlacement++;
-            }
         }
 
         //Sets equipment cooldown to 0 if its on cooldown

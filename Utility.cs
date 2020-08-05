@@ -4,71 +4,13 @@ using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using RoR2;
-using Console = RoR2.Console;
 using UnityEngine;
 
 namespace UmbraRoR
 {
     public class Utility
     {
-        public static bool CursorIsVisible()
-        {
-            foreach (var mpeventSystem in RoR2.UI.MPEventSystem.readOnlyInstancesList)
-                if (mpeventSystem.isCursorVisible)
-                    return true;
-            return false;
-        }
-
-        // More posibilities here using console.
-        // Not added to ui yet.
-        public static void BanPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
-        {
-            Console.instance.RunClientCmd(LocalNetworkUser, "ban_steam", new string[] { PlayerName.Network_id.steamId.ToString() });
-        }
-
-        public static void KickPlayer(NetworkUser PlayerName, NetworkUser LocalNetworkUser)
-        {
-            Console.instance.RunClientCmd(LocalNetworkUser, "kick_steam", new string[] { PlayerName.Network_id.steamId.ToString() });
-        }
-
-        public static NetworkUser GetNetUserFromString(string playerString)
-        {
-            if (playerString != "")
-            {
-                if (int.TryParse(playerString, out int result))
-                {
-                    if (result < NetworkUser.readOnlyInstancesList.Count && result >= 0)
-                    {
-                        return NetworkUser.readOnlyInstancesList[result];
-                    }
-                    return null;
-                }
-                else
-                {
-                    foreach (NetworkUser n in NetworkUser.readOnlyInstancesList)
-                    {
-                        if (n.userName.Equals(playerString, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            return n;
-                        }
-                    }
-                    return null;
-                }
-            }
-            return null;
-        }
-
-        public static void GetPlayers(string[] Players)
-        {
-            NetworkUser n;
-            for (int i = 0; i < NetworkUser.readOnlyInstancesList.Count; i++)
-            {
-                n = NetworkUser.readOnlyInstancesList[i];
-
-                Players[i] = n.userName;
-            }
-        }
-
+        #region Menu Resets
         // Reset menu when you return to main menu
         public static void ResetMenu()
         {
@@ -116,7 +58,7 @@ namespace UmbraRoR
             PlayerMod.xpToGive = 50;
             PlayerMod.moneyToGive = 50;
             PlayerMod.coinsToGive = 50;
-    }
+        }
 
         public static void CloseAllMenus()
         {
@@ -147,7 +89,9 @@ namespace UmbraRoR
             Main.godToggle = !Main.godToggle;
 
         }
+        #endregion
 
+        #region Get Lists
         public static List<string> GetAllUnlockables()
         {
             var unlockableName = new List<string>();
@@ -183,36 +127,6 @@ namespace UmbraRoR
                 }
             }
             return unlockableName;
-        }
-
-        public static void LoadAssembly()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
-            {
-                String resourceName = "UmbraRoR." +
-                   new AssemblyName(args.Name).Name + ".dll";
-
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-                {
-                    Byte[] assemblyData = new Byte[stream.Length];
-                    stream.Read(assemblyData, 0, assemblyData.Length);
-                    return Assembly.Load(assemblyData);
-                }
-            };
-        }
-
-        public static int NumberOfPlayers()
-        {
-            GetPlayers(Main.Players);
-            int numberOfPlayers = 0;
-            for (int i = 0; i < Main.Players.Length; i++)
-            {
-                if (Main.Players[i] != null)
-                {
-                    numberOfPlayers++;
-                }
-            }
-            return numberOfPlayers;
         }
 
         public static List<GameObject> GetBodyPrefabs()
@@ -271,6 +185,38 @@ namespace UmbraRoR
             return items;
         }
 
+        public static List<SpawnCard> GetSpawnCards()
+        {
+            List<SpawnCard> spawnCards = Resources.FindObjectsOfTypeAll<SpawnCard>().ToList();
+            return spawnCards;
+        }
+        #endregion
+
+        public static bool CursorIsVisible()
+        {
+            foreach (var mpeventSystem in RoR2.UI.MPEventSystem.readOnlyInstancesList)
+                if (mpeventSystem.isCursorVisible)
+                    return true;
+            return false;
+        }
+
+        public static void LoadAssembly()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                String resourceName = "UmbraRoR." +
+                   new AssemblyName(args.Name).Name + ".dll";
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
+        }
+
+        #region Debugging
         public static void WriteToLog(string logContent)
         {
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -279,33 +225,6 @@ namespace UmbraRoR
                 outputFile.WriteLine(Main.log + logContent);
             }
         }
-
-        public static int NumberOfBoolsTrue(/*int threshold,*/IEnumerable<bool> bools)
-        {
-            int trueCnt = 0;
-            foreach (bool b in bools)
-            {
-                if (b)
-                {
-                    trueCnt++;
-                    Main.menusOpen.Add(b);
-                }
-                else
-                {
-                    Main.menusOpen.Remove(b);
-                }
-                /*if (b && (++trueCnt > threshold))
-                {
-                    return true;
-                }*/
-            }
-            return trueCnt;
-        }
-
-        public static List<SpawnCard> GetSpawnCards()
-        {
-            List<SpawnCard> spawnCards = Resources.FindObjectsOfTypeAll<SpawnCard>().ToList();
-            return spawnCards;
-        }
+        #endregion
     }
 }

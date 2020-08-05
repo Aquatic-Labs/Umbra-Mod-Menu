@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using RoR2;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace UmbraRoR
 {
@@ -9,8 +12,9 @@ namespace UmbraRoR
         public static int teamIndex = 0;
         public static float minDistance = 3f;
         public static float maxDistance = 40f;
+        public static List<GameObject> spawnedObjects = new List<GameObject>();
 
-        public static void SpawnMob(GUIStyle buttonStyle, GUIStyle Highlighted, string buttonName)
+        public static void SpawnMob(GUIStyle buttonStyle, string buttonId)
         {
             int buttonPlacement = 1;
             foreach (var spawnCard in Main.spawnCards)
@@ -44,39 +48,12 @@ namespace UmbraRoR
                 }
                 string path = $"SpawnCards/{category}/{cardName}";
 
-                if (GUI.Button(btn.BtnRect(buttonPlacement, false, buttonName), buttonText, Navigation.HighlighedCheck(buttonStyle, Highlighted, 4.1f, buttonPlacement)))
-                {
-                    var localUser = LocalUserManager.GetFirstLocalUser();
-                    var body = localUser.cachedMasterController.master.GetBody().transform;
-                    if (localUser.cachedMasterController && localUser.cachedMasterController.master)
-                    {
-                        var directorspawnrequest = new DirectorSpawnRequest(spawnCard, new DirectorPlacementRule
-                        {
-                            placementMode = DirectorPlacementRule.PlacementMode.Approximate,
-                            minDistance = minDistance,
-                            maxDistance = maxDistance,
-                            position = Main.LocalPlayerBody.footPosition
-                        }, RoR2Application.rng);
-                        directorspawnrequest.ignoreTeamMemberLimit = true;
-                        directorspawnrequest.teamIndexOverride = team[teamIndex];
-
-                        // Add chat message
-                        if (cardName.Contains("isc"))
-                        {
-                            Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * minDistance), body.rotation, directorspawnrequest);
-                        }
-                        else
-                        {
-                            DirectorCore.instance.TrySpawnObject(directorspawnrequest);
-                        }
-                        Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{team[teamIndex]}\" </color>");
-                    }
-                }
+                DrawMenu.DrawButton(buttonPlacement, buttonId, buttonText, buttonStyle);
                 buttonPlacement++;
             }
         }
 
-        public static void KillAll()
+        public static void KillAllMobs()
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
@@ -97,17 +74,48 @@ namespace UmbraRoR
                 maxAngleFilter = float.MaxValue
             };
 
-            var team = body.GetComponent<TeamComponent>();
-            bullseyeSearch.teamMaskFilter = TeamMask.AllExcept(team.teamIndex);
             bullseyeSearch.RefreshCandidates();
             var hurtBoxList = bullseyeSearch.GetResults();
             foreach (var hurtbox in hurtBoxList)
             {
                 var mob = HurtBox.FindEntityObject(hurtbox);
-                string mobName = mob.name.Replace("Body(Clone)", ""); // Create Chat message with this.
-                var health = mob.GetComponent<HealthComponent>();
-                health.Suicide();
-                Chat.AddMessage($"<color=yellow>Killed {mobName} </color>");
+                string mobName = mob.name.Replace("Body(Clone)", "");
+                if (Enum.GetNames(typeof(SurvivorIndex)).Contains(mobName))
+                {
+                    continue;
+                }
+                else
+                {
+                    var health = mob.GetComponent<HealthComponent>();
+                    health.Suicide();
+                    Chat.AddMessage($"<color=yellow>Killed {mobName} </color>");
+                }
+
+            }
+        }
+
+        public static void DestroySpawnedInteractables()
+        {
+            var localUser = LocalUserManager.GetFirstLocalUser();
+            var controller = localUser.cachedMasterController;
+            if (!controller)
+            {
+                return;
+            }
+            var body = controller.master.GetBody();
+            if (!body)
+            {
+                return;
+            }
+
+            if (spawnedObjects != null)
+            {
+                foreach (var gameObject in spawnedObjects)
+                {
+                    UnityEngine.Object.Destroy(gameObject);
+                    Chat.AddMessage($"<color=yellow>Destroyed {gameObject.name.Replace("(Clone)", "")} </color>");
+                }
+                spawnedObjects = new List<GameObject>();
             }
         }
     }
