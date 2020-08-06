@@ -20,7 +20,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.2.6";
+            VERSION = "1.3.0";
 
         public static string log = "[" + NAME + "] ";
 
