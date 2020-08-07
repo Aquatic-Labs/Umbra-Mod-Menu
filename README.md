@@ -155,6 +155,12 @@ pause
 
 
 # Changelog:
+### 8/11/2020 v1.3.0:
+- [ ] Updated for Risk of Rain 2 1.0 Update.
+- [ ] Slightly improved ESP performances.
+- [ ] Updated Unlockables List.
+
+
 ### 8/5/2020 v1.2.6:
 - [ ] Added a box around mobs for Render Mobs.
 - [ ] Added the ability to despawn spawned interactables.
