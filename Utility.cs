@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UmbraRoR
 {
-    public class Utility
+    public class Utility : MonoBehaviour
     {
         #region Menu Resets
         // Reset menu when you return to main menu
@@ -87,7 +87,6 @@ namespace UmbraRoR
             Main.godToggle = !Main.godToggle;
             Main.GetCharacter();
             Main.godToggle = !Main.godToggle;
-
         }
         #endregion
 
@@ -189,6 +188,47 @@ namespace UmbraRoR
         {
             List<SpawnCard> spawnCards = Resources.FindObjectsOfTypeAll<SpawnCard>().ToList();
             return spawnCards;
+        }
+
+        public static List<UnityEngine.Object> GetPurchaseInteractions()
+        {
+            var purchaseInteractables = FindObjectsOfType(typeof(PurchaseInteraction)).ToList();
+            return purchaseInteractables;
+        }
+
+        public static List<UnityEngine.Object> GetTeleporterInteractions()
+        {
+            var teleporterInteractions = FindObjectsOfType(typeof(TeleporterInteraction)).ToList();
+            return teleporterInteractions;
+        }
+
+        public static List<HurtBox> GetHurtBoxes()
+        {
+            var localUser = LocalUserManager.GetFirstLocalUser();
+            var controller = localUser.cachedMasterController;
+            if (!controller)
+            {
+                return null;
+            }
+            var body = controller.master.GetBody();
+            if (!body)
+            {
+                return null;
+            }
+            var inputBank = body.GetComponent<InputBankTest>();
+            var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
+            var bullseyeSearch = new BullseyeSearch();
+            var team = body.GetComponent<TeamComponent>();
+            bullseyeSearch.searchOrigin = aimRay.origin;
+            bullseyeSearch.searchDirection = aimRay.direction;
+            bullseyeSearch.filterByLoS = false;
+            bullseyeSearch.maxDistanceFilter = 125;
+            bullseyeSearch.maxAngleFilter = 40f;
+            bullseyeSearch.teamMaskFilter = TeamMask.all;
+            bullseyeSearch.teamMaskFilter.RemoveTeam(team.teamIndex);
+            bullseyeSearch.RefreshCandidates();
+            var hurtBoxList = bullseyeSearch.GetResults().ToList();
+            return hurtBoxList;
         }
         #endregion
 

@@ -6,7 +6,7 @@ Make ESP less laggy??
 
 // On Risk of Rain 2 Update: Update Unlockables.txt, Update Unreleased items list if needed
 // On Menu update, Update Version Variable and ffs Update Assembly Version...
-// When Adding A Button To A Menu, Update Menu Value Range in Navigation.UpdateIndexValues
+// When Adding A Button To A Menu, Update Menu Value Range in Navigation.UpdateIndexValues()
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +33,12 @@ namespace UmbraRoR
         public static List<ItemIndex> items = Utility.GetItems();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
+        // These Are updated in FixedUpdate for performance reasons
+        public static List<UnityEngine.Object> purchaseInteractables;
+        public static List<UnityEngine.Object> teleporterInteractables;
+        public static List<HurtBox> hurtBoxes;
+        public static Scene currentScene;
+
         // Used for RollItems
         public static WeightedSelection<List<ItemIndex>> weightedSelection = ItemManager.BuildRollItemsDropTable();
 
@@ -41,7 +47,6 @@ namespace UmbraRoR
 
         public static List<bool> menuBools = new List<bool>() { _isTeleMenuOpen, _isESPMenuOpen, _isLobbyMenuOpen, _isPlayerMod, _isItemManagerOpen, _isMovementOpen, _isSpawnMenuOpen };
         public static List<bool> menusOpen = new List<bool>();
-        public static Scene currentScene;
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -516,6 +521,16 @@ namespace UmbraRoR
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
+
+            if (renderInteractables)
+            {
+                purchaseInteractables = Utility.GetPurchaseInteractions();
+                teleporterInteractables = Utility.GetTeleporterInteractions();
+            }
+            if (renderMobs)
+            {
+                hurtBoxes = Utility.GetHurtBoxes();
+            }
         }
         #endregion
 
@@ -751,6 +766,8 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            purchaseInteractables = Utility.GetPurchaseInteractions();
+            teleporterInteractables = Utility.GetTeleporterInteractions();
             if (!InGameCheck())
             {
                 Utility.ResetMenu();
