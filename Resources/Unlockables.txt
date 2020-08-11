@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace RoR2
 {
-	// Token: 0x020004E0 RID: 1248
+	// Token: 0x0200054D RID: 1357
 	public static class UnlockableCatalog
 	{
-		// Token: 0x06001EA1 RID: 7841 RVA: 0x0007D942 File Offset: 0x0007BB42
+		// Token: 0x060021BD RID: 8637 RVA: 0x00089542 File Offset: 0x00087742
 		private static void RegisterUnlockable(string name, UnlockableDef unlockableDef)
 		{
 			unlockableDef.name = name;
@@ -15,7 +15,7 @@ namespace RoR2
 			UnlockableCatalog.nameToDefTable.Add(name, unlockableDef);
 		}
 
-		// Token: 0x06001EA2 RID: 7842 RVA: 0x0007D96C File Offset: 0x0007BB6C
+		// Token: 0x060021BE RID: 8638 RVA: 0x0008956C File Offset: 0x0008776C
 		public static UnlockableDef GetUnlockableDef(string name)
 		{
 			UnlockableDef result;
@@ -23,14 +23,14 @@ namespace RoR2
 			return result;
 		}
 
-		// Token: 0x06001EA3 RID: 7843 RVA: 0x0007D988 File Offset: 0x0007BB88
+		// Token: 0x060021BF RID: 8639 RVA: 0x00089588 File Offset: 0x00087788
 		public static UnlockableDef GetUnlockableDef(UnlockableIndex index)
 		{
 			return UnlockableCatalog.indexToDefTable[index.value];
 		}
 
-		// Token: 0x17000386 RID: 902
-		// (get) Token: 0x06001EA4 RID: 7844 RVA: 0x0007D997 File Offset: 0x0007BB97
+		// Token: 0x170003FF RID: 1023
+		// (get) Token: 0x060021C0 RID: 8640 RVA: 0x00089597 File Offset: 0x00087797
 		public static int unlockableCount
 		{
 			get
@@ -39,7 +39,7 @@ namespace RoR2
 			}
 		}
 
-		// Token: 0x06001EA5 RID: 7845 RVA: 0x0007D9A0 File Offset: 0x0007BBA0
+		// Token: 0x060021C1 RID: 8641 RVA: 0x000895A0 File Offset: 0x000877A0
 		[SystemInitializer(new Type[]
 		{
 			typeof(SurvivorCatalog)
@@ -182,6 +182,18 @@ namespace RoR2
 			{
 				nameToken = "UNLOCKABLE_LOG_GRANDPARENT"
 			});
+			UnlockableCatalog.RegisterUnlockable("Logs.LunarWisp.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_LUNARWISP"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.LunarGolem.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_LUNARGOLEM"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.BrotherBody.0", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_BROTHER"
+			});
 			UnlockableCatalog.RegisterUnlockable("Characters.Huntress", new UnlockableDef
 			{
 				nameToken = "HUNTRESS_BODY_NAME"
@@ -217,6 +229,10 @@ namespace RoR2
 			UnlockableCatalog.RegisterUnlockable("Characters.Croco", new UnlockableDef
 			{
 				nameToken = "CROCO_BODY_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Characters.Captain", new UnlockableDef
+			{
+				nameToken = "CAPTAIN_BODY_NAME "
 			});
 			UnlockableCatalog.RegisterUnlockable("Items.ExtraLife", new UnlockableDef
 			{
@@ -390,6 +406,14 @@ namespace RoR2
 			{
 				nameToken = "ITEM_FOCUSEDCONVERGENCE_NAME"
 			});
+			UnlockableCatalog.RegisterUnlockable("Items.DeathProjectile", new UnlockableDef
+			{
+				nameToken = "EQUIPMENT_DEATHPROJECTILE_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Items.LunarBadLuck", new UnlockableDef
+			{
+				nameToken = "ITEM_LUNARBADLUCK_NAME"
+			});
 			UnlockableCatalog.RegisterUnlockable("Skills.Commando.FireShotgunBlast", new UnlockableDef
 			{
 				nameToken = "COMMANDO_SECONDARY_ALT1_NAME"
@@ -482,6 +506,14 @@ namespace RoR2
 			{
 				nameToken = "CROCO_PASSIVE_ALT_NAME"
 			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Captain.CaptainSupplyDropHacking", new UnlockableDef
+			{
+				nameToken = "CAPTAIN_SUPPLY_HACKING_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Skills.Captain.CaptainSupplyDropEquipmentRestock", new UnlockableDef
+			{
+				nameToken = "CAPTAIN_SUPPLY_EQUIPMENT_RESTOCK_NAME"
+			});
 			UnlockableCatalog.RegisterUnlockable("Skins.Commando.Alt1", new UnlockableDef
 			{
 				nameToken = "COMMANDO_SKIN_ALT1_NAME"
@@ -518,6 +550,80 @@ namespace RoR2
 			{
 				nameToken = "ENGI_SKIN_ALT1_NAME"
 			});
+			UnlockableCatalog.RegisterUnlockable("Skins.Captain.Alt1", new UnlockableDef
+			{
+				nameToken = "CAPTAIN_SKIN_ALT1_NAME"
+			});
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Commando.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Huntress.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Mage.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Merc.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Toolbot.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Treebot.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Loader.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Croco.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Engi.8", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.2", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.3", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.4", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.5", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.6", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.7", new UnlockableDef());
+			UnlockableCatalog.RegisterUnlockable("Eclipse.Captain.8", new UnlockableDef());
 			UnlockableCatalog.RegisterUnlockable("Items.ShieldOnly", new UnlockableDef
 			{
 				nameToken = "UNLOCKABLE_BLUEPRINT_SHIELDONLY",
@@ -594,6 +700,10 @@ namespace RoR2
 			UnlockableCatalog.RegisterUnlockable("Logs.Stages.artifactworld", new UnlockableDef
 			{
 				nameToken = "UNLOCKABLE_LOG_STAGES_ARTIFACTWORLD"
+			});
+			UnlockableCatalog.RegisterUnlockable("Logs.Stages.moon", new UnlockableDef
+			{
+				nameToken = "UNLOCKABLE_LOG_STAGES_MOON"
 			});
 			UnlockableCatalog.RegisterUnlockable("Artifacts.Bomb", new UnlockableDef
 			{
@@ -882,7 +992,7 @@ namespace RoR2
 			}
 		}
 
-		// Token: 0x06001EA6 RID: 7846 RVA: 0x0007EF50 File Offset: 0x0007D150
+		// Token: 0x060021C2 RID: 8642 RVA: 0x0008B06C File Offset: 0x0008926C
 		public static int GetUnlockableSortScore(string unlockableName)
 		{
 			UnlockableDef unlockableDef = UnlockableCatalog.GetUnlockableDef(unlockableName);
@@ -893,7 +1003,7 @@ namespace RoR2
 			return unlockableDef.sortScore;
 		}
 
-		// Token: 0x06001EA7 RID: 7847 RVA: 0x0007EF64 File Offset: 0x0007D164
+		// Token: 0x060021C3 RID: 8643 RVA: 0x0008B080 File Offset: 0x00089280
 		private static int GuessUnlockableSortScore(UnlockableDef unlockableDef)
 		{
 			int num = 0;
@@ -949,13 +1059,13 @@ namespace RoR2
 			return num2;
 		}
 
-		// Token: 0x04001ABF RID: 6847
+		// Token: 0x04001CF8 RID: 7416
 		private static readonly Dictionary<string, UnlockableDef> nameToDefTable = new Dictionary<string, UnlockableDef>();
 
-		// Token: 0x04001AC0 RID: 6848
+		// Token: 0x04001CF9 RID: 7417
 		private static UnlockableDef[] indexToDefTable;
 
-		// Token: 0x04001AC1 RID: 6849
+		// Token: 0x04001CFA RID: 7418
 		public static ResourceAvailability availability;
 	}
 }
