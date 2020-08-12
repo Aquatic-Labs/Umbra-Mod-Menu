@@ -16,15 +16,15 @@ namespace UmbraRoR
         {
             if (Updates.updateAvailable)
             {
-                DrawButton(2, "main", "<color=yellow>Buttons will be availble in game.</color>", buttonStyle, justText: true);
-                DrawButton(3, "main", "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle, justText: true);
-                DrawButton(4, "main", "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>", buttonStyle, justText: true);
+                DrawButton(2, "main", "<color=yellow>等待进入游戏.</color>", buttonStyle, justText: true);
+                DrawButton(3, "main", "<color=#11ccee>看你吗，进游戏.\n 再看鲨了你.</color>", buttonStyle, justText: true);
+                DrawButton(4, "main", "<color=#11ccee>三天之内鲨了你.\nAcher0ns/Umbra-Mod-Menu</color>", buttonStyle, justText: true);
             }
             else if (Updates.upToDate || Updates.devBuild)
             {
-                DrawButton(2, "main", "<color=yellow>Buttons will be availble in game.</color>", buttonStyle, justText: true);
-                DrawButton(3, "main", "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>", buttonStyle, justText: true);
-                DrawButton(4, "main", "<color=#11ccee>with bug Reports or suggestions.</color>", buttonStyle, justText: true);
+                DrawButton(2, "main", "<color=yellow>等待进入游戏.</color>", buttonStyle, justText: true);
+                DrawButton(3, "main", "<color=#11ccee>看你吗，进游戏.\n 再看鲨了你.</color>", buttonStyle, justText: true);
+                DrawButton(4, "main", "<color=#11ccee>三天之内鲨了你.</color>", buttonStyle, justText: true);
             }
         }
 
@@ -32,299 +32,299 @@ namespace UmbraRoR
         {
             if (Main._isPlayerMod)
             {
-                DrawButton(1, "main", "P L A Y E R : O N", OnStyle);
+                DrawButton(1, "main", "玩家 : 开", OnStyle);
             }
             else
             {
-                DrawButton(1, "main", "P L A Y E R : O F F", OffStyle);
+                DrawButton(1, "main", "玩家 : 关", OffStyle);
             }
 
             if (Main._isMovementOpen)
             {
-                DrawButton(2, "main", "M O V E M E N T : O N", OnStyle);
+                DrawButton(2, "main", "移动 : 开", OnStyle);
             }
             else
             {
-                DrawButton(2, "main", "M O V E M E N T : O F F", OffStyle);
+                DrawButton(2, "main", "移动 : 关", OffStyle);
             }
 
             if (Main._isItemManagerOpen)
             {
-                DrawButton(3, "main", "I T E M S : ON", OnStyle);
+                DrawButton(3, "main", "物品 : ON", OnStyle);
             }
             else
             {
-                DrawButton(3, "main", "I T E M S : O F F", OffStyle);
+                DrawButton(3, "main", "物品 : 关", OffStyle);
             }
 
             if (Main._isSpawnMenuOpen)
             {
-                DrawButton(4, "main", "S P A W N : O N", OnStyle);
+                DrawButton(4, "main", "生成 : 开", OnStyle);
             }
             else
             {
-                DrawButton(4, "main", "S P A W N : O F F", OffStyle);
+                DrawButton(4, "main", "生成 : 关", OffStyle);
             }
 
             if (Main._isTeleMenuOpen)
             {
-                DrawButton(5, "main", "T E L E P O R T E R : O N", OnStyle);
+                DrawButton(5, "main", "传送 : 开", OnStyle);
             }
             else
             {
-                DrawButton(5, "main", "T E L E P O R T E R : O F F", OffStyle);
+                DrawButton(5, "main", "传送 : 关", OffStyle);
             }
 
             if (Main._isESPMenuOpen)
             {
-                DrawButton(6, "main", "R E N D E R : O N", OnStyle);
+                DrawButton(6, "main", "渲染 : 开", OnStyle);
             }
             else
             {
-                DrawButton(6, "main", "R E N D E R : O F F", OffStyle);
+                DrawButton(6, "main", "渲染 : 关", OffStyle);
             }
 
             if (Main._isLobbyMenuOpen)
             {
-                DrawButton(7, "main", "L O B B Y : O N", OnStyle);
+                DrawButton(7, "main", "大厅 : 开", OnStyle);
             }
             else
             {
-                DrawButton(7, "main", "L O B B Y : O F F", OffStyle);
+                DrawButton(7, "main", "大厅 : 关", OffStyle);
             }
 
             if (Main.unloadConfirm)
             {
-                DrawButton(8, "main", "C O N F I R M ?", ButtonStyle);
+                DrawButton(8, "main", "确定 ?", ButtonStyle);
             }
             else
             {
-                DrawButton(8, "main", "U N L O A D   M E N U", ButtonStyle);
+                DrawButton(8, "main", "关闭Poke", ButtonStyle);
             }
         }
 
         public static void DrawPlayerModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "P L A Y E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "玩家   菜单", LabelStyle);
 
-            DrawButton(1, "playermod", $"G I V E   M O N E Y : {PlayerMod.moneyToGive}", buttonStyle, isMultButton: true);
-            DrawButton(2, "playermod", $"G I V E   L U N A R   C O I N S : {PlayerMod.coinsToGive}", buttonStyle, isMultButton: true);
-            DrawButton(3, "playermod", $"G I V E   E X P E R I E N C E : {PlayerMod.xpToGive}", buttonStyle, isMultButton: true);
+            DrawButton(1, "playermod", $"获取   $ : {PlayerMod.moneyToGive}", buttonStyle, isMultButton: true);
+            DrawButton(2, "playermod", $"获取   月球硬币 : {PlayerMod.coinsToGive}", buttonStyle, isMultButton: true);
+            DrawButton(3, "playermod", $"获取   经验 : {PlayerMod.xpToGive}", buttonStyle, isMultButton: true);
 
             if (Main._isEditStatsOpen)
             {
-                DrawButton(4, "playermod", "S T A T S   M E N U : ON", OnStyle);
+                DrawButton(4, "playermod", "属性   菜单 : ON", OnStyle);
             }
             else
             {
-                DrawButton(4, "playermod", "S T A T S   M E N U : OFF", OffStyle);
+                DrawButton(4, "playermod", "属性   菜单 : OFF", OffStyle);
             }
             if (Main._isChangeCharacterMenuOpen)
             {
-                DrawButton(5, "playermod", "C H A N G E   C H A R A C T E R : ON", OnStyle);
+                DrawButton(5, "playermod", "改变角色 : ON", OnStyle);
             }
             else
             {
-                DrawButton(5, "playermod", "C H A N G E   C H A R A C T E R : OFF", OffStyle);
+                DrawButton(5, "playermod", "改变角色 : OFF", OffStyle);
             }
             if (Main._isBuffMenuOpen)
             {
-                DrawButton(6, "playermod", "G I V E   B U F F   M E N U : O N", OnStyle);
+                DrawButton(6, "playermod", "获取   B U F F   菜单 : 开", OnStyle);
             }
             else
             {
-                DrawButton(6, "playermod", "G I V E   B U F F   M E N U : O F F", OffStyle);
+                DrawButton(6, "playermod", "获取   B U F F   菜单 : 关", OffStyle);
             }
 
-            DrawButton(7, "playermod", "R E M O V E   A L L   B U F F S", buttonStyle);
+            DrawButton(7, "playermod", "清除所有 B U F F", buttonStyle);
 
             if (Main.aimBot)
             {
-                DrawButton(8, "playermod", "A I M B O T : O N", OnStyle);
+                DrawButton(8, "playermod", " : 开", OnStyle);
             }
             else
             {
-                DrawButton(8, "playermod", "A I M B O T : O F F", OffStyle);
+                DrawButton(8, "playermod", " : 关", OffStyle);
             }
             if (Main.godToggle)
             {
-                DrawButton(9, "playermod", "G O D   M O D E : O N", OnStyle);
+                DrawButton(9, "playermod", "无敌 : 开", OnStyle);
             }
             else
             {
-                DrawButton(9, "playermod", "G O D   M O D E : O F F", OffStyle);
+                DrawButton(9, "playermod", "无敌 : 关", OffStyle);
             }
             if (Main.skillToggle)
             {
-                DrawButton(10, "playermod", "I N F I N I T E   S K I L L S : O N", OnStyle);
+                DrawButton(10, "playermod", "技能无CD : 开", OnStyle);
             }
             else
             {
-                DrawButton(10, "playermod", "I N F I N I T E   S K I L L S : O F F", OffStyle);
+                DrawButton(10, "playermod", "技能无CD : 关", OffStyle);
             }
-            DrawButton(11, "playermod", "U N L O C K   A L L", buttonStyle);
+            DrawButton(11, "playermod", "全部解锁", buttonStyle);
         }
 
         public static void DrawMovementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "M O V E M E N T   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "移动   菜单", LabelStyle);
 
             if (Main.alwaysSprint)
             {
-                DrawButton(1, "movement", "A L W A Y S   S P R I N T : O N", OnStyle);
+                DrawButton(1, "movement", "疾跑 : 开", OnStyle);
             }
             else
             {
-                DrawButton(1, "movement", "A L W A Y S   S P R I N T : O F F", OffStyle);
+                DrawButton(1, "movement", "疾跑 : 关", OffStyle);
             }
 
             if (Main.FlightToggle)
             {
-                DrawButton(2, "movement", "F L I G H T : O N", OnStyle);
+                DrawButton(2, "movement", "你在哪 爷飞过去 : 开", OnStyle);
             }
             else
             {
-                DrawButton(2, "movement", "F L I G H T : O F F", OffStyle);
+                DrawButton(2, "movement", "你在哪 爷飞过去 : 关", OffStyle);
             }
 
             if (Main.jumpPackToggle)
             {
-                DrawButton(3, "movement", "J U M P - P A C K : O N", OnStyle);
+                DrawButton(3, "movement", "无重力 : 开", OnStyle);
             }
             else
             {
-                DrawButton(3, "movement", "J U M P - P A C K : O F F", OffStyle);
+                DrawButton(3, "movement", "无重力 : 关", OffStyle);
             }
         }
 
         public static void DrawItemManagementMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "I T E M S   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "物品   菜单", LabelStyle);
 
-            DrawButton(1, "itemmanager", $"G I V E   A L L   I T E M S : {ItemManager.allItemsQuantity}", buttonStyle, isMultButton: true);
-            DrawButton(2, "itemmanager", $"R O L L   I T E M S : {ItemManager.itemsToRoll}", buttonStyle, isMultButton: true);
+            DrawButton(1, "itemmanager", $"获取   所有物品 : {ItemManager.allItemsQuantity}", buttonStyle, isMultButton: true);
+            DrawButton(2, "itemmanager", $"随机   物品 : {ItemManager.itemsToRoll}", buttonStyle, isMultButton: true);
 
             if (Main._isItemSpawnMenuOpen)
             {
-                DrawButton(3, "itemmanager", "I T E M   S P A W N   M E N U : O N", OnStyle);
+                DrawButton(3, "itemmanager", "生成物品   菜单 : 开", OnStyle);
             }
             else
             {
-                DrawButton(3, "itemmanager", "I T E M   S P A W N   M E N U : O F F", OffStyle);
+                DrawButton(3, "itemmanager", "生成物品   菜单 : 关", OffStyle);
             }
             if (Main._isEquipmentSpawnMenuOpen)
             {
-                DrawButton(4, "itemmanager", "E Q U I P M E N T   S P A W N   M E N U : O N", OnStyle);
+                DrawButton(4, "itemmanager", "装备   生成   菜单 : 开", OnStyle);
             }
             else
             {
-                DrawButton(4, "itemmanager", "E Q U I P M E N T   S P A W N   M E N U : O F F", OffStyle);
+                DrawButton(4, "itemmanager", "装备   生成   菜单 : 关", OffStyle);
             }
             if (ItemManager.isDropItemForAll)
             {
-                DrawButton(5, "itemmanager", "D R O P   I T E M S / E Q U I P M E N T : O N", OnStyle);
+                DrawButton(5, "itemmanager", "掉落   物品 / 装备 : 开", OnStyle);
             }
             else
             {
-                DrawButton(5, "itemmanager", "D R O P   I T E M S / E Q U I P M E N T : O F F", OffStyle);
+                DrawButton(5, "itemmanager", "掉落   物品 / 装备 : 关", OffStyle);
             }
             if (ItemManager.isDropItemFromInventory)
             {
-                DrawButton(6, "itemmanager", "D R O P   F R O M   I N V E N T O R Y : O N", OnStyle);
+                DrawButton(6, "itemmanager", "掉落自   库存 : 开", OnStyle);
             }
             else
             {
-                DrawButton(6, "itemmanager", "D R O P   F R O M   I N V E N T O R Y : O F F", OffStyle);
+                DrawButton(6, "itemmanager", "掉落自   库存 : 关", OffStyle);
             }
             if (Main.noEquipmentCooldown)
             {
-                DrawButton(7, "itemmanager", "I N F I N I T E   E Q U I P M E N T : O N", OnStyle);
+                DrawButton(7, "itemmanager", "无装备CD : 开", OnStyle);
             }
             else
             {
-                DrawButton(7, "itemmanager", "I N F I N I T E   E Q U I P M E N T : O F F", OffStyle);
+                DrawButton(7, "itemmanager", "无装备CD : 关", OffStyle);
             }
 
-            DrawButton(8, "itemmanager", "S T A C K   I N V E N T O R Y", buttonStyle);
-            DrawButton(9, "itemmanager", "C L E A R   I N V E N T O R Y", buttonStyle);
+            DrawButton(8, "itemmanager", "堆   库存", buttonStyle);
+            DrawButton(9, "itemmanager", "清理   库存", buttonStyle);
         }
 
         public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "生成   菜单", LabelStyle);
 
-            DrawButton(1, "spawn", $"M I N   D I S T A N C E : {Spawn.minDistance}", buttonStyle, isMultButton: true);
-            DrawButton(2, "spawn", $"M A X   D I S T A N C E : {Spawn.maxDistance}", buttonStyle, isMultButton: true);
-            DrawButton(3, "spawn", $"T E A M : {Spawn.team[Spawn.teamIndex]}", buttonStyle, isMultButton: true);
+            DrawButton(1, "spawn", $"最小距离 : {Spawn.minDistance}", buttonStyle, isMultButton: true);
+            DrawButton(2, "spawn", $"最大距离 : {Spawn.maxDistance}", buttonStyle, isMultButton: true);
+            DrawButton(3, "spawn", $"阵营 : {Spawn.team[Spawn.teamIndex]}", buttonStyle, isMultButton: true);
 
             if (Main._isSpawnListMenuOpen)
             {
-                DrawButton(4, "spawn", "S P A W N   L I S T : O N", OnStyle);
+                DrawButton(4, "spawn", "生成   列表 : 开", OnStyle);
             }
             else
             {
-                DrawButton(4, "spawn", "S P A W N   L I S T : O F F", OffStyle);
+                DrawButton(4, "spawn", "生成   列表 : 关", OffStyle);
             }
 
-            DrawButton(5, "spawn", "K I L L   A L L", buttonStyle);
-            DrawButton(6, "spawn", "D E S T R O Y   I N T E R A C T A B L E S", buttonStyle);
+            DrawButton(5, "spawn", "杀死所有敌人", buttonStyle);
+            DrawButton(6, "spawn", "杀死所有物品", buttonStyle);
         }
 
         public static void DrawTeleMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "T E L E P O R T E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "传送   菜单", LabelStyle);
 
-            DrawButton(1, "tele", "S K I P   S T A G E", buttonStyle);
-            DrawButton(2, "tele", "I N S T A N T   T E L E P O R T E R", buttonStyle);
-            DrawButton(3, "tele", $"A D D   M O U N T A I N - C O U N T : {TeleporterInteraction.instance.shrineBonusStacks}", buttonStyle);
-            DrawButton(4, "tele", "S P A W N   A L L   P O R T A L S", buttonStyle);
-            DrawButton(5, "tele", "S P A W N   B L U E   P O R T A L", buttonStyle);
-            DrawButton(6, "tele", "S P A W N   C E L E S T A L   P O R T A L", buttonStyle);
-            DrawButton(7, "tele", "S P A W N   G O L D   P O R T A L", buttonStyle);
+            DrawButton(1, "tele", "跳关", buttonStyle);
+            DrawButton(2, "tele", "快速   传送", buttonStyle);
+            DrawButton(3, "tele", $"添加 : {TeleporterInteraction.instance.shrineBonusStacks}", buttonStyle);
+            DrawButton(4, "tele", "生成   全部  球体", buttonStyle);
+            DrawButton(5, "tele", "生成   蓝色   球体", buttonStyle);
+            DrawButton(6, "tele", "生成   天蓝色   球体", buttonStyle);
+            DrawButton(7, "tele", "生成   金色   球体", buttonStyle);
         }
 
         public static void DrawRenderMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "R E N D E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "渲染   菜单", LabelStyle);
 
             if (Main.renderActiveMods)
             {
-                DrawButton(1, "ESP", "A C T I V E   M O D S : O N", OnStyle);
+                DrawButton(1, "透视", "提示 : 开", OnStyle);
             }
             else
             {
-                DrawButton(1, "ESP", "A C T I V E   M O D S : O F F", OffStyle);
+                DrawButton(1, "透视", "提示 : 关", OffStyle);
             }
 
             if (Main.renderInteractables)
             {
-                DrawButton(2, "ESP", "I N T E R A C T A B L E S   E S P : O N", OnStyle);
+                DrawButton(2, "透视", "物品 : 开", OnStyle);
             }
             else
             {
-                DrawButton(2, "ESP", "I N T E R A C T A B L E S   E S P : O F F", OffStyle);
+                DrawButton(2, "透视", "物品 : 关", OffStyle);
             }
 
             if (Main.renderMobs)
             {
-                DrawButton(3, "ESP", "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", OnStyle);
+                DrawButton(3, "透视", "怪物  : O N\n<color=red>注意: 也许会 掉帧或游戏崩溃 </color>", OnStyle);
             }
             else
             {
-                DrawButton(3, "ESP", "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", OffStyle);
+                DrawButton(3, "透视", "怪物 : O F F\n<color=red>注意: 也许会 掉帧或游戏崩溃 </color>", OffStyle);
             }
         }
 
         public static void DrawLobbyMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "L O B B Y   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "大厅   菜单", LabelStyle);
 
             if (Main._CharacterCollected)
             {
@@ -336,13 +336,13 @@ namespace UmbraRoR
                     {
                         if (Main.Players[i] != null)
                         {
-                            DrawButton(buttonPlacement, "lobby", $"K I C K  <color=yellow>{Main.Players[i]}</color>", buttonStyle);
+                            DrawButton(buttonPlacement, "lobby", $"踢出  <color=yellow>{Main.Players[i]}</color>", buttonStyle);
                             buttonPlacement++;
                         }
                     }
                     catch (NullReferenceException)
                     {
-                        Debug.LogWarning("UmbraRoR: There is No Player Selected");
+                        Debug.LogWarning("UmbraRoR: 没有选择玩家");
                     }
                 }
             }
@@ -351,7 +351,7 @@ namespace UmbraRoR
         public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "C H A R A C T E R   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "角色   菜单", LabelStyle);
 
             characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.ChangeCharacter(buttonStyle, "character");
@@ -361,7 +361,7 @@ namespace UmbraRoR
         public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   列表", LabelStyle);
 
             buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.GiveBuff(buttonStyle, "giveBuff");
@@ -371,62 +371,62 @@ namespace UmbraRoR
         public static void DrawStatsModMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S T A T S   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "属性   菜单", LabelStyle);
 
             if (Main.damageToggle)
             {
-                DrawButton(1, "statsmod", $"D A M A G E / L V L ( O N ) : {PlayerMod.damagePerLvl}", OnStyle, true);
+                DrawButton(1, "statsmod", $"伤害 ( 开 ) : {PlayerMod.damagePerLvl}", OnStyle, true);
             }
             else
             {
-                DrawButton(1, "statsmod", $"D A M A G E / L V L ( O F F ) : {PlayerMod.damagePerLvl}", OffStyle, true);
+                DrawButton(1, "statsmod", $"伤害 ( 关 ) : {PlayerMod.damagePerLvl}", OffStyle, true);
             }
             if (Main.critToggle)
             {
-                DrawButton(2, "statsmod", $"C R I T / L V L ( O N ) : {PlayerMod.CritPerLvl}", OnStyle, true);
+                DrawButton(2, "statsmod", $"暴击 ( 开 ) : {PlayerMod.CritPerLvl}", OnStyle, true);
             }
             else
             {
-                DrawButton(2, "statsmod", $"C R I T / L V L ( O F F ) : {PlayerMod.CritPerLvl}", OffStyle, true);
+                DrawButton(2, "statsmod", $"暴击 ( 关 ) : {PlayerMod.CritPerLvl}", OffStyle, true);
             }
             if (Main.attackSpeedToggle)
             {
-                DrawButton(3, "statsmod", $"A T T A C K   S P E E D ( O N ) : {PlayerMod.attackSpeed}", OnStyle, true);
+                DrawButton(3, "statsmod", $"攻击速度 ( 开 ) : {PlayerMod.attackSpeed}", OnStyle, true);
             }
             else
             {
-                DrawButton(3, "statsmod", $"A T T A C K   S P E E D ( O F F ) : {PlayerMod.attackSpeed}", OffStyle, true);
+                DrawButton(3, "statsmod", $"攻击速度 ( 关 ) : {PlayerMod.attackSpeed}", OffStyle, true);
             }
             if (Main.armorToggle)
             {
-                DrawButton(4, "statsmod", $"A R M O R ( O N ) : {PlayerMod.armor}", OnStyle, true);
+                DrawButton(4, "statsmod", $"护甲 ( 开 ) : {PlayerMod.armor}", OnStyle, true);
             }
             else
             {
-                DrawButton(4, "statsmod", $"A R M O R ( O F F ) : {PlayerMod.armor}", OffStyle, true);
+                DrawButton(4, "statsmod", $"护甲 ( 关 ) : {PlayerMod.armor}", OffStyle, true);
             }
             if (Main.moveSpeedToggle)
             {
-                DrawButton(5, "statsmod", $"M O V E   S P E E D ( O N ) : {PlayerMod.movespeed}", OnStyle, true);
+                DrawButton(5, "statsmod", $"移动速度 ( 开 ) : {PlayerMod.movespeed}", OnStyle, true);
             }
             else
             {
-                DrawButton(5, "statsmod", $"M O V E   S P E E D ( O F F ) : {PlayerMod.movespeed}", OffStyle, true);
+                DrawButton(5, "statsmod", $"移动速度 ( 关 ) : {PlayerMod.movespeed}", OffStyle, true);
             }
             if (Main._isStatMenuOpen)
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O N", OnStyle);
+                DrawButton(6, "statsmod", "显示   属性 : 开", OnStyle);
             }
             else
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
+                DrawButton(6, "statsmod", "显示   属性 : 关", OffStyle);
             }
         }
 
         public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M S   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "物品   列表", LabelStyle);
 
             itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             int buttonPlacement = 1;
@@ -442,7 +442,7 @@ namespace UmbraRoR
         public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "装备   列表", LabelStyle);
 
             equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             int buttonPlacement = 1;
@@ -458,7 +458,7 @@ namespace UmbraRoR
         public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "生成   列表", LabelStyle);
 
             spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             Spawn.SpawnMob(buttonStyle, "spawnMob");
@@ -468,17 +468,17 @@ namespace UmbraRoR
         public static void DrawStatsMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize, 50f + 45 * mulY), "", BGstyle);
-            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 50f), "S T A T S   M E N U", LabelStyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 50f), "属性   菜单", LabelStyle);
 
-            DrawButton(1, "stats", $"D A M A G E : {Main.LocalPlayerBody.damage}", buttonStyle, justText: true);
-            DrawButton(2, "stats", $"C R I T : {Main.LocalPlayerBody.crit}", buttonStyle, justText: true);
-            DrawButton(3, "stats", $"A T T A C K   S P E E D : {Main.LocalPlayerBody.attackSpeed}", buttonStyle, justText: true);
-            DrawButton(4, "stats", $"A R M O R : {Main.LocalPlayerBody.armor}", buttonStyle, justText: true);
-            DrawButton(5, "stats", $"R E G E N : {Main.LocalPlayerBody.regen}", buttonStyle, justText: true);
-            DrawButton(6, "stats", $"M O V E   S P E E D : {Main.LocalPlayerBody.moveSpeed}", buttonStyle, justText: true);
-            DrawButton(7, "stats", $"J U M P   C O U N T : {Main.LocalPlayerBody.maxJumpCount}", buttonStyle, justText: true);
-            DrawButton(8, "stats", $"E X P E R I E N C E : {Main.LocalPlayerBody.experience}", buttonStyle, justText: true);
-            DrawButton(9, "stats", $"K I L L S: {Main.LocalPlayerBody.killCount}", buttonStyle, justText: true);
+            DrawButton(1, "stats", $"伤害 : {Main.LocalPlayerBody.damage}", buttonStyle, justText: true);
+            DrawButton(2, "stats", $"暴击 : {Main.LocalPlayerBody.crit}", buttonStyle, justText: true);
+            DrawButton(3, "stats", $"攻击速度 : {Main.LocalPlayerBody.attackSpeed}", buttonStyle, justText: true);
+            DrawButton(4, "stats", $"护甲 : {Main.LocalPlayerBody.armor}", buttonStyle, justText: true);
+            DrawButton(5, "stats", $"K K P : {Main.LocalPlayerBody.regen}", buttonStyle, justText: true);
+            DrawButton(6, "stats", $"移动速度 : {Main.LocalPlayerBody.moveSpeed}", buttonStyle, justText: true);
+            DrawButton(7, "stats", $"连跳 : {Main.LocalPlayerBody.maxJumpCount}", buttonStyle, justText: true);
+            DrawButton(8, "stats", $"经验 : {Main.LocalPlayerBody.experience}", buttonStyle, justText: true);
+            DrawButton(9, "stats", $"击杀数: {Main.LocalPlayerBody.killCount}", buttonStyle, justText: true);
 
         }
 
@@ -691,7 +691,7 @@ namespace UmbraRoR
                         break;
                     }
 
-                case "ESP":
+                case "透视":
                     {
                         menuIndex = 6f;
                         menuBg = Main.ESPRect;

@@ -92,24 +92,24 @@ namespace UmbraRoR
             List<string> modsActive = new List<string>();
             Dictionary<string, bool> allMods = new Dictionary<string, bool>()
             {
-                { "Aimbot", Main.aimBot },
-                { "Always-Sprint", Main.alwaysSprint },
-                { "Drop-Items", ItemManager.isDropItemForAll },
-                { "Drop-Items-from-Inventory", ItemManager.isDropItemFromInventory },
-                { "Flight", Main.FlightToggle },
-                { "God-Mode", Main.godToggle },
-                { "Jump-Pack", Main.jumpPackToggle },
-                { "Keyboard-Navigation", Main.navigationToggle },
-                { "Modified-Armor", Main.armorToggle },
-                { "Modified-Attack Speed", Main.attackSpeedToggle },
-                { "Modified-Crit", Main.critToggle },
-                { "Modified-Damage", Main.damageToggle },
-                { "Modified-Move-Speed", Main.moveSpeedToggle },
-                { "Modified-Regen", Main.regenToggle },
-                { "No-Equipment-Cooldown", Main.noEquipmentCooldown },
-                { "No-Skill-Cooldowns", Main.skillToggle },
-                { "Render-Interactables", Main.renderInteractables },
-                { "Render-Mobs", Main.renderMobs }
+                { "自瞄", Main.aimBot },
+                { "疾跑", Main.alwaysSprint },
+                { "掉落物品", ItemManager.isDropItemForAll },
+                { "掉落物品-自库存", ItemManager.isDropItemFromInventory },
+                { "飞行", Main.FlightToggle },
+                { "无敌", Main.godToggle },
+                { "无重力", Main.jumpPackToggle },
+                { "键盘-导航", Main.navigationToggle },
+                { "Poke-护甲", Main.armorToggle },
+                { "Poke-攻击速度", Main.attackSpeedToggle },
+                { "Poke-暴击", Main.critToggle },
+                { "Poke-伤害", Main.damageToggle },
+                { "Poke-移动速度", Main.moveSpeedToggle },
+                { "Poke-K K P", Main.regenToggle },
+                { "无装备CD", Main.noEquipmentCooldown },
+                { "无技能CD", Main.skillToggle },
+                { "渲染-物品", Main.renderInteractables },
+                { "渲染-怪物", Main.renderMobs }
             };
 
             string modsBoxText = "";
@@ -138,7 +138,7 @@ namespace UmbraRoR
 
                 if (modsBoxText != "")
                 {
-                    GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Main.ActiveModsStyle);
+                    GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "激活作弊: ", Main.ActiveModsStyle);
                     GUI.Label(new Rect((Screen.width / 16) + 124, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
                 }
             }
