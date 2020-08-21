@@ -34,8 +34,9 @@ namespace UmbraRoR
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
         // These Are updated in FixedUpdate for performance reasons
-        public static List<UnityEngine.Object> purchaseInteractables;
-        public static List<UnityEngine.Object> teleporterInteractables;
+        public static List<PurchaseInteraction> purchaseInteractables;
+        public static List<PressurePlateController> secretButtons;
+        public static List<BarrelInteraction> barrelInteractions;
         public static List<HurtBox> hurtBoxes;
         public static Scene currentScene;
 
@@ -525,7 +526,8 @@ namespace UmbraRoR
             if (renderInteractables)
             {
                 purchaseInteractables = Utility.GetPurchaseInteractions();
-                teleporterInteractables = Utility.GetTeleporterInteractions();
+                barrelInteractions = Utility.GetBarrelInterations();
+                secretButtons = Utility.GetSecretButtons();
             }
             if (renderMobs)
             {
@@ -767,7 +769,8 @@ namespace UmbraRoR
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             purchaseInteractables = Utility.GetPurchaseInteractions();
-            teleporterInteractables = Utility.GetTeleporterInteractions();
+            barrelInteractions = Utility.GetBarrelInterations();
+            secretButtons = Utility.GetSecretButtons();
             if (!InGameCheck())
             {
                 Utility.ResetMenu();

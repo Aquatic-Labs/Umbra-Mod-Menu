@@ -190,15 +190,21 @@ namespace UmbraRoR
             return spawnCards;
         }
 
-        public static List<UnityEngine.Object> GetPurchaseInteractions()
+        public static List<PurchaseInteraction> GetPurchaseInteractions()
         {
-            var purchaseInteractables = FindObjectsOfType(typeof(PurchaseInteraction)).ToList();
+            var purchaseInteractables = FindObjectsOfType<PurchaseInteraction>().ToList();
             return purchaseInteractables;
         }
 
-        public static List<UnityEngine.Object> GetTeleporterInteractions()
+        public static List<BarrelInteraction> GetBarrelInterations()
         {
-            var teleporterInteractions = FindObjectsOfType(typeof(TeleporterInteraction)).ToList();
+            var barrels = FindObjectsOfType<BarrelInteraction>().ToList();
+            return barrels;
+        }
+
+        public static List<PressurePlateController> GetSecretButtons()
+        {
+            var teleporterInteractions = FindObjectsOfType<PressurePlateController>().ToList();
             return teleporterInteractions;
         }
 
