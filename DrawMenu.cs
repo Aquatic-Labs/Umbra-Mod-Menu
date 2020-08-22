@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UmbraRoR
 {
-    internal class DrawMenu
+    internal class DrawMenu : MonoBehaviour
     {
         public static Vector2 itemSpawnerScrollPosition = Vector2.zero;
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
