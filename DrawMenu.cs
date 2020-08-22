@@ -6,6 +6,7 @@ namespace UmbraRoR
 {
     internal class DrawMenu : MonoBehaviour
     {
+        public static Vector2 chestItemChangerScrollPosition = Vector2.zero;
         public static Vector2 itemSpawnerScrollPosition = Vector2.zero;
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
         public static Vector2 buffMenuScrollPosition = Vector2.zero;
@@ -437,6 +438,33 @@ namespace UmbraRoR
                 buttonPlacement++;
             }
             GUI.EndScrollView();
+        }
+
+        public static void DrawChestItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M S   L I S T", LabelStyle);
+
+            chestItemChangerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), chestItemChangerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            int buttonPlacement = 1;
+            foreach (var itemIndex in Main.items)
+            {
+                string itemName = itemIndex.ToString();
+                DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
+                buttonPlacement++;
+            }
+            GUI.EndScrollView();
+        }
+
+        public static void DrawChestMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
+        {
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "C H E S T   M E N U", LabelStyle);
+
+            DrawButton(1, "chestManagement", $"T I E R   1 : {Chests.FindClosestChest().tier1Chance / 100}%", buttonStyle, isMultButton: true);
+            DrawButton(2, "chestManagement", $"T I E R   2 : {Chests.FindClosestChest().tier2Chance / 100}%", buttonStyle, isMultButton: true);
+            DrawButton(3, "chestManagement", $"T I E R   3 : {Chests.FindClosestChest().tier3Chance / 100}%", buttonStyle, isMultButton: true);
+            DrawButton(4, "chestManagement", "C L O S E S T   C H E S T   I T E M", buttonStyle);
         }
 
         public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
