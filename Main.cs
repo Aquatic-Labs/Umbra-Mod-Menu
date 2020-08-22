@@ -59,6 +59,11 @@ namespace UmbraRoR
         public static CharacterMotor LocalMotor;
         #endregion
 
+        #region Enable Checks
+        public static bool onChestsEnable = true;
+        public static bool onChestsDisable = false;
+        #endregion
+
         #region Menu Checks
         public static bool _isMenuOpen = false;
         public static bool _ifDragged = false;
