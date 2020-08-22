@@ -1110,6 +1110,14 @@ namespace UmbraRoR
 
                             case 1: // Toggle Render Interactables
                                 {
+                                    if (Main.renderInteractables)
+                                    {
+                                        Render.DisableInteractables();
+                                    }
+                                    else
+                                    {
+                                        Render.EnableInteractables();
+                                    }
                                     Main.renderInteractables = !Main.renderInteractables;
                                     break;
                                 }

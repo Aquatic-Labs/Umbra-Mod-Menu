@@ -2,30 +2,52 @@ using System;
 using UnityEngine;
 using RoR2;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UmbraRoR
 {
     // Needs improvement. Causes a lot of lag
     public class Render : MonoBehaviour
     {
+        public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
+        public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
+        public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
+        public static void EnableInteractables()
+        {
+            if (Main.onRenderIntEnable)
+            {
+                DumpInteractables(null);
+                SceneDirector.onPostPopulateSceneServer += DumpInteractables;
+                Main.onRenderIntEnable = false;
+            }
+            else
+            {
+                return;
+            }
+        }
+        public static void DisableInteractables()
+        {
+            if (!Main.onRenderIntEnable)
+            {
+                SceneDirector.onPostPopulateSceneServer -= DumpInteractables;
+                Main.onRenderIntEnable = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private static void DumpInteractables(SceneDirector obj)
+        {
+            Debug.Log("Dumping Interactables");
+            barrelInteractions = FindObjectsOfType<BarrelInteraction>().ToList();
+            purchaseInteractions = FindObjectsOfType<PurchaseInteraction>().ToList();
+            secretButtons = FindObjectsOfType<PressurePlateController>().ToList();
+        }
+
         public static void Interactables()
         {
-            foreach (BarrelInteraction barrel in Main.barrelInteractions)
-            {
-                if (!barrel.Networkopened)
-                {
-                    string friendlyName = "Barrel";
-                    Vector3 Position = Camera.main.WorldToScreenPoint(barrel.transform.position);
-                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
-                    if (BoundingVector.z > 0.01)
-                    {
-                        float distance = (int)Vector3.Distance(Camera.main.transform.position, barrel.transform.position);
-                        string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
-                    }
-                }
-            }
-
             if (TeleporterInteraction.instance)
             {
                 var teleporterInteraction = TeleporterInteraction.instance;
@@ -53,9 +75,25 @@ namespace UmbraRoR
                 }
             }
 
+            foreach (BarrelInteraction barrel in barrelInteractions)//Main.barrelInteractions)
+            {
+                if (!barrel.Networkopened)
+                {
+                    string friendlyName = "Barrel";
+                    Vector3 Position = Camera.main.WorldToScreenPoint(barrel.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
+                    {
+                        float distance = (int)Vector3.Distance(Camera.main.transform.position, barrel.transform.position);
+                        string boxText = $"{friendlyName}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                    }
+                }
+            }
+
             if (Main.secretButtons != null)
             {
-                foreach (PressurePlateController secretButton in Main.secretButtons)
+                foreach (PressurePlateController secretButton in secretButtons)//Main.secretButtons)
                 {
                     if (secretButton)
                     {
@@ -72,7 +110,7 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (PurchaseInteraction purchaseInteraction in Main.purchaseInteractables)
+            foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)//Main.purchaseInteractables)
             {
                 if (purchaseInteraction.available)
                 {

@@ -62,6 +62,8 @@ namespace UmbraRoR
         #region Enable Checks
         public static bool onChestsEnable = true;
         public static bool onChestsDisable = false;
+        public static bool onRenderIntEnable = true;
+        public static bool onRenderIntDisable = false;
         #endregion
 
         #region Menu Checks
@@ -86,7 +88,7 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle;
         public static bool renderActiveMods = true;
@@ -405,6 +407,17 @@ namespace UmbraRoR
                 renderMobsStyle.alignment = TextAnchor.MiddleLeft;
             }
 
+            if (selectedChestStyle == null)
+            {
+                selectedChestStyle = new GUIStyle();
+                selectedChestStyle.normal.textColor = Color.blue;
+                selectedChestStyle.onNormal.textColor = Color.blue;
+                selectedChestStyle.active.textColor = Color.blue;
+                selectedChestStyle.onActive.textColor = Color.blue;
+                selectedChestStyle.fontStyle = FontStyle.Normal;
+                selectedChestStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
             if (WatermarkStyle == null)
             {
                 WatermarkStyle = new GUIStyle();
@@ -527,13 +540,6 @@ namespace UmbraRoR
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
-
-            if (renderInteractables)
-            {
-                purchaseInteractables = Utility.GetPurchaseInteractions();
-                barrelInteractions = Utility.GetBarrelInterations();
-                secretButtons = Utility.GetSecretButtons();
-            }
             if (renderMobs)
             {
                 hurtBoxes = Utility.GetHurtBoxes();
@@ -773,9 +779,6 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            purchaseInteractables = Utility.GetPurchaseInteractions();
-            barrelInteractions = Utility.GetBarrelInterations();
-            secretButtons = Utility.GetSecretButtons();
             if (!InGameCheck())
             {
                 Utility.ResetMenu();
