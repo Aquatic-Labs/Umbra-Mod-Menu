@@ -22,10 +22,10 @@ namespace UmbraRoR
                 var component = (MonoBehaviour)gameObject.AddComponent(type);
                 component.enabled = false;
             }
-            gameObject.GetComponent<Main>().enabled = true;
-            gameObject.SetActive(true);
             Utility.LoadAssembly();
             Updates.CheckForUpdate();
+            gameObject.GetComponent<Main>().enabled = true;
+            gameObject.SetActive(true);
         }
 
         public static void Unload()
