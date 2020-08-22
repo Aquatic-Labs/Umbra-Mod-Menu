@@ -5,7 +5,7 @@ using RoR2;
 
 namespace UmbraRoR
 {
-    public class PlayerMod
+    public class PlayerMod : MonoBehaviour
     {
         public static int damagePerLvl = 10;
         public static int CritPerLvl = 1;

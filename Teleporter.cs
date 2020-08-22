@@ -3,7 +3,7 @@ using RoR2;
 
 namespace UmbraRoR
 {
-    public class Teleporter 
+    public class Teleporter : MonoBehaviour
     {
         public static void InstaTeleporter()
         {

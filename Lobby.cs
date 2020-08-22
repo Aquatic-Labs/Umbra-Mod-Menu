@@ -1,10 +1,11 @@
 ﻿using System;
 using RoR2;
+using UnityEngine;
 using Console = RoR2.Console;
 
 namespace UmbraRoR
 {
-    class Lobby
+    class Lobby : MonoBehaviour
     {
         // More posibilities here using console.
         // Not added to ui yet.
