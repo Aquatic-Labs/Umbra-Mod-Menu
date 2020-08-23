@@ -130,6 +130,14 @@ namespace UmbraRoR
                         break;
                     }
 
+                case 3.3f: // Change Chest Item List Menu
+                    {
+                        Main._isChestItemListOpen = false;
+                        menuIndex = 3;
+                        intraMenuIndex = prevIntraMenuIndex;
+                        break;
+                    }
+
                 case 4: // Spawn Menu
                     {
                         Main._isSpawnMenuOpen = false;
@@ -863,6 +871,23 @@ namespace UmbraRoR
                                     break;
                                 }
 
+                            case 9: // Toggle Chest List Menu
+                                {
+                                    if (Main._isChangeCharacterMenuOpen)
+                                    {
+                                        Chests.DisableChests();
+                                    }
+                                    else
+                                    {
+                                        Chests.EnableChests();
+                                    }
+                                    prevIntraMenuIndex = intraMenuIndex;
+                                    intraMenuIndex = 0;
+                                    menuIndex = 3.3f;
+                                    Main._isChestItemListOpen = !Main._isChestItemListOpen;
+                                    break;
+                                }
+
                             default:
                                 {
                                     break;
@@ -927,6 +952,19 @@ namespace UmbraRoR
                             {
                                 Main.LocalPlayerInv.SetEquipmentIndex(Main.equipment[pressIntraMenuIndex]);
                             }
+                        }
+                        break;
+                    }
+
+                case 3.3f: // Chest Item List Menu
+                    {
+                        if (Chests.IsClosestChestEquip())
+                        {
+                            Chests.SetChestEquipment(Main.equipment[pressIntraMenuIndex]);
+                        }
+                        else
+                        {
+                            Chests.SetChestItem(Main.items[pressIntraMenuIndex]);
                         }
                         break;
                     }
@@ -1306,15 +1344,15 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 3: // Item Management Menu 0 - 8
+                case 3: // Item Management Menu 0 - 9
                     {
-                        if (intraMenuIndex > 8)
+                        if (intraMenuIndex > 9)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 8;
+                            intraMenuIndex = 9;
                         }
                         break;
                     }

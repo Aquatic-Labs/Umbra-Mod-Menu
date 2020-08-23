@@ -251,6 +251,15 @@ namespace UmbraRoR
 
             DrawButton(8, "itemmanager", "S T A C K   I N V E N T O R Y", buttonStyle);
             DrawButton(9, "itemmanager", "C L E A R   I N V E N T O R Y", buttonStyle);
+
+            if (Main._isChangeCharacterMenuOpen)
+            {
+                DrawButton(10, "itemmanager", "C H A N G E   C H E S T   I T E M : O N", buttonStyle);
+            }
+            else
+            {
+                DrawButton(10, "itemmanager", "C H A N G E   C H E S T   I T E M : O F F", buttonStyle);
+            }
         }
 
         public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
@@ -447,11 +456,23 @@ namespace UmbraRoR
 
             chestItemChangerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), chestItemChangerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             int buttonPlacement = 1;
-            foreach (var itemIndex in Main.items)
+            if (Chests.IsClosestChestEquip())
             {
-                string itemName = itemIndex.ToString();
-                DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
-                buttonPlacement++;
+                foreach (var equipmentIndex in Main.equipment)
+                {
+                    string equipmentName = equipmentIndex.ToString();
+                    DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
+                    buttonPlacement++;
+                }
+            }
+            else
+            {
+                foreach (var itemIndex in Main.items)
+                {
+                    string itemName = itemIndex.ToString();
+                    DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
+                    buttonPlacement++;
+                }
             }
             GUI.EndScrollView();
         }
@@ -461,10 +482,10 @@ namespace UmbraRoR
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "C H E S T   M E N U", LabelStyle);
 
-            DrawButton(1, "chestManagement", $"T I E R   1 : {Chests.FindClosestChest().tier1Chance / 100}%", buttonStyle, isMultButton: true);
-            DrawButton(2, "chestManagement", $"T I E R   2 : {Chests.FindClosestChest().tier2Chance / 100}%", buttonStyle, isMultButton: true);
-            DrawButton(3, "chestManagement", $"T I E R   3 : {Chests.FindClosestChest().tier3Chance / 100}%", buttonStyle, isMultButton: true);
-            DrawButton(4, "chestManagement", "C L O S E S T   C H E S T   I T E M", buttonStyle);
+            //DrawButton(1, "chestManagement", $"T I E R   1 : {Chests.FindClosestChest().tier1Chance / 100}%", buttonStyle, isMultButton: true);
+            //DrawButton(2, "chestManagement", $"T I E R   2 : {Chests.FindClosestChest().tier2Chance / 100}%", buttonStyle, isMultButton: true);
+            //DrawButton(3, "chestManagement", $"T I E R   3 : {Chests.FindClosestChest().tier3Chance / 100}%", buttonStyle, isMultButton: true);
+            //DrawButton(4, "chestManagement", "C L O S E S T   C H E S T   I T E M", buttonStyle);
         }
 
         public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
@@ -666,6 +687,22 @@ namespace UmbraRoR
                         else
                         {
                             rect = new Rect(Main.equipmentSpawnerRect.x + 5, Main.equipmentSpawnerRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "chestItemChanger":
+                    {
+                        menuIndex = 3.3f;
+                        menuBg = Main.chestItemChangerRect;
+                        Main.chestItemChangerRectMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.chestItemChangerRect.x + 5, Main.chestItemChangerRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.chestItemChangerRect.x + 5, Main.chestItemChangerRect.y + 5 + 45 * position, Main.widthSize, 40);
                         }
                         break;
                     }

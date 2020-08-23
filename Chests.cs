@@ -1,30 +1,45 @@
 ﻿using RoR2;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace UmbraRoR
 {
     class Chests : MonoBehaviour
     {
-        public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();//FindObjectsOfType<PurchaseInteraction>().ToList();
-        public static List<ChestBehavior> chests = new List<ChestBehavior>();//ConvertPurchaseInteractsToChests();
-        public static float tier1Chance = 0.8f;
-        public static float tier2Chance = 0.2f;
-        public static float tier3Chance = 0.01f;
+        public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
+        public static List<ChestBehavior> chests = new List<ChestBehavior>();
 
-        public static void Enable()
+        public static void EnableChests()
         {
             if (Main.onChestsEnable)
             {
-                purchaseInteractions = FindObjectsOfType<PurchaseInteraction>().ToList();
-                chests = ConvertPurchaseInteractsToChests();
+                DumpInteractables(null);
+                SceneDirector.onPostPopulateSceneServer += DumpInteractables;
                 Main.onChestsEnable = false;
             }
+            else
+            {
+                return;
+            }
+        }
+        public static void DisableChests()
+        {
+            if (!Main.onChestsEnable)
+            {
+                SceneDirector.onPostPopulateSceneServer -= DumpInteractables;
+                Main.onChestsEnable = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private static void DumpInteractables(SceneDirector obj)
+        {
+            purchaseInteractions = FindObjectsOfType<PurchaseInteraction>().ToList();
+            chests = ConvertPurchaseInteractsToChests();
         }
 
         public static List<ChestBehavior> ConvertPurchaseInteractsToChests()
@@ -46,8 +61,15 @@ namespace UmbraRoR
             Dictionary<float, ChestBehavior> chestsWithDistance = new Dictionary<float, ChestBehavior>();
             foreach (var chest in chests)
             {
-                float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
-                chestsWithDistance.Add(distanceToChest, chest);
+                if (chest)
+                {
+                    string dropName = Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken());
+                    if (dropName != null && dropName != "???")
+                    {
+                        float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
+                        chestsWithDistance.Add(distanceToChest, chest);
+                    }
+                }
             }
             var keys = chestsWithDistance.Keys.ToList();
             keys.Sort();
@@ -63,6 +85,7 @@ namespace UmbraRoR
             var chestBoundingVector = new Vector3(chestPosition.x, chestPosition.y, chestPosition.z);
             if (chestBoundingVector.z > 0.01)
             {
+                string dropNameColored = Util.GenerateColoredString(Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken()), chest.GetField<PickupIndex>("dropPickup").GetPickupColor());
                 float distanceToChest = Vector3.Distance(Camera.main.transform.position, FindClosestChest().transform.position);
                 float width = 100f * (distanceToChest / 100);
                 if (width > 125)
@@ -74,8 +97,16 @@ namespace UmbraRoR
                 {
                     height = 125;
                 }
-                GUI.Label(new Rect(chestBoundingVector.x - 50f, (float)Screen.height - chestBoundingVector.y + 50f, 100f, 50f), "Selected Chest", Main.selectedChestStyle);
-                ESPHelper.DrawBox(chestBoundingVector.x - width / 2, (float)Screen.height - chestBoundingVector.y - height / 2, width, height, new Color32(0, 255, 0, 255));
+
+                if (Main.renderInteractables)
+                {
+                    GUI.Label(new Rect(chestBoundingVector.x - 50f, (float)Screen.height - chestBoundingVector.y + 35f, 100f, 50f), $"Selected Chest", Main.selectedChestStyle);
+                }
+                else
+                {
+                    GUI.Label(new Rect(chestBoundingVector.x - 50f, (float)Screen.height - chestBoundingVector.y + 35f, 100f, 50f), $"Selected Chest\n{dropNameColored}", Main.selectedChestStyle);
+                }
+                ESPHelper.DrawBox(chestBoundingVector.x - width / 2, (float)Screen.height - chestBoundingVector.y - height / 2, width, height, new Color32(0, 0, 255, 255));
             }
         }
 
@@ -85,15 +116,21 @@ namespace UmbraRoR
             chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(itemIndex));
         }
 
-        public static void SetChestChance()
+        public static void SetChestEquipment(EquipmentIndex euipmentIndex)
         {
-            foreach (var chest in chests)
+            var chest = FindClosestChest();
+            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(euipmentIndex));
+        }
+
+        public static bool IsClosestChestEquip()
+        {
+            var chest = FindClosestChest();
+            var equipmentDrop = chest.GetField<PickupIndex>("dropPickup").equipmentIndex;
+            if (Main.equipment.Contains(equipmentDrop) && equipmentDrop != EquipmentIndex.None)
             {
-                chest.tier1Chance = tier1Chance;
-                chest.tier2Chance = tier2Chance;
-                chest.tier3Chance = tier3Chance;
-                chest.RollItem();
+                return true;
             }
+            return false;
         }
     }
 }

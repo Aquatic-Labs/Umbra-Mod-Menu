@@ -84,13 +84,14 @@ namespace UmbraRoR
         public static bool _isMovementOpen = false;
         public static bool _isSpawnListMenuOpen = false;
         public static bool _isSpawnMenuOpen = false;
+        public static bool _isChestItemListOpen = false;
         public static bool enableRespawnButton = false;
         #endregion
 
         #region Button Styles / Toggles
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle=true;
         public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 350;
         public static bool navigationToggle = false;
@@ -104,6 +105,7 @@ namespace UmbraRoR
         public static Rect lobbyRect;
         public static Rect itemSpawnerRect;
         public static Rect equipmentSpawnerRect;
+        public static Rect chestItemChangerRect;
         public static Rect buffMenuRect;
         public static Rect characterRect;
         public static Rect playerModRect;
@@ -126,7 +128,7 @@ namespace UmbraRoR
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY, spawnListMulY, spawnMulY, spawnBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY, spawnListMulY, spawnMulY, spawnBtnY, chestItemChangerRectMulY;
         public static int btnY, mulY;
 
         public static Rect rect = new Rect(10, 10, 20, 20);
@@ -236,6 +238,11 @@ namespace UmbraRoR
                 spawnListRect = GUI.Window(14, spawnListRect, new GUI.WindowFunction(SetSpawnListBG), "", new GUIStyle());
                 DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle);
             }
+            if (_isChestItemListOpen)
+            {
+                chestItemChangerRect = GUI.Window(15, chestItemChangerRect, new GUI.WindowFunction(SetChestListBG), "", new GUIStyle());
+                DrawMenu.DrawChestItemMenu(chestItemChangerRect.x, chestItemChangerRect.y, widthSize, chestItemChangerRectMulY, MainBgStyle, BtnStyle, LabelStyle);
+            }
             if (_CharacterCollected)
             {
                 ESPRoutine();
@@ -265,12 +272,13 @@ namespace UmbraRoR
 
                 spawnListRect = new Rect(1503, 10, 20, 20); // start position
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                chestItemChangerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
                 buffMenuRect = new Rect(1503, 10, 20, 20); // start position
                 characterRect = new Rect(1503, 10, 20, 20); // start position
                 editStatsRect = new Rect(1503, 10, 20, 20); // start position
             }
-            else
+            else if (Screen.height == 1080)
             {
                 mainRect = new Rect(10, 10, 20, 20); // start position
                 playerModRect = new Rect(374, 10, 20, 20); // start position
@@ -285,10 +293,15 @@ namespace UmbraRoR
 
                 spawnListRect = new Rect(1503, 10, 20, 20);// start position
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                chestItemChangerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
                 buffMenuRect = new Rect(1503, 10, 20, 20); // start position
                 characterRect = new Rect(1503, 10, 20, 20); // start position
                 editStatsRect = new Rect(1503, 10, 20, 20); // start position
+            }
+            else
+            {
+                return;
             }
 
             #endregion
@@ -678,6 +691,10 @@ namespace UmbraRoR
             {
                 Render.ActiveMods();
             }
+            if (_isChestItemListOpen)
+            {
+                Chests.RenderClosestChest();
+            }
         }
 
         private void EquipCooldownRoutine()
@@ -958,6 +975,29 @@ namespace UmbraRoR
                 if (!_ifDragged)
                 {
                     _isTeleMenuOpen = !_isTeleMenuOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
+        public static void SetChestListBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * chestItemChangerRectMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isChestItemListOpen = !_isChestItemListOpen;
                 }
                 _ifDragged = false;
             }
