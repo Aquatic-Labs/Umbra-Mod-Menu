@@ -262,6 +262,38 @@ namespace UmbraRoR
             };
         }
 
+        public static List<float> MenusOpenKeys()
+        {
+            List<float> menusOpenKeys = new List<float>();
+            Dictionary<float, bool> menus = new Dictionary<float, bool>()
+            {
+                {0, Main._isMenuOpen},
+                {1, Main._isPlayerMod},
+                {1.1f, Main._isChangeCharacterMenuOpen },
+                {1.2f, Main._isBuffMenuOpen},
+                {1.3f, Main._isEditStatsOpen},
+                {2, Main._isMovementOpen},
+                {3, Main._isItemManagerOpen},
+                {3.1f, Main._isItemSpawnMenuOpen},
+                {3.2f, Main._isEquipmentSpawnMenuOpen},
+                {3.3f, Main._isChestItemListOpen},
+                {4, Main._isSpawnMenuOpen},
+                {4.1f, Main._isSpawnListMenuOpen},
+                {5, Main._isTeleMenuOpen},
+                {6, Main._isESPMenuOpen },
+                {7, Main._isLobbyMenuOpen}, 
+            };
+
+            foreach (var menu in menus)
+            {
+                if (menu.Value)
+                {
+                    menusOpenKeys.Add(menu.Key);
+                }
+            }
+            return menusOpenKeys;
+        }
+
         #region Debugging
         public static void WriteToLog(string logContent)
         {

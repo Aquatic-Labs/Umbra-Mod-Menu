@@ -82,13 +82,14 @@ namespace UmbraRoR
         public static bool _isSpawnListMenuOpen = false;
         public static bool _isSpawnMenuOpen = false;
         public static bool _isChestItemListOpen = false;
+        public static bool lowResolutionMonitor = false;
         public static bool enableRespawnButton = false;
         #endregion
 
         #region Button Styles / Toggles
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle=true;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle, scrolled;
         public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 350;
         public static bool navigationToggle = false;
@@ -298,7 +299,26 @@ namespace UmbraRoR
             }
             else
             {
-                return;
+                lowResolutionMonitor = true;
+                renderActiveMods = false;
+                mainRect = new Rect(10, 10, 20, 20); // start position
+                playerModRect = new Rect(374, 10, 20, 20); // start position
+                movementRect = new Rect(374, 10, 20, 20); // start position
+                itemManagerRect = new Rect(374, 10, 20, 20); // start positions
+                teleRect = new Rect(374, 10, 20, 20); // start position
+                ESPRect = new Rect(374, 10, 20, 20); // start position
+                lobbyRect = new Rect(374, 10, 20, 20); // start position
+                spawnRect = new Rect(374, 10, 20, 20); // start position
+
+                statRect = new Rect(374, 10, 20, 20); // start position
+
+                spawnListRect = new Rect(374, 10, 20, 20); // start position
+                itemSpawnerRect = new Rect(374, 10, 20, 20); // start position
+                chestItemChangerRect = new Rect(374, 10, 20, 20); // start position
+                equipmentSpawnerRect = new Rect(374, 10, 20, 20); // start positions
+                buffMenuRect = new Rect(374, 10, 20, 20); // start position
+                characterRect = new Rect(374, 10, 20, 20); // start position
+                editStatsRect = new Rect(374, 10, 20, 20); // start position
             }
 
             #endregion
@@ -550,10 +570,18 @@ namespace UmbraRoR
         #region FixedUpdate
         public void FixedUpdate()
         {
-            currentScene = SceneManager.GetActiveScene();
-            if (renderMobs)
+            try
             {
-                hurtBoxes = Utility.GetHurtBoxes();
+                LowResolutionRoutine();
+                currentScene = SceneManager.GetActiveScene();
+                if (renderMobs)
+                {
+                    hurtBoxes = Utility.GetHurtBoxes();
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
         #endregion
@@ -641,6 +669,25 @@ namespace UmbraRoR
                     {
                         Navigation.GoBackAMenu();
                     }
+
+                    if (_isBuffMenuOpen || _isChangeCharacterMenuOpen || _isChestItemListOpen || _isEquipmentSpawnMenuOpen || _isItemSpawnMenuOpen || _isSpawnListMenuOpen)
+                    {
+                        if (!scrolled)
+                        {
+                            if (Input.GetAxis("Mouse ScrollWheel") != 0f) // Scrolled
+                            {
+                                scrolled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+                            {
+                                scrolled = false;
+                            }
+                        }
+
+                    }
                 }
             }
             else if (!_isMenuOpen)
@@ -696,6 +743,15 @@ namespace UmbraRoR
             if (!_CharacterCollected)
             {
                 GetCharacter();
+            }
+        }
+
+        private void LowResolutionRoutine()
+        {
+            if (lowResolutionMonitor)
+            {
+                Utility.MenusOpenKeys();
+                LowResolutionMonitor();
             }
         }
 
@@ -1107,7 +1163,7 @@ namespace UmbraRoR
 
         public static void SetItemSpawnerBG(int windowID)
         {
-            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * MainMulY), "", CornerStyle);
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * itemSpawnerMulY), "", CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
             {
                 delay += Time.deltaTime;
@@ -1469,5 +1525,115 @@ namespace UmbraRoR
             }
         }
         #endregion
+
+        private void LowResolutionMonitor()
+        {
+            int i = 1;
+            var menusOpen = Utility.MenusOpenKeys();
+            if (menusOpen.Count > 2)
+            {
+                if (Navigation.lowResMenuIndex < Navigation.prevLowResMenuIndex)
+                {
+                    i = 2;
+                }
+
+                switch (menusOpen[i])
+                {
+                    case 0: // Main Menu 
+                        {
+                            break;
+                        }
+
+                    case 1: // Player Management Menu
+                        {
+                            _isPlayerMod = false;
+                            break;
+                        }
+
+                    case 1.1f: // Character Menu
+                        {
+                            _isChangeCharacterMenuOpen = false;
+                            break;
+                        }
+
+                    case 1.2f: // Buff Menu
+                        {
+                            _isBuffMenuOpen = false;
+                            break;
+                        }
+
+                    case 1.3f: // Stats Modification Menu
+                        {
+                            _isEditStatsOpen = false;
+                            break;
+                        }
+
+                    case 2: // Movement Menu
+                        {
+                            _isMovementOpen = false;
+                            break;
+                        }
+
+                    case 3: // Item Management Menu
+                        {
+                            _isItemManagerOpen = false;
+                            break;
+                        }
+
+                    case 3.1f: // Give Item Menu
+                        {
+                            _isItemSpawnMenuOpen = false;
+                            break;
+                        }
+
+                    case 3.2f: // Give Equipment Menu
+                        {
+                            _isEquipmentSpawnMenuOpen = false;
+                            break;
+                        }
+
+                    case 3.3f: // Change Chest Item List Menu
+                        {
+                            _isChestItemListOpen = false;
+                            break;
+                        }
+
+                    case 4: // Spawn Menu
+                        {
+                            _isSpawnMenuOpen = false;
+                            break;
+                        }
+
+                    case 4.1f: // Spawn List Menu
+                        {
+                            _isSpawnListMenuOpen = false;
+                            break;
+                        }
+
+                    case 5: // Teleporter Menu
+                        {
+                            _isTeleMenuOpen = false;
+                            break;
+                        }
+
+                    case 6: // Render Menu
+                        {
+                            _isESPMenuOpen = false;
+                            break;
+                        }
+
+                    case 7: // Lobby Management Menu
+                        {
+                            _isLobbyMenuOpen = false;
+                            break;
+                        }
+
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+        }
     }
 }

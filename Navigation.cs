@@ -10,6 +10,8 @@ namespace UmbraRoR
         public static float menuIndex = 0;
         public static int intraMenuIndex = -1;
         public static int prevIntraMenuIndex;
+        public static float lowResMenuIndex = 0;
+        public static float prevLowResMenuIndex = 0;
         public static Tuple<float, int> highlightedBtn = new Tuple<float, int>(menuIndex, intraMenuIndex);
 
         #region Menu Layout Variables
@@ -49,139 +51,286 @@ namespace UmbraRoR
         // Goes to previous menu when backspace or left arrow is pressed
         public static void GoBackAMenu()
         {
-            switch (Navigation.menuIndex)
+            if (Main.lowResolutionMonitor)
             {
-                case 0: // Main Menu 
-                    {
-                        if (intraMenuIndex == 5)
+                switch (Navigation.menuIndex)
+                {
+                    case 0: // Main Menu 
                         {
-                            Main.unloadConfirm = false;
+                            if (intraMenuIndex == 5)
+                            {
+                                Main.unloadConfirm = false;
+                            }
+                            else
+                            {
+                                Main.navigationToggle = false;
+                                menuIndex = 0;
+                                intraMenuIndex = -1;
+                            }
+                            break;
                         }
-                        else
+
+                    case 1: // Player Management Menu
                         {
-                            Main.navigationToggle = false;
+                            Main._isPlayerMod = false;
                             menuIndex = 0;
-                            intraMenuIndex = -1;
+                            intraMenuIndex = 0;
+                            break;
                         }
-                        break;
-                    }
 
-                case 1: // Player Management Menu
-                    {
-                        Main._isPlayerMod = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 0;
-                        break;
-                    }
+                    case 1.1f: // Character Menu
+                        {
+                            Main._isChangeCharacterMenuOpen = false;
+                            Main._isPlayerMod = true;
+                            menuIndex = 1;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 1.1f: // Character Menu
-                    {
-                        Main._isChangeCharacterMenuOpen = false;
-                        menuIndex = 1;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 1.2f: // Buff Menu
+                        {
+                            Main._isBuffMenuOpen = false;
+                            Main._isPlayerMod = true;
+                            menuIndex = 1;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 1.2f: // Buff Menu
-                    {
-                        Main._isBuffMenuOpen = false;
-                        menuIndex = 1;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 1.3f: // Stats Modification Menu
+                        {
+                            Main._isEditStatsOpen = false;
+                            Main._isPlayerMod = true;
+                            menuIndex = 1;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 1.3f: // Stats Modification Menu
-                    {
-                        Main._isEditStatsOpen = false;
-                        menuIndex = 1;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 2: // Movement Menu
+                        {
+                            Main._isMovementOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 1;
+                            break;
+                        }
 
-                case 2: // Movement Menu
-                    {
-                        Main._isMovementOpen = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 1;
-                        break;
-                    }
+                    case 3: // Item Management Menu
+                        {
+                            Main._isItemManagerOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 2;
+                            break;
+                        }
 
-                case 3: // Item Management Menu
-                    {
-                        Main._isItemManagerOpen = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 2;
-                        break;
-                    }
+                    case 3.1f: // Give Item Menu
+                        {
+                            Main._isItemSpawnMenuOpen = false;
+                            Main._isItemManagerOpen = true;
+                            menuIndex = 3;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 3.1f: // Give Item Menu
-                    {
-                        Main._isItemSpawnMenuOpen = false;
-                        menuIndex = 3;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 3.2f: // Give Equipment Menu
+                        {
+                            Main._isEquipmentSpawnMenuOpen = false;
+                            Main._isItemManagerOpen = true;
+                            menuIndex = 3;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 3.2f: // Give Equipment Menu
-                    {
-                        Main._isEquipmentSpawnMenuOpen = false;
-                        menuIndex = 3;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 3.3f: // Change Chest Item List Menu
+                        {
+                            Main._isChestItemListOpen = false;
+                            Main._isItemManagerOpen = true;
+                            menuIndex = 3;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 3.3f: // Change Chest Item List Menu
-                    {
-                        Main._isChestItemListOpen = false;
-                        menuIndex = 3;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 4: // Spawn Menu
+                        {
+                            Main._isSpawnMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 3;
+                            break;
+                        }
 
-                case 4: // Spawn Menu
-                    {
-                        Main._isSpawnMenuOpen = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 3;
-                        break;
-                    }
+                    case 4.1f: // Spawn List Menu
+                        {
+                            Main._isSpawnListMenuOpen = false;
+                            Main._isSpawnMenuOpen = true;
+                            menuIndex = 4;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
 
-                case 4.1f: // Spawn List Menu
-                    {
-                        Main._isSpawnListMenuOpen = false;
-                        menuIndex = 4;
-                        intraMenuIndex = prevIntraMenuIndex;
-                        break;
-                    }
+                    case 5: // Teleporter Menu
+                        {
+                            Main._isTeleMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 4;
+                            break;
+                        }
 
-                case 5: // Teleporter Menu
-                    {
-                        Main._isTeleMenuOpen = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 4;
-                        break;
-                    }
+                    case 6: // Render Menu
+                        {
+                            Main._isESPMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 5;
+                            break;
+                        }
 
-                case 6: // Render Menu
-                    {
-                        Main._isESPMenuOpen = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 5;
-                        break;
-                    }
+                    case 7: // Lobby Management Menu
+                        {
+                            Main._isLobbyMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 6;
+                            break;
+                        }
 
-                case 7: // Lobby Management Menu
-                    {
-                        Main._isLobbyMenuOpen = false;
-                        menuIndex = 0;
-                        intraMenuIndex = 6;
-                        break;
-                    }
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                switch (Navigation.menuIndex)
+                {
+                    case 0: // Main Menu 
+                        {
+                            if (intraMenuIndex == 5)
+                            {
+                                Main.unloadConfirm = false;
+                            }
+                            else
+                            {
+                                Main.navigationToggle = false;
+                                menuIndex = 0;
+                                intraMenuIndex = -1;
+                            }
+                            break;
+                        }
 
-                default:
-                    {
-                        break;
-                    }
+                    case 1: // Player Management Menu
+                        {
+                            Main._isPlayerMod = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 0;
+                            break;
+                        }
+
+                    case 1.1f: // Character Menu
+                        {
+                            Main._isChangeCharacterMenuOpen = false;
+                            menuIndex = 1;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 1.2f: // Buff Menu
+                        {
+                            Main._isBuffMenuOpen = false;
+                            menuIndex = 1;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 1.3f: // Stats Modification Menu
+                        {
+                            Main._isEditStatsOpen = false;
+                            menuIndex = 1;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 2: // Movement Menu
+                        {
+                            Main._isMovementOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 1;
+                            break;
+                        }
+
+                    case 3: // Item Management Menu
+                        {
+                            Main._isItemManagerOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 2;
+                            break;
+                        }
+
+                    case 3.1f: // Give Item Menu
+                        {
+                            Main._isItemSpawnMenuOpen = false;
+                            menuIndex = 3;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 3.2f: // Give Equipment Menu
+                        {
+                            Main._isEquipmentSpawnMenuOpen = false;
+                            menuIndex = 3;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 3.3f: // Change Chest Item List Menu
+                        {
+                            Main._isChestItemListOpen = false;
+                            menuIndex = 3;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 4: // Spawn Menu
+                        {
+                            Main._isSpawnMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 3;
+                            break;
+                        }
+
+                    case 4.1f: // Spawn List Menu
+                        {
+                            Main._isSpawnListMenuOpen = false;
+                            menuIndex = 4;
+                            intraMenuIndex = prevIntraMenuIndex;
+                            break;
+                        }
+
+                    case 5: // Teleporter Menu
+                        {
+                            Main._isTeleMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 4;
+                            break;
+                        }
+
+                    case 6: // Render Menu
+                        {
+                            Main._isESPMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 5;
+                            break;
+                        }
+
+                    case 7: // Lobby Management Menu
+                        {
+                            Main._isLobbyMenuOpen = false;
+                            menuIndex = 0;
+                            intraMenuIndex = 6;
+                            break;
+                        }
+
+                    default:
+                        {
+                            break;
+                        }
+                }
             }
         }
 
@@ -519,6 +668,8 @@ namespace UmbraRoR
                             case 0: // Toggle PlayerMod Menu
                                 {
                                     Main._isPlayerMod = !Main._isPlayerMod;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 1;
                                     Navigation.menuIndex = 1;
                                     break;
                                 }
@@ -526,6 +677,8 @@ namespace UmbraRoR
                             case 1: // Toggle Movement Menu
                                 {
                                     Main._isMovementOpen = !Main._isMovementOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 2;
                                     Navigation.menuIndex = 2;
                                     break;
                                 }
@@ -533,6 +686,8 @@ namespace UmbraRoR
                             case 2: // Toggle Item Menu
                                 {
                                     Main._isItemManagerOpen = !Main._isItemManagerOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 3;
                                     Navigation.menuIndex = 3;
                                     break;
                                 }
@@ -540,6 +695,8 @@ namespace UmbraRoR
                             case 3: // Toggle Spawn Menu
                                 {
                                     Main._isSpawnMenuOpen = !Main._isSpawnMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 4;
                                     Navigation.menuIndex = 4;
                                     break;
                                 }
@@ -547,6 +704,8 @@ namespace UmbraRoR
                             case 4: // Toggle Teleporter Menu
                                 {
                                     Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 5;
                                     Navigation.menuIndex = 5;
                                     break;
                                 }
@@ -554,6 +713,8 @@ namespace UmbraRoR
                             case 5: // Toggle Render Menu
                                 {
                                     Main._isESPMenuOpen = !Main._isESPMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 6;
                                     Navigation.menuIndex = 6;
                                     break;
                                 }
@@ -561,6 +722,8 @@ namespace UmbraRoR
                             case 6: // Toggle Lobby Menu
                                 {
                                     Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 7;
                                     Navigation.menuIndex = 7;
                                     break;
                                 }
@@ -616,6 +779,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 1.3f;
                                     Main._isEditStatsOpen = !Main._isEditStatsOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 1.3f;
                                     break;
                                 }
 
@@ -625,6 +790,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 1.1f;
                                     Main._isChangeCharacterMenuOpen = !Main._isChangeCharacterMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 1.1f;
                                     break;
                                 }
 
@@ -634,6 +801,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 1.2f;
                                     Main._isBuffMenuOpen = !Main._isBuffMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 1.2f;
                                     break;
                                 }
 
@@ -827,6 +996,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 3.1f;
                                     Main._isItemSpawnMenuOpen = !Main._isItemSpawnMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 3.1f;
                                     break;
                                 }
 
@@ -836,6 +1007,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 3.2f;
                                     Main._isEquipmentSpawnMenuOpen = !Main._isEquipmentSpawnMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 3.2f;
                                     break;
                                 }
 
@@ -885,6 +1058,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 3.3f;
                                     Main._isChestItemListOpen = !Main._isChestItemListOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 3.3f;
                                     break;
                                 }
 
@@ -994,6 +1169,8 @@ namespace UmbraRoR
                                     intraMenuIndex = 0;
                                     menuIndex = 4.1f;
                                     Main._isSpawnListMenuOpen = !Main._isSpawnListMenuOpen;
+                                    Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
+                                    Navigation.lowResMenuIndex = 4.1f;
                                     break;
                                 }
 
@@ -1271,7 +1448,10 @@ namespace UmbraRoR
 
                 case 1.1f: // Change Character Menu
                     {
-                        DrawMenu.characterScrollPosition.y = 40 * intraMenuIndex;
+                        if (!Main.scrolled)
+                        {
+                            DrawMenu.characterScrollPosition.y = 40 * intraMenuIndex;
+                        }
 
                         if (intraMenuIndex > Main.bodyPrefabs.Count - 1)
                         {
@@ -1295,7 +1475,10 @@ namespace UmbraRoR
 
                 case 1.2f: // Give Buff Menu
                     {
-                        DrawMenu.buffMenuScrollPosition.y = 40 * intraMenuIndex;
+                        if (!Main.scrolled)
+                        {
+                            DrawMenu.buffMenuScrollPosition.y = 40 * intraMenuIndex;
+                        }
 
                         if (intraMenuIndex > Enum.GetNames(typeof(BuffIndex)).Length - 1)
                         {
@@ -1359,7 +1542,10 @@ namespace UmbraRoR
 
                 case 3.1f: // Give Item Menu
                     {
-                        DrawMenu.itemSpawnerScrollPosition.y = 40 * intraMenuIndex;
+                        if (!Main.scrolled)
+                        {
+                            DrawMenu.itemSpawnerScrollPosition.y = 40 * intraMenuIndex;
+                        }
 
                         if (intraMenuIndex > Main.items.Count - 1)
                         {
@@ -1383,7 +1569,10 @@ namespace UmbraRoR
 
                 case 3.2f: // Give Equip Menu
                     {
-                        DrawMenu.equipmentSpawnerScrollPosition.y = 40 * intraMenuIndex;
+                        if (!Main.scrolled)
+                        {
+                            DrawMenu.equipmentSpawnerScrollPosition.y = 40 * intraMenuIndex;
+                        }
 
                         if (intraMenuIndex > Main.equipment.Count - 1)
                         {
@@ -1411,7 +1600,10 @@ namespace UmbraRoR
                         {
                             if (Chests.IsClosestChestEquip())
                             {
-                                DrawMenu.chestItemChangerScrollPosition.y = 40 * intraMenuIndex;
+                                if (!Main.scrolled)
+                                {
+                                    DrawMenu.chestItemChangerScrollPosition.y = 40 * intraMenuIndex;
+                                }
 
                                 if (intraMenuIndex > Main.equipment.Count - 2)
                                 {
@@ -1429,6 +1621,31 @@ namespace UmbraRoR
                                 if (DrawMenu.chestItemChangerScrollPosition.y < 0)
                                 {
                                     DrawMenu.chestItemChangerScrollPosition.y = (Main.equipment.Count - 2) * 40;
+                                }
+                            }
+                            else
+                            {
+                                if (!Main.scrolled)
+                                {
+                                    DrawMenu.chestItemChangerScrollPosition.y = 40 * intraMenuIndex;
+                                }
+
+                                if (intraMenuIndex > Main.items.Count - 1)
+                                {
+                                    intraMenuIndex = 0;
+                                }
+                                if (intraMenuIndex < 0)
+                                {
+                                    intraMenuIndex = Main.items.Count - 1;
+                                }
+
+                                if (DrawMenu.chestItemChangerScrollPosition.y > (Main.items.Count - 1) * 40)
+                                {
+                                    DrawMenu.chestItemChangerScrollPosition = Vector2.zero;
+                                }
+                                if (DrawMenu.chestItemChangerScrollPosition.y < 0)
+                                {
+                                    DrawMenu.chestItemChangerScrollPosition.y = (Main.items.Count - 1) * 40;
                                 }
                             }
                         }
