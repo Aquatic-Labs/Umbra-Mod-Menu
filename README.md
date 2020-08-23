@@ -56,6 +56,11 @@ Use mouse to select cheats. This can be done while holding tab ingame or while i
 
 Note: Some features may not work if you are not the host of the lobby
 
+- Z -> Toggle Player Menu
+- I -> Toggle Item Spawn Menu
+- C -> Toggle Flight
+- B -> Toggle Teleporter Menu
+
 
 # List of Improvements I Might Add:
 - [ ] Add filters to ESPs?
@@ -155,6 +160,25 @@ pause
 
 
 # Changelog:
+### X/XX/XXXX v1.3.1:
+- [ ] Added Menu to change whats inside chests/equipment barrels.
+- [ ] Added Scrappers and Barrels to Interactables ESP.
+- [ ] Added what item is in chests to Interactable ESP.
+- [ ] Added Keybinds:
+ - Z -> Toggle Player Menu
+ - I -> Toggle Item Spawn Menu
+ - C -> Toggle Flight
+ - B -> Toggle Teleporter Menu
+- [ ] Added better support for low resolution monitors (less than 1080p).
+- [ ] Item/Equipment list now shows friendly item names and their color based on rarity.
+- [ ] Slightly improved Navigation logic.
+- [ ] Greatly Improved Interactable ESP performance.
+- [ ] Slightly Improved the Menus Load() method.
+- [ ] Improved how teleporters are spawned
+- [ ] Fixed a bug allowing menu index to be set while Navigation was off
+- [ ] Fixed a bug not allowing you to scroll on list menus while Navigation was on
+
+
 ### 8/11/2020 v1.3.0:
 - [ ] Updated for Risk of Rain 2 1.0 Update.
 - [ ] Slightly improved ESP performances.
