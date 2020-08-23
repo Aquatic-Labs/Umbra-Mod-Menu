@@ -3,6 +3,7 @@ using UnityEngine;
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
+using EntityStates.Scrapper;
 
 namespace UmbraRoR
 {
@@ -12,6 +13,7 @@ namespace UmbraRoR
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
         public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
+        public static List<ScrapperController> scrappers = new List<ScrapperController>();
         public static void EnableInteractables()
         {
             if (Main.onRenderIntEnable)
@@ -44,6 +46,7 @@ namespace UmbraRoR
             barrelInteractions = FindObjectsOfType<BarrelInteraction>().ToList();
             purchaseInteractions = FindObjectsOfType<PurchaseInteraction>().ToList();
             secretButtons = FindObjectsOfType<PressurePlateController>().ToList();
+            scrappers = FindObjectsOfType<ScrapperController>().ToList();
         }
 
         public static void Interactables()
@@ -75,7 +78,7 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (BarrelInteraction barrel in barrelInteractions)//Main.barrelInteractions)
+            foreach (BarrelInteraction barrel in barrelInteractions)
             {
                 if (!barrel.Networkopened)
                 {
@@ -91,9 +94,9 @@ namespace UmbraRoR
                 }
             }
 
-            if (Main.secretButtons != null)
+            if (secretButtons != null)
             {
-                foreach (PressurePlateController secretButton in secretButtons)//Main.secretButtons)
+                foreach (PressurePlateController secretButton in secretButtons)
                 {
                     if (secretButton)
                     {
@@ -110,7 +113,23 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)//Main.purchaseInteractables)
+            foreach (ScrapperController scrapper in scrappers)
+            {
+                if (scrapper)
+                {
+                    string friendlyName = "Scrapper";
+                    Vector3 Position = Camera.main.WorldToScreenPoint(scrapper.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
+                    {
+                        float distance = (int)Vector3.Distance(Camera.main.transform.position, scrapper.transform.position);
+                        string boxText = $"{friendlyName}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                    }
+                }
+            }
+
+            foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)
             {
                 if (purchaseInteraction.available)
                 {
