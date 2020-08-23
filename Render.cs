@@ -94,21 +94,18 @@ namespace UmbraRoR
                 }
             }
 
-            if (secretButtons != null)
+            foreach (PressurePlateController secretButton in secretButtons)
             {
-                foreach (PressurePlateController secretButton in secretButtons)
+                if (secretButton)
                 {
-                    if (secretButton)
+                    string friendlyName = "Secret Button";
+                    Vector3 Position = Camera.main.WorldToScreenPoint(secretButton.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
                     {
-                        string friendlyName = "Secret Button";
-                        Vector3 Position = Camera.main.WorldToScreenPoint(secretButton.transform.position);
-                        var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
-                        if (BoundingVector.z > 0.01)
-                        {
-                            float distance = (int)Vector3.Distance(Camera.main.transform.position, secretButton.transform.position);
-                            string boxText = $"{friendlyName}\n{distance}m";
-                            GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
-                        }
+                        float distance = (int)Vector3.Distance(Camera.main.transform.position, secretButton.transform.position);
+                        string boxText = $"{friendlyName}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
                     }
                 }
             }
