@@ -30,6 +30,7 @@ namespace UmbraRoR
             Main._isItemManagerOpen = false;
             Main._isSpawnListMenuOpen = false;
             Main._isSpawnMenuOpen = false;
+            Main._isChestItemListOpen = false;
             Main.damageToggle = false;
             Main.noEquipmentCooldown = false;
             Main.critToggle = false;
@@ -45,6 +46,11 @@ namespace UmbraRoR
             Main.alwaysSprint = false;
             Main.aimBot = false;
             Main.unloadConfirm = false;
+            Main.scrolled = false;
+            Main.onChestsEnable = true;
+            Main.onChestsDisable = false;
+            Main.onRenderIntEnable = true;
+            Main.onRenderIntDisable = false;
             ItemManager.itemsToRoll = 5;
             ItemManager.isDropItemForAll = false;
             ItemManager.isDropItemFromInventory = false;
