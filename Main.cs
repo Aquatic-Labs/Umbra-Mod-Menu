@@ -264,7 +264,7 @@ namespace UmbraRoR
                 teleRect = new Rect(10, 425, 20, 20); // start position
                 ESPRect = new Rect(10, 795, 20, 20); // start position
                 lobbyRect = new Rect(10, 985, 20, 20); // start position
-                spawnRect = new Rect(738, 470, 20, 20); // start position
+                spawnRect = new Rect(738, 515, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
@@ -285,7 +285,7 @@ namespace UmbraRoR
                 teleRect = new Rect(10, 425, 20, 20); // start position
                 ESPRect = new Rect(10, 795, 20, 20); // start position
                 lobbyRect = new Rect(374, 750, 20, 20); // start position
-                spawnRect = new Rect(738, 470, 20, 20); // start position
+                spawnRect = new Rect(738, 515, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 

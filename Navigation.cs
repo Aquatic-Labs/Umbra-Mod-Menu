@@ -670,7 +670,11 @@ namespace UmbraRoR
                                     Main._isPlayerMod = !Main._isPlayerMod;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 1;
-                                    Navigation.menuIndex = 1;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 1;
+                                    }
                                     break;
                                 }
 
@@ -679,7 +683,11 @@ namespace UmbraRoR
                                     Main._isMovementOpen = !Main._isMovementOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 2;
-                                    Navigation.menuIndex = 2;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 2;
+                                    }
                                     break;
                                 }
 
@@ -688,7 +696,11 @@ namespace UmbraRoR
                                     Main._isItemManagerOpen = !Main._isItemManagerOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 3;
-                                    Navigation.menuIndex = 3;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 3;
+                                    }
                                     break;
                                 }
 
@@ -697,7 +709,11 @@ namespace UmbraRoR
                                     Main._isSpawnMenuOpen = !Main._isSpawnMenuOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 4;
-                                    Navigation.menuIndex = 4;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 4;
+                                    }
                                     break;
                                 }
 
@@ -706,7 +722,11 @@ namespace UmbraRoR
                                     Main._isTeleMenuOpen = !Main._isTeleMenuOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 5;
-                                    Navigation.menuIndex = 5;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 5;
+                                    }
                                     break;
                                 }
 
@@ -715,7 +735,11 @@ namespace UmbraRoR
                                     Main._isESPMenuOpen = !Main._isESPMenuOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 6;
-                                    Navigation.menuIndex = 6;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 6;
+                                    }
                                     break;
                                 }
 
@@ -724,7 +748,11 @@ namespace UmbraRoR
                                     Main._isLobbyMenuOpen = !Main._isLobbyMenuOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 7;
-                                    Navigation.menuIndex = 7;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 7;
+                                    }
                                     break;
                                 }
 
@@ -777,10 +805,14 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 1.3f;
                                     Main._isEditStatsOpen = !Main._isEditStatsOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 1.3f;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 1.3f;
+                                    }
                                     break;
                                 }
 
@@ -788,10 +820,14 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 1.1f;
                                     Main._isChangeCharacterMenuOpen = !Main._isChangeCharacterMenuOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 1.1f;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 1.1f;
+                                    }
                                     break;
                                 }
 
@@ -799,10 +835,14 @@ namespace UmbraRoR
                                 {
                                     prevIntraMenuIndex = intraMenuIndex;
                                     intraMenuIndex = 0;
-                                    menuIndex = 1.2f;
                                     Main._isBuffMenuOpen = !Main._isBuffMenuOpen;
                                     Navigation.prevLowResMenuIndex = Navigation.lowResMenuIndex;
                                     Navigation.lowResMenuIndex = 1.2f;
+
+                                    if (Main.navigationToggle)
+                                    {
+                                        Navigation.menuIndex = 1.2f;
+                                    }
                                     break;
                                 }
 
@@ -819,6 +859,11 @@ namespace UmbraRoR
                                         EntityStates.FireNailgun.spreadPitchScale = 0.5f;
                                         EntityStates.FireNailgun.spreadYawScale = 1f;
                                         EntityStates.FireNailgun.spreadBloomValue = 0.2f;
+                                        if (PlayerMod.GetCurrentCharacter().ToString() == "Huntress")
+                                        {
+                                            var huntTracker = Main.LocalPlayerBody.GetComponent<HuntressTracker>();
+                                            huntTracker.SetField<float>("maxTrackingDistance", 20f);
+                                        }
                                         Main.aimBot = false;
                                         break;
                                     }
@@ -827,6 +872,11 @@ namespace UmbraRoR
                                         EntityStates.FireNailgun.spreadPitchScale = 0;
                                         EntityStates.FireNailgun.spreadYawScale = 0;
                                         EntityStates.FireNailgun.spreadBloomValue = 0;
+                                        if (PlayerMod.GetCurrentCharacter().ToString() == "Huntress")
+                                        {
+                                            var huntTracker = Main.LocalPlayerBody.GetComponent<HuntressTracker>();
+                                            huntTracker.SetField<float>("maxTrackingDistance", 1000f);
+                                        }
                                         Main.aimBot = true;
                                         break;
                                     }

@@ -87,6 +87,9 @@ namespace UmbraRoR
             Main.godToggle = !Main.godToggle;
             Main.GetCharacter();
             Main.godToggle = !Main.godToggle;
+            Main.aimBot = !Main.aimBot;
+            Main.GetCharacter();
+            Main.aimBot = !Main.aimBot;
         }
         #endregion
 
