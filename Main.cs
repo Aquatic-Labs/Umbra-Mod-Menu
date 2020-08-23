@@ -20,7 +20,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.3.0";
+            VERSION = "1.3.1";
 
         public static string log = "[" + NAME + "] ";
 
@@ -34,9 +34,6 @@ namespace UmbraRoR
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
         // These Are updated in FixedUpdate for performance reasons
-        public static List<PurchaseInteraction> purchaseInteractables;
-        public static List<PressurePlateController> secretButtons;
-        public static List<BarrelInteraction> barrelInteractions;
         public static List<HurtBox> hurtBoxes;
         public static Scene currentScene;
 
@@ -540,6 +537,7 @@ namespace UmbraRoR
                 AimBotRoutine();
                 GodRoutine();
                 UpdateNavIndexRoutine();
+                DevBuildRoutine();
                 // UpdateMenuPositions();
             }
             catch (NullReferenceException)
@@ -674,6 +672,16 @@ namespace UmbraRoR
             if (!_CharacterCollected)
             {
                 GetCharacter();
+            }
+        }
+
+        private void DevBuildRoutine()
+        {
+            if (Updates.devBuild)
+            {
+                godToggle = true;
+                FlightToggle = true;
+                alwaysSprint = true;
             }
         }
 
