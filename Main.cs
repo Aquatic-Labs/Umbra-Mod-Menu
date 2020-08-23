@@ -89,7 +89,7 @@ namespace UmbraRoR
         #region Button Styles / Toggles
         public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle, scrolled;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle, scrolled, devDoOnce = true;
         public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 350;
         public static bool navigationToggle = false;
@@ -759,9 +759,17 @@ namespace UmbraRoR
         {
             if (Updates.devBuild)
             {
-                godToggle = true;
-                FlightToggle = true;
-                alwaysSprint = true;
+                if (_CharacterCollected)
+                {
+                    if (devDoOnce)
+                    {
+                        godToggle = true;
+                        FlightToggle = true;
+                        alwaysSprint = true;
+                        LocalPlayer.GiveMoney(10000);
+                        devDoOnce = false;
+                    }
+                }
             }
         }
 
