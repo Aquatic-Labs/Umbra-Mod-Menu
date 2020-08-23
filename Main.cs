@@ -715,13 +715,19 @@ namespace UmbraRoR
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 _isPlayerMod = !_isPlayerMod;
-                Navigation.menuIndex = 1;
+                if (navigationToggle)
+                {
+                    Navigation.menuIndex = 1;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.I))
             {
                 _isItemSpawnMenuOpen = !_isItemSpawnMenuOpen;
-                Navigation.menuIndex = 3.1f;
+                if (navigationToggle)
+                {
+                    Navigation.menuIndex = 3.1f;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.C))
@@ -732,7 +738,10 @@ namespace UmbraRoR
             if (Input.GetKeyDown(KeyCode.B))
             {
                 _isTeleMenuOpen = !_isTeleMenuOpen;
-                Navigation.menuIndex = 5;
+                if (navigationToggle)
+                {
+                    Navigation.menuIndex = 5;
+                }
             }
         }
         #endregion Inputs
