@@ -363,7 +363,7 @@ namespace UmbraRoR
             int heightMul = 15;
             if (Main.lowResolutionMonitor)
             {
-                heightMul = 7;
+                heightMul = 10;
             }
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "C H A R A C T E R   M E N U", LabelStyle);
@@ -378,7 +378,7 @@ namespace UmbraRoR
             int heightMul = 15;
             if (Main.lowResolutionMonitor)
             {
-                heightMul = 7;
+                heightMul = 10;
             }
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
@@ -448,7 +448,7 @@ namespace UmbraRoR
             int heightMul = 15;
             if (Main.lowResolutionMonitor)
             {
-                heightMul = 7;
+                heightMul = 10;
             }
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M S   L I S T", LabelStyle);
@@ -457,9 +457,19 @@ namespace UmbraRoR
             int buttonPlacement = 1;
             foreach (var itemIndex in Main.items)
             {
-                string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex));
-                DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
-                buttonPlacement++;
+                Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
+                {
+                    string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(255, 255, 255, 255));
+                    DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
+                    buttonPlacement++;
+                }
+                else
+                {
+                    string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
+                    DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
+                    buttonPlacement++;
+                }
             }
             GUI.EndScrollView();
         }
@@ -469,7 +479,7 @@ namespace UmbraRoR
             int heightMul = 15;
             if (Main.lowResolutionMonitor)
             {
-                heightMul = 7;
+                heightMul = 10;
             }
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "C H A N G E   C H E S T   L I S T", LabelStyle);
@@ -482,9 +492,19 @@ namespace UmbraRoR
                 {
                     if (equipmentIndex != EquipmentIndex.None)
                     {
-                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                        DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
-                        buttonPlacement++;
+                        Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                        if (equipColor.r <= 105 && equipColor.g <= 105 && equipColor.b <= 105)
+                        {
+                            string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), new Color32(255, 255, 255, 255));
+                            DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
+                            buttonPlacement++;
+                        }
+                        else
+                        {
+                            string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                            DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
+                            buttonPlacement++;
+                        }
                     }
                 }
             }
@@ -492,9 +512,19 @@ namespace UmbraRoR
             {
                 foreach (var itemIndex in Main.items)
                 {
-                    string itemName = itemIndex.ToString();
-                    DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
-                    buttonPlacement++;
+                    Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                    if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
+                    {
+                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(255, 255, 255, 255));
+                        DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
+                        buttonPlacement++;
+                    }
+                    else
+                    {
+                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
+                        DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
+                        buttonPlacement++;
+                    }
                 }
             }
             GUI.EndScrollView();
@@ -516,7 +546,7 @@ namespace UmbraRoR
             int heightMul = 15;
             if (Main.lowResolutionMonitor)
             {
-                heightMul = 7;
+                heightMul = 10;
             }
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
@@ -527,9 +557,19 @@ namespace UmbraRoR
             {
                 if (equipmentIndex != EquipmentIndex.None)
                 {
-                    string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                    DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
-                    buttonPlacement++;
+                    Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                    if (equipColor.r <= 105 && equipColor.g <= 105 && equipColor.b <= 105)
+                    {
+                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), new Color32(255, 255, 255, 255));
+                        DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                        buttonPlacement++;
+                    }
+                    else
+                    {
+                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), equipColor);
+                        DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                        buttonPlacement++;
+                    }
                 }
                 else
                 {

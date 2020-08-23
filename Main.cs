@@ -1338,7 +1338,7 @@ namespace UmbraRoR
                 if (btntexture == null)
                 {
                     btntexture = NewTexture2D;
-                    btntexture.SetPixel(0, 0, new Color32(120, 120, 120, 240));
+                    btntexture.SetPixel(0, 0, new Color32(105, 105, 105, 240));
                     btntexture.Apply();
                 }
                 return btntexture;
@@ -1422,7 +1422,7 @@ namespace UmbraRoR
                 if (offtexture == null)
                 {
                     offtexture = NewTexture2D;
-                    offtexture.SetPixel(0, 0, new Color32(120, 120, 120, 240));
+                    offtexture.SetPixel(0, 0, new Color32(105, 105, 105, 240));
                     // byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/OffStyle.png");
                     // offtexture.LoadImage(FileData);
                     offtexture.Apply();

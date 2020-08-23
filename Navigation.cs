@@ -1448,9 +1448,11 @@ namespace UmbraRoR
 
                 case 1.1f: // Change Character Menu
                     {
+                        int scrollMul = 40;
+
                         if (!Main.scrolled)
                         {
-                            DrawMenu.characterScrollPosition.y = 40 * intraMenuIndex;
+                            DrawMenu.characterScrollPosition.y = scrollMul * intraMenuIndex;
                         }
 
                         if (intraMenuIndex > Main.bodyPrefabs.Count - 1)
@@ -1462,22 +1464,27 @@ namespace UmbraRoR
                             intraMenuIndex = Main.bodyPrefabs.Count - 1;
                         }
 
-                        if (DrawMenu.characterScrollPosition.y > (Main.bodyPrefabs.Count - 1) * 40)
+                        if (!Main.scrolled)
                         {
-                            DrawMenu.characterScrollPosition = Vector2.zero;
-                        }
-                        if (DrawMenu.characterScrollPosition.y < 0)
-                        {
-                            DrawMenu.characterScrollPosition.y = (Main.bodyPrefabs.Count - 1) * 40;
+                            if (DrawMenu.characterScrollPosition.y > (Main.bodyPrefabs.Count - 1) * scrollMul)
+                            {
+                                DrawMenu.characterScrollPosition = Vector2.zero;
+                            }
+                            if (DrawMenu.characterScrollPosition.y < 0)
+                            {
+                                DrawMenu.characterScrollPosition.y = (Main.bodyPrefabs.Count - 1) * scrollMul;
+                            }
                         }
                         break;
                     }
 
                 case 1.2f: // Give Buff Menu
                     {
+                        int scrollMul = 40;
+
                         if (!Main.scrolled)
                         {
-                            DrawMenu.buffMenuScrollPosition.y = 40 * intraMenuIndex;
+                            DrawMenu.buffMenuScrollPosition.y = scrollMul * intraMenuIndex;
                         }
 
                         if (intraMenuIndex > Enum.GetNames(typeof(BuffIndex)).Length - 1)
@@ -1489,20 +1496,22 @@ namespace UmbraRoR
                             intraMenuIndex = Enum.GetNames(typeof(BuffIndex)).Length - 1;
                         }
 
-                        if (DrawMenu.buffMenuScrollPosition.y > (Enum.GetNames(typeof(BuffIndex)).Length - 1) * 40)
+                        if (!Main.scrolled)
                         {
-                            DrawMenu.buffMenuScrollPosition = Vector2.zero;
-                        }
-                        if (DrawMenu.buffMenuScrollPosition.y < 0)
-                        {
-                            DrawMenu.buffMenuScrollPosition.y = (Enum.GetNames(typeof(BuffIndex)).Length - 1) * 40;
+                            if (DrawMenu.buffMenuScrollPosition.y > (Enum.GetNames(typeof(BuffIndex)).Length - 1) * scrollMul)
+                            {
+                                DrawMenu.buffMenuScrollPosition = Vector2.zero;
+                            }
+                            if (DrawMenu.buffMenuScrollPosition.y < 0)
+                            {
+                                DrawMenu.buffMenuScrollPosition.y = (Enum.GetNames(typeof(BuffIndex)).Length - 1) * scrollMul;
+                            }
                         }
                         break;
                     }
 
                 case 1.3f: // Stats Modification Menu 0-5
                     {
-
                         if (intraMenuIndex > 5)
                         {
                             intraMenuIndex = 0;
@@ -1542,9 +1551,11 @@ namespace UmbraRoR
 
                 case 3.1f: // Give Item Menu
                     {
+                        int scrollMul = 40;
+
                         if (!Main.scrolled)
                         {
-                            DrawMenu.itemSpawnerScrollPosition.y = 40 * intraMenuIndex;
+                            DrawMenu.itemSpawnerScrollPosition.y = scrollMul * intraMenuIndex;
                         }
 
                         if (intraMenuIndex > Main.items.Count - 1)
@@ -1556,22 +1567,27 @@ namespace UmbraRoR
                             intraMenuIndex = Main.items.Count - 1;
                         }
 
-                        if (DrawMenu.itemSpawnerScrollPosition.y > (Main.items.Count - 1) * 40)
+                        if (!Main.scrolled)
                         {
-                            DrawMenu.itemSpawnerScrollPosition = Vector2.zero;
-                        }
-                        if (DrawMenu.itemSpawnerScrollPosition.y < 0)
-                        {
-                            DrawMenu.itemSpawnerScrollPosition.y = (Main.items.Count - 1) * 40;
+                            if (DrawMenu.itemSpawnerScrollPosition.y > (Main.items.Count - 1) * scrollMul)
+                            {
+                                DrawMenu.itemSpawnerScrollPosition = Vector2.zero;
+                            }
+                            if (DrawMenu.itemSpawnerScrollPosition.y < 0)
+                            {
+                                DrawMenu.itemSpawnerScrollPosition.y = (Main.items.Count - 1) * scrollMul;
+                            }
                         }
                         break;
                     }
 
                 case 3.2f: // Give Equip Menu
                     {
+                        int scrollMul = 40;
+
                         if (!Main.scrolled)
                         {
-                            DrawMenu.equipmentSpawnerScrollPosition.y = 40 * intraMenuIndex;
+                            DrawMenu.equipmentSpawnerScrollPosition.y = scrollMul * intraMenuIndex;
                         }
 
                         if (intraMenuIndex > Main.equipment.Count - 1)
@@ -1583,26 +1599,31 @@ namespace UmbraRoR
                             intraMenuIndex = Main.equipment.Count - 1;
                         }
 
-                        if (DrawMenu.equipmentSpawnerScrollPosition.y > (Main.equipment.Count - 1) * 40)
+                        if (!Main.scrolled)
                         {
-                            DrawMenu.equipmentSpawnerScrollPosition = Vector2.zero;
-                        }
-                        if (DrawMenu.equipmentSpawnerScrollPosition.y < 0)
-                        {
-                            DrawMenu.equipmentSpawnerScrollPosition.y = (Main.equipment.Count - 1) * 40;
+                            if (DrawMenu.equipmentSpawnerScrollPosition.y > (Main.equipment.Count - 1) * scrollMul)
+                            {
+                                DrawMenu.equipmentSpawnerScrollPosition = Vector2.zero;
+                            }
+                            if (DrawMenu.equipmentSpawnerScrollPosition.y < 0)
+                            {
+                                DrawMenu.equipmentSpawnerScrollPosition.y = (Main.equipment.Count - 1) * scrollMul;
+                            }
                         }
                         break;
                     }
 
                 case 3.3f: // Change Chest Item/Equipment List
                     {
+                        int scrollMul = 40;
+
                         if (Main._isChestItemListOpen)
                         {
                             if (Chests.IsClosestChestEquip())
                             {
                                 if (!Main.scrolled)
                                 {
-                                    DrawMenu.chestItemChangerScrollPosition.y = 40 * intraMenuIndex;
+                                    DrawMenu.chestItemChangerScrollPosition.y = scrollMul * intraMenuIndex;
                                 }
 
                                 if (intraMenuIndex > Main.equipment.Count - 2)
@@ -1614,13 +1635,16 @@ namespace UmbraRoR
                                     intraMenuIndex = Main.equipment.Count - 2;
                                 }
 
-                                if (DrawMenu.chestItemChangerScrollPosition.y > (Main.equipment.Count - 2) * 40)
+                                if (!Main.scrolled)
                                 {
-                                    DrawMenu.chestItemChangerScrollPosition = Vector2.zero;
-                                }
-                                if (DrawMenu.chestItemChangerScrollPosition.y < 0)
-                                {
-                                    DrawMenu.chestItemChangerScrollPosition.y = (Main.equipment.Count - 2) * 40;
+                                    if (DrawMenu.chestItemChangerScrollPosition.y > (Main.equipment.Count - 2) * scrollMul)
+                                    {
+                                        DrawMenu.chestItemChangerScrollPosition = Vector2.zero;
+                                    }
+                                    if (DrawMenu.chestItemChangerScrollPosition.y < 0)
+                                    {
+                                        DrawMenu.chestItemChangerScrollPosition.y = (Main.equipment.Count - 2) * scrollMul;
+                                    }
                                 }
                             }
                             else
@@ -1639,13 +1663,16 @@ namespace UmbraRoR
                                     intraMenuIndex = Main.items.Count - 1;
                                 }
 
-                                if (DrawMenu.chestItemChangerScrollPosition.y > (Main.items.Count - 1) * 40)
+                                if (!Main.scrolled)
                                 {
-                                    DrawMenu.chestItemChangerScrollPosition = Vector2.zero;
-                                }
-                                if (DrawMenu.chestItemChangerScrollPosition.y < 0)
-                                {
-                                    DrawMenu.chestItemChangerScrollPosition.y = (Main.items.Count - 1) * 40;
+                                    if (DrawMenu.chestItemChangerScrollPosition.y > (Main.items.Count - 1) * scrollMul)
+                                    {
+                                        DrawMenu.chestItemChangerScrollPosition = Vector2.zero;
+                                    }
+                                    if (DrawMenu.chestItemChangerScrollPosition.y < 0)
+                                    {
+                                        DrawMenu.chestItemChangerScrollPosition.y = (Main.items.Count - 1) * scrollMul;
+                                    }
                                 }
                             }
                         }
@@ -1667,7 +1694,12 @@ namespace UmbraRoR
 
                 case 4.1f: // Spawn List Menu
                     {
-                        DrawMenu.spawnScrollPosition.y = 40 * intraMenuIndex;
+                        int scrollMul = 40;
+
+                        if (!Main.scrolled)
+                        {
+                            DrawMenu.spawnScrollPosition.y = scrollMul * intraMenuIndex;
+                        }
 
                         if (intraMenuIndex > Main.spawnCards.Count - 1)
                         {
@@ -1678,13 +1710,16 @@ namespace UmbraRoR
                             intraMenuIndex = Main.spawnCards.Count - 1;
                         }
 
-                        if (DrawMenu.spawnScrollPosition.y > (Main.spawnCards.Count - 1) * 40)
+                        if (!Main.scrolled)
                         {
-                            DrawMenu.spawnScrollPosition = Vector2.zero;
-                        }
-                        if (DrawMenu.spawnScrollPosition.y < 0)
-                        {
-                            DrawMenu.spawnScrollPosition.y = (Main.spawnCards.Count - 1) * 40;
+                            if (DrawMenu.spawnScrollPosition.y > (Main.spawnCards.Count - 1) * scrollMul)
+                            {
+                                DrawMenu.spawnScrollPosition = Vector2.zero;
+                            }
+                            if (DrawMenu.spawnScrollPosition.y < 0)
+                            {
+                                DrawMenu.spawnScrollPosition.y = (Main.spawnCards.Count - 1) * scrollMul;
+                            }
                         }
                         break;
                     }
