@@ -650,6 +650,7 @@ namespace UmbraRoR
                 Navigation.menuIndex = 0;
                 Cursor.visible = false;
             }
+
             if (Input.GetKeyDown(KeyCode.Insert))
             {
                 unloadConfirm = false;
@@ -662,6 +663,29 @@ namespace UmbraRoR
                 _isMenuOpen = !_isMenuOpen;
                 GetCharacter();
                 SceneManager.sceneLoaded += OnSceneLoaded;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                _isPlayerMod = !_isPlayerMod;
+                Navigation.menuIndex = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                _isItemSpawnMenuOpen = !_isItemSpawnMenuOpen;
+                Navigation.menuIndex = 3.1f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                FlightToggle = !FlightToggle;
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                _isTeleMenuOpen = !_isTeleMenuOpen;
+                Navigation.menuIndex = 5;
             }
         }
         #endregion Inputs
