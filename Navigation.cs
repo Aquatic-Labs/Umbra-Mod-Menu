@@ -1405,6 +1405,36 @@ namespace UmbraRoR
                         break;
                     }
 
+                case 3.3f: // Change Chest Item/Equipment List
+                    {
+                        if (Main._isChestItemListOpen)
+                        {
+                            if (Chests.IsClosestChestEquip())
+                            {
+                                DrawMenu.chestItemChangerScrollPosition.y = 40 * intraMenuIndex;
+
+                                if (intraMenuIndex > Main.equipment.Count - 2)
+                                {
+                                    intraMenuIndex = 0;
+                                }
+                                if (intraMenuIndex < 0)
+                                {
+                                    intraMenuIndex = Main.equipment.Count - 2;
+                                }
+
+                                if (DrawMenu.chestItemChangerScrollPosition.y > (Main.equipment.Count - 2) * 40)
+                                {
+                                    DrawMenu.chestItemChangerScrollPosition = Vector2.zero;
+                                }
+                                if (DrawMenu.chestItemChangerScrollPosition.y < 0)
+                                {
+                                    DrawMenu.chestItemChangerScrollPosition.y = (Main.equipment.Count - 2) * 40;
+                                }
+                            }
+                        }
+                        break;
+                    }
+
                 case 4: // Spawn Menu 0 - 5
                     {
                         if (intraMenuIndex > 5)
