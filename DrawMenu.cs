@@ -442,7 +442,7 @@ namespace UmbraRoR
             int buttonPlacement = 1;
             foreach (var itemIndex in Main.items)
             {
-                string itemName = itemIndex.ToString();
+                string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex));
                 DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
                 buttonPlacement++;
             }
@@ -460,9 +460,12 @@ namespace UmbraRoR
             {
                 foreach (var equipmentIndex in Main.equipment)
                 {
-                    string equipmentName = equipmentIndex.ToString();
-                    DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
-                    buttonPlacement++;
+                    if (equipmentIndex != EquipmentIndex.None)
+                    {
+                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                        DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
+                        buttonPlacement++;
+                    }
                 }
             }
             else
@@ -497,9 +500,18 @@ namespace UmbraRoR
             int buttonPlacement = 1;
             foreach (var equipmentIndex in Main.equipment)
             {
-                string equipmentName = equipmentIndex.ToString();
-                DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
-                buttonPlacement++;
+                if (equipmentIndex != EquipmentIndex.None)
+                {
+                    string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                    DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                    buttonPlacement++;
+                }
+                else
+                {
+                    string equipmentName = "Remove Equipment";
+                    DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                    buttonPlacement++;
+                }
             }
             GUI.EndScrollView();
         }
