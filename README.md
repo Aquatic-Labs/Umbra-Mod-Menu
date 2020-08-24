@@ -172,13 +172,14 @@ pause
  - C -> Toggle Flight
  - B -> Toggle Teleporter Menu
 - [ ] Added better support for low resolution monitors (less than 1080p).
+- [ ] Added a customizable multiplier for Stats Mod Menu.
 - [ ] Item/Equipment list now shows friendly item names and their color based on rarity.
 - [ ] Slightly improved Navigation logic.
 - [ ] Greatly Improved Interactable ESP performance.
 - [ ] Slightly Improved the Menus Load() method.
-- [ ] Improved how teleporters are spawned
-- [ ] Fixed a bug allowing menu index to be set while Navigation was off
-- [ ] Fixed a bug not allowing you to scroll on list menus while Navigation was on
+- [ ] Improved how teleporters are spawned.
+- [ ] Fixed a bug allowing menu index to be set while Navigation was off.
+- [ ] Fixed a bug not allowing you to scroll on list menus while Navigation was on.
 
 
 ### 8/11/2020 v1.3.0:
