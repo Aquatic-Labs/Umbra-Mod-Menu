@@ -11,7 +11,7 @@ Doesn't require BepInEx or R2API!
 This is an unofficial fork of the Spektre Menu by [BennettStaley](https://github.com/BennettStaley/)
 and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork.
 
-This menu is for testing/personal fun. I do not condone the use of this menu in competitive modes such as the Prismatic Trials nor do I condone the use of this menu if it harms the experience of other players in any way. Thank you
+This menu is for testing/personal fun. I do not condone the use of this menu in competitive modes such as the Prismatic Trials nor do I condone the use of this menu if it harms the experience of other players in any way. Thank you.
 
 
 # Just released Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Acher0ns/Umbra-Menu-Injector)
