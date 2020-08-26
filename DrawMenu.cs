@@ -433,13 +433,16 @@ namespace UmbraRoR
             {
                 DrawButton(5, "statsmod", $"M O V E   S P E E D ( O F F ) : {PlayerMod.movespeed}", OffStyle, true);
             }
+
+            DrawButton(6, "statsmod", $"M U L T I P L I E R : {PlayerMod.multiplyer}", buttonStyle, true);
+
             if (Main._isStatMenuOpen)
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O N", OnStyle);
+                DrawButton(7, "statsmod", "S H O W   S T A T S : O N", OnStyle);
             }
             else
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
+                DrawButton(7, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
             }
         }
 

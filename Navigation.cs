@@ -379,35 +379,44 @@ namespace UmbraRoR
                             case 0:
                                 {
                                     if (PlayerMod.damagePerLvl >= 0)
-                                        PlayerMod.damagePerLvl += 10;
+                                        PlayerMod.damagePerLvl += PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 1:
                                 {
                                     if (PlayerMod.CritPerLvl >= 0)
-                                        PlayerMod.CritPerLvl += 1;
+                                        PlayerMod.CritPerLvl += PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 2:
                                 {
                                     if (PlayerMod.attackSpeed >= 0)
-                                        PlayerMod.attackSpeed += 1;
+                                        PlayerMod.attackSpeed += PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 3:
                                 {
                                     if (PlayerMod.armor >= 0)
-                                        PlayerMod.armor += 10;
+                                        PlayerMod.armor += PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 4:
                                 {
                                     if (PlayerMod.movespeed >= 7)
-                                        PlayerMod.movespeed += 10;
+                                        PlayerMod.movespeed += PlayerMod.multiplyer;
+                                    break;
+                                }
+
+                            case 5:
+                                {
+                                    if (PlayerMod.multiplyer == 1)
+                                        PlayerMod.multiplyer = 10;
+                                    else if (PlayerMod.multiplyer >= 10)
+                                        PlayerMod.multiplyer += 10;
                                     break;
                                 }
 
@@ -539,28 +548,28 @@ namespace UmbraRoR
                         {
                             case 0:
                                 {
-                                    if (PlayerMod.damagePerLvl > 0)
-                                        PlayerMod.damagePerLvl -= 10;
+                                    if (PlayerMod.damagePerLvl > PlayerMod.multiplyer)
+                                        PlayerMod.damagePerLvl -= PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 1:
                                 {
-                                    if (PlayerMod.CritPerLvl > 0)
-                                        PlayerMod.CritPerLvl -= 1;
+                                    if (PlayerMod.CritPerLvl > PlayerMod.multiplyer)
+                                        PlayerMod.CritPerLvl -= PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 2:
                                 {
-                                    if (PlayerMod.attackSpeed > 0)
-                                        PlayerMod.attackSpeed -= 1;
+                                    if (PlayerMod.attackSpeed > PlayerMod.multiplyer)
+                                        PlayerMod.attackSpeed -= PlayerMod.multiplyer;
                                     break;
                                 }
 
                             case 3:
                                 {
-                                    if (PlayerMod.armor > 0)
+                                    if (PlayerMod.armor > PlayerMod.multiplyer)
                                         PlayerMod.armor -= 10;
                                     break;
                                 }
@@ -568,7 +577,16 @@ namespace UmbraRoR
                             case 4:
                                 {
                                     if (PlayerMod.movespeed > 7)
-                                        PlayerMod.movespeed -= 10;
+                                        PlayerMod.movespeed -= PlayerMod.multiplyer;
+                                    break;
+                                }
+
+                            case 5:
+                                {
+                                    if (PlayerMod.multiplyer == 10)
+                                        PlayerMod.multiplyer = 1;
+                                    else if (PlayerMod.multiplyer > 10)
+                                        PlayerMod.multiplyer -= 10;
                                     break;
                                 }
 
@@ -968,7 +986,13 @@ namespace UmbraRoR
                                     break;
                                 }
 
-                            case 5: // Toggle View Stats Menu
+                            case 5: // Multiplier change
+                                {
+                                    
+                                    break;
+                                }
+
+                            case 6: // Toggle View Stats Menu
                                 {
                                     Main._isStatMenuOpen = !Main._isStatMenuOpen;
                                     break;
@@ -1560,15 +1584,15 @@ namespace UmbraRoR
                         break;
                     }
 
-                case 1.3f: // Stats Modification Menu 0-5
+                case 1.3f: // Stats Modification Menu 0 - 6
                     {
-                        if (intraMenuIndex > 5)
+                        if (intraMenuIndex > 6)
                         {
                             intraMenuIndex = 0;
                         }
                         if (intraMenuIndex < 0)
                         {
-                            intraMenuIndex = 5;
+                            intraMenuIndex = 6;
                         }
                         break;
                     }

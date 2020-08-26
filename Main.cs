@@ -631,7 +631,7 @@ namespace UmbraRoR
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
-                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 6).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
@@ -653,7 +653,7 @@ namespace UmbraRoR
                     if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
-                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 6).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)

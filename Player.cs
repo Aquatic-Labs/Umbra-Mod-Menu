@@ -16,6 +16,7 @@ namespace UmbraRoR
         public static ulong xpToGive = 50;
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
+        public static int multiplyer = 10;
 
         public static void GiveBuff(GUIStyle buttonStyle,string buttonId)
         {
