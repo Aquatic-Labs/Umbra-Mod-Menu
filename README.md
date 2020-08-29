@@ -162,7 +162,7 @@ pause
 
 
 # Changelog:
-### X/XX/XXXX v1.3.1:
+### 8/29/2020 v1.3.1:
 - [ ] Added Menu to change whats inside chests/equipment barrels.
 - [ ] Added Scrappers and Barrels to Interactables ESP.
 - [ ] Added what item is in chests to Interactable ESP.
