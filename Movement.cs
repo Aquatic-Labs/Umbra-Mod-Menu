@@ -4,7 +4,7 @@ using RoR2;
 
 namespace UmbraRoR
 {
-    class Movement
+    class Movement : MonoBehaviour
     {
         public static int jumpPackMul = 1;
 

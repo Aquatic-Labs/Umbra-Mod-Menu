@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace UmbraRoR 
 {
-    public class ItemManager 
+    public class ItemManager : MonoBehaviour
     {
         public static int itemsToRoll = 5;
         public static bool isDropItemForAll = false;

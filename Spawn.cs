@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace UmbraRoR
 {
-    class Spawn
+    class Spawn : MonoBehaviour
     {
         public static TeamIndex[] team = { TeamIndex.Monster, TeamIndex.Neutral, TeamIndex.Player, TeamIndex.None };
         public static int teamIndex = 0;

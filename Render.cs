@@ -2,33 +2,58 @@ using System;
 using UnityEngine;
 using RoR2;
 using System.Collections.Generic;
+using System.Linq;
+using EntityStates.Scrapper;
 
 namespace UmbraRoR
 {
+    // Needs improvement. Causes a lot of lag
     public class Render : MonoBehaviour
     {
+        public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
+        public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
+        public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
+        public static List<ScrapperController> scrappers = new List<ScrapperController>();
+        public static void EnableInteractables()
+        {
+            if (Main.onRenderIntEnable)
+            {
+                DumpInteractables(null);
+                SceneDirector.onPostPopulateSceneServer += DumpInteractables;
+                Main.onRenderIntEnable = false;
+            }
+            else
+            {
+                return;
+            }
+        }
+        public static void DisableInteractables()
+        {
+            if (!Main.onRenderIntEnable)
+            {
+                SceneDirector.onPostPopulateSceneServer -= DumpInteractables;
+                Main.onRenderIntEnable = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private static void DumpInteractables(SceneDirector obj)
+        {
+            Debug.Log("Dumping Interactables");
+            barrelInteractions = FindObjectsOfType<BarrelInteraction>().ToList();
+            purchaseInteractions = FindObjectsOfType<PurchaseInteraction>().ToList();
+            secretButtons = FindObjectsOfType<PressurePlateController>().ToList();
+            scrappers = FindObjectsOfType<ScrapperController>().ToList();
+        }
+
         public static void Interactables()
         {
-            foreach (PurchaseInteraction purchaseInteraction in Main.purchaseInteractables)
+            if (TeleporterInteraction.instance)
             {
-                if (purchaseInteraction.available)
-                {
-                    float distanceToObject = Vector3.Distance(Camera.main.transform.position, purchaseInteraction.transform.position);
-                    Vector3 Position = Camera.main.WorldToScreenPoint(purchaseInteraction.transform.position);
-                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
-                    if (BoundingVector.z > 0.01)
-                    {
-                        int distance = (int)distanceToObject;
-                        String friendlyName = purchaseInteraction.GetDisplayName();
-                        int cost = purchaseInteraction.cost;
-                        string boxText = $"{friendlyName}\n${cost}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
-                    }
-                }
-            }
-
-            foreach (TeleporterInteraction teleporterInteraction in Main.teleporterInteractables)
-            {
+                var teleporterInteraction = TeleporterInteraction.instance;
                 float distanceToObject = Vector3.Distance(Camera.main.transform.position, teleporterInteraction.transform.position);
                 Vector3 Position = Camera.main.WorldToScreenPoint(teleporterInteraction.transform.position);
                 var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
@@ -52,9 +77,80 @@ namespace UmbraRoR
                     GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderTeleporterStyle);
                 }
             }
+
+            foreach (BarrelInteraction barrel in barrelInteractions)
+            {
+                if (!barrel.Networkopened)
+                {
+                    string friendlyName = "Barrel";
+                    Vector3 Position = Camera.main.WorldToScreenPoint(barrel.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
+                    {
+                        float distance = (int)Vector3.Distance(Camera.main.transform.position, barrel.transform.position);
+                        string boxText = $"{friendlyName}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                    }
+                }
+            }
+
+            foreach (PressurePlateController secretButton in secretButtons)
+            {
+                if (secretButton)
+                {
+                    string friendlyName = "Secret Button";
+                    Vector3 Position = Camera.main.WorldToScreenPoint(secretButton.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
+                    {
+                        float distance = (int)Vector3.Distance(Camera.main.transform.position, secretButton.transform.position);
+                        string boxText = $"{friendlyName}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                    }
+                }
+            }
+
+            foreach (ScrapperController scrapper in scrappers)
+            {
+                if (scrapper)
+                {
+                    string friendlyName = "Scrapper";
+                    Vector3 Position = Camera.main.WorldToScreenPoint(scrapper.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
+                    {
+                        float distance = (int)Vector3.Distance(Camera.main.transform.position, scrapper.transform.position);
+                        string boxText = $"{friendlyName}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                    }
+                }
+            }
+
+            foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)
+            {
+                if (purchaseInteraction.available)
+                {
+                    string dropName = null;
+                    var chest = purchaseInteraction?.gameObject.GetComponent<ChestBehavior>();
+                    if (chest)
+                    {
+                        dropName = Util.GenerateColoredString(Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken()), chest.GetField<PickupIndex>("dropPickup").GetPickupColor());
+                    }
+                    float distanceToObject = Vector3.Distance(Camera.main.transform.position, purchaseInteraction.transform.position);
+                    Vector3 Position = Camera.main.WorldToScreenPoint(purchaseInteraction.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    if (BoundingVector.z > 0.01)
+                    {
+                        int distance = (int)distanceToObject;
+                        String friendlyName = purchaseInteraction.GetDisplayName();
+                        int cost = purchaseInteraction.cost;
+                        string boxText = dropName != null ? $"{friendlyName}\n${cost}\n{distance}m\n{dropName}" : $"{friendlyName}\n${cost}\n{distance}m";
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                    }
+                }
+            }
         }
 
-        // Needs improvement. Causes a lot of lag
         public static void Mobs()
         {
             foreach (var hurtbox in Main.hurtBoxes)

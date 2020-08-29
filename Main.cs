@@ -20,7 +20,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.3.0";
+            VERSION = "1.3.1";
 
         public static string log = "[" + NAME + "] ";
 
@@ -34,8 +34,6 @@ namespace UmbraRoR
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
         // These Are updated in FixedUpdate for performance reasons
-        public static List<UnityEngine.Object> purchaseInteractables;
-        public static List<UnityEngine.Object> teleporterInteractables;
         public static List<HurtBox> hurtBoxes;
         public static Scene currentScene;
 
@@ -58,6 +56,13 @@ namespace UmbraRoR
         public static CharacterMotor LocalMotor;
         #endregion
 
+        #region Enable Checks
+        public static bool onChestsEnable = true;
+        public static bool onChestsDisable = false;
+        public static bool onRenderIntEnable = true;
+        public static bool onRenderIntDisable = false;
+        #endregion
+
         #region Menu Checks
         public static bool _isMenuOpen = false;
         public static bool _ifDragged = false;
@@ -76,13 +81,15 @@ namespace UmbraRoR
         public static bool _isMovementOpen = false;
         public static bool _isSpawnListMenuOpen = false;
         public static bool _isSpawnMenuOpen = false;
+        public static bool _isChestItemListOpen = false;
+        public static bool lowResolutionMonitor = false;
         public static bool enableRespawnButton = false;
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
-        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle;
+        public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle, scrolled, devDoOnce = true;
         public static bool renderActiveMods = true;
         public static float delay = 0, widthSize = 350;
         public static bool navigationToggle = false;
@@ -96,6 +103,7 @@ namespace UmbraRoR
         public static Rect lobbyRect;
         public static Rect itemSpawnerRect;
         public static Rect equipmentSpawnerRect;
+        public static Rect chestItemChangerRect;
         public static Rect buffMenuRect;
         public static Rect characterRect;
         public static Rect playerModRect;
@@ -118,7 +126,7 @@ namespace UmbraRoR
         public static Texture2D NewTexture2D { get { return new Texture2D(1, 1); } }
         public static Texture2D Image = null, ontexture, onpresstexture, offtexture, offpresstexture, highlightTexture, highlightPressTexture, cornertexture, backtexture, btntexture, btnpresstexture, btntexturelabel;
 
-        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY, spawnListMulY, spawnMulY, spawnBtnY;
+        public static int PlayerModBtnY, MainMulY, StatMulY, TeleMulY, ESPMulY, LobbyMulY, itemSpawnerMulY, equipmentSpawnerMulY, buffMenuMulY, CharacterMulY, PlayerModMulY, ItemManagerMulY, ItemManagerBtnY, editStatsMulY, editStatsBtnY, movementMulY, spawnListMulY, spawnMulY, spawnBtnY, chestItemChangerRectMulY;
         public static int btnY, mulY;
 
         public static Rect rect = new Rect(10, 10, 20, 20);
@@ -228,6 +236,11 @@ namespace UmbraRoR
                 spawnListRect = GUI.Window(14, spawnListRect, new GUI.WindowFunction(SetSpawnListBG), "", new GUIStyle());
                 DrawMenu.DrawSpawnMobMenu(spawnListRect.x, spawnListRect.y, widthSize, spawnListMulY, MainBgStyle, BtnStyle, LabelStyle);
             }
+            if (_isChestItemListOpen)
+            {
+                chestItemChangerRect = GUI.Window(15, chestItemChangerRect, new GUI.WindowFunction(SetChestListBG), "", new GUIStyle());
+                DrawMenu.DrawChestItemMenu(chestItemChangerRect.x, chestItemChangerRect.y, widthSize, chestItemChangerRectMulY, MainBgStyle, BtnStyle, LabelStyle);
+            }
             if (_CharacterCollected)
             {
                 ESPRoutine();
@@ -251,18 +264,19 @@ namespace UmbraRoR
                 teleRect = new Rect(10, 425, 20, 20); // start position
                 ESPRect = new Rect(10, 795, 20, 20); // start position
                 lobbyRect = new Rect(10, 985, 20, 20); // start position
-                spawnRect = new Rect(738, 470, 20, 20); // start position
+                spawnRect = new Rect(738, 515, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
                 spawnListRect = new Rect(1503, 10, 20, 20); // start position
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                chestItemChangerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
                 buffMenuRect = new Rect(1503, 10, 20, 20); // start position
                 characterRect = new Rect(1503, 10, 20, 20); // start position
                 editStatsRect = new Rect(1503, 10, 20, 20); // start position
             }
-            else
+            else if (Screen.height == 1080)
             {
                 mainRect = new Rect(10, 10, 20, 20); // start position
                 playerModRect = new Rect(374, 10, 20, 20); // start position
@@ -271,16 +285,40 @@ namespace UmbraRoR
                 teleRect = new Rect(10, 425, 20, 20); // start position
                 ESPRect = new Rect(10, 795, 20, 20); // start position
                 lobbyRect = new Rect(374, 750, 20, 20); // start position
-                spawnRect = new Rect(738, 470, 20, 20); // start position
+                spawnRect = new Rect(738, 515, 20, 20); // start position
 
                 statRect = new Rect(1626, 457, 20, 20); // start position
 
                 spawnListRect = new Rect(1503, 10, 20, 20);// start position
                 itemSpawnerRect = new Rect(1503, 10, 20, 20); // start position
+                chestItemChangerRect = new Rect(1503, 10, 20, 20); // start position
                 equipmentSpawnerRect = new Rect(1503, 10, 20, 20); // start positions
                 buffMenuRect = new Rect(1503, 10, 20, 20); // start position
                 characterRect = new Rect(1503, 10, 20, 20); // start position
                 editStatsRect = new Rect(1503, 10, 20, 20); // start position
+            }
+            else
+            {
+                lowResolutionMonitor = true;
+                renderActiveMods = false;
+                mainRect = new Rect(10, 10, 20, 20); // start position
+                playerModRect = new Rect(374, 10, 20, 20); // start position
+                movementRect = new Rect(374, 10, 20, 20); // start position
+                itemManagerRect = new Rect(374, 10, 20, 20); // start positions
+                teleRect = new Rect(374, 10, 20, 20); // start position
+                ESPRect = new Rect(374, 10, 20, 20); // start position
+                lobbyRect = new Rect(374, 10, 20, 20); // start position
+                spawnRect = new Rect(374, 10, 20, 20); // start position
+
+                statRect = new Rect(374, 10, 20, 20); // start position
+
+                spawnListRect = new Rect(374, 10, 20, 20); // start position
+                itemSpawnerRect = new Rect(374, 10, 20, 20); // start position
+                chestItemChangerRect = new Rect(374, 10, 20, 20); // start position
+                equipmentSpawnerRect = new Rect(374, 10, 20, 20); // start positions
+                buffMenuRect = new Rect(374, 10, 20, 20); // start position
+                characterRect = new Rect(374, 10, 20, 20); // start position
+                editStatsRect = new Rect(374, 10, 20, 20); // start position
             }
 
             #endregion
@@ -399,6 +437,17 @@ namespace UmbraRoR
                 renderMobsStyle.alignment = TextAnchor.MiddleLeft;
             }
 
+            if (selectedChestStyle == null)
+            {
+                selectedChestStyle = new GUIStyle();
+                selectedChestStyle.normal.textColor = Color.blue;
+                selectedChestStyle.onNormal.textColor = Color.blue;
+                selectedChestStyle.active.textColor = Color.blue;
+                selectedChestStyle.onActive.textColor = Color.blue;
+                selectedChestStyle.fontStyle = FontStyle.Normal;
+                selectedChestStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
             if (WatermarkStyle == null)
             {
                 WatermarkStyle = new GUIStyle();
@@ -508,6 +557,7 @@ namespace UmbraRoR
                 AimBotRoutine();
                 GodRoutine();
                 UpdateNavIndexRoutine();
+                DevBuildRoutine();
                 // UpdateMenuPositions();
             }
             catch (NullReferenceException)
@@ -520,16 +570,18 @@ namespace UmbraRoR
         #region FixedUpdate
         public void FixedUpdate()
         {
-            currentScene = SceneManager.GetActiveScene();
-
-            if (renderInteractables)
+            try
             {
-                purchaseInteractables = Utility.GetPurchaseInteractions();
-                teleporterInteractables = Utility.GetTeleporterInteractions();
+                LowResolutionRoutine();
+                currentScene = SceneManager.GetActiveScene();
+                if (renderMobs)
+                {
+                    hurtBoxes = Utility.GetHurtBoxes();
+                }
             }
-            if (renderMobs)
+            catch
             {
-                hurtBoxes = Utility.GetHurtBoxes();
+                throw;
             }
         }
         #endregion
@@ -579,7 +631,7 @@ namespace UmbraRoR
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
-                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 6).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
@@ -601,7 +653,7 @@ namespace UmbraRoR
                     if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
                         bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
-                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 5).Contains(Navigation.intraMenuIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 1.3f && Enumerable.Range(0, 6).Contains(Navigation.intraMenuIndex);
                         bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(0, 2).Contains(Navigation.intraMenuIndex);
                         bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(0, 3).Contains(Navigation.intraMenuIndex);
                         if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
@@ -617,6 +669,25 @@ namespace UmbraRoR
                     {
                         Navigation.GoBackAMenu();
                     }
+
+                    if (_isBuffMenuOpen || _isChangeCharacterMenuOpen || _isChestItemListOpen || _isEquipmentSpawnMenuOpen || _isItemSpawnMenuOpen || _isSpawnListMenuOpen)
+                    {
+                        if (!scrolled)
+                        {
+                            if (Input.GetAxis("Mouse ScrollWheel") != 0f) // Scrolled
+                            {
+                                scrolled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+                            {
+                                scrolled = false;
+                            }
+                        }
+
+                    }
                 }
             }
             else if (!_isMenuOpen)
@@ -626,6 +697,7 @@ namespace UmbraRoR
                 Navigation.menuIndex = 0;
                 Cursor.visible = false;
             }
+
             if (Input.GetKeyDown(KeyCode.Insert))
             {
                 unloadConfirm = false;
@@ -639,6 +711,38 @@ namespace UmbraRoR
                 GetCharacter();
                 SceneManager.sceneLoaded += OnSceneLoaded;
             }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                _isPlayerMod = !_isPlayerMod;
+                if (navigationToggle)
+                {
+                    Navigation.menuIndex = 1;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                _isItemSpawnMenuOpen = !_isItemSpawnMenuOpen;
+                if (navigationToggle)
+                {
+                    Navigation.menuIndex = 3.1f;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                FlightToggle = !FlightToggle;
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                _isTeleMenuOpen = !_isTeleMenuOpen;
+                if (navigationToggle)
+                {
+                    Navigation.menuIndex = 5;
+                }
+            }
         }
         #endregion Inputs
 
@@ -648,6 +752,33 @@ namespace UmbraRoR
             if (!_CharacterCollected)
             {
                 GetCharacter();
+            }
+        }
+
+        private void LowResolutionRoutine()
+        {
+            if (lowResolutionMonitor)
+            {
+                Utility.MenusOpenKeys();
+                LowResolutionMonitor();
+            }
+        }
+
+        private void DevBuildRoutine()
+        {
+            if (Updates.devBuild)
+            {
+                if (_CharacterCollected)
+                {
+                    if (devDoOnce)
+                    {
+                        godToggle = true;
+                        FlightToggle = true;
+                        alwaysSprint = true;
+                        LocalPlayer.GiveMoney(10000);
+                        devDoOnce = false;
+                    }
+                }
             }
         }
 
@@ -664,6 +795,10 @@ namespace UmbraRoR
             if (renderActiveMods)
             {
                 Render.ActiveMods();
+            }
+            if (_isChestItemListOpen)
+            {
+                Chests.RenderClosestChest();
             }
         }
 
@@ -766,8 +901,6 @@ namespace UmbraRoR
         #region On Scene Loaded
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            purchaseInteractables = Utility.GetPurchaseInteractions();
-            teleporterInteractables = Utility.GetTeleporterInteractions();
             if (!InGameCheck())
             {
                 Utility.ResetMenu();
@@ -953,6 +1086,29 @@ namespace UmbraRoR
             GUI.DragWindow();
         }
 
+        public static void SetChestListBG(int windowID)
+        {
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * chestItemChangerRectMulY), "", CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                delay += Time.deltaTime;
+                if (delay > 0.3f)
+                {
+                    _ifDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                delay = 0;
+                if (!_ifDragged)
+                {
+                    _isChestItemListOpen = !_isChestItemListOpen;
+                }
+                _ifDragged = false;
+            }
+            GUI.DragWindow();
+        }
+
         public static void SetESPBG(int windowID)
         {
             GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * ESPMulY), "", CornerStyle);
@@ -1024,7 +1180,7 @@ namespace UmbraRoR
 
         public static void SetItemSpawnerBG(int windowID)
         {
-            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * MainMulY), "", CornerStyle);
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * itemSpawnerMulY), "", CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
             {
                 delay += Time.deltaTime;
@@ -1199,7 +1355,7 @@ namespace UmbraRoR
                 if (btntexture == null)
                 {
                     btntexture = NewTexture2D;
-                    btntexture.SetPixel(0, 0, new Color32(120, 120, 120, 240));
+                    btntexture.SetPixel(0, 0, new Color32(105, 105, 105, 240));
                     btntexture.Apply();
                 }
                 return btntexture;
@@ -1283,7 +1439,7 @@ namespace UmbraRoR
                 if (offtexture == null)
                 {
                     offtexture = NewTexture2D;
-                    offtexture.SetPixel(0, 0, new Color32(120, 120, 120, 240));
+                    offtexture.SetPixel(0, 0, new Color32(105, 105, 105, 240));
                     // byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/OffStyle.png");
                     // offtexture.LoadImage(FileData);
                     offtexture.Apply();
@@ -1386,5 +1542,115 @@ namespace UmbraRoR
             }
         }
         #endregion
+
+        private void LowResolutionMonitor()
+        {
+            int i = 1;
+            var menusOpen = Utility.MenusOpenKeys();
+            if (menusOpen.Count > 2)
+            {
+                if (Navigation.lowResMenuIndex < Navigation.prevLowResMenuIndex)
+                {
+                    i = 2;
+                }
+
+                switch (menusOpen[i])
+                {
+                    case 0: // Main Menu 
+                        {
+                            break;
+                        }
+
+                    case 1: // Player Management Menu
+                        {
+                            _isPlayerMod = false;
+                            break;
+                        }
+
+                    case 1.1f: // Character Menu
+                        {
+                            _isChangeCharacterMenuOpen = false;
+                            break;
+                        }
+
+                    case 1.2f: // Buff Menu
+                        {
+                            _isBuffMenuOpen = false;
+                            break;
+                        }
+
+                    case 1.3f: // Stats Modification Menu
+                        {
+                            _isEditStatsOpen = false;
+                            break;
+                        }
+
+                    case 2: // Movement Menu
+                        {
+                            _isMovementOpen = false;
+                            break;
+                        }
+
+                    case 3: // Item Management Menu
+                        {
+                            _isItemManagerOpen = false;
+                            break;
+                        }
+
+                    case 3.1f: // Give Item Menu
+                        {
+                            _isItemSpawnMenuOpen = false;
+                            break;
+                        }
+
+                    case 3.2f: // Give Equipment Menu
+                        {
+                            _isEquipmentSpawnMenuOpen = false;
+                            break;
+                        }
+
+                    case 3.3f: // Change Chest Item List Menu
+                        {
+                            _isChestItemListOpen = false;
+                            break;
+                        }
+
+                    case 4: // Spawn Menu
+                        {
+                            _isSpawnMenuOpen = false;
+                            break;
+                        }
+
+                    case 4.1f: // Spawn List Menu
+                        {
+                            _isSpawnListMenuOpen = false;
+                            break;
+                        }
+
+                    case 5: // Teleporter Menu
+                        {
+                            _isTeleMenuOpen = false;
+                            break;
+                        }
+
+                    case 6: // Render Menu
+                        {
+                            _isESPMenuOpen = false;
+                            break;
+                        }
+
+                    case 7: // Lobby Management Menu
+                        {
+                            _isLobbyMenuOpen = false;
+                            break;
+                        }
+
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+        }
     }
 }

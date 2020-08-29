@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace UmbraRoR
 {
-    internal class DrawMenu
+    internal class DrawMenu : MonoBehaviour
     {
+        public static Vector2 chestItemChangerScrollPosition = Vector2.zero;
         public static Vector2 itemSpawnerScrollPosition = Vector2.zero;
         public static Vector2 equipmentSpawnerScrollPosition = Vector2.zero;
         public static Vector2 buffMenuScrollPosition = Vector2.zero;
@@ -250,6 +251,15 @@ namespace UmbraRoR
 
             DrawButton(8, "itemmanager", "S T A C K   I N V E N T O R Y", buttonStyle);
             DrawButton(9, "itemmanager", "C L E A R   I N V E N T O R Y", buttonStyle);
+
+            if (Main._isChangeCharacterMenuOpen)
+            {
+                DrawButton(10, "itemmanager", "C H A N G E   C H E S T   I T E M : O N", buttonStyle);
+            }
+            else
+            {
+                DrawButton(10, "itemmanager", "C H A N G E   C H E S T   I T E M : O F F", buttonStyle);
+            }
         }
 
         public static void DrawSpawnMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle OnStyle, GUIStyle OffStyle, GUIStyle LabelStyle)
@@ -350,20 +360,30 @@ namespace UmbraRoR
 
         public static void CharacterWindowMethod(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
-            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), "", BGstyle);
+            int heightMul = 15;
+            if (Main.lowResolutionMonitor)
+            {
+                heightMul = 10;
+            }
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 5, 85f), "C H A R A C T E R   M E N U", LabelStyle);
 
-            characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            characterScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), characterScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.ChangeCharacter(buttonStyle, "character");
             GUI.EndScrollView();
         }
 
         public static void DrawBuffMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
         {
-            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            int heightMul = 15;
+            if (Main.lowResolutionMonitor)
+            {
+                heightMul = 10;
+            }
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "B U F F S   L I S T", LabelStyle);
 
-            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            buffMenuScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), buffMenuScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             PlayerMod.GiveBuff(buttonStyle, "giveBuff");
             GUI.EndScrollView();
         }
@@ -413,54 +433,168 @@ namespace UmbraRoR
             {
                 DrawButton(5, "statsmod", $"M O V E   S P E E D ( O F F ) : {PlayerMod.movespeed}", OffStyle, true);
             }
+
+            DrawButton(6, "statsmod", $"M U L T I P L I E R : {PlayerMod.multiplyer}", buttonStyle, true);
+
             if (Main._isStatMenuOpen)
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O N", OnStyle);
+                DrawButton(7, "statsmod", "S H O W   S T A T S : O N", OnStyle);
             }
             else
             {
-                DrawButton(6, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
+                DrawButton(7, "statsmod", "S H O W   S T A T S : O F F", OffStyle);
             }
         }
 
         public static void DrawItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
-            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            int heightMul = 15;
+            if (Main.lowResolutionMonitor)
+            {
+                heightMul = 10;
+            }
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "I T E M S   L I S T", LabelStyle);
 
-            itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            itemSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), itemSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             int buttonPlacement = 1;
             foreach (var itemIndex in Main.items)
             {
-                string itemName = itemIndex.ToString();
-                DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
-                buttonPlacement++;
+                Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
+                {
+                    string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(255, 255, 255, 255));
+                    DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
+                    buttonPlacement++;
+                }
+                else
+                {
+                    string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
+                    DrawButton(buttonPlacement, "itemSpawner", itemName, buttonStyle);
+                    buttonPlacement++;
+                }
             }
             GUI.EndScrollView();
         }
 
-        public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        public static void DrawChestItemMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
+        {
+            int heightMul = 15;
+            if (Main.lowResolutionMonitor)
+            {
+                heightMul = 10;
+            }
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "C H A N G E   C H E S T   L I S T", LabelStyle);
+
+            chestItemChangerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), chestItemChangerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            int buttonPlacement = 1;
+            if (Chests.IsClosestChestEquip())
+            {
+                foreach (var equipmentIndex in Main.equipment)
+                {
+                    if (equipmentIndex != EquipmentIndex.None)
+                    {
+                        Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                        if (equipColor.r <= 105 && equipColor.g <= 105 && equipColor.b <= 105)
+                        {
+                            string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), new Color32(255, 255, 255, 255));
+                            DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
+                            buttonPlacement++;
+                        }
+                        else
+                        {
+                            string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                            DrawButton(buttonPlacement, "chestItemChanger", equipmentName, buttonStyle);
+                            buttonPlacement++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (var itemIndex in Main.items)
+                {
+                    Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                    if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
+                    {
+                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(255, 255, 255, 255));
+                        DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
+                        buttonPlacement++;
+                    }
+                    else
+                    {
+                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
+                        DrawButton(buttonPlacement, "chestItemChanger", itemName, buttonStyle);
+                        buttonPlacement++;
+                    }
+                }
+            }
+            GUI.EndScrollView();
+        }
+
+        public static void DrawChestMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
             GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "C H E S T   M E N U", LabelStyle);
+
+            //DrawButton(1, "chestManagement", $"T I E R   1 : {Chests.FindClosestChest().tier1Chance / 100}%", buttonStyle, isMultButton: true);
+            //DrawButton(2, "chestManagement", $"T I E R   2 : {Chests.FindClosestChest().tier2Chance / 100}%", buttonStyle, isMultButton: true);
+            //DrawButton(3, "chestManagement", $"T I E R   3 : {Chests.FindClosestChest().tier3Chance / 100}%", buttonStyle, isMultButton: true);
+            //DrawButton(4, "chestManagement", "C L O S E S T   C H E S T   I T E M", buttonStyle);
+        }
+
+        public static void DrawEquipmentMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle, GUIStyle offStyle)
+        {
+            int heightMul = 15;
+            if (Main.lowResolutionMonitor)
+            {
+                heightMul = 10;
+            }
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "E Q U I P M E N T   L I S T", LabelStyle);
 
-            equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            equipmentSpawnerScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), equipmentSpawnerScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             int buttonPlacement = 1;
             foreach (var equipmentIndex in Main.equipment)
             {
-                string equipmentName = equipmentIndex.ToString();
-                DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
-                buttonPlacement++;
+                if (equipmentIndex != EquipmentIndex.None)
+                {
+                    Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                    if (equipColor.r <= 105 && equipColor.g <= 105 && equipColor.b <= 105)
+                    {
+                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), new Color32(255, 255, 255, 255));
+                        DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                        buttonPlacement++;
+                    }
+                    else
+                    {
+                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), equipColor);
+                        DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                        buttonPlacement++;
+                    }
+                }
+                else
+                {
+                    string equipmentName = "Remove Equipment";
+                    DrawButton(buttonPlacement, "equipmentSpawner", equipmentName, buttonStyle);
+                    buttonPlacement++;
+                }
             }
             GUI.EndScrollView();
         }
 
         public static void DrawSpawnMobMenu(float x, float y, float widthSize, int mulY, GUIStyle BGstyle, GUIStyle buttonStyle, GUIStyle LabelStyle)
         {
-            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * 15), "", BGstyle);
+            int heightMul = 15;
+            if (Main.lowResolutionMonitor)
+            {
+                heightMul = 7;
+            }
+            GUI.Box(new Rect(x + 0f, y + 0f, widthSize + 20, 50f + 45 * heightMul), "", BGstyle);
             GUI.Label(new Rect(x + 5f, y + 5f, widthSize + 10, 85f), "S P A W N   L I S T", LabelStyle);
 
-            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * 15), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
+            spawnScrollPosition = GUI.BeginScrollView(new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * heightMul), spawnScrollPosition, new Rect(x + 0f, y + 0f, widthSize + 10, 50f + 45 * mulY), false, true);
             Spawn.SpawnMob(buttonStyle, "spawnMob");
             GUI.EndScrollView();
         }
@@ -638,6 +772,22 @@ namespace UmbraRoR
                         else
                         {
                             rect = new Rect(Main.equipmentSpawnerRect.x + 5, Main.equipmentSpawnerRect.y + 5 + 45 * position, Main.widthSize, 40);
+                        }
+                        break;
+                    }
+
+                case "chestItemChanger":
+                    {
+                        menuIndex = 3.3f;
+                        menuBg = Main.chestItemChangerRect;
+                        Main.chestItemChangerRectMulY = position;
+                        if (isMultButton)
+                        {
+                            rect = new Rect(Main.chestItemChangerRect.x + 5, Main.chestItemChangerRect.y + 5 + 45 * position, Main.widthSize - 90, 40);
+                        }
+                        else
+                        {
+                            rect = new Rect(Main.chestItemChangerRect.x + 5, Main.chestItemChangerRect.y + 5 + 45 * position, Main.widthSize, 40);
                         }
                         break;
                     }

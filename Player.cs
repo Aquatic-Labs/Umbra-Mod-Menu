@@ -5,7 +5,7 @@ using RoR2;
 
 namespace UmbraRoR
 {
-    public class PlayerMod
+    public class PlayerMod : MonoBehaviour
     {
         public static int damagePerLvl = 10;
         public static int CritPerLvl = 1;
@@ -16,6 +16,7 @@ namespace UmbraRoR
         public static ulong xpToGive = 50;
         public static uint moneyToGive = 50;
         public static uint coinsToGive = 50;
+        public static int multiplyer = 10;
 
         public static void GiveBuff(GUIStyle buttonStyle,string buttonId)
         {
