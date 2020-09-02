@@ -612,7 +612,7 @@ namespace UmbraRoR
             DrawButton(6, "stats", $"M O V E   S P E E D : {Main.LocalPlayerBody.moveSpeed}", buttonStyle, justText: true);
             DrawButton(7, "stats", $"J U M P   C O U N T : {Main.LocalPlayerBody.maxJumpCount}", buttonStyle, justText: true);
             DrawButton(8, "stats", $"E X P E R I E N C E : {Main.LocalPlayerBody.experience}", buttonStyle, justText: true);
-            DrawButton(9, "stats", $"K I L L S: {Main.LocalPlayerBody.killCount}", buttonStyle, justText: true);
+            DrawButton(9, "stats", $"K I L L S: {Main.LocalPlayerBody.killCountServer}", buttonStyle, justText: true);
 
         }
 
