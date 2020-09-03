@@ -1547,8 +1547,7 @@ namespace UmbraRoR
                             LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
                             if (LocalHealth.alive) _CharacterCollected = true;
                             else _CharacterCollected = false;
-                        }
-
+                        }   
                     }
                 }
             }
