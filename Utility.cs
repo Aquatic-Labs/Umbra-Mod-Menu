@@ -141,8 +141,9 @@ namespace UmbraRoR
         {
             List<GameObject> bodyPrefabs = new List<GameObject>();
 
-            foreach (var prefab in BodyCatalog.allBodyPrefabs)
+            for (int i = 0; i < BodyCatalog.allBodyPrefabs.Count(); i++)
             {
+                var prefab = BodyCatalog.allBodyPrefabs.ElementAt(i);
                 if (prefab.name != "ScavSackProjectile")
                 {
                     bodyPrefabs.Add(prefab);
@@ -157,8 +158,9 @@ namespace UmbraRoR
 
             string[] unreleasedEquipment = { "Count" };
             // string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
-            foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
+            for (int i = 0; i < Enum.GetNames(typeof(EquipmentIndex)).Length; i++)
             {
+                string equipmentName = Enum.GetNames(typeof(EquipmentIndex))[i];
                 bool unreleasednullEquipment = unreleasedEquipment.Any(equipmentName.Contains);
                 if (!unreleasednullEquipment)
                 {
@@ -176,8 +178,10 @@ namespace UmbraRoR
             // List of null items that I remove from the item list. Will change if requested.
             string[] unreleasedItems = { "LevelBonus", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "BoostAttackSpeed", "Count", "None" };
             // string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
-            foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
+            for (int i = 0; i < Enum.GetNames(typeof(ItemIndex)).Length; i++)
             {
+
+                string itemName = Enum.GetNames(typeof(ItemIndex))[i];
                 bool unreleasednullItem = unreleasedItems.Any(itemName.Contains);
                 ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
                 if (!unreleasednullItem)
@@ -213,8 +217,8 @@ namespace UmbraRoR
 
         public static List<PressurePlateController> GetSecretButtons()
         {
-            var teleporterInteractions = FindObjectsOfType<PressurePlateController>().ToList();
-            return teleporterInteractions;
+            var pressurePlates = FindObjectsOfType<PressurePlateController>().ToList();
+            return pressurePlates;
         }
 
         public static List<HurtBox> GetHurtBoxes()
@@ -230,6 +234,8 @@ namespace UmbraRoR
             {
                 return null;
             }
+
+
             var inputBank = body.GetComponent<InputBankTest>();
             var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
             var bullseyeSearch = new BullseyeSearch();
@@ -243,16 +249,35 @@ namespace UmbraRoR
             bullseyeSearch.teamMaskFilter.RemoveTeam(team.teamIndex);
             bullseyeSearch.RefreshCandidates();
             var hurtBoxList = bullseyeSearch.GetResults().ToList();
-            return hurtBoxList;
+
+            List<HurtBox> updatedHurtboxes = new List<HurtBox>();
+
+            for (int i = 0; i < hurtBoxList.Count; i++)
+            {
+                HurtBox hurtBox = hurtBoxList[i];
+
+                var mobName = HurtBox.FindEntityObject(hurtBox).name.Replace("Body(Clone)", "");
+                if (Main.allowedBoxes.Contains(mobName))
+                {
+                    updatedHurtboxes.Add(hurtBox);
+                }
+            }
+            return updatedHurtboxes;
         }
         #endregion
 
         public static bool CursorIsVisible()
         {
-            foreach (var mpeventSystem in RoR2.UI.MPEventSystem.readOnlyInstancesList)
-                if (mpeventSystem.isCursorVisible)
-                    return true;
+
+            for (int i = 0; i < RoR2.UI.MPEventSystem.readOnlyInstancesList.Count; i++)
+            {
+                var mpeventSystem = RoR2.UI.MPEventSystem.readOnlyInstancesList[i];
+
+                if (mpeventSystem.isCursorVisible) return true;
+            }
+
             return false;
+
         }
 
         public static void LoadAssembly()
@@ -290,7 +315,7 @@ namespace UmbraRoR
                 {4.1f, Main._isSpawnListMenuOpen},
                 {5, Main._isTeleMenuOpen},
                 {6, Main._isESPMenuOpen },
-                {7, Main._isLobbyMenuOpen}, 
+                {7, Main._isLobbyMenuOpen},
             };
 
             foreach (var menu in menus)

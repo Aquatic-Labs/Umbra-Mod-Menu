@@ -20,7 +20,7 @@ namespace UmbraRoR
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "1.3.2";
+            VERSION = "1.3.3";
 
         public static string log = "[" + NAME + "] ";
 
@@ -56,6 +56,10 @@ namespace UmbraRoR
         public static CharacterMotor LocalMotor;
         #endregion
 
+        #region Mob Variables
+        public static string[] allowedBoxes = { "Golem", "Jellyfish", "Wisp", "Beetle", "Lemurian", "Imp", "HermitCrab", "ClayBruiser", "Bell", "BeetleGuard", "MiniMushroom", "Bison", "GreaterWisp", "LemurianBruiser", "RoboBallMini", "Vulture",  /* BOSSES */ "BeetleQueen2", "ClayDunestrider", "Titan", "TitanGold", "TitanBlackBeach", "Grovetender", "Gravekeeper", "Mithrix", "Aurelionite", "Vagrant", "MagmaWorm", "ImpBoss", "ElectricWorm", "RoboBallBoss", "Nullifier", "Parent" };
+        #endregion
+
         #region Enable Checks
         public static bool onChestsEnable = true;
         public static bool onChestsDisable = false;
@@ -87,7 +91,7 @@ namespace UmbraRoR
         #endregion
 
         #region Button Styles / Toggles
-        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
+        public static GUIStyle MainBgStyle, StatBgSytle, TeleBgStyle, OnStyle, OffStyle, LabelStyle, TitleStyle, BtnStyle, ItemBtnStyle, CornerStyle, DisplayStyle, BgStyle, HighlightBtnStyle, ActiveModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, renderSecretsStyle, WatermarkStyle, StatsStyle, selectedChestStyle;
         public static GUIStyle BtnStyle1, BtnStyle2, BtnStyle3;
         public static bool skillToggle, renderInteractables, renderMobs, damageToggle, critToggle, attackSpeedToggle, armorToggle, regenToggle, moveSpeedToggle, MouseToggle, FlightToggle, listItems, noEquipmentCooldown, listBuffs, aimBot, alwaysSprint, godToggle, unloadConfirm, jumpPackToggle, tier1Toggle, tier2Toggle, tier3Toggle, scrolled, devDoOnce = true;
         public static bool renderActiveMods = true;
@@ -415,6 +419,17 @@ namespace UmbraRoR
                 renderInteractablesStyle.onActive.textColor = Color.green;
                 renderInteractablesStyle.fontStyle = FontStyle.Normal;
                 renderInteractablesStyle.alignment = TextAnchor.MiddleLeft;
+            }
+
+            if (renderSecretsStyle == null)
+            {
+                renderSecretsStyle = new GUIStyle();
+                renderSecretsStyle.normal.textColor = Color.HSVToRGB(0.5065f, 1.0000f, 1.0000f);
+                renderSecretsStyle.onNormal.textColor = Color.HSVToRGB(0.5065f, 1.0000f, 1.0000f);
+                renderSecretsStyle.active.textColor = Color.HSVToRGB(0.5065f, 1.0000f, 1.0000f);
+                renderSecretsStyle.onActive.textColor = Color.HSVToRGB(0.5065f, 1.0000f, 1.0000f);
+                renderSecretsStyle.fontStyle = FontStyle.Normal;
+                renderSecretsStyle.alignment = TextAnchor.MiddleLeft;
             }
 
             if (renderTeleporterStyle == null)
@@ -1518,9 +1533,10 @@ namespace UmbraRoR
                 if (InGameCheck())
                 {
                     LocalNetworkUser = null;
-                    foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)
+
+                    for (int i = 0; i < NetworkUser.readOnlyInstancesList.Count; i++)
                     {
-                        //localplayer is you!
+                        NetworkUser readOnlyInstance = NetworkUser.readOnlyInstancesList[i];
                         if (readOnlyInstance.isLocalPlayer)
                         {
                             LocalNetworkUser = readOnlyInstance;
@@ -1532,6 +1548,7 @@ namespace UmbraRoR
                             if (LocalHealth.alive) _CharacterCollected = true;
                             else _CharacterCollected = false;
                         }
+
                     }
                 }
             }
