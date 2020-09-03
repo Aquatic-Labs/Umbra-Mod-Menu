@@ -203,24 +203,6 @@ namespace UmbraRoR
             return spawnCards;
         }
 
-        public static List<PurchaseInteraction> GetPurchaseInteractions()
-        {
-            var purchaseInteractables = FindObjectsOfType<PurchaseInteraction>().ToList();
-            return purchaseInteractables;
-        }
-
-        public static List<BarrelInteraction> GetBarrelInterations()
-        {
-            var barrels = FindObjectsOfType<BarrelInteraction>().ToList();
-            return barrels;
-        }
-
-        public static List<PressurePlateController> GetSecretButtons()
-        {
-            var pressurePlates = FindObjectsOfType<PressurePlateController>().ToList();
-            return pressurePlates;
-        }
-
         public static List<HurtBox> GetHurtBoxes()
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
@@ -234,7 +216,6 @@ namespace UmbraRoR
             {
                 return null;
             }
-
 
             var inputBank = body.GetComponent<InputBankTest>();
             var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
@@ -268,16 +249,15 @@ namespace UmbraRoR
 
         public static bool CursorIsVisible()
         {
-
             for (int i = 0; i < RoR2.UI.MPEventSystem.readOnlyInstancesList.Count; i++)
             {
                 var mpeventSystem = RoR2.UI.MPEventSystem.readOnlyInstancesList[i];
-
-                if (mpeventSystem.isCursorVisible) return true;
+                if (mpeventSystem.isCursorVisible) 
+                { 
+                    return true;
+                }
             }
-
             return false;
-
         }
 
         public static void LoadAssembly()
