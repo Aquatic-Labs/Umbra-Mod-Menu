@@ -11,28 +11,25 @@ namespace UmbraMenu
 {
     public class Loader
     {
-        public GameObject gameObject;
+        public static GameObject gameObject;
 
-        public void Load()
+        public static void Load()
         {
             //RoR2.RoR2Application.isModded = true;
-            gameObject = new GameObject();
+            gameObject = new GameObject("Umbra Mod Menu");
             gameObject.AddComponent<UmbraMenu>();
             UnityEngine.Object.DontDestroyOnLoad(gameObject);
             LoadAssembly();
             CheckForUpdate();
+            gameObject.GetComponent<UmbraMenu>().enabled = true;
+            gameObject.SetActive(true);
         }
 
-        public void Unload()
-        {
-            UnityEngine.Object.Destroy(gameObject);
-        }
-
-        public void LoadAssembly()
+        public static void LoadAssembly()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
-                String resourceName = "UmbraRoR." +
+                String resourceName = "UmbraMenu." +
                    new AssemblyName(args.Name).Name + ".dll";
 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
@@ -44,10 +41,9 @@ namespace UmbraMenu
             };
         }
 
-        public bool updateAvailable, devBuild, upToDate = true;
-        public string latestVersion;
-
-        public async void CheckForUpdate()
+        public static bool updateAvailable, devBuild, upToDate = true;
+        public static string latestVersion;
+        public static async void CheckForUpdate()
         {
             try
             {
