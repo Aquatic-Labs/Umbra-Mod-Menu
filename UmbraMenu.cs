@@ -13,8 +13,7 @@ namespace UmbraMenu
             NAME = "U M B R A",
             VERSION = "2.0.0";
 
-        public static string log = "[" + NAME + "] ";
-
+        #region Player Variables
         public static CharacterMaster LocalPlayer;
         public static CharacterBody LocalPlayerBody;
         public static Inventory LocalPlayerInv;
@@ -22,20 +21,24 @@ namespace UmbraMenu
         public static SkillLocator LocalSkills;
         public static NetworkUser LocalNetworkUser;
         public static CharacterMotor LocalMotor;
+        #endregion
 
+        public static List<Menu> menus = new List<Menu>();
         public static bool _CharacterCollected;
 
         public Scene currentScene;
 
         public Routines routines = new Routines();
 
-        public Menu mainMenu = new Menu();
+        public Menu main = new Menu();
+        public Menu player = new Menu();
 
         private void OnGUI()
         {
             GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
 
-            BuildMenus.BuildMainMenu(mainMenu);
+            BuildMenus.BuildMainMenu(main);
+            BuildMenus.BuildPlayerMenu(player);
         }
 
         public void Start()
@@ -46,28 +49,37 @@ namespace UmbraMenu
             styles.BuildStyles();
 
             #region Main Menu
-            mainMenu.rect = new Rect(10, 10, 20, 20); // Start Position
+            main.rect = new Rect(10, 10, 20, 20); // Start Position
             if (Loader.updateAvailable)
             {
-                mainMenu.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
+                main.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
             }
             else if (Loader.upToDate)
             {
-                mainMenu.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
+                main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
             }
             else if (Loader.devBuild)
             {
-                mainMenu.menuTitle = $"U M B R A \n<color=yellow>D E V</color>";
+                main.menuTitle = $"U M B R A \n<color=yellow>D E V</color>";
             }
-            mainMenu.id = 0;
+            main.id = 0;
+            menus.Add(main);
+            #endregion
+
+            #region Player Menu
+            player.rect = new Rect(360, 10, 20, 20); // Start Position
+            player.menuTitle = "P L A Y E R   M E N U";
+            player.id = 1;
+            menus.Add(player);
             #endregion 
+
         }
 
         public void Update()
         {
             try
             {
-                routines.GetCharacter();
+                //routines.CharacterRoutine();
                 CheckInputs();
             }
             catch (NullReferenceException)
@@ -78,10 +90,10 @@ namespace UmbraMenu
 
         public void FixedUpdate()
         {
-            currentScene = SceneManager.GetActiveScene();
+            //currentScene = SceneManager.GetActiveScene();
         }
 
-        public void GetCharacter(int id = 0)
+        public void GetCharacter()
         {
             try
             {
@@ -127,7 +139,7 @@ namespace UmbraMenu
         {
             if (Input.GetKeyDown(KeyCode.Insert))
             {
-                mainMenu.enabled = !mainMenu.enabled;
+                main.enabled = !main.enabled;
                 GetCharacter();
             }
         }

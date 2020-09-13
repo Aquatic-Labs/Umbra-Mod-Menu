@@ -8,5 +8,11 @@ namespace UmbraMenu
 {
     class Navigation
     {
+        public void PressButton(int menuId, int buttonId)
+        {
+            Menu menu = Utility.FindMenuById(menuId);
+            Button button = Utility.FindButtonById(menu, buttonId);
+            button.buttonAction();
+        }
     }
 }

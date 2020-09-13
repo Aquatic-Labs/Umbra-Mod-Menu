@@ -31,15 +31,16 @@ namespace UmbraMenu
                 }
                 if (UmbraMenu._CharacterCollected)
                 {
-                    Button togglePlayer = new Button(menu, 1, "P L A Y E R : O F F", Styles.BtnStyle, togglable: true, onText: "P L A Y E R : O N");
+                    void playerButtonAction() => ButtonActions.MainMenu.ToggleMenu(UmbraMenu.menus[1], 1);
+                    Button togglePlayer = new Button(menu, 1, "P L A Y E R : O F F", Styles.BtnStyle, togglable: true, onText: "P L A Y E R : O N", buttonAction: playerButtonAction, OnAction: playerButtonAction);
                     Button toggleMovement = new Button(menu, 2, "M O V E M E N T : O F F", Styles.BtnStyle, togglable: true, onText: "M O V E M E N T : O N");
                     Button toggleItems = new Button(menu, 3, "I T E M S : O F F", Styles.BtnStyle, togglable: true, onText: "I T E M S : O N");
                     Button toggleSpawn = new Button(menu, 4, "S P A W N : O F F", Styles.BtnStyle, togglable: true, onText: "S P A W N : O N");
                     Button toggleTeleporter = new Button(menu, 5, "T E L E P O R T E R : O F F", Styles.BtnStyle, togglable: true, onText: "T E L E P O R T E R : O N");
                     Button toggleESP = new Button(menu, 6, "R E N D E R : O F F", Styles.BtnStyle, togglable: true, onText: "R E N D E R: O N");
-                    Button toggleLobby = new Button(menu, 7, "", Styles.BtnStyle, togglable: true);
-                    Button unloadMenu = new Button(menu, 8, "", Styles.BtnStyle, togglable: true);
-                    Button unloadConfirm = new Button(menu, 8, "", Styles.BtnStyle, togglable: true);
+                    Button toggleLobby = new Button(menu, 7, "L O B B Y : O F F", Styles.BtnStyle, togglable: true, onText: "L O B B Y : O N");
+                    Button unloadMenu = new Button(menu, 8, "", Styles.OffStyle);
+                    Button unloadConfirm = new Button(menu, 8, "C O N F I R M ? ", Styles.OffStyle);
 
                     menu.AddButton(togglePlayer);
                     menu.AddButton(toggleMovement);
@@ -47,29 +48,26 @@ namespace UmbraMenu
                     menu.AddButton(toggleSpawn);
                     menu.AddButton(toggleTeleporter);
                     menu.AddButton(toggleESP);
+                    menu.AddButton(toggleLobby);
 
-                    if (toggleLobby.enabled)
+                    if (unloadMenu.enabled)
                     {
-                        menu.AddButton(toggleLobby);
-                        DrawButton(7, "main", "L O B B Y : O N", OnStyle);
+                        menu.AddButton(unloadConfirm);
                     }
                     else
                     {
-                        menu.AddButton(toggleLobby);
-                        DrawButton(7, "main", "L O B B Y : O F F", OffStyle);
-                    }
-
-                    if (unloadConfirm.enabled)
-                    {
-                        menu.AddButton(unloadConfirm);
-                        DrawButton(8, "main", "C O N F I R M ?", ButtonStyle);
-                    }
-                    else
-                    {
-                        menu.AddButton(unloadConfirm);
-                        DrawButton(8, "main", "U N L O A D   M E N U", ButtonStyle);
+                        menu.AddButton(unloadMenu);
                     }
                 }
+            }
+        }
+
+        public static void BuildPlayerMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.DrawMenu();
+                menu.AddButton(new Button(menu, 1, "Test Player Button", Styles.BtnStyle));
             }
         }
     }

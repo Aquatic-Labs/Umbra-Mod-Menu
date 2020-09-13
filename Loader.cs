@@ -21,8 +21,11 @@ namespace UmbraMenu
             UnityEngine.Object.DontDestroyOnLoad(gameObject);
             LoadAssembly();
             CheckForUpdate();
-            gameObject.GetComponent<UmbraMenu>().enabled = true;
-            gameObject.SetActive(true);
+        }
+
+        public static void Unload()
+        {
+            UnityEngine.Object.Destroy(gameObject);
         }
 
         public static void LoadAssembly()

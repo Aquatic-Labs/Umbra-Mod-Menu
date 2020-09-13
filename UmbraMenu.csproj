@@ -59,8 +59,10 @@
   <ItemGroup>
     <Compile Include="BuildMenus.cs" />
     <Compile Include="Button.cs" />
+    <Compile Include="ButtonActions\MainMenu.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="Navigation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -71,6 +73,7 @@
     <Compile Include="Styles.cs" />
     <Compile Include="Textures.cs" />
     <Compile Include="UmbraMenu.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Unlockables.txt" />

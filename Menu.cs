@@ -18,7 +18,7 @@ namespace UmbraMenu
         public Rect rect;
         public bool ifDragged = false;
         public int numberOfButtons = 0;
-        public LinkedList<Button> buttons = new LinkedList<Button>();
+        public List<Button> buttons = new List<Button>();
 
         public void AddButton(Button button)
         {
@@ -78,7 +78,7 @@ namespace UmbraMenu
                     DrawMulButtons(button);
                 }
             }
-            buttons.AddLast(button);
+            buttons.Add(button);
         }
 
         private void DrawMulButtons(Button button)
