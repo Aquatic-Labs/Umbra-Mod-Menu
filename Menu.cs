@@ -18,62 +18,81 @@ namespace UmbraMenu
         public Rect rect;
         public bool ifDragged = false;
         public int numberOfButtons = 0;
+        public LinkedList<Button> buttons = new LinkedList<Button>();
 
-        public void AddButton(int position, string buttonText, bool isMulButton = false, bool justText = false)
+        public void AddButton(Button button)
         {
-            numberOfButtons = position;
-            Rect buttonRect;
+            numberOfButtons = button.position;
             Rect menuBg = rect;
             int btnY = 5 + 45 * numberOfButtons;
-            if (isMulButton)
+            if (button.isMulButton)
             {
-                buttonRect = new Rect(menuBg.x + 5, menuBg.y + btnY, widthSize - 90, 40);
+                button.buttonRect = new Rect(menuBg.x + 5, menuBg.y + btnY, widthSize - 90, 40);
             }
             else
             {
-                buttonRect = new Rect(menuBg.x + 5, menuBg.y + btnY, widthSize, 40);
+                button.buttonRect = new Rect(menuBg.x + 5, menuBg.y + btnY, widthSize, 40);
             }
 
-            if (justText && isMulButton)
+            if (button.justText && button.isMulButton)
             {
-                throw new Exception($"justText and isMultButton cannot both be true. Thrown in \"{buttonText}\" button.");
+                throw new Exception($"justText and isMulButton cannot both be true. Thrown in \"{button.buttonText}\" button.");
             }
-            else if (justText)
+            else if (button.justText)
             {
-                GUI.Button(buttonRect, buttonText, Styles.BtnStyle);
+                GUI.Button(button.buttonRect, button.buttonText, button.defaultStyle);
             }
-            else if (isMulButton)
+            else if (button.togglable)
             {
-                if (GUI.Button(buttonRect, buttonText, Styles.BtnStyle))
+                if (button.enabled)
                 {
-                    
+                    if (GUI.Button(button.buttonRect, button.onText, Styles.OnStyle))
+                    {
+                        button.OnAction();
+                    }
+                    if (button.isMulButton)
+                    {
+                        DrawMulButtons(button);
+                    }
                 }
-                if (GUI.Button(new Rect(menuBg.x + widthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
+                else
                 {
-                    DecreaseValue(id);
-                }
-                if (GUI.Button(new Rect(menuBg.x + widthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
-                {
-                    IncreaseValue(id);
+                    if (GUI.Button(button.buttonRect, button.buttonText, Styles.OffStyle))
+                    {
+                        button.buttonAction();
+                    }
+                    if (button.isMulButton)
+                    {
+                        DrawMulButtons(button);
+                    }
                 }
             }
             else
             {
-                if (GUI.Button(buttonRect, buttonText, Styles.StatsStyle))
+                if (GUI.Button(button.buttonRect, button.buttonText, button.defaultStyle))
                 {
-                    
+                    button.buttonAction();
+                }
+                if (button.isMulButton)
+                {
+                    DrawMulButtons(button);
                 }
             }
+            buttons.AddLast(button);
         }
 
-        private void DecreaseValue(int id)
+        private void DrawMulButtons(Button button)
         {
-
-        }
-
-        private void IncreaseValue(int id)
-        {
-
+            Rect menuBg = button.parentMenu.rect;
+            int btnY = button.position;
+            if (GUI.Button(new Rect(menuBg.x + widthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
+            {
+                button.DecreaseAction();
+            }
+            if (GUI.Button(new Rect(menuBg.x + widthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
+            {
+                button.IncreaseAction();
+            }
         }
 
         private void SetWindow()

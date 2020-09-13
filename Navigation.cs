@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UmbraMenu
 {
-    class ButtonAction
+    class Navigation
     {
     }
 }

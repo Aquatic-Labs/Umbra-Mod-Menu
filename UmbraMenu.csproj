@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="BuildMenus.cs" />
     <Compile Include="Button.cs" />
-    <Compile Include="ButtonAction.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
