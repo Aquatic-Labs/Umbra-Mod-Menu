@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace UmbraMenu
 {
-    public class Routines : UmbraMenu
+    public class Routines
     {
         public void CharacterRoutine()
         {
-            GetCharacter();
+            UmbraMenu.GetCharacter();
         }
     }
 }

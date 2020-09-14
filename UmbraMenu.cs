@@ -26,7 +26,7 @@ namespace UmbraMenu
         public static List<Menu> menus = new List<Menu>();
         public static bool _CharacterCollected;
 
-        public Scene currentScene;
+        public static Scene currentScene;
 
         public Routines routines = new Routines();
 
@@ -35,16 +35,29 @@ namespace UmbraMenu
 
         private void OnGUI()
         {
-            GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
+            #region Watermark
+            if (Loader.updateAvailable)
+            {
+                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+            }
+            else if (Loader.upToDate)
+            {
+                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
+            }
+            else if (Loader.devBuild)
+            {
+                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
+            }
+            #endregion
 
+            main.SetWindow();
             BuildMenus.BuildMainMenu(main);
+
             BuildMenus.BuildPlayerMenu(player);
         }
 
         public void Start()
         {
-            Textures textures = new Textures();
-            textures.BuildTextures();
             Styles styles = new Styles();
             styles.BuildStyles();
 
@@ -72,14 +85,13 @@ namespace UmbraMenu
             player.id = 1;
             menus.Add(player);
             #endregion 
-
         }
 
         public void Update()
         {
             try
             {
-                //routines.CharacterRoutine();
+                routines.CharacterRoutine();
                 CheckInputs();
             }
             catch (NullReferenceException)
@@ -90,10 +102,10 @@ namespace UmbraMenu
 
         public void FixedUpdate()
         {
-            //currentScene = SceneManager.GetActiveScene();
+            currentScene = SceneManager.GetActiveScene();
         }
 
-        public void GetCharacter()
+        public static void GetCharacter()
         {
             try
             {
@@ -125,7 +137,7 @@ namespace UmbraMenu
             }
         }
 
-        public bool InGameCheck()
+        public static bool InGameCheck()
         {
             if (currentScene != null)
             {

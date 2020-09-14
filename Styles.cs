@@ -32,11 +32,8 @@ namespace UmbraMenu
 
         public void BuildStyles()
         {
-            Textures texture = new Textures();
-            texture.BuildTextures();
-
-            MainBgStyle = CreateGUIStyle(texture.backTexture, texture.backTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.UpperCenter);
-            CornerStyle = CreateGUIStyle(texture.btnTexture, texture.backTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 18, FontStyle.Normal, TextAnchor.UpperCenter);
+            MainBgStyle = CreateGUIStyle(Textures.BackTexture, Textures.BackTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.UpperCenter);
+            CornerStyle = CreateGUIStyle(Textures.BtnTexture, Textures.BackTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 18, FontStyle.Normal, TextAnchor.UpperCenter);
             LabelStyle = CreateGUIStyle(null, null, Color.grey, 18, FontStyle.Normal, TextAnchor.UpperCenter);
             StatsStyle = CreateGUIStyle(null, null, Color.grey, 18, FontStyle.Normal, TextAnchor.MiddleLeft);
             TitleStyle = CreateGUIStyle(null, null, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 18, FontStyle.Normal, TextAnchor.UpperCenter);
@@ -47,11 +44,11 @@ namespace UmbraMenu
             renderMobsStyle = CreateGUIStyle(null, null, Color.red, 14, FontStyle.Normal, TextAnchor.MiddleLeft);
             selectedChestStyle = CreateGUIStyle(null, null, Color.blue, 14, FontStyle.Normal, TextAnchor.MiddleRight);
             WatermarkStyle = CreateGUIStyle(null, null, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 14, FontStyle.Normal, TextAnchor.MiddleLeft);
-            OffStyle = CreateGUIStyle(texture.offTexture, texture.offPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
-            OnStyle = CreateGUIStyle(texture.onTexture, texture.onPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
-            BtnStyle = CreateGUIStyle(texture.btnTexture, texture.btnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
-            ItemBtnStyle = BtnStyle = CreateGUIStyle(texture.btnTexture, texture.btnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
-            HighlightBtnStyle = BtnStyle = CreateGUIStyle(texture.highlightTexture, texture.highlightPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            OffStyle = CreateGUIStyle(Textures.OffTexture, Textures.OffPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            OnStyle = CreateGUIStyle(Textures.OnTexture, Textures.OnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            BtnStyle = CreateGUIStyle(Textures.BtnTexture, Textures.BtnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            ItemBtnStyle = BtnStyle = CreateGUIStyle(Textures.BtnTexture, Textures.BtnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            HighlightBtnStyle = BtnStyle = CreateGUIStyle(Textures.HighlightTexture, Textures.HighlightPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
         }
     }
 }

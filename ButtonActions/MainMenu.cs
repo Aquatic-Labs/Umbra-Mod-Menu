@@ -9,10 +9,8 @@ namespace UmbraMenu.ButtonActions
     public static class MainMenu
     {
         private static readonly Menu currentMenu = Utility.FindMenuById(0);
-        public static void ToggleMenu(Menu menu, int buttonId)
+        public static void ToggleMenu(Menu menu)
         {
-            Button button = Utility.FindButtonById(menu, buttonId);
-            button.enabled = !button.enabled;
             menu.enabled = !menu.enabled;
         }
     }

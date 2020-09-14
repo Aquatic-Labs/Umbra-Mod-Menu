@@ -58,8 +58,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BuildMenus.cs" />
-    <Compile Include="Button.cs" />
+    <Compile Include="ButtonTypes\Button.cs" />
     <Compile Include="ButtonActions\MainMenu.cs" />
+    <Compile Include="ButtonTypes\MulButton.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Navigation.cs" />
@@ -71,7 +72,10 @@
     </Compile>
     <Compile Include="Routines.cs" />
     <Compile Include="Styles.cs" />
+    <Compile Include="ButtonTypes\Text.cs" />
     <Compile Include="Textures.cs" />
+    <Compile Include="ButtonTypes\TogglableButton.cs" />
+    <Compile Include="ButtonTypes\TogglableMulButton.cs" />
     <Compile Include="UmbraMenu.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
