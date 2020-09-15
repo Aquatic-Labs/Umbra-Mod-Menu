@@ -108,49 +108,49 @@ namespace UmbraMenu
             #endregion
 
             #region Player Menu
-            player.rect = new Rect(360, 10, 20, 20); // Start Position
+            player.rect = new Rect(374, 10, 20, 20); // Start Position
             player.menuTitle = "P L A Y E R   M E N U";
             player.id = 1;
             menus.Add(player);
             #endregion
 
             #region Movement Menu
-            movement.rect = new Rect(360, 10, 20, 20); // Start Position
-            movement.menuTitle = "P L A Y E R   M E N U";
+            movement.rect = new Rect(374, 560, 20, 20); // Start Position
+            movement.menuTitle = "M O V E M E N T   M E N U";
             movement.id = 2;
             menus.Add(movement);
             #endregion
 
             #region Item Menu
-            item.rect = new Rect(360, 10, 20, 20); // Start Position
-            item.menuTitle = "I T E M  M E N U";
+            item.rect = new Rect(738, 10, 20, 20); // Start Position
+            item.menuTitle = "I T E M   M E N U";
             item.id = 3;
             menus.Add(item);
             #endregion
 
             #region Spawn Menu
-            spawn.rect = new Rect(360, 10, 20, 20); // Start Position
+            spawn.rect = new Rect(738, 515, 20, 20); // Start Position
             spawn.menuTitle = "S P A W N   M E N U";
             spawn.id = 4;
             menus.Add(spawn);
             #endregion
 
             #region Teleporter Menu
-            teleporter.rect = new Rect(360, 10, 20, 20); // Start Position
+            teleporter.rect = new Rect(10, 425, 20, 20); // Start Position
             teleporter.menuTitle = "T E L E P O R T E R   M E N U";
             teleporter.id = 5;
             menus.Add(teleporter);
             #endregion
 
             #region Render Menu
-            render.rect = new Rect(360, 10, 20, 20); // Start Position
+            render.rect = new Rect(10, 795, 20, 20); // Start Position
             render.menuTitle = "R E N D E R   M E N U";
             render.id = 6;
             menus.Add(render);
             #endregion
 
             #region Lobby Menu
-            lobby.rect = new Rect(360, 10, 20, 20); // Start Position
+            lobby.rect = new Rect(10, 985, 20, 20); // Start Position
             lobby.menuTitle = "L O B B Y   M E N U";
             lobby.id = 7;
             menus.Add(lobby);

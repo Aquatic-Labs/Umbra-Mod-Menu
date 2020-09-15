@@ -16,11 +16,21 @@ namespace UmbraMenu
         public static void Load()
         {
             //RoR2.RoR2Application.isModded = true;
-            gameObject = new GameObject("Umbra Mod Menu");
-            gameObject.AddComponent<UmbraMenu>();
+            while (gameObject = GameObject.Find("Umbra Menu"))
+                UnityEngine.Object.Destroy(gameObject);
+            gameObject = new GameObject("Umbra Menu");
             UnityEngine.Object.DontDestroyOnLoad(gameObject);
+            gameObject.SetActive(false);
+            var types = Assembly.GetExecutingAssembly().GetTypes().ToList().Where(t => t.BaseType == typeof(MonoBehaviour) && !t.IsNested);
+            foreach (var type in types)
+            {
+                var component = (MonoBehaviour)gameObject.AddComponent(type);
+                component.enabled = false;
+            }
             LoadAssembly();
             CheckForUpdate();
+            gameObject.GetComponent<UmbraMenu>().enabled = true;
+            gameObject.SetActive(true);
         }
 
         public static void Unload()
@@ -28,7 +38,7 @@ namespace UmbraMenu
             UnityEngine.Object.Destroy(gameObject);
         }
 
-        public static void LoadAssembly()
+        private static void LoadAssembly()
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
@@ -46,7 +56,7 @@ namespace UmbraMenu
 
         public static bool updateAvailable, devBuild, upToDate = true;
         public static string latestVersion;
-        public static async void CheckForUpdate()
+        private static async void CheckForUpdate()
         {
             try
             {
