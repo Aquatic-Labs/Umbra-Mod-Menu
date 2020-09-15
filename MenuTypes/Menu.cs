@@ -19,11 +19,6 @@ namespace UmbraMenu
         public bool ifDragged = false;
         public int numberOfButtons = 0;
         public List<Button> buttons = new List<Button>();
-        public List<Text> texts = new List<Text>();
-        public List<MulButton> mulButtons = new List<MulButton>();
-        public List<TogglableButton> togglableButtons = new List<TogglableButton>();
-        public List<TogglableMulButton> togglableMulButtons = new List<TogglableMulButton>();
-
 
         public void AddButton(Button button)
         {
@@ -31,44 +26,41 @@ namespace UmbraMenu
             int btnY = 5 + 45 * numberOfButtons;
             button.buttonRect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
-            if (GUI.Button(button.buttonRect, button.buttonText, button.defaultStyle))
+            if (GUI.Button(button.buttonRect, button.text, button.defaultStyle))
             {
                 button.buttonAction();
             }
-            buttons.Add(button);
         }
 
         public void AddText(Text text)
         {
             numberOfButtons = text.position;
             int btnY = 5 + 45 * numberOfButtons;
-            text.textRect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
+            text.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
-            GUI.Button(text.textRect, text.text, text.defaultStyle);
-            texts.Add(text);
+            GUI.Button(text.rect, text.text, text.style);
         }
 
         public void AddMulButton(MulButton mulButton)
         {
             numberOfButtons = mulButton.position;
             int btnY = 5 + 45 * numberOfButtons;
-            mulButton.buttonRect = new Rect(rect.x + 5, rect.y + btnY, widthSize - 90, 40);
+            mulButton.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize - 90, 40);
 
-            if (GUI.Button(mulButton.buttonRect, mulButton.buttonText, mulButton.defaultStyle))
+            if (GUI.Button(mulButton.rect, mulButton.text, mulButton.style))
             {
-                mulButton.ButtonAction();
+                mulButton.Action();
             }
             DrawMulButtons(mulButton);
-            mulButtons.Add(mulButton);
         }
 
         public void AddTogglableButton(TogglableButton togglableButton)
         {
             numberOfButtons = togglableButton.position;
             int btnY = 5 + 45 * numberOfButtons;
-            togglableButton.buttonRect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
+            togglableButton.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
-            if (GUI.Button(togglableButton.buttonRect, togglableButton.text, togglableButton.style))
+            if (GUI.Button(togglableButton.rect, togglableButton.text, togglableButton.style))
             {
                 togglableButton.Action?.Invoke();
                 togglableButton.Enabled = !togglableButton.Enabled;
@@ -79,26 +71,14 @@ namespace UmbraMenu
         {
             numberOfButtons = togglableMulButton.position;
             int btnY = 5 + 45 * numberOfButtons;
-            togglableMulButton.buttonRect = new Rect(rect.x + 5, rect.y + btnY, widthSize - 90, 40);
+            togglableMulButton.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize - 90, 40);
 
-            if (togglableMulButton.enabled)
+            if (GUI.Button(togglableMulButton.rect, togglableMulButton.text, togglableMulButton.style))
             {
-                if (GUI.Button(togglableMulButton.buttonRect, togglableMulButton.onText, Styles.OnStyle))
-                {
-                    togglableMulButton.enabled = false;
-                    togglableMulButton.OnAction();
-                }
-                DrawMulButtons(togglableMulButton: togglableMulButton);
+                togglableMulButton.Action?.Invoke();
+                togglableMulButton.Enabled = !togglableMulButton.Enabled;
             }
-            else
-            {
-                if (GUI.Button(togglableMulButton.buttonRect, togglableMulButton.offText, Styles.OffStyle))
-                {
-                    togglableMulButton.enabled = true;
-                    togglableMulButton.offAction();
-                }
-                DrawMulButtons(togglableMulButton: togglableMulButton);
-            }
+            DrawMulButtons(togglableMulButton: togglableMulButton);
         }
 
         private void DrawMulButtons(MulButton mulButton = null, TogglableMulButton togglableMulButton = null)

@@ -11,11 +11,11 @@ namespace UmbraMenu
     {
         public Menu parentMenu;
         public int position;
-        public Rect buttonRect;
-        public string buttonText;
+        public Rect rect;
+        public string text;
         public bool enabled;
-        public GUIStyle defaultStyle;
-        public Action ButtonAction;
+        public GUIStyle style;
+        public Action Action;
         public Action IncreaseAction;
         public Action DecreaseAction;
 
@@ -23,10 +23,10 @@ namespace UmbraMenu
         {
             this.parentMenu = parentMenu;
             this.position = position;
-            this.buttonText = buttonText;
+            this.text = buttonText;
             this.enabled = enabled;
-            this.defaultStyle = defaultStyle;
-            this.ButtonAction = ButtonAction;
+            this.style = defaultStyle;
+            this.Action = ButtonAction;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
         }

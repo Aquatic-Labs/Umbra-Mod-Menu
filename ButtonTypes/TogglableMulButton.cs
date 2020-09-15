@@ -11,25 +11,48 @@ namespace UmbraMenu
     {
         public Menu parentMenu;
         public int position;
-        public Rect buttonRect;
-        public string offText;
-        public string onText;
-        public bool enabled;
-        public GUIStyle defaultStyle;
-        public Action offAction;
-        public Action OnAction;
-        public Action IncreaseAction;
-        public Action DecreaseAction;
+        public Rect rect;
+        public string text, offText ,onText;
+        public GUIStyle style;
+        public Action Action, OffAction, OnAction, IncreaseAction, DecreaseAction;
+        private bool enabled;
 
-        public TogglableMulButton(Menu parentMenu, int position, string offText, string onText, GUIStyle defaultStyle, Action offAction, Action OnAction, Action DecreaseAction, Action IncreaseAction, bool enabled = false)
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+                if (enabled)
+                {
+                    text = onText;
+                    Action = OnAction;
+                    style = Styles.OnStyle;
+                }
+                else
+                {
+                    text = offText;
+                    Action = OffAction;
+                    style = Styles.OffStyle;
+                }
+                parentMenu.AddTogglableMulButton(this);
+            }
+        }
+
+
+        public TogglableMulButton(Menu parentMenu, int position, string offText, string onText, GUIStyle style, Action OffAction, Action OnAction, Action DecreaseAction, Action IncreaseAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;
+            text = offText;
             this.offText = offText;
             this.onText = onText;
-            this.enabled = enabled;
-            this.defaultStyle = defaultStyle;
-            this.offAction = offAction;
+            this.style = style;
+            Action = OffAction;
+            this.OffAction = OffAction;
             this.OnAction = OnAction;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;

@@ -11,10 +11,10 @@ namespace UmbraMenu
     {
         public Menu parentMenu;
         public int position;
-        public Rect textRect;
+        public Rect rect;
         public string text;
         public bool enabled;
-        public GUIStyle defaultStyle = Styles.LabelStyle;
+        public GUIStyle style = Styles.LabelStyle;
 
         public Text(Menu parentMenu, int position, string text, bool enabled = false)
         {

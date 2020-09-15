@@ -37,7 +37,7 @@ namespace UmbraMenu
                     menu.AddTogglableButton(MenuButtons.Main.toggleItems);
                     menu.AddTogglableButton(MenuButtons.Main.toggleSpawn);
                     menu.AddTogglableButton(MenuButtons.Main.toggleTeleporter);
-                    menu.AddTogglableButton(MenuButtons.Main.toggleESP);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleRender);
                     menu.AddTogglableButton(MenuButtons.Main.toggleLobby);
                     menu.AddTogglableButton(MenuButtons.Main.unloadMenu);
                 }
@@ -61,7 +61,7 @@ namespace UmbraMenu
             }
         }
 
-        public static void BuildItemsMenu(Menu menu)
+        public static void BuildItemMenu(Menu menu)
         {
             if (menu.enabled)
             {
@@ -88,7 +88,7 @@ namespace UmbraMenu
             }
         }
 
-        public static void BuildESPMenu(Menu menu)
+        public static void BuildRenderMenu(Menu menu)
         {
             if (menu.enabled)
             {

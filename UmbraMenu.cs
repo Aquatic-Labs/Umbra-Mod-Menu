@@ -66,21 +66,27 @@ namespace UmbraMenu
             #endregion
 
             #region Movement Menu
+            BuildMenus.BuildPlayerMenu(player);
             #endregion
 
             #region Item Menu
+            BuildMenus.BuildItemMenu(item);
             #endregion
 
             #region Spawn Menu
+            BuildMenus.BuildSpawnMenu(spawn);
             #endregion
 
             #region Teleporter Menu
+            BuildMenus.BuildTeleporterMenu(teleporter);
             #endregion
 
             #region Render Menu
+            BuildMenus.BuildRenderMenu(render);
             #endregion
 
             #region Lobby Menu
+            BuildMenus.BuildLobbyMenu(lobby);
             #endregion
         }
 
@@ -163,10 +169,21 @@ namespace UmbraMenu
             {
                 routines.CharacterRoutine();
                 CheckInputs();
+                /*routines.StatsRoutine();
+                routines.EquipCooldownRoutine();
+                routines.ModStatsRoutine();
+                routines.FlightRoutine();
+                routines.SprintRoutine();
+                routines.JumpPackRoutine();
+                routines.AimBotRoutine();
+                routines.GodRoutine();
+                routines.UpdateNavIndexRoutine();
+                routines.DevBuildRoutine();*/
+                // UpdateMenuPositions();
             }
             catch (NullReferenceException)
             {
-                
+
             }
         }
 

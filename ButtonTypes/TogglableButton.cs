@@ -11,7 +11,7 @@ namespace UmbraMenu
     {
         public Menu parentMenu;
         public int position;
-        public Rect buttonRect;
+        public Rect rect;
         public string offText, onText, text;
         public GUIStyle style = Styles.OffStyle;
         public Action Action, OffAction, OnAction;
