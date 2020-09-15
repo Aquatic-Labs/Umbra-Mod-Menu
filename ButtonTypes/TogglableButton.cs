@@ -12,20 +12,44 @@ namespace UmbraMenu
         public Menu parentMenu;
         public int position;
         public Rect buttonRect;
-        public string offText, onText;
-        public bool enabled;
-        public GUIStyle defaultStyle;
-        public Action OffAction;
-        public Action OnAction;
+        public string offText, onText, text;
+        public GUIStyle style = Styles.OffStyle;
+        public Action Action, OffAction, OnAction;
+        private bool enabled;
 
-        public TogglableButton(Menu parentMenu, int position, string offText, string onText, GUIStyle defaultStyle, Action OffAction, Action OnAction, bool enabled = false)
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+                if (enabled)
+                {
+                    text = onText;
+                    Action = OnAction;
+                    style = Styles.OnStyle;
+                }
+                else
+                {
+                    text = offText;
+                    Action = OffAction;
+                    style = Styles.OffStyle;
+                }
+                parentMenu.AddTogglableButton(this);
+            }
+        }
+
+        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;
+            text = offText;
             this.offText = offText;
             this.onText = onText;
-            this.enabled = enabled;
-            this.defaultStyle = defaultStyle;
+            Action = OffAction;
             this.OffAction = OffAction;
             this.OnAction = OnAction;
         }

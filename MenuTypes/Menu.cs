@@ -59,6 +59,7 @@ namespace UmbraMenu
                 mulButton.ButtonAction();
             }
             DrawMulButtons(mulButton);
+            mulButtons.Add(mulButton);
         }
 
         public void AddTogglableButton(TogglableButton togglableButton)
@@ -67,21 +68,10 @@ namespace UmbraMenu
             int btnY = 5 + 45 * numberOfButtons;
             togglableButton.buttonRect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
-            if (togglableButton.enabled)
+            if (GUI.Button(togglableButton.buttonRect, togglableButton.text, togglableButton.style))
             {
-                if (GUI.Button(togglableButton.buttonRect, togglableButton.onText, Styles.OnStyle))
-                {
-                    togglableButton.enabled = false;
-                    togglableButton.OnAction();
-                }
-            }
-            else
-            {
-                if (GUI.Button(togglableButton.buttonRect, togglableButton.offText, Styles.OffStyle))
-                {
-                    togglableButton.enabled = true;
-                    togglableButton.OffAction();
-                }
+                togglableButton.Action?.Invoke();
+                togglableButton.Enabled = !togglableButton.Enabled;
             }
         }
 

@@ -32,26 +32,14 @@ namespace UmbraMenu
 
                 if (UmbraMenu._CharacterCollected)
                 {
-                    void PlayerButtonAction() => ButtonActions.MainMenu.ToggleMenu(UmbraMenu.menus[1]);
-
-                    void UnloadMenu() => Loader.Unload();
-                    TogglableButton togglePlayer = new TogglableButton(menu, 1, "P L A Y E R : O F F", "P L A Y E R : O N", Styles.BtnStyle, OffAction: PlayerButtonAction, OnAction: PlayerButtonAction);
-                    TogglableButton toggleMovement = new TogglableButton(menu, 2, "M O V E M E N T : O F F", "M O V E M E N T : O N", Styles.BtnStyle, null, null);
-                    TogglableButton toggleItems = new TogglableButton(menu, 3, "I T E M S : O F F", "I T E M S : O N", Styles.BtnStyle, null, null);
-                    TogglableButton toggleSpawn = new TogglableButton(menu, 4, "S P A W N : O F F", "S P A W N : O N", Styles.BtnStyle, null, null);
-                    TogglableButton toggleTeleporter = new TogglableButton(menu, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", Styles.BtnStyle, null, null);
-                    TogglableButton toggleESP = new TogglableButton(menu, 6, "R E N D E R : O F F", "R E N D E R: O N", Styles.BtnStyle, null, null);
-                    TogglableButton toggleLobby = new TogglableButton(menu, 7, "L O B B Y : O F F", "L O B B Y : O N", Styles.BtnStyle, null, null);
-                    TogglableButton unloadMenu = new TogglableButton(menu, 8, "U N L O A D   M E N U", "C O N F I R M ?", Styles.OffStyle, null, UnloadMenu);
-
-                    menu.AddTogglableButton(togglePlayer);
-                    menu.AddTogglableButton(toggleMovement);
-                    menu.AddTogglableButton(toggleItems);
-                    menu.AddTogglableButton(toggleSpawn);
-                    menu.AddTogglableButton(toggleTeleporter);
-                    menu.AddTogglableButton(toggleESP);
-                    menu.AddTogglableButton(toggleLobby);
-                    menu.AddTogglableButton(unloadMenu);
+                    menu.AddTogglableButton(MenuButtons.Main.togglePlayer);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleMovement);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleItems);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleSpawn);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleTeleporter);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleESP);
+                    menu.AddTogglableButton(MenuButtons.Main.toggleLobby);
+                    menu.AddTogglableButton(MenuButtons.Main.unloadMenu);
                 }
             }
         }
@@ -62,7 +50,59 @@ namespace UmbraMenu
             {
                 menu.SetWindow();
                 menu.DrawMenu();
-                menu.AddButton(new Button(menu, 1, "Test Player Button", Styles.BtnStyle, null));
+            }
+        }
+        public static void BuildMovementMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
+            }
+        }
+
+        public static void BuildItemsMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
+            }
+        }
+
+        public static void BuildSpawnMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
+            }
+        }
+
+        public static void BuildTeleporterMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
+            }
+        }
+
+        public static void BuildESPMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
+            }
+        }
+
+        public static void BuildLobbyMenu(Menu menu)
+        {
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
             }
         }
     }

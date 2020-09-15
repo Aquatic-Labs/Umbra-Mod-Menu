@@ -18,7 +18,6 @@ namespace UmbraMenu
         public GUIStyle defaultStyle;
         public Action buttonAction;
 
-
         public Button(Menu parentMenu, int position, string buttonText, GUIStyle defaultStyle, Action buttonAction, bool enabled = false) 
         {
             this.parentMenu = parentMenu;
