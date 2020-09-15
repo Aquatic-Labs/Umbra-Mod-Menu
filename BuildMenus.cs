@@ -39,21 +39,34 @@ namespace UmbraMenu
                     menu.AddTogglableButton(MenuButtons.Main.toggleTeleporter);
                     menu.AddTogglableButton(MenuButtons.Main.toggleRender);
                     menu.AddTogglableButton(MenuButtons.Main.toggleLobby);
-                    menu.AddTogglableButton(MenuButtons.Main.unloadMenu);
+                    //menu.AddTogglableButton(MenuButtons.Main.unloadMenu);
                 }
             }
         }
 
         public static void BuildPlayerMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.togglePlayer;
             if (menu.enabled)
             {
                 menu.SetWindow();
                 menu.DrawMenu();
+                menu.AddMulButton(MenuButtons.Player.giveMoney);
+                menu.AddMulButton(MenuButtons.Player.giveCoins);
+                menu.AddMulButton(MenuButtons.Player.giveExperience);
+                menu.AddTogglableButton(MenuButtons.Player.toggleStatsMod);
+                menu.AddTogglableButton(MenuButtons.Player.toggleChangeCharacter);
+                menu.AddTogglableButton(MenuButtons.Player.toggleBuff);
+                menu.AddButton(MenuButtons.Player.removeBuffs);
+                menu.AddTogglableButton(MenuButtons.Player.toggleAimbot);
+                menu.AddTogglableButton(MenuButtons.Player.toggleGod);
+                menu.AddTogglableButton(MenuButtons.Player.toggleSkillCD);
+                menu.AddButton(MenuButtons.Player.unlockAll);
             }
         }
         public static void BuildMovementMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.toggleMovement;
             if (menu.enabled)
             {
                 menu.SetWindow();
@@ -63,6 +76,7 @@ namespace UmbraMenu
 
         public static void BuildItemMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.toggleItems;
             if (menu.enabled)
             {
                 menu.SetWindow();
@@ -72,6 +86,7 @@ namespace UmbraMenu
 
         public static void BuildSpawnMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.toggleSpawn;
             if (menu.enabled)
             {
                 menu.SetWindow();
@@ -81,6 +96,7 @@ namespace UmbraMenu
 
         public static void BuildTeleporterMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.toggleTeleporter;
             if (menu.enabled)
             {
                 menu.SetWindow();
@@ -90,6 +106,7 @@ namespace UmbraMenu
 
         public static void BuildRenderMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.toggleRender;
             if (menu.enabled)
             {
                 menu.SetWindow();
@@ -99,6 +116,7 @@ namespace UmbraMenu
 
         public static void BuildLobbyMenu(Menu menu)
         {
+            menu.activatingButton = MenuButtons.Main.toggleLobby;
             if (menu.enabled)
             {
                 menu.SetWindow();

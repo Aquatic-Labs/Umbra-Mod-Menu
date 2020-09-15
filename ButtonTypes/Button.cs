@@ -14,40 +14,39 @@ namespace UmbraMenu
         public int position;
         public Rect buttonRect;
         public string text;
-        public bool enabled;
-        public GUIStyle defaultStyle;
-        public Action buttonAction;
+        public bool enabled = false;
+        public GUIStyle style = Styles.BtnStyle;
+        public Action Action;
 
         public bool isMul, isTogglable, isText, isTogglableMul;
         public string onText, offText;
         public Action OnAction, OffAction, IncreaseAction, DecreaseAction;
 
-        public Button(Menu parentMenu, int position, string text, GUIStyle defaultStyle, Action buttonAction, bool enabled = false) 
+        public Button(Menu parentMenu, int position, string text, Action Action) 
         {
             this.parentMenu = parentMenu;
             this.position = position;
             this.text = text;
-            this.enabled = enabled;
-            this.defaultStyle = defaultStyle;
-            this.buttonAction = buttonAction;
+            this.Action = Action;
         }
 
         public static Button ConvertTogglableButtonToButton(TogglableButton togglableButton)
         {
-            Button button = new Button(togglableButton.parentMenu, togglableButton.position, togglableButton.text, togglableButton.style, togglableButton.Action)
+            Button button = new Button(togglableButton.parentMenu, togglableButton.position, togglableButton.text, togglableButton.Action)
             {
                 isTogglable = true,
                 onText = togglableButton.onText,
                 offText = togglableButton.offText,
                 OnAction = togglableButton.OnAction,
-                OffAction = togglableButton.OffAction
+                OffAction = togglableButton.OffAction,
+                style = togglableButton.style
             };
             return button;
         }
 
         public static Button ConvertTogglableMulButtonToButton(TogglableMulButton togglableMulButton)
         {
-            Button button = new Button(togglableMulButton.parentMenu, togglableMulButton.position, togglableMulButton.text, togglableMulButton.style, togglableMulButton.Action)
+            Button button = new Button(togglableMulButton.parentMenu, togglableMulButton.position, togglableMulButton.text, togglableMulButton.Action)
             {
                 isTogglableMul = true,
                 onText = togglableMulButton.onText,
@@ -55,27 +54,30 @@ namespace UmbraMenu
                 OnAction = togglableMulButton.OnAction,
                 OffAction = togglableMulButton.OffAction,
                 DecreaseAction = togglableMulButton.DecreaseAction,
-                IncreaseAction = togglableMulButton.IncreaseAction
+                IncreaseAction = togglableMulButton.IncreaseAction,
+                style = togglableMulButton.style
             };
             return button;
         }
 
         public static Button ConvertMulButtonToButton(MulButton mulButton)
         {
-            Button button = new Button(mulButton.parentMenu, mulButton.position, mulButton.text, mulButton.style, mulButton.Action)
+            Button button = new Button(mulButton.parentMenu, mulButton.position, mulButton.text, mulButton.Action)
             {
                 isMul = true,
                 DecreaseAction = mulButton.DecreaseAction,
-                IncreaseAction = mulButton.IncreaseAction
+                IncreaseAction = mulButton.IncreaseAction,
+                style = mulButton.style
             };
             return button;
         }
 
         public static Button ConvertTextToButton(Text text)
         {
-            Button button = new Button(text.parentMenu, text.position, text.text, text.style, null)
+            Button button = new Button(text.parentMenu, text.position, text.text, null)
             {
-                isText = true
+                isText = true,
+                style = text.style
             };
             return button;
         }

@@ -11,8 +11,8 @@ namespace UmbraMenu
         public void PressButton(int menuId, int buttonId)
         {
             Menu menu = Utility.FindMenuById(menuId);
-            Button button = Utility.FindButtonById(menu, buttonId);
-            button.buttonAction();
+            //Button button = Utility.FindButtonById(menu, buttonId);
+            //button.buttonAction();
         }
     }
 }

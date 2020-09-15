@@ -66,7 +66,7 @@ namespace UmbraMenu
             #endregion
 
             #region Movement Menu
-            BuildMenus.BuildPlayerMenu(player);
+            BuildMenus.BuildMovementMenu(movement);
             #endregion
 
             #region Item Menu

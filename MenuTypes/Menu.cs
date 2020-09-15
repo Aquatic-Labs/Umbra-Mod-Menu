@@ -18,7 +18,7 @@ namespace UmbraMenu
         public Rect rect;
         public bool ifDragged = false;
         public int numberOfButtons = 0;
-        public List<Button> buttons = new List<Button>();
+        public TogglableButton activatingButton;
 
         public void AddButton(Button button)
         {
@@ -26,9 +26,9 @@ namespace UmbraMenu
             int btnY = 5 + 45 * numberOfButtons;
             button.buttonRect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
-            if (GUI.Button(button.buttonRect, button.text, button.defaultStyle))
+            if (GUI.Button(button.buttonRect, button.text, button.style))
             {
-                button.buttonAction();
+                button.Action?.Invoke();
             }
         }
 
@@ -49,7 +49,7 @@ namespace UmbraMenu
 
             if (GUI.Button(mulButton.rect, mulButton.text, mulButton.style))
             {
-                mulButton.Action();
+                mulButton.Action?.Invoke();
             }
             DrawMulButtons(mulButton);
         }
@@ -86,26 +86,26 @@ namespace UmbraMenu
             Rect menuBg = rect;
             if (mulButton != null)
             {
-                int btnY = mulButton.position;
+                int btnY = 5 + 45 * mulButton.position;
                 if (GUI.Button(new Rect(menuBg.x + widthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
                 {
-                    mulButton.DecreaseAction();
+                    mulButton.DecreaseAction?.Invoke();
                 }
                 if (GUI.Button(new Rect(menuBg.x + widthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
                 {
-                    mulButton.IncreaseAction();
+                    mulButton.IncreaseAction?.Invoke();
                 }
             }
             else if (togglableMulButton != null)
             {
-                int btnY = togglableMulButton.position;
+                int btnY = 5 + 45 * togglableMulButton.position;
                 if (GUI.Button(new Rect(menuBg.x + widthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
                 {
-                    togglableMulButton.DecreaseAction();
+                    togglableMulButton.DecreaseAction?.Invoke();
                 }
                 if (GUI.Button(new Rect(menuBg.x + widthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
                 {
-                    togglableMulButton.IncreaseAction();
+                    togglableMulButton.IncreaseAction?.Invoke();
                 }
             }
         }
@@ -146,6 +146,7 @@ namespace UmbraMenu
                 if (!ifDragged)
                 {
                     enabled = !enabled;
+                    activatingButton.Enabled = !activatingButton.Enabled;
                 }
                 ifDragged = false;
             }

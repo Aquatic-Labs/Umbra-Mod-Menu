@@ -13,20 +13,19 @@ namespace UmbraMenu
         public int position;
         public Rect rect;
         public string text;
-        public bool enabled;
-        public GUIStyle style;
+        public bool enabled = false;
+        public GUIStyle style = Styles.BtnStyle;
         public Action Action;
         public Action IncreaseAction;
         public Action DecreaseAction;
 
-        public MulButton(Menu parentMenu, int position, string buttonText, GUIStyle defaultStyle, Action ButtonAction, Action IncreaseAction, Action DecreaseAction, bool enabled = false)
+        public MulButton(Menu parentMenu, int position, string text, GUIStyle style, Action Action, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;
-            this.text = buttonText;
-            this.enabled = enabled;
-            this.style = defaultStyle;
-            this.Action = ButtonAction;
+            this.text = text;
+            this.style = style;
+            this.Action = Action;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
         }

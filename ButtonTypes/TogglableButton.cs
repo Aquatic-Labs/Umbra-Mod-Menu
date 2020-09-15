@@ -15,7 +15,7 @@ namespace UmbraMenu
         public string offText, onText, text;
         public GUIStyle style = Styles.OffStyle;
         public Action Action, OffAction, OnAction;
-        private bool enabled;
+        private bool enabled = false;
 
         public bool Enabled
         {

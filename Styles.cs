@@ -47,8 +47,8 @@ namespace UmbraMenu
             OffStyle = CreateGUIStyle(Textures.OffTexture, Textures.OffPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
             OnStyle = CreateGUIStyle(Textures.OnTexture, Textures.OnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
             BtnStyle = CreateGUIStyle(Textures.BtnTexture, Textures.BtnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
-            ItemBtnStyle = BtnStyle = CreateGUIStyle(Textures.BtnTexture, Textures.BtnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
-            HighlightBtnStyle = BtnStyle = CreateGUIStyle(Textures.HighlightTexture, Textures.HighlightPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            ItemBtnStyle = CreateGUIStyle(Textures.BtnTexture, Textures.BtnPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
+            HighlightBtnStyle = CreateGUIStyle(Textures.HighlightTexture, Textures.HighlightPressTexture, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 15, FontStyle.Normal, TextAnchor.MiddleCenter);
         }
     }
 }

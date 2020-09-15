@@ -13,9 +13,9 @@ namespace UmbraMenu
         public int position;
         public Rect rect;
         public string text, offText ,onText;
-        public GUIStyle style;
+        public GUIStyle style = Styles.OffStyle;
         public Action Action, OffAction, OnAction, IncreaseAction, DecreaseAction;
-        private bool enabled;
+        private bool enabled = false;
 
         public bool Enabled
         {

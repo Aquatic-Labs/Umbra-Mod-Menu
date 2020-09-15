@@ -13,10 +13,10 @@ namespace UmbraMenu
         public int position;
         public Rect rect;
         public string text;
-        public bool enabled;
+        public bool enabled = false;
         public GUIStyle style = Styles.LabelStyle;
 
-        public Text(Menu parentMenu, int position, string text, bool enabled = false)
+        public Text(Menu parentMenu, int position, string text)
         {
             this.parentMenu = parentMenu;
             this.position = position;
