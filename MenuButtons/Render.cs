@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace UmbraMenu.MenuButtons
 {
-    class Render
+    public class Render
     {
         private static readonly Menu currentMenu = Utility.FindMenuById(6);
 
-        public static TogglableButton toggleActiveMods = new TogglableButton(currentMenu, 4, "S P A W N : O F F", "S P A W N : O N", null, null);
-        public static TogglableButton toggleInteractESP = new TogglableButton(currentMenu, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", null, null);
-        public static TogglableButton toggleMobESP = new TogglableButton(currentMenu, 6, "R E N D E R : O F F", "R E N D E R: O N", null, null);
+        public static TogglableButton toggleActiveMods = new TogglableButton(currentMenu, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", null, null);
+        public static TogglableButton toggleInteractESP = new TogglableButton(currentMenu, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", null, null);
+        public static TogglableButton toggleMobESP = new TogglableButton(currentMenu, 3, "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", null, null);
 
         public static List<Button> buttons = new List<Button>()
         {

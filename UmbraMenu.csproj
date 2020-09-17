@@ -59,11 +59,18 @@
   <ItemGroup>
     <Compile Include="BuildMenus.cs" />
     <Compile Include="ButtonTypes\Button.cs" />
+    <Compile Include="MenuButtons\BuffList.cs" />
+    <Compile Include="MenuButtons\CharacterList.cs" />
+    <Compile Include="MenuButtons\ChestItemList.cs" />
+    <Compile Include="MenuButtons\EquipmentList.cs" />
+    <Compile Include="MenuButtons\ItemList.cs" />
     <Compile Include="MenuButtons\Items.cs" />
     <Compile Include="MenuButtons\Lobby.cs" />
     <Compile Include="MenuButtons\Main.cs" />
     <Compile Include="ButtonTypes\MulButton.cs" />
     <Compile Include="Loader.cs" />
+    <Compile Include="MenuButtons\SpawnList.cs" />
+    <Compile Include="MenuButtons\StatsMod.cs" />
     <Compile Include="MenuTypes\ListMenu.cs" />
     <Compile Include="MenuTypes\Menu.cs" />
     <Compile Include="MenuButtons\Movement.cs" />

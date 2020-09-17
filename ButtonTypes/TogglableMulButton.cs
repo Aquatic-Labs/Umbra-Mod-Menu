@@ -15,6 +15,7 @@ namespace UmbraMenu
         public string text, offText ,onText;
         public GUIStyle style = Styles.OffStyle;
         public Action Action, OffAction, OnAction, IncreaseAction, DecreaseAction;
+        private bool highlighted = false;
         private bool enabled = false;
 
         public bool Enabled
@@ -42,6 +43,27 @@ namespace UmbraMenu
             }
         }
 
+        public bool Highlighted
+        {
+            get
+            {
+                return highlighted;
+            }
+            set
+            {
+                enabled = value;
+                if (highlighted)
+                {
+                    style = Styles.HighlightBtnStyle;
+                }
+                else
+                {
+
+                }
+                parentMenu.AddTogglableMulButton(this);
+            }
+        }
+
 
         public TogglableMulButton(Menu parentMenu, int position, string offText, string onText, GUIStyle style, Action OffAction, Action OnAction, Action DecreaseAction, Action IncreaseAction)
         {
@@ -56,6 +78,8 @@ namespace UmbraMenu
             this.OnAction = OnAction;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
+            int btnY = 5 + 45 * position;
+            rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize - 90, 40);
         }
     }
 }

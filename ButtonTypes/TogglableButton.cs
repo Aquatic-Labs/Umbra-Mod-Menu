@@ -15,6 +15,7 @@ namespace UmbraMenu
         public string offText, onText, text;
         public GUIStyle style = Styles.OffStyle;
         public Action Action, OffAction, OnAction;
+        private bool highlighted = false;
         private bool enabled = false;
 
         public bool Enabled
@@ -42,6 +43,31 @@ namespace UmbraMenu
             }
         }
 
+        public bool Highlighted
+        {
+            get
+            {
+                return highlighted;
+            }
+            set
+            {
+                enabled = value;
+                if (highlighted)
+                {
+                    text = onText;
+                    Action = OnAction;
+                    style = Styles.HighlightBtnStyle;
+                }
+                else
+                {
+                    text = offText;
+                    Action = OffAction;
+                    style = Styles.OffStyle;
+                }
+                parentMenu.AddTogglableButton(this);
+            }
+        }
+
         public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction)
         {
             this.parentMenu = parentMenu;
@@ -52,6 +78,8 @@ namespace UmbraMenu
             Action = OffAction;
             this.OffAction = OffAction;
             this.OnAction = OnAction;
+            int btnY = 5 + 45 * position;
+            rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize, 40);
         }
     }
 }

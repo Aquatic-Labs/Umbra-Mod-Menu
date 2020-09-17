@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace UmbraMenu.MenuButtons
 {
-    class Movement
+    public class Movement
     {
         private static readonly Menu currentMenu = Utility.FindMenuById(2);
 
-        public static TogglableButton toggleAlwaysSprint = new TogglableButton(currentMenu, 4, "S P A W N : O F F", "S P A W N : O N", null, null);
-        public static TogglableButton toggleFlight = new TogglableButton(currentMenu, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", null, null);
-        public static TogglableButton toggleJumpPack = new TogglableButton(currentMenu, 6, "R E N D E R : O F F", "R E N D E R: O N", null, null);
+        public static TogglableButton toggleAlwaysSprint = new TogglableButton(currentMenu, 1, "A L W A Y S   S P R I N T : O F F", "A L W A Y S   S P R I N T : O N", null, null);
+        public static TogglableButton toggleFlight = new TogglableButton(currentMenu, 2, "F L I G H T : O F F", "F L I G H T : O N", null, null);
+        public static TogglableButton toggleJumpPack = new TogglableButton(currentMenu, 3, "J U M P - P A C K : O F F", "J U M P - P A C K : O N", null, null);
 
         public static List<Button> buttons = new List<Button>()
         {

@@ -21,7 +21,6 @@ namespace UmbraMenu
             this.parentMenu = parentMenu;
             this.position = position;
             this.text = text;
-            this.enabled = enabled;
         }
     }
 }

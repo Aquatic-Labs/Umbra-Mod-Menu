@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace UmbraMenu.MenuButtons
 {
-    class Items
+    public class Items
     {
         private static readonly Menu currentMenu = Utility.FindMenuById(3);
 
-        public static MulButton giveAllItems = new MulButton(currentMenu, 1, "P L A Y E R : O F F", "P L A Y E R : O N", null, null, null);
-        public static MulButton rollItems = new MulButton(currentMenu, 2, "M O V E M E N T : O F F", "M O V E M E N T : O N", null, null, null);
-        public static TogglableButton toggleItemListMenu = new TogglableButton(currentMenu, 3, "S P A W N : O F F", "S P A W N : O N", null, null);
-        public static TogglableButton toggleEquipmentListMenu = new TogglableButton(currentMenu, 4, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", null, null);
-        public static TogglableButton toggleDropItems = new TogglableButton(currentMenu, 5, "R E N D E R : O F F", "R E N D E R: O N", null, null);
-        public static TogglableButton toggleDropInvItems = new TogglableButton(currentMenu, 6, "L O B B Y : O F F", "L O B B Y : O N", null, null);
-        public static TogglableButton toggleEquipmentCD = new TogglableButton(currentMenu, 7, "U N L O A D   M E N U", "C O N F I R M ?", null, null);
-        public static Button stackInventory = new Button(currentMenu, 8, "U N L O A D   M E N U", null);
-        public static Button clearInventory = new Button(currentMenu, 9, "U N L O A D   M E N U", null);
-        public static TogglableButton toggleChestItemMenu = new TogglableButton(currentMenu, 10, "U N L O A D   M E N U", "C O N F I R M ?", null, null);
+        public static MulButton giveAllItems = new MulButton(currentMenu, 1, $"G I V E   A L L   I T E M S : ", null, null, null);
+        public static MulButton rollItems = new MulButton(currentMenu, 2, $"R O L L   I T E M S : ", null, null, null);
+        public static TogglableButton toggleItemListMenu = new TogglableButton(currentMenu, 3, "I T E M   S P A W N   M E N U : O F F", "I T E M   S P A W N   M E N U : O N", null, null);
+        public static TogglableButton toggleEquipmentListMenu = new TogglableButton(currentMenu, 4, "E Q U I P M E N T   S P A W N   M E N U : O F F", "E Q U I P M E N T   S P A W N   M E N U : O N", null, null);
+        public static TogglableButton toggleDropItems = new TogglableButton(currentMenu, 5, "D R O P   I T E M S / E Q U I P M E N T : O F F", "D R O P   I T E M S / E Q U I P M E N T : O N", null, null);
+        public static TogglableButton toggleDropInvItems = new TogglableButton(currentMenu, 6, "D R O P   F R O M   I N V E N T O R Y : O F F", "D R O P   F R O M   I N V E N T O R Y : O N", null, null);
+        public static TogglableButton toggleEquipmentCD = new TogglableButton(currentMenu, 7, "I N F I N I T E   E Q U I P M E N T : O F F", "I N F I N I T E   E Q U I P M E N T : O N", null, null);
+        public static Button stackInventory = new Button(currentMenu, 8, "S T A C K   I N V E N T O R Y", null);
+        public static Button clearInventory = new Button(currentMenu, 9, "C L E A R   I N V E N T O R Y", null);
+        public static TogglableButton toggleChestItemMenu = new TogglableButton(currentMenu, 10, "C H A N G E   C H E S T   I T E M : O F F", "C H A N G E   C H E S T   I T E M : O N", null, null);
 
         public static List<Button> buttons = new List<Button>()
         {

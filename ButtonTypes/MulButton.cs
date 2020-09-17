@@ -15,19 +15,40 @@ namespace UmbraMenu
         public string text;
         public bool enabled = false;
         public GUIStyle style = Styles.BtnStyle;
-        public Action Action;
-        public Action IncreaseAction;
-        public Action DecreaseAction;
+        public Action Action, IncreaseAction, DecreaseAction;
+        private bool highlighted = false;
 
-        public MulButton(Menu parentMenu, int position, string text, GUIStyle style, Action Action, Action IncreaseAction, Action DecreaseAction)
+        public bool Highlighted
+        {
+            get
+            {
+                return highlighted;
+            }
+            set
+            {
+                enabled = value;
+                if (highlighted)
+                {
+
+                }
+                else
+                {
+
+                }
+                parentMenu.AddMulButton(this);
+            }
+        }
+
+        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;
             this.text = text;
-            this.style = style;
             this.Action = Action;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
+            int btnY = 5 + 45 * position;
+            rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize - 90, 40);
         }
     }
 }

@@ -12,11 +12,37 @@ namespace UmbraMenu
     {
         public Menu parentMenu;
         public int position;
-        public Rect buttonRect;
+        public Rect rect;
         public string text;
         public bool enabled = false;
         public GUIStyle style = Styles.BtnStyle;
         public Action Action;
+        private bool highlighted = false;
+
+        public bool Highlighted
+        {
+            get
+            {
+                return highlighted;
+            }
+            set
+            {
+                enabled = value;
+                if (highlighted)
+                {
+                    text = onText;
+                    Action = OnAction;
+                    style = Styles.HighlightBtnStyle;
+                }
+                else
+                {
+                    text = offText;
+                    Action = OffAction;
+                    style = Styles.OffStyle;
+                }
+                parentMenu.AddButton(this);
+            }
+        }
 
         public bool isMul, isTogglable, isText, isTogglableMul;
         public string onText, offText;
@@ -28,6 +54,8 @@ namespace UmbraMenu
             this.position = position;
             this.text = text;
             this.Action = Action;
+            int btnY = 5 + 45 * position;
+            rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize, 40);
         }
 
         public static Button ConvertTogglableButtonToButton(TogglableButton togglableButton)
