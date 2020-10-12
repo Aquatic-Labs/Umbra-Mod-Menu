@@ -81,6 +81,13 @@ namespace UmbraMenu
             return false;
         }
 
+        public static SurvivorIndex GetCurrentCharacter()
+        {
+            var bodyIndex = BodyCatalog.FindBodyIndex(UmbraMenu.LocalPlayerBody);
+            var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
+            return survivorIndex;
+        }
+
         public static void StubbedFunction()
         {
             Debug.Log("pressed");

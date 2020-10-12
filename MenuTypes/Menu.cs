@@ -25,6 +25,8 @@ namespace UmbraMenu
         public void AddButton(Button button)
         {
             numberOfButtons = button.position;
+            int btnY = 5 + 45 * numberOfButtons;
+            button.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
             if (GUI.Button(button.rect, button.text, button.style))
             {
@@ -44,6 +46,8 @@ namespace UmbraMenu
         public void AddMulButton(MulButton mulButton)
         {
             numberOfButtons = mulButton.position;
+            int btnY = 5 + 45 * numberOfButtons;
+            mulButton.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize - 90, 40);
 
             if (GUI.Button(mulButton.rect, mulButton.text, mulButton.style))
             {
@@ -55,6 +59,8 @@ namespace UmbraMenu
         public void AddTogglableButton(TogglableButton togglableButton)
         {
             numberOfButtons = togglableButton.position;
+            int btnY = 5 + 45 * numberOfButtons;
+            togglableButton.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
 
             if (GUI.Button(togglableButton.rect, togglableButton.text, togglableButton.style))
             {
@@ -66,6 +72,8 @@ namespace UmbraMenu
         public void AddTogglableMulButton(TogglableMulButton togglableMulButton)
         {
             numberOfButtons = togglableMulButton.position;
+            int btnY = 5 + 45 * numberOfButtons;
+            togglableMulButton.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize - 90, 40);
 
             if (GUI.Button(togglableMulButton.rect, togglableMulButton.text, togglableMulButton.style))
             {
@@ -140,7 +148,11 @@ namespace UmbraMenu
                 if (!ifDragged)
                 {
                     enabled = !enabled;
-                    activatingButton.Enabled = !activatingButton.Enabled;
+                    if (activatingButton != null)
+                    {
+                        activatingButton.Enabled = !activatingButton.Enabled;
+                    }   
+                    UmbraMenu.GetCharacter();
                 }
                 ifDragged = false;
             }

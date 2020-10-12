@@ -1,4 +1,8 @@
-﻿using System;
+﻿// TODO:
+//     Find out why only movement menu shows no buttons when opened until the buttons are enabled... maybe enable/disable all buttons on start ad bruteforce fix?
+//     set condition on some variables attached to buttons so buttons update when they do or just check/set those buttons instead of those variables for the routines (like flightToggle and toggleFlight button, if toggleFlight.Enabled = true, flightToggle should be true).
+//     Port over rest of the menu
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
@@ -31,12 +35,9 @@ namespace UmbraMenu
 
         public static List<Menu> menus = new List<Menu>();
         public static List<ListMenu> listMenus = new List<ListMenu>();
-        public static bool _CharacterCollected;
-        public static bool navigationToggle;
+        public static bool _CharacterCollected, navigationToggle, devDoOnce = true;
 
         public static Scene currentScene;
-
-        public Routines routines = new Routines();
 
         #region Create Main Menus
         public Menu main = new Menu();
@@ -297,19 +298,22 @@ namespace UmbraMenu
         {
             try
             {
-                routines.CharacterRoutine();
                 CheckInputs();
-                /*routines.StatsRoutine();
-                routines.EquipCooldownRoutine();
-                routines.ModStatsRoutine();
-                routines.FlightRoutine();
-                routines.SprintRoutine();
-                routines.JumpPackRoutine();
-                routines.AimBotRoutine();
-                routines.GodRoutine();
-                routines.UpdateNavIndexRoutine();
-                routines.DevBuildRoutine();*/
-                // UpdateMenuPositions();
+
+                CharacterRoutine();
+
+                SkillsRoutine();
+                AimBotRoutine();
+                GodRoutine();
+
+                //EquipCooldownRoutine();
+                //ModStatsRoutine();
+                FlightRoutine();
+                SprintRoutine();
+                JumpPackRoutine();
+                //UpdateNavIndexRoutine();
+                DevBuildRoutine();
+                //UpdateMenuPositions();
             }
             catch (NullReferenceException)
             {
@@ -343,6 +347,10 @@ namespace UmbraMenu
                             LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
                             if (LocalHealth.alive) _CharacterCollected = true;
                             else _CharacterCollected = false;
+                            if (LocalPlayer.isActiveAndEnabled) _CharacterCollected = true;
+                            else _CharacterCollected = false;
+                            if (LocalPlayerBody.isActiveAndEnabled) _CharacterCollected = true;
+                            else _CharacterCollected = false;
                         }
                     }
                 }
@@ -372,5 +380,154 @@ namespace UmbraMenu
                 GetCharacter();
             }
         }
+
+        #region Routines
+        public void CharacterRoutine()
+        {
+            UmbraMenu.GetCharacter();
+        }
+
+        /*public void LowResolutionRoutine()
+        {
+            if (lowResolutionMonitor)
+            {
+                Utility.MenusOpenKeys();
+                LowResolutionMonitor();
+            }
+        }*/
+
+        public void DevBuildRoutine()
+        {
+            if (Loader.devBuild)
+            {
+                if (UmbraMenu._CharacterCollected)
+                {
+                    if (UmbraMenu.devDoOnce)
+                    {
+                        MenuButtons.Player.godToggle = true;
+                        MenuButtons.Movement.flightToggle = true;
+                        MenuButtons.Movement.alwaysSprintToggle = true;
+                        UmbraMenu.LocalPlayer.GiveMoney(10000);
+                        UmbraMenu.devDoOnce = false;
+                    }
+                }
+            }
+        }
+
+        /*public void ESPRoutine()
+        {
+            if (renderInteractables)
+            {
+                Render.Interactables();
+            }
+            if (renderMobs)
+            {
+                Render.Mobs();
+            }
+            if (renderActiveMods)
+            {
+                Render.ActiveMods();
+            }
+            if (_isChestItemListOpen)
+            {
+                Chests.RenderClosestChest();
+            }
+        }
+
+        public void EquipCooldownRoutine()
+        {
+            if (noEquipmentCooldown)
+            {
+                ItemManager.NoEquipmentCooldown();
+            }
+        }*/
+
+        public void SkillsRoutine()
+        {
+            if (UmbraMenu._CharacterCollected)
+            {
+                if (MenuButtons.Player.skillToggle)
+                {
+                    UmbraMenu.LocalSkills.ApplyAmmoPack();
+                }
+            }
+        }
+
+        public void AimBotRoutine()
+        {
+            if (MenuButtons.Player.aimBot)
+                MenuButtons.Player.AimBot();
+        }
+
+        public void GodRoutine()
+        {
+            if (MenuButtons.Player.godToggle)
+            {
+                MenuButtons.Player.GodMode();
+            }
+            else
+            {
+                UmbraMenu.LocalHealth.godMode = false;
+            }
+        }
+
+        public void SprintRoutine()
+        {
+            if (MenuButtons.Movement.alwaysSprintToggle)
+                MenuButtons.Movement.AlwaysSprint();
+        }
+
+        public void FlightRoutine()
+        {
+            if (MenuButtons.Movement.flightToggle)
+            {
+                MenuButtons.Movement.Flight();
+            }
+        }
+
+        /*public void ModStatsRoutine()
+        {
+            if (_CharacterCollected)
+            {
+                if (damageToggle)
+                {
+                    PlayerMod.LevelPlayersDamage();
+                }
+                if (critToggle)
+                {
+                    PlayerMod.LevelPlayersCrit();
+                }
+                if (attackSpeedToggle)
+                {
+                    PlayerMod.SetplayersAttackSpeed();
+                }
+                if (armorToggle)
+                {
+                    PlayerMod.SetplayersArmor();
+                }
+                if (moveSpeedToggle)
+                {
+                    PlayerMod.SetplayersMoveSpeed();
+                }
+                LocalPlayerBody.RecalculateStats();
+            }
+        }
+
+        public void UpdateNavIndexRoutine()
+        {
+            if (navigationToggle)
+            {
+                Navigation.UpdateIndexValues();
+            }
+        }*/
+
+        public void JumpPackRoutine()
+        {
+            if (MenuButtons.Movement.jumpPackToggle)
+            {
+                MenuButtons.Movement.JumpPack();
+            }
+        }
+        #endregion
     }
 }

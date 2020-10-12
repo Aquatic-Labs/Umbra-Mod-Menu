@@ -78,8 +78,6 @@ namespace UmbraMenu
             this.OnAction = OnAction;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
-            int btnY = 5 + 45 * position;
-            rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize - 90, 40);
         }
     }
 }

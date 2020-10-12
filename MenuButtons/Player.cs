@@ -13,14 +13,12 @@ namespace UmbraMenu.MenuButtons
     {
         private static readonly Menu currentMenu = Utility.FindMenuById(1);
 
-        private static int damagePerLvl = 10;
-        private static int CritPerLvl = 1;
-        private static float attackSpeed = 1;
-        private static float armor = 0;
-        private static float movespeed = 7;
+        public static bool skillToggle, aimBot, godToggle;
+
+        private static int damagePerLvl = 10, CritPerLvl = 1;
+        private static float attackSpeed = 1, armor = 0, movespeed = 7;
         private static ulong xpToGive = 50;
-        private static uint moneyToGive = 50;
-        private static uint coinsToGive = 50;
+        private static uint moneyToGive = 50, coinsToGive = 50;
 
         private static void StubbedFunc() => Utility.StubbedFunction();
         private static void ToggleStatsMenu() => ToggleMenu(UmbraMenu.menus[8]);
@@ -33,10 +31,10 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleChangeCharacter = new TogglableButton(currentMenu, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu);
         public static TogglableButton toggleBuff = new TogglableButton(currentMenu, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu);
         public static Button removeBuffs = new Button(currentMenu, 7, "R E M O V E   A L L   B U F F S", RemoveAllBuffs);
-        public static TogglableButton toggleAimbot = new TogglableButton(currentMenu, 8, "A I M B O T : O F F", "A I M B O T : O N", StubbedFunc, StubbedFunc);
-        public static TogglableButton toggleGod = new TogglableButton(currentMenu, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", StubbedFunc, StubbedFunc);
-        public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", StubbedFunc, StubbedFunc);
-        public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", StubbedFunc);
+        public static TogglableButton toggleAimbot = new TogglableButton(currentMenu, 8, "A I M B O T : O F F", "A I M B O T : O N", ToggleAimbot, ToggleAimbot);
+        public static TogglableButton toggleGod = new TogglableButton(currentMenu, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", ToggleGodMode, ToggleGodMode);
+        public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD);
+        public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
 
         public static List<Button> buttons = new List<Button>()
         {
@@ -61,6 +59,21 @@ namespace UmbraMenu.MenuButtons
         public static void ToggleMenu(ListMenu menu)
         {
             menu.enabled = !menu.enabled;
+        }
+
+        public static void ToggleAimbot()
+        {
+            aimBot = !aimBot;
+        }
+
+        public static void ToggleGodMode()
+        {
+            godToggle = !godToggle;
+        }
+
+        public static void ToggleSkillCD()
+        {
+            skillToggle = !skillToggle;
         }
 
         public static void DrawBuffListMenu()
@@ -200,13 +213,6 @@ namespace UmbraMenu.MenuButtons
         public static void GodMode()
         {
             UmbraMenu.LocalHealth.godMode = true;
-        }
-
-        public static SurvivorIndex GetCurrentCharacter()
-        {
-            var bodyIndex = BodyCatalog.FindBodyIndex(UmbraMenu.LocalPlayerBody);
-            var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
-            return survivorIndex;
         }
 
         public static void DrawCharacterListMenu()

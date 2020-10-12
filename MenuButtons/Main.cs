@@ -26,7 +26,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleTeleporter = new TogglableButton(currentMenu, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", TeleporterButtonAction, TeleporterButtonAction);
         public static TogglableButton toggleRender = new TogglableButton(currentMenu, 6, "R E N D E R : O F F", "R E N D E R: O N", RenderButtonAction, RenderButtonAction);
         public static TogglableButton toggleLobby = new TogglableButton(currentMenu, 7, "L O B B Y : O F F", "L O B B Y : O N", LobbyButtonAction, LobbyButtonAction);
-        public static TogglableButton unloadMenu = new TogglableButton(currentMenu, 8, "U N L O A D   M E N U", "C O N F I R M ?", Utility.StubbedFunction, UnloadMenu);
+        public static TogglableButton unloadMenu = new TogglableButton(currentMenu, 8, "U N L O A D   M E N U", "C O N F I R M ?", null, UnloadMenu);
 
         public static List<Button> buttons = new List<Button>()
         {
