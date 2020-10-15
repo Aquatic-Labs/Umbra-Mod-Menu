@@ -14,12 +14,12 @@ namespace UmbraMenu
             button?.Action?.Invoke();
         }
 
-        public void IncreaseValue(Button button)
+        public void IncreaseValue(MulButton button)
         {
             button?.IncreaseAction?.Invoke();
         }
 
-        public void DecreaseValue(Button button)
+        public void DecreaseValue(MulButton button)
         {
             button?.DecreaseAction?.Invoke();
         }

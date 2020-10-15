@@ -1,7 +1,5 @@
 ﻿// TODO:
-//     Find out why only movement menu shows no buttons when opened until the buttons are enabled... maybe enable/disable all buttons on start ad bruteforce fix?
-//     set condition on some variables attached to buttons so buttons update when they do or just check/set those buttons instead of those variables for the routines (like flightToggle and toggleFlight button, if toggleFlight.Enabled = true, flightToggle should be true).
-//     Port over rest of the menu
+//     Implement Sub-Menus
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +33,7 @@ namespace UmbraMenu
 
         public static List<Menu> menus = new List<Menu>();
         public static List<ListMenu> listMenus = new List<ListMenu>();
-        public static bool _CharacterCollected, navigationToggle, devDoOnce = true;
+        public static bool characterCollected, navigationToggle, devDoOnce = true;
 
         public static Scene currentScene;
 
@@ -60,7 +58,7 @@ namespace UmbraMenu
         public ListMenu chestItemList= new ListMenu();
         public ListMenu spawnList= new ListMenu();
         #endregion
-        
+
 
         private void OnGUI()
         {
@@ -81,41 +79,117 @@ namespace UmbraMenu
             }
             #endregion
 
-            #region Main Menu
-            main.SetWindow();
-            BuildMenus.BuildMainMenu(main);
+            try
+            {
+                #region Main Menu
+                if (Loader.updateAvailable)
+                {
+                    main.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
+                }
+                else if (Loader.upToDate)
+                {
+                    main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
+                }
+                else if (Loader.devBuild)
+                {
+                    main.menuTitle = $"U M B R A \n<color=yellow>D E V</color>";
+                }
+                MenuButtons.Main.AddButtonsToMenu();
+                main.SetWindow();
+                BuildMenus.BuildMainMenu(main);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Main Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Player Menu
+                MenuButtons.Player.AddButtonsToMenu();
+                BuildMenus.BuildPlayerMenu(player);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Player Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Movement Menu
+                MenuButtons.Movement.AddButtonsToMenu();
+                BuildMenus.BuildMovementMenu(movement);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Movement Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Item Menu
+                MenuButtons.Items.AddButtonsToMenu();
+                BuildMenus.BuildItemMenu(item);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Item Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Spawn Menu
+                MenuButtons.Spawn.AddButtonsToMenu();
+                BuildMenus.BuildSpawnMenu(spawn);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Spawn Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Teleporter Menu
+                MenuButtons.Teleporter.AddButtonsToMenu();
+                BuildMenus.BuildTeleporterMenu(teleporter);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Teleporter Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Render Menu
+                MenuButtons.Render.AddButtonsToMenu();
+                BuildMenus.BuildRenderMenu(render);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Render Menu is throwing a NullReferenceException");
+            }
+
+            try
+            {
+                #region Lobby Menu
+                MenuButtons.Lobby.AddButtonsToMenu();
+                BuildMenus.BuildLobbyMenu(lobby);
+                #endregion
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Lobby Menu is throwing a NullReferenceException");
+            }
+
             #endregion
 
-            #region Player Menu
-            BuildMenus.BuildPlayerMenu(player);
-            #endregion
-
-            #region Movement Menu
-            BuildMenus.BuildMovementMenu(movement);
-            #endregion
-
-            #region Item Menu
-            BuildMenus.BuildItemMenu(item);
-            #endregion
-
-            #region Spawn Menu
-            BuildMenus.BuildSpawnMenu(spawn);
-            #endregion
-
-            #region Teleporter Menu
-            BuildMenus.BuildTeleporterMenu(teleporter);
-            #endregion
-
-            #region Render Menu
-            BuildMenus.BuildRenderMenu(render);
-            #endregion
-
-            #region Lobby Menu
-            BuildMenus.BuildLobbyMenu(lobby);
-            #endregion
-
-            #endregion
-            
             #region Sub Menus
 
             #region Stats Modification Menu
@@ -147,6 +221,16 @@ namespace UmbraMenu
             #endregion
 
             #endregion
+
+            try
+            {
+                ESPRoutine();
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("ESPRoutine is throwing a NullReferenceException");
+            }
+            // UpdateButtonsRoutine();
         }
 
         public void Start()
@@ -158,20 +242,9 @@ namespace UmbraMenu
 
             #region Main Menu
             main.rect = new Rect(10, 10, 20, 20); // Start Position
-            if (Loader.updateAvailable)
-            {
-                main.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
-            }
-            else if (Loader.upToDate)
-            {
-                main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
-            }
-            else if (Loader.devBuild)
-            {
-                main.menuTitle = $"U M B R A \n<color=yellow>D E V</color>";
-            }
+            main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
             main.id = 0;
-            //main.buttons = MenuButtons.Main.buttons;
+            //MenuButtons.Main.AddButtonsToMenu();
             menus.Add(main);
             #endregion
 
@@ -179,7 +252,7 @@ namespace UmbraMenu
             player.rect = new Rect(374, 10, 20, 20); // Start Position
             player.menuTitle = "P L A Y E R   M E N U";
             player.id = 1;
-            //player.buttons = MenuButtons.Player.buttons;
+            //MenuButtons.Player.AddButtonsToMenu();
             menus.Add(player);
             #endregion
 
@@ -187,7 +260,7 @@ namespace UmbraMenu
             movement.rect = new Rect(374, 560, 20, 20); // Start Position
             movement.menuTitle = "M O V E M E N T   M E N U";
             movement.id = 2;
-            //movement.buttons = MenuButtons.Movement.buttons;
+            //MenuButtons.Movement.AddButtonsToMenu();
             menus.Add(movement);
             #endregion
 
@@ -195,7 +268,7 @@ namespace UmbraMenu
             item.rect = new Rect(738, 10, 20, 20); // Start Position
             item.menuTitle = "I T E M   M E N U";
             item.id = 3;
-            //item.buttons = MenuButtons.Items.buttons;
+            //MenuButtons.Items.AddButtonsToMenu();
             menus.Add(item);
             #endregion
 
@@ -203,7 +276,7 @@ namespace UmbraMenu
             spawn.rect = new Rect(738, 515, 20, 20); // Start Position
             spawn.menuTitle = "S P A W N   M E N U";
             spawn.id = 4;
-            //spawn.buttons = MenuButtons.Spawn.buttons;
+            //MenuButtons.Spawn.AddButtonsToMenu();
             menus.Add(spawn);
             #endregion
 
@@ -211,7 +284,7 @@ namespace UmbraMenu
             teleporter.rect = new Rect(10, 425, 20, 20); // Start Position
             teleporter.menuTitle = "T E L E P O R T E R   M E N U";
             teleporter.id = 5;
-            //teleporter.buttons = MenuButtons.Teleporter.buttons;
+            //MenuButtons.Teleporter.AddButtonsToMenu();
             menus.Add(teleporter);
             #endregion
 
@@ -219,15 +292,16 @@ namespace UmbraMenu
             render.rect = new Rect(10, 795, 20, 20); // Start Position
             render.menuTitle = "R E N D E R   M E N U";
             render.id = 6;
-            //render.buttons = MenuButtons.Render.buttons;
+            //MenuButtons.Render.AddButtonsToMenu();
             menus.Add(render);
+            MenuButtons.Render.toggleActiveMods.Enabled = true;
             #endregion
 
             #region Lobby Menu
             lobby.rect = new Rect(10, 985, 20, 20); // Start Position
             lobby.menuTitle = "L O B B Y   M E N U";
             lobby.id = 7;
-            //lobby.buttons = MenuButtons.Lobby.buttons;
+            //MenuButtons.Lobby.AddButtonsToMenu();
             menus.Add(lobby);
             #endregion
 
@@ -298,6 +372,8 @@ namespace UmbraMenu
         {
             try
             {
+                DevBuildRoutine();
+
                 CheckInputs();
 
                 CharacterRoutine();
@@ -305,25 +381,36 @@ namespace UmbraMenu
                 SkillsRoutine();
                 AimBotRoutine();
                 GodRoutine();
-
-                //EquipCooldownRoutine();
+                EquipCooldownRoutine();
                 //ModStatsRoutine();
                 FlightRoutine();
                 SprintRoutine();
                 JumpPackRoutine();
                 //UpdateNavIndexRoutine();
-                DevBuildRoutine();
                 //UpdateMenuPositions();
             }
             catch (NullReferenceException)
             {
-
+                Debug.Log("Update is throwing a NullReferenceException");
             }
         }
 
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
+            if (MenuButtons.Render.renderMobs)
+            {
+                MenuButtons.Render.hurtBoxes = Utility.GetHurtBoxes();
+            }
+        }
+
+        private void CheckInputs()
+        {
+            if (Input.GetKeyDown(KeyCode.Insert))
+            {
+                main.enabled = !main.enabled;
+                GetCharacter();
+            }
         }
 
         public static void GetCharacter()
@@ -345,12 +432,12 @@ namespace UmbraMenu
                             LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
                             LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
                             LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
-                            if (LocalHealth.alive) _CharacterCollected = true;
-                            else _CharacterCollected = false;
-                            if (LocalPlayer.isActiveAndEnabled) _CharacterCollected = true;
-                            else _CharacterCollected = false;
-                            if (LocalPlayerBody.isActiveAndEnabled) _CharacterCollected = true;
-                            else _CharacterCollected = false;
+                            if (LocalHealth.alive) characterCollected = true;
+                            else characterCollected = false;
+                            if (LocalPlayer.isActiveAndEnabled) characterCollected = true;
+                            else characterCollected = false;
+                            if (LocalPlayerBody.isActiveAndEnabled) characterCollected = true;
+                            else characterCollected = false;
                         }
                     }
                 }
@@ -358,7 +445,7 @@ namespace UmbraMenu
             catch (Exception e)
             {
                 Debug.LogError(e);
-                _CharacterCollected = false;
+                characterCollected = false;
             }
         }
 
@@ -372,22 +459,14 @@ namespace UmbraMenu
             return false;
         }
 
-        private void CheckInputs()
-        {
-            if (Input.GetKeyDown(KeyCode.Insert))
-            {
-                main.enabled = !main.enabled;
-                GetCharacter();
-            }
-        }
-
         #region Routines
-        public void CharacterRoutine()
+
+        private void CharacterRoutine()
         {
-            UmbraMenu.GetCharacter();
+            GetCharacter();
         }
 
-        /*public void LowResolutionRoutine()
+        /*private void LowResolutionRoutine()
         {
             if (lowResolutionMonitor)
             {
@@ -396,96 +475,130 @@ namespace UmbraMenu
             }
         }*/
 
-        public void DevBuildRoutine()
+        private void DevBuildRoutine()
         {
             if (Loader.devBuild)
             {
-                if (UmbraMenu._CharacterCollected)
+                if (characterCollected)
                 {
-                    if (UmbraMenu.devDoOnce)
+                    if (devDoOnce)
                     {
-                        MenuButtons.Player.godToggle = true;
-                        MenuButtons.Movement.flightToggle = true;
-                        MenuButtons.Movement.alwaysSprintToggle = true;
-                        UmbraMenu.LocalPlayer.GiveMoney(10000);
-                        UmbraMenu.devDoOnce = false;
+                        MenuButtons.Player.toggleGod.Enabled = true;
+                        MenuButtons.Movement.toggleFlight.Enabled = true;
+                        MenuButtons.Movement.toggleAlwaysSprint.Enabled = true;
+                        LocalPlayer.GiveMoney(10000);
+                        devDoOnce = false;
                     }
                 }
             }
         }
 
-        /*public void ESPRoutine()
+        private void ESPRoutine()
         {
-            if (renderInteractables)
+            if (characterCollected)
             {
-                Render.Interactables();
-            }
-            if (renderMobs)
-            {
-                Render.Mobs();
-            }
-            if (renderActiveMods)
-            {
-                Render.ActiveMods();
-            }
-            if (_isChestItemListOpen)
-            {
-                Chests.RenderClosestChest();
-            }
-        }
-
-        public void EquipCooldownRoutine()
-        {
-            if (noEquipmentCooldown)
-            {
-                ItemManager.NoEquipmentCooldown();
-            }
-        }*/
-
-        public void SkillsRoutine()
-        {
-            if (UmbraMenu._CharacterCollected)
-            {
-                if (MenuButtons.Player.skillToggle)
+                if (MenuButtons.Render.renderInteractables)
                 {
-                    UmbraMenu.LocalSkills.ApplyAmmoPack();
+                    MenuButtons.Render.Interactables();
+                }
+                if (MenuButtons.Render.renderMobs)
+                {
+                    MenuButtons.Render.Mobs();
+                }
+                if (MenuButtons.Render.renderMods)
+                {
+                    MenuButtons.Render.ActiveMods();
+                }
+                if (chestItemList.enabled)
+                {
+                //    Chests.RenderClosestChest();
                 }
             }
         }
 
-        public void AimBotRoutine()
+        private void EquipCooldownRoutine()
         {
-            if (MenuButtons.Player.aimBot)
-                MenuButtons.Player.AimBot();
-        }
-
-        public void GodRoutine()
-        {
-            if (MenuButtons.Player.godToggle)
+            if (MenuButtons.Items.toggleEquipmentCD.Enabled)
             {
-                MenuButtons.Player.GodMode();
+                MenuButtons.Items.NoEquipmentCooldown();
+                MenuButtons.Items.noEquipmentCD = true;
             }
             else
             {
-                UmbraMenu.LocalHealth.godMode = false;
+                MenuButtons.Items.noEquipmentCD = false;
             }
         }
 
-        public void SprintRoutine()
+        private void SkillsRoutine()
         {
-            if (MenuButtons.Movement.alwaysSprintToggle)
-                MenuButtons.Movement.AlwaysSprint();
+            if (characterCollected)
+            {
+                if (MenuButtons.Player.toggleSkillCD.Enabled)
+                {
+                    LocalSkills.ApplyAmmoPack();
+                    MenuButtons.Player.skillToggle = true;
+                }
+                else
+                {
+                    MenuButtons.Player.skillToggle = false;
+                }
+            }
         }
 
-        public void FlightRoutine()
+        private void AimBotRoutine()
         {
-            if (MenuButtons.Movement.flightToggle)
+            if (MenuButtons.Player.toggleAimbot.Enabled)
+            {
+                MenuButtons.Player.AimBot();
+                MenuButtons.Player.aimBotToggle = true;
+            }
+            else
+            {
+                MenuButtons.Player.aimBotToggle = false;
+            }
+        }
+
+        private void GodRoutine()
+        {
+            if (MenuButtons.Player.toggleGod.Enabled)
+            {
+                MenuButtons.Player.GodMode();
+                MenuButtons.Player.godToggle = true;
+            }
+            else
+            {
+                LocalHealth.godMode = false;
+                MenuButtons.Player.godToggle = false;
+            }
+        }
+
+        private void SprintRoutine()
+        {
+            if (MenuButtons.Movement.toggleAlwaysSprint.Enabled)
+            {
+                MenuButtons.Movement.AlwaysSprint();
+                MenuButtons.Movement.alwaysSprintToggle = true;
+            }
+            else
+            {
+                MenuButtons.Movement.alwaysSprintToggle = false;
+            }
+        }
+
+        private void FlightRoutine()
+        {
+            if (MenuButtons.Movement.toggleFlight.Enabled)
             {
                 MenuButtons.Movement.Flight();
+                MenuButtons.Movement.flightToggle = true;
+            }
+            else
+            {
+                MenuButtons.Movement.flightToggle = false;
             }
         }
 
-        /*public void ModStatsRoutine()
+        /*private void ModStatsRoutine()
         {
             if (_CharacterCollected)
             {
@@ -513,7 +626,7 @@ namespace UmbraMenu
             }
         }
 
-        public void UpdateNavIndexRoutine()
+        private void UpdateNavIndexRoutine()
         {
             if (navigationToggle)
             {
@@ -521,13 +634,19 @@ namespace UmbraMenu
             }
         }*/
 
-        public void JumpPackRoutine()
+        private void JumpPackRoutine()
         {
-            if (MenuButtons.Movement.jumpPackToggle)
+            if (MenuButtons.Movement.toggleJumpPack.Enabled)
             {
                 MenuButtons.Movement.JumpPack();
+                MenuButtons.Movement.jumpPackToggle = true;
+            }
+            else
+            {
+                MenuButtons.Movement.jumpPackToggle = false;
             }
         }
+
         #endregion
     }
 }

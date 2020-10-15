@@ -6,9 +6,9 @@ using RoR2;
 
 namespace UmbraMenu.MenuButtons
 {
-    public class Movement : MonoBehaviour
+    public class Movement
     {
-        private static readonly Menu currentMenu = Utility.FindMenuById(2);
+        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(2);
 
         public static bool jumpPackToggle, flightToggle, alwaysSprintToggle;
 
@@ -16,12 +16,17 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleFlight = new TogglableButton(currentMenu, 2, "F L I G H T : O F F", "F L I G H T : O N", ToggleFlight, ToggleFlight);
         public static TogglableButton toggleJumpPack = new TogglableButton(currentMenu, 3, "J U M P - P A C K : O F F", "J U M P - P A C K : O N", ToggleJump, ToggleJump);
 
-        public static List<Button> buttons = new List<Button>()
+        public static List<Buttons> buttons = new List<Buttons>()
         {
-            Button.ConvertTogglableButtonToButton(toggleAlwaysSprint),
-            Button.ConvertTogglableButtonToButton(toggleFlight),
-            Button.ConvertTogglableButtonToButton(toggleJumpPack)
+            toggleAlwaysSprint,
+            toggleFlight,
+            toggleJumpPack
         };
+
+        public static void AddButtonsToMenu()
+        {
+            currentMenu.buttons = buttons;
+        }
 
         public static int jumpPackMul = 1;
 
@@ -145,7 +150,10 @@ namespace UmbraMenu.MenuButtons
                     jumpPackMul = 1;
                 }
             }
-            catch (NullReferenceException) { }
+            catch (NullReferenceException) 
+            {
+                Debug.Log("Jump - Pack is throwing a NullReferenceException");
+            }
         }
 
         private static void ToggleFlight()

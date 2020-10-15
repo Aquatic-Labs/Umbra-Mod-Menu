@@ -11,22 +11,58 @@ namespace UmbraMenu.MenuButtons
 {
     public class Player
     {
-        private static readonly Menu currentMenu = Utility.FindMenuById(1);
+        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(1);
 
-        public static bool skillToggle, aimBot, godToggle;
+        public static bool skillToggle, aimBotToggle, godToggle;
 
         private static int damagePerLvl = 10, CritPerLvl = 1;
         private static float attackSpeed = 1, armor = 0, movespeed = 7;
-        private static ulong xpToGive = 50;
-        private static uint moneyToGive = 50, coinsToGive = 50;
 
-        private static void StubbedFunc() => Utility.StubbedFunction();
+        private static ulong xpToGive = 50;
+        private static ulong XPToGive
+        {
+            get
+            {
+                return xpToGive;
+            }
+            set
+            {
+                xpToGive = value;
+                giveExperience.text = $"G I V E   E X P E R I E N C E : {xpToGive}";
+            }
+        }
+        private static uint moneyToGive = 50, coinsToGive = 50;
+        private static uint MoneyToGive
+        {
+            get
+            {
+                return moneyToGive;
+            }
+            set
+            {
+                moneyToGive = value;
+                giveMoney.text = $"G I V E   M O N E Y : {moneyToGive}";
+            }
+        }
+        private static uint CoinsToGive
+        {
+            get
+            {
+                return coinsToGive;
+            }
+            set
+            {
+                coinsToGive = value;
+                giveCoins.text = $"G I V E   L U N A R   C O I N S : {coinsToGive}";
+            }
+        }
+
         private static void ToggleStatsMenu() => ToggleMenu(UmbraMenu.menus[8]);
         private static void ToggleCharacterListMenu() => ToggleMenu(UmbraMenu.listMenus[0]);
         private static void ToggleBuffListMenu() => ToggleMenu(UmbraMenu.listMenus[1]);
-        public static MulButton giveMoney = new MulButton(currentMenu, 1, $"G I V E   M O N E Y : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
-        public static MulButton giveCoins = new MulButton(currentMenu, 2, $"G I V E   L U N A R   C O I N S : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
-        public static MulButton giveExperience = new MulButton(currentMenu, 3, $"G I V E   E X P E R I E N C E : {xpToGive}", GiveXP, IncreaseXP, DecreaseXP);
+        public static MulButton giveMoney = new MulButton(currentMenu, 1, $"G I V E   M O N E Y : {MoneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
+        public static MulButton giveCoins = new MulButton(currentMenu, 2, $"G I V E   L U N A R   C O I N S : {CoinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
+        public static MulButton giveExperience = new MulButton(currentMenu, 3, $"G I V E   E X P E R I E N C E : {XPToGive}", GiveXP, IncreaseXP, DecreaseXP);
         public static TogglableButton toggleStatsMod = new TogglableButton(currentMenu, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu);
         public static TogglableButton toggleChangeCharacter = new TogglableButton(currentMenu, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu);
         public static TogglableButton toggleBuff = new TogglableButton(currentMenu, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu);
@@ -36,20 +72,25 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD);
         public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
 
-        public static List<Button> buttons = new List<Button>()
+        public static List<Buttons> buttons = new List<Buttons>()
         {
-            Button.ConvertMulButtonToButton(giveMoney),
-            Button.ConvertMulButtonToButton(giveCoins),
-            Button.ConvertMulButtonToButton(giveExperience),
-            Button.ConvertTogglableButtonToButton(toggleStatsMod),
-            Button.ConvertTogglableButtonToButton(toggleChangeCharacter),
-            Button.ConvertTogglableButtonToButton(toggleBuff),
+            giveMoney,
+            giveCoins,
+            giveExperience,
+            toggleStatsMod,
+            toggleChangeCharacter,
+            toggleBuff,
             removeBuffs,
-            Button.ConvertTogglableButtonToButton(toggleAimbot),
-            Button.ConvertTogglableButtonToButton(toggleGod),
-            Button.ConvertTogglableButtonToButton(toggleSkillCD),
+            toggleAimbot,
+            toggleGod,
+            toggleSkillCD,
             unlockAll
         };
+
+        public static void AddButtonsToMenu()
+        {
+            currentMenu.buttons = buttons;
+        }
 
         public static void ToggleMenu(Menu menu)
         {
@@ -63,7 +104,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void ToggleAimbot()
         {
-            aimBot = !aimBot;
+            aimBotToggle = !aimBotToggle;
         }
 
         public static void ToggleGodMode()
@@ -271,44 +312,38 @@ namespace UmbraMenu.MenuButtons
         #region Increase/Decrease Value Actions
         public static void IncreaseMoney()
         {
-            if (moneyToGive >= 50)
-                moneyToGive += 50;
-            currentMenu.AddMulButton(giveMoney);
+            if (MoneyToGive >= 50)
+                MoneyToGive += 50;
         }
 
         public static void IncreaseCoins()
         {
-            if (coinsToGive >= 10)
-                coinsToGive += 10;
-            currentMenu.AddMulButton(giveCoins);
+            if (CoinsToGive >= 10)
+                CoinsToGive += 10;
         }
 
         public static void IncreaseXP()
         {
-            if (xpToGive >= 50)
-                xpToGive += 50;
-            currentMenu.AddMulButton(giveExperience);
+            if (XPToGive >= 50)
+                XPToGive += 50;
         }
 
         public static void DecreaseMoney()
         {
-            if (moneyToGive > 50)
-               moneyToGive -= 50;
-            currentMenu.AddMulButton(giveMoney);
+            if (MoneyToGive > 50)
+               MoneyToGive -= 50;
         }
 
         public static void DecreaseCoins()
         {
-            if (coinsToGive > 10)
-                coinsToGive -= 10;
-            currentMenu.AddMulButton(giveCoins);
+            if (CoinsToGive > 10)
+                CoinsToGive -= 10;
         }
 
         public static void DecreaseXP()
         {
-            if (xpToGive > 50)
-                xpToGive -= 50;
-            currentMenu.AddMulButton(giveExperience);
+            if (XPToGive > 50)
+                XPToGive -= 50;
         }
         #endregion
     }

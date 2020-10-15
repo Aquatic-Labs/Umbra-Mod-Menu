@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="BuildMenus.cs" />
     <Compile Include="ButtonTypes\Button.cs" />
+    <Compile Include="ESPHelper.cs" />
     <Compile Include="MenuButtons\BuffList.cs" />
     <Compile Include="MenuButtons\CharacterList.cs" />
     <Compile Include="MenuButtons\ChestItemList.cs" />
@@ -85,6 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reflections.cs" />
     <Compile Include="Styles.cs" />
     <Compile Include="ButtonTypes\Text.cs" />
     <Compile Include="Textures.cs" />

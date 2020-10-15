@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class TogglableMulButton
+    public class TogglableMulButton : Buttons
     {
         public Menu parentMenu;
         public int position;
@@ -39,7 +39,7 @@ namespace UmbraMenu
                     Action = OffAction;
                     style = Styles.OffStyle;
                 }
-                parentMenu.AddTogglableMulButton(this);
+                Add();
             }
         }
 
@@ -60,7 +60,7 @@ namespace UmbraMenu
                 {
 
                 }
-                parentMenu.AddTogglableMulButton(this);
+                Add();
             }
         }
 
@@ -78,6 +78,37 @@ namespace UmbraMenu
             this.OnAction = OnAction;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
+        }
+
+        public void Add()
+        {
+            parentMenu.numberOfButtons = position;
+            int btnY = 5 + 45 * parentMenu.numberOfButtons;
+            rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize - 90, 40);
+
+            if (GUI.Button(rect, text, style))
+            {
+                Action?.Invoke();
+                Enabled = !Enabled;
+                Add();
+            }
+            DrawMulButtons();
+        }
+
+        private void DrawMulButtons()
+        {
+            Rect menuBg = parentMenu.rect;
+            int btnY = 5 + 45 * position;
+            if (GUI.Button(new Rect(menuBg.x + parentMenu.widthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
+            {
+                DecreaseAction?.Invoke();
+                Add();
+            }
+            if (GUI.Button(new Rect(menuBg.x + parentMenu.widthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
+            {
+                IncreaseAction?.Invoke();
+                Add();
+            }
         }
     }
 }

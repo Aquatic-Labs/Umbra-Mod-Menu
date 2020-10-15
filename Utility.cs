@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
+using Octokit;
 
 namespace UmbraMenu
 {
     public static class Utility
     {
-        public static Menu FindMenuById(int id)
+        public static object FindMenuById(int id)
         {
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
@@ -22,7 +23,16 @@ namespace UmbraMenu
                     return currentMenu;
                 }
             }
-            return null;
+
+            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
+            {
+                ListMenu currentMenu = UmbraMenu.listMenus[i];
+                if (currentMenu.id == id)
+                {
+                    return currentMenu;
+                }
+            }
+            throw new NullReferenceException($"Menu with id '{id}' was not found");
         }
 
         public static ListMenu FindListMenuById(int id)
@@ -33,36 +43,6 @@ namespace UmbraMenu
                 if (currentMenu.id == id)
                 {
                     return currentMenu;
-                }
-            }
-            return null;
-        }
-
-        public static Button FindButtonById(int menuId, int buttonId)
-        {
-            Menu currentMenu = FindMenuById(menuId);
-            ListMenu currentListMenu = FindListMenuById(menuId);
-
-            if (currentMenu != null)
-            {
-                for (int i = 0; i < currentMenu.buttons.Count; i++)
-                {
-                    Button currentButton = currentMenu.buttons[i];
-                    if (currentButton.position == buttonId)
-                    {
-                        return currentButton;
-                    }
-                }
-            }
-            else if (currentListMenu != null)
-            {
-                for (int i = 0; i < currentListMenu.buttons.Count; i++)
-                {
-                    Button currentButton = currentListMenu.buttons[i];
-                    if (currentButton.position == buttonId)
-                    {
-                        return currentButton;
-                    }
                 }
             }
             return null;

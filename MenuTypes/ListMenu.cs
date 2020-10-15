@@ -20,18 +20,6 @@ namespace UmbraMenu
         public bool highlighted = false;
         public List<Button> buttons = new List<Button>();
 
-        public void AddButton(Button button)
-        {
-            numberOfButtons = button.position;
-            int btnY = 5 + 45 * numberOfButtons;
-            button.rect = new Rect(rect.x + 5, rect.y + btnY, widthSize, 40);
-
-            if (GUI.Button(button.rect, button.text, button.style))
-            {
-                button.Action?.Invoke();
-            }
-        }
-
         public void SetWindow()
         {
             rect = GUI.Window(id, rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
