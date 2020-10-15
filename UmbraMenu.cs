@@ -1,5 +1,8 @@
 ﻿// TODO:
+//     Find what is causing NRE in Update
 //     Implement Sub-Menus
+//     Maybe add AddButtonsToMenu to BuildMenu method
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,8 +65,6 @@ namespace UmbraMenu
 
         private void OnGUI()
         {
-            #region Main Menus
-
             #region Watermark
             if (Loader.updateAvailable)
             {
@@ -78,6 +79,8 @@ namespace UmbraMenu
                 GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
             }
             #endregion
+
+            #region Main Menus
 
             try
             {
@@ -222,14 +225,7 @@ namespace UmbraMenu
 
             #endregion
 
-            try
-            {
-                ESPRoutine();
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("ESPRoutine is throwing a NullReferenceException");
-            }
+            ESPRoutine();
             // UpdateButtonsRoutine();
         }
 
