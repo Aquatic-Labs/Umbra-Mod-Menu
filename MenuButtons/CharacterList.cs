@@ -17,7 +17,8 @@ namespace UmbraMenu.MenuButtons
             List<Buttons> buttons = new List<Buttons>();
             for (int i = 0; i < UmbraMenu.bodyPrefabs.Count; i++)
             {
-                void ButtonAction() => ChangeCharacter(i);
+                int prefabIndex = i;
+                void ButtonAction() => ChangeCharacter(prefabIndex);
                 Button button = new Button(currentMenu, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction);
                 buttons.Add(button);
             }

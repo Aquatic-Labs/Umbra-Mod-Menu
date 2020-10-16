@@ -82,9 +82,7 @@ namespace UmbraMenu
 
             #region Main Menus
 
-            try
-            {
-                #region Main Menu
+            #region Main Menu
                 if (Loader.updateAvailable)
                 {
                     main.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
@@ -101,95 +99,41 @@ namespace UmbraMenu
                 main.SetWindow();
                 BuildMenus.BuildMainMenu(main);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Main Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Player Menu
+            #region Player Menu
                 MenuButtons.Player.AddButtonsToMenu();
                 BuildMenus.BuildPlayerMenu(player);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Player Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Movement Menu
+            #region Movement Menu
                 MenuButtons.Movement.AddButtonsToMenu();
                 BuildMenus.BuildMovementMenu(movement);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Movement Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Item Menu
+            #region Item Menu
                 MenuButtons.Items.AddButtonsToMenu();
                 BuildMenus.BuildItemMenu(item);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Item Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Spawn Menu
+            #region Spawn Menu
                 MenuButtons.Spawn.AddButtonsToMenu();
                 BuildMenus.BuildSpawnMenu(spawn);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Spawn Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Teleporter Menu
+            #region Teleporter Menu
                 MenuButtons.Teleporter.AddButtonsToMenu();
                 BuildMenus.BuildTeleporterMenu(teleporter);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Teleporter Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Render Menu
+            #region Render Menu
                 MenuButtons.Render.AddButtonsToMenu();
                 BuildMenus.BuildRenderMenu(render);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Render Menu is throwing a NullReferenceException");
-            }
 
-            try
-            {
-                #region Lobby Menu
+            #region Lobby Menu
                 MenuButtons.Lobby.AddButtonsToMenu();
                 BuildMenus.BuildLobbyMenu(lobby);
                 #endregion
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Lobby Menu is throwing a NullReferenceException");
-            }
 
             #endregion
 
@@ -572,15 +516,18 @@ namespace UmbraMenu
 
         private void GodRoutine()
         {
-            if (MenuButtons.Player.toggleGod.Enabled)
+            if (characterCollected)
             {
-                MenuButtons.Player.GodMode();
-                MenuButtons.Player.godToggle = true;
-            }
-            else
-            {
-                LocalHealth.godMode = false;
-                MenuButtons.Player.godToggle = false;
+                if (MenuButtons.Player.toggleGod.Enabled)
+                {
+                    MenuButtons.Player.GodMode();
+                    MenuButtons.Player.godToggle = true;
+                }
+                else
+                {
+                    LocalHealth.godMode = false;
+                    MenuButtons.Player.godToggle = false;
+                }
             }
         }
 
