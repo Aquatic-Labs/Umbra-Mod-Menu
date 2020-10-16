@@ -35,19 +35,6 @@ namespace UmbraMenu
             throw new NullReferenceException($"Menu with id '{id}' was not found");
         }
 
-        public static ListMenu FindListMenuById(int id)
-        {
-            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
-            {
-                ListMenu currentMenu = UmbraMenu.listMenus[i];
-                if (currentMenu.id == id)
-                {
-                    return currentMenu;
-                }
-            }
-            return null;
-        }
-
         public static bool CursorIsVisible()
         {
             for (int i = 0; i < RoR2.UI.MPEventSystem.readOnlyInstancesList.Count; i++)

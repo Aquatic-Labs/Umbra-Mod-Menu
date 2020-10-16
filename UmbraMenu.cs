@@ -50,8 +50,7 @@ namespace UmbraMenu
         public Menu render = new Menu();
         public Menu lobby = new Menu();
         #endregion
-
-        
+      
         #region Create Sub Menus
         public Menu statsMod = new Menu();
         public ListMenu characterList = new ListMenu();
@@ -60,6 +59,7 @@ namespace UmbraMenu
         public ListMenu equipmentList= new ListMenu();
         public ListMenu chestItemList= new ListMenu();
         public ListMenu spawnList= new ListMenu();
+        public Menu viewStats = new Menu();
         #endregion
 
 
@@ -196,6 +196,7 @@ namespace UmbraMenu
             #region Sub Menus
 
             #region Stats Modification Menu
+            MenuButtons.StatsMod.AddButtonsToMenu();
             BuildMenus.BuildStatsModMenu(statsMod);
             #endregion
 
@@ -221,6 +222,11 @@ namespace UmbraMenu
 
             #region Spawn List Menu
             BuildMenus.BuildSpawnListMenu(spawnList);
+            #endregion
+
+            #region View Stats Menu
+            MenuButtons.ViewStats.AddTextToMenu();
+            BuildMenus.BuildViewStatsMenu(viewStats);
             #endregion
 
             #endregion
@@ -355,10 +361,18 @@ namespace UmbraMenu
 
             #region Spawn List Menu
             spawnList.rect = new Rect(10, 985, 20, 20); // Start Position
-            spawnList.menuTitle = "S P A W N C A R D S   M E N U";
+            spawnList.menuTitle = "S P A W N   C A R D S   M E N U";
             spawnList.id = 14;
             //spawnList.buttons = MenuButtons.SpawnList.buttons;
             listMenus.Add(spawnList);
+            #endregion
+
+            #region View Stats Menu
+            viewStats.rect = new Rect(10, 985, 20, 20); // Start Position
+            viewStats.menuTitle = "V I E W   S T A T S   M E N U";
+            viewStats.id = 15;
+            //viewStats.buttons = MenuButtons.SpawnList.buttons;
+            menus.Add(viewStats);
             #endregion
 
             #endregion
@@ -371,19 +385,20 @@ namespace UmbraMenu
                 DevBuildRoutine();
 
                 CheckInputs();
-
                 CharacterRoutine();
 
                 SkillsRoutine();
                 AimBotRoutine();
                 GodRoutine();
                 EquipCooldownRoutine();
-                //ModStatsRoutine();
+                ModStatsRoutine();
                 FlightRoutine();
                 SprintRoutine();
                 JumpPackRoutine();
+
                 //UpdateNavIndexRoutine();
                 //UpdateMenuPositions();
+                MenuButtons.ViewStats.UpdateViewStats();
             }
             catch (NullReferenceException)
             {
@@ -594,34 +609,35 @@ namespace UmbraMenu
             }
         }
 
-        /*private void ModStatsRoutine()
+        private void ModStatsRoutine()
         {
-            if (_CharacterCollected)
+            if (characterCollected)
             {
-                if (damageToggle)
+                if (MenuButtons.StatsMod.damageToggle)
                 {
-                    PlayerMod.LevelPlayersDamage();
+                    MenuButtons.StatsMod.LevelPlayersDamage();
                 }
-                if (critToggle)
+                if (MenuButtons.StatsMod.critToggle)
                 {
-                    PlayerMod.LevelPlayersCrit();
+                    MenuButtons.StatsMod.LevelPlayersCrit();
                 }
-                if (attackSpeedToggle)
+                if (MenuButtons.StatsMod.attackSpeedToggle)
                 {
-                    PlayerMod.SetplayersAttackSpeed();
+                    MenuButtons.StatsMod.SetplayersAttackSpeed();
                 }
-                if (armorToggle)
+                if (MenuButtons.StatsMod.armorToggle)
                 {
-                    PlayerMod.SetplayersArmor();
+                    MenuButtons.StatsMod.SetplayersArmor();
                 }
-                if (moveSpeedToggle)
+                if (MenuButtons.StatsMod.moveSpeedToggle)
                 {
-                    PlayerMod.SetplayersMoveSpeed();
+                    MenuButtons.StatsMod.SetplayersMoveSpeed();
                 }
                 LocalPlayerBody.RecalculateStats();
             }
         }
 
+        /*
         private void UpdateNavIndexRoutine()
         {
             if (navigationToggle)

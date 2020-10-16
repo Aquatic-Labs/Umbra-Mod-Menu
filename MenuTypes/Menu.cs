@@ -9,7 +9,6 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-
     public interface Buttons { void Add(); };
     public class Menu
     {
@@ -78,6 +77,5 @@ namespace UmbraMenu
             }
             GUI.DragWindow();
         }
-
     }
 }

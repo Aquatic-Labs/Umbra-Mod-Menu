@@ -65,14 +65,13 @@ namespace UmbraMenu
         }
 
 
-        public TogglableMulButton(Menu parentMenu, int position, string offText, string onText, GUIStyle style, Action OffAction, Action OnAction, Action DecreaseAction, Action IncreaseAction)
+        public TogglableMulButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;
             text = offText;
             this.offText = offText;
             this.onText = onText;
-            this.style = style;
             Action = OffAction;
             this.OffAction = OffAction;
             this.OnAction = OnAction;

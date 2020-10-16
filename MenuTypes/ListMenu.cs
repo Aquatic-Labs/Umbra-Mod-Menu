@@ -18,7 +18,7 @@ namespace UmbraMenu
         public int numberOfButtons = 0;
         public TogglableButton activatingButton;
         public bool highlighted = false;
-        public List<Button> buttons = new List<Button>();
+        public List<Buttons> buttons = new List<Buttons>();
 
         public void SetWindow()
         {
@@ -39,6 +39,14 @@ namespace UmbraMenu
             }
         }
 
+        public void DrawAllButtons()
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].Add();
+            }
+        }
+
         private void SetBackground(int windowID)
         {
             GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * numberOfButtons), "", Styles.CornerStyle);
@@ -56,7 +64,11 @@ namespace UmbraMenu
                 if (!ifDragged)
                 {
                     enabled = !enabled;
-                    activatingButton.Enabled = !activatingButton.Enabled;
+                    if (activatingButton != null)
+                    {
+                        activatingButton.Enabled = !activatingButton.Enabled;
+                    }
+                    UmbraMenu.GetCharacter();
                 }
                 ifDragged = false;
             }

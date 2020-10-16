@@ -15,9 +15,6 @@ namespace UmbraMenu.MenuButtons
 
         public static bool skillToggle, aimBotToggle, godToggle;
 
-        private static int damagePerLvl = 10, CritPerLvl = 1;
-        private static float attackSpeed = 1, armor = 0, movespeed = 7;
-
         private static ulong xpToGive = 50;
         private static ulong XPToGive
         {
@@ -153,61 +150,6 @@ namespace UmbraMenu.MenuButtons
         public static void GiveLunarCoins()
         {
             UmbraMenu.LocalNetworkUser.AwardLunarCoins(coinsToGive);
-        }
-
-        public static void LevelPlayersCrit()
-        {
-            try
-            {
-                UmbraMenu.LocalPlayerBody.levelCrit = (float)CritPerLvl;
-            }
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        public static void LevelPlayersDamage()
-        {
-            try
-            {
-                UmbraMenu.LocalPlayerBody.levelDamage = (float)damagePerLvl;
-            }
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        public static void SetplayersAttackSpeed()
-        {
-            try
-            {
-                UmbraMenu.LocalPlayerBody.baseAttackSpeed = attackSpeed;
-            }
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        public static void SetplayersArmor()
-        {
-            try
-            {
-                UmbraMenu.LocalPlayerBody.baseArmor = armor;
-            }
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        public static void SetplayersMoveSpeed()
-        {
-            try
-            {
-                UmbraMenu.LocalPlayerBody.baseMoveSpeed = movespeed;
-            }
-            catch (NullReferenceException)
-            {
-            }
         }
 
         public static void AimBot()
