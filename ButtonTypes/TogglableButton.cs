@@ -15,7 +15,6 @@ namespace UmbraMenu
         public string offText, onText, text;
         public GUIStyle style = Styles.OffStyle;
         public Action Action, OffAction, OnAction;
-        private bool highlighted = false;
         private bool enabled = false;
 
         public bool Enabled
@@ -32,30 +31,6 @@ namespace UmbraMenu
                     text = onText;
                     Action = OnAction;
                     style = Styles.OnStyle;
-                }
-                else
-                {
-                    text = offText;
-                    Action = OffAction;
-                    style = Styles.OffStyle;
-                }
-            }
-        }
-
-        public bool Highlighted
-        {
-            get
-            {
-                return highlighted;
-            }
-            set
-            {
-                enabled = value;
-                if (highlighted)
-                {
-                    text = onText;
-                    Action = OnAction;
-                    style = Styles.HighlightBtnStyle;
                 }
                 else
                 {

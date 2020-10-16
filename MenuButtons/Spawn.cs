@@ -27,6 +27,7 @@ namespace UmbraMenu.MenuButtons
                 changeTeamIndex.text = $"T E A M : {team[teamIndex]}";
             }
         }
+
         public static float MinDistance
         {
             get
@@ -55,7 +56,7 @@ namespace UmbraMenu.MenuButtons
 
         public static List<GameObject> spawnedObjects = new List<GameObject>();
 
-        private static void ToggleSpawnListMenu() => ToggleMenu((ListMenu)Utility.FindMenuById(14));
+        private static void ToggleSpawnListMenu() => ToggleMenu((ListMenu)Utility.FindMenuById(15));
         private static void DoNothing() => Utility.StubbedFunction();
 
         public static MulButton changeMinDistance = new MulButton(currentMenu, 1, $"M I N   D I S T A N C E : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance);

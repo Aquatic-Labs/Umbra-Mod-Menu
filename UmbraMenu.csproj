@@ -72,6 +72,7 @@
     <Compile Include="Loader.cs" />
     <Compile Include="MenuButtons\SpawnList.cs" />
     <Compile Include="MenuButtons\StatsMod.cs" />
+    <Compile Include="MenuButtons\ViewStats.cs" />
     <Compile Include="MenuTypes\ListMenu.cs" />
     <Compile Include="MenuTypes\Menu.cs" />
     <Compile Include="MenuButtons\Movement.cs" />

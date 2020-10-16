@@ -53,13 +53,13 @@ namespace UmbraMenu
       
         #region Create Sub Menus
         public Menu statsMod = new Menu();
+        public Menu viewStats = new Menu();
         public ListMenu characterList = new ListMenu();
         public ListMenu buffList = new ListMenu();
         public ListMenu itemList= new ListMenu();
         public ListMenu equipmentList= new ListMenu();
         public ListMenu chestItemList= new ListMenu();
         public ListMenu spawnList= new ListMenu();
-        public Menu viewStats = new Menu();
         #endregion
 
 
@@ -196,9 +196,9 @@ namespace UmbraMenu
             #region Sub Menus
 
             #region Stats Modification Menu
-            MenuButtons.StatsMod.AddButtonsToMenu();
-            BuildMenus.BuildStatsModMenu(statsMod);
-            #endregion
+                MenuButtons.StatsMod.AddButtonsToMenu();
+                BuildMenus.BuildStatsModMenu(statsMod);
+                #endregion
 
             #region Character List Menu
             BuildMenus.BuildCharacterListMenu(characterList);
@@ -296,7 +296,7 @@ namespace UmbraMenu
             render.id = 6;
             //MenuButtons.Render.AddButtonsToMenu();
             menus.Add(render);
-            MenuButtons.Render.toggleActiveMods.Enabled = true;
+            //MenuButtons.Render.toggleActiveMods.Enabled = true;
             #endregion
 
             #region Lobby Menu
@@ -313,16 +313,24 @@ namespace UmbraMenu
 
             #region Stats Modification Menu
             statsMod.rect = new Rect(10, 985, 20, 20); // Start Position
-            statsMod.menuTitle = "S T A T S   M O D I F I C A T I O N   M E N U";
+            statsMod.menuTitle = "S T A T S   M O D   M E N U";
             statsMod.id = 8;
             //statsMod.buttons = MenuButtons.StatsMod.buttons;
             menus.Add(statsMod);
             #endregion
 
+            #region View Stats Menu
+            viewStats.rect = new Rect(10, 985, 20, 20); // Start Position
+            viewStats.menuTitle = "V I E W   S T A T S   M E N U";
+            viewStats.id = 9;
+            //viewStats.buttons = MenuButtons.SpawnList.buttons;
+            menus.Add(viewStats);
+            #endregion
+
             #region Character List Menu
             characterList.rect = new Rect(10, 985, 20, 20); // Start Position
             characterList.menuTitle = "C H A R A C T E R S   M E N U";
-            characterList.id = 9;
+            characterList.id = 10;
             //characterList.buttons = MenuButtons.CharacterList.buttons;
             listMenus.Add(characterList);
             #endregion
@@ -330,7 +338,7 @@ namespace UmbraMenu
             #region Buff List Menu
             buffList.rect = new Rect(10, 985, 20, 20); // Start Position
             buffList.menuTitle = "B U F F S   M E N U";
-            buffList.id = 10;
+            buffList.id = 11;
             //buffList.buttons = MenuButtons.BuffList.buttons;
             listMenus.Add(buffList);
             #endregion
@@ -338,7 +346,7 @@ namespace UmbraMenu
             #region Item List Menu
             itemList.rect = new Rect(10, 985, 20, 20); // Start Position
             itemList.menuTitle = "I T E M S   M E N U";
-            itemList.id = 11;
+            itemList.id = 12;
             //itemList.buttons = MenuButtons.ItemList.buttons;
             listMenus.Add(itemList);
             #endregion
@@ -346,7 +354,7 @@ namespace UmbraMenu
             #region Equipment List Menu
             equipmentList.rect = new Rect(10, 985, 20, 20); // Start Position
             equipmentList.menuTitle = "E Q U I P M E N T   M E N U";
-            equipmentList.id = 12;
+            equipmentList.id = 13;
             //equipmentList.buttons = MenuButtons.EquipmentList.buttons;
             listMenus.Add(equipmentList);
             #endregion
@@ -354,7 +362,7 @@ namespace UmbraMenu
             #region Chest Items List Menu
             chestItemList.rect = new Rect(10, 985, 20, 20); // Start Position
             chestItemList.menuTitle = "C H E S T   I T E M S   M E N U";
-            chestItemList.id = 13;
+            chestItemList.id = 14;
             //chestItemList.buttons = MenuButtons.ChestItemList.buttons;
             listMenus.Add(chestItemList);
             #endregion
@@ -362,17 +370,9 @@ namespace UmbraMenu
             #region Spawn List Menu
             spawnList.rect = new Rect(10, 985, 20, 20); // Start Position
             spawnList.menuTitle = "S P A W N   C A R D S   M E N U";
-            spawnList.id = 14;
+            spawnList.id = 15;
             //spawnList.buttons = MenuButtons.SpawnList.buttons;
             listMenus.Add(spawnList);
-            #endregion
-
-            #region View Stats Menu
-            viewStats.rect = new Rect(10, 985, 20, 20); // Start Position
-            viewStats.menuTitle = "V I E W   S T A T S   M E N U";
-            viewStats.id = 15;
-            //viewStats.buttons = MenuButtons.SpawnList.buttons;
-            menus.Add(viewStats);
             #endregion
 
             #endregion
@@ -402,14 +402,14 @@ namespace UmbraMenu
             }
             catch (NullReferenceException)
             {
-                Debug.Log("Update is throwing a NullReferenceException");
+                Debug.Log("Update is throwing an NRE");
             }
         }
 
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
-            if (MenuButtons.Render.renderMobs)
+            if (MenuButtons.Render.toggleMobESP.Enabled)
             {
                 MenuButtons.Render.hurtBoxes = Utility.GetHurtBoxes();
             }
@@ -613,23 +613,23 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (MenuButtons.StatsMod.damageToggle)
+                if (MenuButtons.StatsMod.changeDmgPerLevel.Enabled)
                 {
                     MenuButtons.StatsMod.LevelPlayersDamage();
                 }
-                if (MenuButtons.StatsMod.critToggle)
+                if (MenuButtons.StatsMod.changeCritPerLevel.Enabled)
                 {
                     MenuButtons.StatsMod.LevelPlayersCrit();
                 }
-                if (MenuButtons.StatsMod.attackSpeedToggle)
+                if (MenuButtons.StatsMod.changeAttackSpeed.Enabled)
                 {
                     MenuButtons.StatsMod.SetplayersAttackSpeed();
                 }
-                if (MenuButtons.StatsMod.armorToggle)
+                if (MenuButtons.StatsMod.changeArmor.Enabled)
                 {
                     MenuButtons.StatsMod.SetplayersArmor();
                 }
-                if (MenuButtons.StatsMod.moveSpeedToggle)
+                if (MenuButtons.StatsMod.changeMoveSpeed.Enabled)
                 {
                     MenuButtons.StatsMod.SetplayersMoveSpeed();
                 }

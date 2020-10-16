@@ -44,9 +44,9 @@ namespace UmbraMenu.MenuButtons
             }
         }
 
-        private static void ToggleItemsListMenu() => ToggleMenu(UmbraMenu.menus[11]);
-        private static void ToggleEquipmentListMenu() => ToggleMenu(UmbraMenu.listMenus[12]);
-        private static void ToggleChestItemListMenu() => ToggleMenu(UmbraMenu.listMenus[13]);
+        private static void ToggleItemsListMenu() => ToggleMenu((ListMenu)Utility.FindMenuById(12));
+        private static void ToggleEquipmentListMenu() => ToggleMenu((ListMenu)Utility.FindMenuById(13));
+        private static void ToggleChestItemListMenu() => ToggleMenu((ListMenu)Utility.FindMenuById(14));
 
         public static MulButton giveAllItems = new MulButton(currentMenu, 1, $"G I V E   A L L   I T E M S : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity);
         public static MulButton rollItems = new MulButton(currentMenu, 2, $"R O L L   I T E M S : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll);

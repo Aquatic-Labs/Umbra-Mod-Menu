@@ -57,7 +57,7 @@ namespace UmbraMenu
 
         public static void StubbedFunction()
         {
-            Debug.Log("pressed");
+            return;
         }
 
         #region Get Lists

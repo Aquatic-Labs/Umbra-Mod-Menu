@@ -8,7 +8,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class StatsMod
     {
-        public static Menu currentMenu = (Menu)Utility.FindMenuById(8);
+        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(8);
 
         private static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
         public static int DamagePerLevel
@@ -22,11 +22,11 @@ namespace UmbraMenu.MenuButtons
                 damagePerLvl = value;
                 if (changeDmgPerLevel.Enabled)
                 {
-                    changeDmgPerLevel.text = changeDmgPerLevel.onText;
+                    changeDmgPerLevel.text = $"D A M A G E / L V L ( O N ) : {DamagePerLevel}";
                 }
                 else
                 {
-                    changeDmgPerLevel.text = changeDmgPerLevel.offText;
+                    changeDmgPerLevel.text = $"D A M A G E / L V L ( O F F ) : {DamagePerLevel}";
                 }
             }
         }
@@ -42,11 +42,11 @@ namespace UmbraMenu.MenuButtons
                 critPerLvl = value;
                 if (changeCritPerLevel.Enabled)
                 {
-                    changeCritPerLevel.text = changeCritPerLevel.onText;
+                    changeCritPerLevel.text = $"C R I T / L V L ( O N ) : {CritPerLevel}";
                 }
                 else
                 {
-                    changeCritPerLevel.text = changeCritPerLevel.offText;
+                    changeCritPerLevel.text = $"C R I T / L V L ( O F F ) : {CritPerLevel}";
                 }
             }
         }
@@ -76,11 +76,11 @@ namespace UmbraMenu.MenuButtons
                 attackSpeed = value;
                 if (changeAttackSpeed.Enabled)
                 {
-                    changeAttackSpeed.text = changeAttackSpeed.onText;
+                    changeAttackSpeed.text = $"A T T A C K   S P E E D ( O N ) : {AttackSpeed}";
                 }
                 else
                 {
-                    changeAttackSpeed.text = changeAttackSpeed.offText;
+                    changeAttackSpeed.text = $"A T T A C K   S P E E D ( O F F ) : {AttackSpeed}";
                 }
             }
         }
@@ -97,11 +97,11 @@ namespace UmbraMenu.MenuButtons
                 armor = value;
                 if (changeArmor.Enabled)
                 {
-                    changeArmor.text = changeArmor.onText;
+                    changeArmor.text = $"A R M O R ( O N ) : {Armor}";
                 }
                 else
                 {
-                    changeArmor.text = changeArmor.offText;
+                    changeArmor.text = $"A R M O R ( O F F ) : {Armor}";
                 }
             }
         }
@@ -117,18 +117,18 @@ namespace UmbraMenu.MenuButtons
                 moveSpeed = value;
                 if (changeMoveSpeed.Enabled)
                 {
-                    changeMoveSpeed.text = changeMoveSpeed.onText;
+                    changeMoveSpeed.text = $"M O V E   S P E E D ( O N ) : {MoveSpeed}";
                 }
                 else
                 {
-                    changeMoveSpeed.text = changeMoveSpeed.offText;
+                    changeMoveSpeed.text = $"M O V E   S P E E D ( O F F ) : {MoveSpeed}";
                 }
             }
         }
 
         public static bool armorToggle, attackSpeedToggle, critToggle, damageToggle, moveSpeedToggle, regenToggle;
 
-        private static void ToggleViewStatsMenu() => ToggleMenu((Menu)Utility.FindMenuById(15));
+        private static void ToggleViewStatsMenu() => ToggleMenu((Menu)Utility.FindMenuById(9));
         private static void DoNothing() => Utility.StubbedFunction();
 
         public static TogglableMulButton changeDmgPerLevel = new TogglableMulButton(currentMenu, 1, $"D A M A G E / L V L ( O F F ) : {DamagePerLevel}", $"D A M A G E / L V L ( O N ) : {DamagePerLevel}", ToggleDmgPerLevel, ToggleDmgPerLevel, IncreaseDmgPerLevel, DecreaseDmgPerLevel);
@@ -136,7 +136,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableMulButton changeAttackSpeed = new TogglableMulButton(currentMenu, 3, $"A T T A C K   S P E E D ( O F F ) : {AttackSpeed}", $"A T T A C K   S P E E D ( O N ) : {AttackSpeed}", ToggleAttackSpeed, ToggleAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed);
         public static TogglableMulButton changeArmor = new TogglableMulButton(currentMenu, 4, $"A R M O R ( O F F ) : {Armor}", $"A R M O R ( O N ) : {Armor}", ToggleArmor, ToggleArmor, IncreaseArmor, DecreaseArmor);
         public static TogglableMulButton changeMoveSpeed = new TogglableMulButton(currentMenu, 5, $"M O V E   S P E E D ( O F F ) : {MoveSpeed}", $"M O V E   S P E E D ( O N ) : {MoveSpeed}", ToggleMoveSpeed, ToggleMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed);
-        public static MulButton changeMultiplier = new MulButton(currentMenu, 6, $"M U L T I P L I E R : {Multiplier}", DoNothing, IncreaseMoveSpeed, DecreaseMultiplier);
+        public static MulButton changeMultiplier = new MulButton(currentMenu, 6, $"M U L T I P L I E R : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier);
         public static TogglableButton toggleViewStatsMenu = new TogglableButton(currentMenu, 7, "S H O W   S T A T S : O F F", "S H O W   S T A T S : O N", ToggleViewStatsMenu, ToggleViewStatsMenu);
 
         public static List<Buttons> buttons = new List<Buttons>() 

@@ -125,6 +125,17 @@ namespace UmbraMenu
             }
         }
 
+        public static void BuildViewStatsMenu(Menu menu)
+        {
+            menu.activatingButton = MenuButtons.StatsMod.toggleViewStatsMenu;
+            if (menu.enabled)
+            {
+                menu.SetWindow();
+                menu.DrawMenu();
+                menu.DrawAllButtons();
+            }
+        }
+
         public static void BuildCharacterListMenu(ListMenu menu)
         {
             menu.activatingButton = MenuButtons.Player.toggleChangeCharacter;
@@ -182,17 +193,6 @@ namespace UmbraMenu
             {
                 menu.SetWindow();
                 menu.DrawMenu();
-            }
-        }
-
-        public static void BuildViewStatsMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.StatsMod.toggleViewStatsMenu;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
             }
         }
     }
