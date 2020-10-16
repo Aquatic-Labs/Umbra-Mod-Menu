@@ -8,6 +8,6 @@ namespace UmbraMenu.MenuButtons
 {
     public class EquipmentList
     {
-        public static List<Button> buttons = new List<Button>();
+        private static List<Buttons> buttons = new List<Buttons>();
     }
 }

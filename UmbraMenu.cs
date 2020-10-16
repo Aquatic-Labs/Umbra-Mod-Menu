@@ -198,9 +198,15 @@ namespace UmbraMenu
             #region Stats Modification Menu
                 MenuButtons.StatsMod.AddButtonsToMenu();
                 BuildMenus.BuildStatsModMenu(statsMod);
-                #endregion
+            #endregion
+
+            #region View Stats Menu
+            MenuButtons.ViewStats.AddTextToMenu();
+            BuildMenus.BuildViewStatsMenu(viewStats);
+            #endregion
 
             #region Character List Menu
+            MenuButtons.CharacterList.AddButtonsToMenu();
             BuildMenus.BuildCharacterListMenu(characterList);
             #endregion
 
@@ -222,11 +228,6 @@ namespace UmbraMenu
 
             #region Spawn List Menu
             BuildMenus.BuildSpawnListMenu(spawnList);
-            #endregion
-
-            #region View Stats Menu
-            MenuButtons.ViewStats.AddTextToMenu();
-            BuildMenus.BuildViewStatsMenu(viewStats);
             #endregion
 
             #endregion

@@ -30,7 +30,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleLobby = new TogglableButton(currentMenu, 7, "L O B B Y : O F F", "L O B B Y : O N", LobbyButtonAction, LobbyButtonAction);
         public static TogglableButton unloadMenu = new TogglableButton(currentMenu, 8, "U N L O A D   M E N U", "C O N F I R M ?", DoNothing, UnloadMenu);
 
-        public static List<Buttons> buttons = new List<Buttons>()
+        private static List<Buttons> buttons = new List<Buttons>()
         {
             togglePlayer,
             toggleMovement,

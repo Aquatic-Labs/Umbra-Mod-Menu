@@ -16,7 +16,7 @@ namespace UmbraMenu.MenuButtons
         public static bool skillToggle, aimBotToggle, godToggle;
 
         private static ulong xpToGive = 50;
-        private static ulong XPToGive
+        public static ulong XPToGive
         {
             get
             {
@@ -29,7 +29,7 @@ namespace UmbraMenu.MenuButtons
             }
         }
         private static uint moneyToGive = 50, coinsToGive = 50;
-        private static uint MoneyToGive
+        public static uint MoneyToGive
         {
             get
             {
@@ -41,7 +41,7 @@ namespace UmbraMenu.MenuButtons
                 giveMoney.text = $"G I V E   M O N E Y : {moneyToGive}";
             }
         }
-        private static uint CoinsToGive
+        public static uint CoinsToGive
         {
             get
             {
@@ -69,7 +69,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD);
         public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
 
-        public static List<Buttons> buttons = new List<Buttons>()
+        private static List<Buttons> buttons = new List<Buttons>()
         {
             giveMoney,
             giveCoins,

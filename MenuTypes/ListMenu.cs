@@ -9,7 +9,7 @@ namespace UmbraMenu
 {
     public class ListMenu
     {
-        public float delay = 0, widthSize = 350;
+        public float delay = 0, widthSize = 350, heightMulY = 15;
         public int id;
         public string menuTitle = "Title";
         public bool enabled = false;
@@ -19,6 +19,10 @@ namespace UmbraMenu
         public TogglableButton activatingButton;
         public bool highlighted = false;
         public List<Buttons> buttons = new List<Buttons>();
+        public Vector2 currentScrollPosition = Vector2.zero;
+        public Vector2 endScrollPosition = Vector2.zero;
+        public Vector2 startScrollPosition = Vector2.zero;
+
 
         public void SetWindow()
         {
@@ -34,17 +38,19 @@ namespace UmbraMenu
         {
             if (enabled)
             {
-                GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), "", Styles.MainBgStyle);
+                GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), "", Styles.MainBgStyle);
                 DrawTitle();
             }
         }
 
         public void DrawAllButtons()
         {
+            currentScrollPosition = GUI.BeginScrollView(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), false, true);
             for (int i = 0; i < buttons.Count; i++)
             {
                 buttons[i].Add();
             }
+            GUI.EndScrollView();
         }
 
         private void SetBackground(int windowID)

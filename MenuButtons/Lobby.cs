@@ -15,7 +15,7 @@ namespace UmbraMenu.MenuButtons
         public static Button Player3 = new Button(currentMenu, 3, "P L A Y E R   T H R E E", null);
         public static Button Player4 = new Button(currentMenu, 4, "P L A Y E R   F O U R", null);
 
-        public static List<Buttons> buttons = new List<Buttons>();
+        private static List<Buttons> buttons = new List<Buttons>();
 
         public static void AddButtonsToMenu()
         {

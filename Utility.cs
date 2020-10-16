@@ -208,5 +208,94 @@ namespace UmbraMenu
             return updatedHurtboxes;
         }
         #endregion
+
+        #region Menu Resets
+        public static void ResetMenu()
+        {
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
+            {
+                UmbraMenu.menus[i].enabled = false;
+                UmbraMenu.menus[i].ifDragged = false;
+            }
+
+            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
+            {
+                UmbraMenu.listMenus[i].enabled = false;
+                UmbraMenu.listMenus[i].ifDragged = false;
+            }
+            UmbraMenu.characterCollected = false;
+
+            MenuButtons.Main.unloadMenu.Enabled = false;
+
+            MenuButtons.Player.toggleSkillCD.Enabled = false;
+            MenuButtons.Player.toggleGod.Enabled = false;
+            MenuButtons.Player.toggleAimbot.Enabled = false;
+            MenuButtons.Player.XPToGive = 50;
+            MenuButtons.Player.MoneyToGive = 50;
+            MenuButtons.Player.CoinsToGive = 50;
+
+            MenuButtons.StatsMod.DamagePerLevel = 10;
+            MenuButtons.StatsMod.CritPerLevel = 1;
+            MenuButtons.StatsMod.AttackSpeed = 1;
+            MenuButtons.StatsMod.Armor = 0;
+            MenuButtons.StatsMod.MoveSpeed = 7;
+            MenuButtons.StatsMod.changeDmgPerLevel.Enabled = false;
+            MenuButtons.StatsMod.changeCritPerLevel.Enabled = false;
+            MenuButtons.StatsMod.changeAttackSpeed.Enabled = false;
+            MenuButtons.StatsMod.changeArmor.Enabled = false;
+            MenuButtons.StatsMod.changeMoveSpeed.Enabled = false;
+
+            MenuButtons.Movement.toggleFlight.Enabled = false;
+            MenuButtons.Movement.toggleAlwaysSprint.Enabled = false;
+
+            MenuButtons.Items.toggleEquipmentCD.Enabled = false;
+            MenuButtons.Items.ItemsToRoll = 5;
+            MenuButtons.Items.isDropItemForAll = false;
+            MenuButtons.Items.isDropItemFromInventory = false;
+            MenuButtons.Items.AllItemsQuantity = 1;
+
+            MenuButtons.Render.toggleInteractESP.Enabled = false;
+            MenuButtons.Render.toggleMobESP.Enabled = false;
+            MenuButtons.Render.onRenderIntEnable = true;
+
+            //Main.scrolled = false;
+            //Main.onChestsEnable = true;
+            //Main.onChestsDisable = false;
+        }
+
+        public static void CloseAllMenus()
+        {
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
+            {
+                if (UmbraMenu.menus[i].id != 9)
+                {
+                    UmbraMenu.menus[i].enabled = false;
+                }
+            }
+
+            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
+            {
+                UmbraMenu.listMenus[i].enabled = false;
+            }
+            UmbraMenu.characterCollected = false;
+        }
+
+        // Soft reset when moving to next stage to keep player stat mods and god mode between stages
+        public static void SoftResetMenu()
+        {
+            Menu MainMenu = (Menu)FindMenuById(0);
+            MainMenu.enabled = !MainMenu.enabled;
+            UmbraMenu.GetCharacter();
+            MainMenu.enabled = !MainMenu.enabled;
+
+            MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
+            UmbraMenu.GetCharacter();
+            MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
+
+            MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
+            UmbraMenu.GetCharacter();
+            MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
+        }
+        #endregion
     }
 }

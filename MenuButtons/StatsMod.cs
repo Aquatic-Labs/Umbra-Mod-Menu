@@ -139,7 +139,7 @@ namespace UmbraMenu.MenuButtons
         public static MulButton changeMultiplier = new MulButton(currentMenu, 6, $"M U L T I P L I E R : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier);
         public static TogglableButton toggleViewStatsMenu = new TogglableButton(currentMenu, 7, "S H O W   S T A T S : O F F", "S H O W   S T A T S : O N", ToggleViewStatsMenu, ToggleViewStatsMenu);
 
-        public static List<Buttons> buttons = new List<Buttons>() 
+        private static List<Buttons> buttons = new List<Buttons>() 
         {
             changeDmgPerLevel,
             changeCritPerLevel,
