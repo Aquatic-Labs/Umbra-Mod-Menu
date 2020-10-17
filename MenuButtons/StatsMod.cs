@@ -22,11 +22,15 @@ namespace UmbraMenu.MenuButtons
                 damagePerLvl = value;
                 if (changeDmgPerLevel.Enabled)
                 {
-                    changeDmgPerLevel.text = $"D A M A G E / L V L ( O N ) : {DamagePerLevel}";
+                    changeDmgPerLevel.offText = $"D A M A G E / L V L ( O F F ) : {damagePerLvl}";
+                    changeDmgPerLevel.onText = $"D A M A G E / L V L ( O N ) : {damagePerLvl}";
+                    changeDmgPerLevel.text = changeDmgPerLevel.onText;
                 }
                 else
                 {
-                    changeDmgPerLevel.text = $"D A M A G E / L V L ( O F F ) : {DamagePerLevel}";
+                    changeDmgPerLevel.onText = $"D A M A G E / L V L ( O N ) : {damagePerLvl}";
+                    changeDmgPerLevel.offText = $"D A M A G E / L V L ( O F F ) : {damagePerLvl}";
+                    changeDmgPerLevel.text = changeDmgPerLevel.offText;
                 }
             }
         }
@@ -42,11 +46,15 @@ namespace UmbraMenu.MenuButtons
                 critPerLvl = value;
                 if (changeCritPerLevel.Enabled)
                 {
-                    changeCritPerLevel.text = $"C R I T / L V L ( O N ) : {CritPerLevel}";
+                    changeCritPerLevel.offText = $"C R I T / L V L ( O F F ) : {critPerLvl}";
+                    changeCritPerLevel.onText = $"C R I T / L V L ( O N ) : {critPerLvl}";
+                    changeCritPerLevel.text = changeCritPerLevel.onText;
                 }
                 else
                 {
-                    changeCritPerLevel.text = $"C R I T / L V L ( O F F ) : {CritPerLevel}";
+                    changeCritPerLevel.onText = $"C R I T / L V L ( O N ) : {critPerLvl}";
+                    changeCritPerLevel.offText = $"C R I T / L V L ( O F F ) : {critPerLvl}";
+                    changeCritPerLevel.text = changeCritPerLevel.offText;
                 }
             }
         }
@@ -60,7 +68,7 @@ namespace UmbraMenu.MenuButtons
             set
             {
                 multiplier = value;
-                changeMultiplier.text = $"M U L T I P L I E R : {Multiplier}";
+                changeMultiplier.text = $"M U L T I P L I E R : {multiplier}";
             }
         }
 
@@ -76,11 +84,15 @@ namespace UmbraMenu.MenuButtons
                 attackSpeed = value;
                 if (changeAttackSpeed.Enabled)
                 {
-                    changeAttackSpeed.text = $"A T T A C K   S P E E D ( O N ) : {AttackSpeed}";
+                    changeAttackSpeed.offText = $"A T T A C K   S P E E D ( O F F ) : {attackSpeed}";
+                    changeAttackSpeed.onText = $"A T T A C K   S P E E D ( O N ) : {attackSpeed}";
+                    changeAttackSpeed.text = changeAttackSpeed.onText;
                 }
                 else
                 {
-                    changeAttackSpeed.text = $"A T T A C K   S P E E D ( O F F ) : {AttackSpeed}";
+                    changeAttackSpeed.onText = $"A T T A C K   S P E E D ( O N ) : {attackSpeed}";
+                    changeAttackSpeed.offText = $"A T T A C K   S P E E D ( O F F ) : {attackSpeed}";
+                    changeAttackSpeed.text = changeAttackSpeed.offText;
                 }
             }
         }
@@ -97,11 +109,15 @@ namespace UmbraMenu.MenuButtons
                 armor = value;
                 if (changeArmor.Enabled)
                 {
-                    changeArmor.text = $"A R M O R ( O N ) : {Armor}";
+                    changeArmor.offText = $"A R M O R ( O F F ) : {armor}";
+                    changeArmor.onText = $"A R M O R ( O N ) : {armor}";
+                    changeArmor.text = changeArmor.onText;
                 }
                 else
                 {
-                    changeArmor.text = $"A R M O R ( O F F ) : {Armor}";
+                    changeArmor.onText = $"A R M O R ( O N ) : {armor}";
+                    changeArmor.offText = $"A R M O R ( O F F ) : {armor}";
+                    changeArmor.text = changeArmor.offText;
                 }
             }
         }
@@ -117,11 +133,15 @@ namespace UmbraMenu.MenuButtons
                 moveSpeed = value;
                 if (changeMoveSpeed.Enabled)
                 {
-                    changeMoveSpeed.text = $"M O V E   S P E E D ( O N ) : {MoveSpeed}";
+                    changeMoveSpeed.offText = $"M O V E   S P E E D ( O F F ) : {moveSpeed}";
+                    changeMoveSpeed.onText = $"M O V E   S P E E D ( O N ) : {moveSpeed}";
+                    changeMoveSpeed.text = changeMoveSpeed.onText;
                 }
                 else
                 {
-                    changeMoveSpeed.text = $"M O V E   S P E E D ( O F F ) : {MoveSpeed}";
+                    changeMoveSpeed.onText = $"M O V E   S P E E D ( O N ) : {moveSpeed}";
+                    changeMoveSpeed.offText = $"M O V E   S P E E D ( O F F ) : {moveSpeed}";
+                    changeMoveSpeed.text = changeMoveSpeed.onText;
                 }
             }
         }

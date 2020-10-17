@@ -41,8 +41,9 @@ namespace UmbraMenu
             }
         }
 
-        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction)
+        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, bool defaultEnable = false)
         {
+            Enabled = defaultEnable;
             this.parentMenu = parentMenu;
             this.position = position;
             text = offText;

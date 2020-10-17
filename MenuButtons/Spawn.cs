@@ -55,8 +55,6 @@ namespace UmbraMenu.MenuButtons
         }
 
         public static List<GameObject> spawnedObjects = new List<GameObject>();
-
-        private static void ToggleSpawnListMenu() => ToggleMenu((ListMenu)Utility.FindMenuById(15));
         private static void DoNothing() => Utility.StubbedFunction();
 
         public static MulButton changeMinDistance = new MulButton(currentMenu, 1, $"M I N   D I S T A N C E : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance);
@@ -84,6 +82,19 @@ namespace UmbraMenu.MenuButtons
         private static void ToggleMenu(ListMenu menu)
         {
             menu.enabled = !menu.enabled;
+        }
+
+        private static void ToggleSpawnListMenu()
+        {
+            if (toggleSpawnListMenu.Enabled)
+            {
+                SpawnList.DisableSpawnList();
+            }
+            else
+            {
+                SpawnList.EnableSpawnList();
+            }
+            ToggleMenu((ListMenu)Utility.FindMenuById(15));
         }
 
         public static void SpawnMob(GUIStyle buttonStyle, string buttonId)

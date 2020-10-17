@@ -1,7 +1,6 @@
 ﻿// TODO:
-//     Find what is causing NRE in Update
-//     Implement Sub-Menus
-//     Maybe add AddButtonsToMenu to BuildMenu method
+//     Add Lobby Menu
+//     Add Navigation
 
 using System;
 using System.Collections.Generic;
@@ -83,95 +82,85 @@ namespace UmbraMenu
             #region Main Menus
 
             #region Main Menu
-                if (Loader.updateAvailable)
-                {
-                    main.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
-                }
-                else if (Loader.upToDate)
-                {
-                    main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
-                }
-                else if (Loader.devBuild)
-                {
-                    main.menuTitle = $"U M B R A \n<color=yellow>D E V</color>";
-                }
-                MenuButtons.Main.AddButtonsToMenu();
-                main.SetWindow();
-                BuildMenus.BuildMainMenu(main);
-                #endregion
+            if (Loader.updateAvailable)
+            {
+                main.menuTitle = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
+            }
+            else if (Loader.upToDate)
+            {
+                main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
+            }
+            else if (Loader.devBuild)
+            {
+                main.menuTitle = $"U M B R A \n<color=yellow>D E V</color>";
+            }
+            MenuButtons.Main.AddButtonsToMenu();
+            main.SetWindow();
+            BuildMenus.BuildMainMenu(main);
+            #endregion
 
             #region Player Menu
-                MenuButtons.Player.AddButtonsToMenu();
-                BuildMenus.BuildPlayerMenu(player);
-                #endregion
+            BuildMenus.BuildMenu(player, MenuButtons.Main.togglePlayer, MenuButtons.Player.AddButtonsToMenu);
+            #endregion
 
             #region Movement Menu
-                MenuButtons.Movement.AddButtonsToMenu();
-                BuildMenus.BuildMovementMenu(movement);
-                #endregion
+            BuildMenus.BuildMenu(movement, MenuButtons.Main.togglePlayer, MenuButtons.Movement.AddButtonsToMenu);
+            #endregion
 
             #region Item Menu
-                MenuButtons.Items.AddButtonsToMenu();
-                BuildMenus.BuildItemMenu(item);
-                #endregion
+            BuildMenus.BuildMenu(item, MenuButtons.Main.toggleItems, MenuButtons.Items.AddButtonsToMenu);
+            #endregion
 
             #region Spawn Menu
-                MenuButtons.Spawn.AddButtonsToMenu();
-                BuildMenus.BuildSpawnMenu(spawn);
-                #endregion
+            BuildMenus.BuildMenu(spawn, MenuButtons.Main.toggleSpawn, MenuButtons.Spawn.AddButtonsToMenu);
+            #endregion
 
             #region Teleporter Menu
-                MenuButtons.Teleporter.AddButtonsToMenu();
-                BuildMenus.BuildTeleporterMenu(teleporter);
-                #endregion
+            BuildMenus.BuildMenu(teleporter, MenuButtons.Main.toggleTeleporter, MenuButtons.Teleporter.AddButtonsToMenu);
+            #endregion
 
             #region Render Menu
-                MenuButtons.Render.AddButtonsToMenu();
-                BuildMenus.BuildRenderMenu(render);
-                #endregion
+            BuildMenus.BuildMenu(render, MenuButtons.Main.toggleRender, MenuButtons.Render.AddButtonsToMenu);
+            #endregion
 
             #region Lobby Menu
-                MenuButtons.Lobby.AddButtonsToMenu();
-                BuildMenus.BuildLobbyMenu(lobby);
-                #endregion
+            BuildMenus.BuildMenu(lobby, MenuButtons.Main.toggleLobby, MenuButtons.Lobby.AddButtonsToMenu);
+            #endregion
 
             #endregion
 
             #region Sub Menus
 
             #region Stats Modification Menu
-                MenuButtons.StatsMod.AddButtonsToMenu();
-                BuildMenus.BuildStatsModMenu(statsMod);
+            BuildMenus.BuildMenu(statsMod, MenuButtons.Player.toggleStatsMod, MenuButtons.StatsMod.AddButtonsToMenu);
             #endregion
 
             #region View Stats Menu
-            MenuButtons.ViewStats.AddTextToMenu();
-            BuildMenus.BuildViewStatsMenu(viewStats);
+            BuildMenus.BuildMenu(viewStats, MenuButtons.StatsMod.toggleViewStatsMenu, MenuButtons.ViewStats.AddTextToMenu);
             #endregion
 
             #region Character List Menu
-            MenuButtons.CharacterList.AddButtonsToMenu();
-            BuildMenus.BuildCharacterListMenu(characterList);
+            BuildMenus.BuildMenu(characterList, MenuButtons.Player.toggleChangeCharacter, MenuButtons.CharacterList.AddButtonsToMenu);
             #endregion
 
             #region Buff List Menu
-            BuildMenus.BuildBuffListMenu(buffList);
+            BuildMenus.BuildMenu(buffList, MenuButtons.Player.toggleBuff, MenuButtons.BuffList.AddButtonsToMenu);
             #endregion
 
             #region Item List Menu
-            BuildMenus.BuildItemListMenu(itemList);
+            BuildMenus.BuildMenu(itemList, MenuButtons.Items.toggleItemListMenu, MenuButtons.ItemList.AddButtonsToMenu);
             #endregion
 
             #region Equipment List Menu
-            BuildMenus.BuildEquipmentListMenu(equipmentList);
+            BuildMenus.BuildMenu(equipmentList, MenuButtons.Items.toggleEquipmentListMenu, MenuButtons.EquipmentList.AddButtonsToMenu);
             #endregion
 
             #region Chest Items List Menu
-            BuildMenus.BuildChestItemsListMenu(chestItemList);
+            BuildMenus.BuildMenu(chestItemList, MenuButtons.Items.toggleChestItemMenu, MenuButtons.ChestItemList.AddButtonsToMenu);
             #endregion
 
             #region Spawn List Menu
-            BuildMenus.BuildSpawnListMenu(spawnList);
+            BuildMenus.BuildMenu(spawnList, MenuButtons.Spawn.toggleSpawnListMenu, MenuButtons.SpawnList.AddButtonsToMenu);
             #endregion
 
             #endregion
@@ -211,9 +200,9 @@ namespace UmbraMenu
             menus.Add(movement);
             #endregion
 
-            #region Item Menu
+            #region Items Menu
             item.rect = new Rect(738, 10, 20, 20); // Start Position
-            item.menuTitle = "I T E M   M E N U";
+            item.menuTitle = "I T E M S   M E N U";
             item.id = 3;
             //MenuButtons.Items.AddButtonsToMenu();
             menus.Add(item);
@@ -241,7 +230,6 @@ namespace UmbraMenu
             render.id = 6;
             //MenuButtons.Render.AddButtonsToMenu();
             menus.Add(render);
-            //MenuButtons.Render.toggleActiveMods.Enabled = true;
             #endregion
 
             #region Lobby Menu
@@ -453,21 +441,39 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (MenuButtons.Render.renderInteractables)
+                if (MenuButtons.Render.toggleInteractESP.Enabled)
                 {
                     MenuButtons.Render.Interactables();
+                    MenuButtons.Render.renderInteractables = true;
                 }
-                if (MenuButtons.Render.renderMobs)
+                else
+                {
+                    MenuButtons.Render.renderInteractables = false;
+                }
+
+                if (MenuButtons.Render.toggleMobESP.Enabled)
                 {
                     MenuButtons.Render.Mobs();
+                    MenuButtons.Render.renderMobs = true;
                 }
-                if (MenuButtons.Render.renderMods)
+                else
+                {
+                    MenuButtons.Render.renderMobs = false;
+                }
+
+                if (MenuButtons.Render.toggleActiveMods.Enabled)
                 {
                     MenuButtons.Render.ActiveMods();
+                    MenuButtons.Render.renderMods = true;
                 }
+                else
+                {
+                    MenuButtons.Render.renderMods = false;
+                }
+
                 if (chestItemList.enabled)
                 {
-                //    Chests.RenderClosestChest();
+                    MenuButtons.ChestItemList.RenderClosestChest();
                 }
             }
         }

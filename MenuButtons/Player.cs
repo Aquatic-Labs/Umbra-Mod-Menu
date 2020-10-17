@@ -114,15 +114,6 @@ namespace UmbraMenu.MenuButtons
             skillToggle = !skillToggle;
         }
 
-        public static void DrawBuffListMenu()
-        {
-            int buttonPlacement = 1;
-            foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
-            {
-                buttonPlacement++;
-            }
-        }
-
         public static void RemoveAllBuffs()
         {
             foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
@@ -196,16 +187,6 @@ namespace UmbraMenu.MenuButtons
         public static void GodMode()
         {
             UmbraMenu.LocalHealth.godMode = true;
-        }
-
-        public static void DrawCharacterListMenu()
-        {
-            int buttonPlacement = 1;
-            foreach (var prefab in UmbraMenu.bodyPrefabs)
-            {
-                //DrawMenu.DrawButton(buttonPlacement, buttonId, prefab.name.Replace("Body", ""), buttonStyle);
-                buttonPlacement++;
-            }
         }
 
         public static void UnlockAll()

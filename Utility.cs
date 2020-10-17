@@ -117,45 +117,103 @@ namespace UmbraMenu
         {
             List<EquipmentIndex> equipment = new List<EquipmentIndex>();
 
-            string[] unreleasedEquipment = { "Count" };
+            List<EquipmentIndex> equip = new List<EquipmentIndex>();
+            List<EquipmentIndex> lunar = new List<EquipmentIndex>();
+            List<EquipmentIndex> other = new List<EquipmentIndex>();
+
+            Color32 equipColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment);
+            Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
+
+            string[] unreleasedEquipment = { "Count", "None" };
+            var equipList = Enum.GetNames(typeof(EquipmentIndex)).ToList();
             // string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
-            for (int i = 0; i < Enum.GetNames(typeof(EquipmentIndex)).Length; i++)
+            for (int i = 0; i < equipList.Count; i++)
             {
-                string equipmentName = Enum.GetNames(typeof(EquipmentIndex))[i];
+                string equipmentName = equipList[i];
                 bool unreleasednullEquipment = unreleasedEquipment.Any(equipmentName.Contains);
+                EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
                 if (!unreleasednullEquipment)
                 {
-                    EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
-                    equipment.Add(equipmentIndex);
+                    Color32 currentEquipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                    if (currentEquipColor.Equals(equipColor)) // equipment
+                    {
+                        equip.Add(equipmentIndex);
+                    }
+                    else if (currentEquipColor.Equals(lunarColor)) // lunar equipment
+                    {
+                        lunar.Add(equipmentIndex);
+                    }
+                    else // other
+                    {
+                        other.Add(equipmentIndex);
+                    }
+                }
+                else if (equipmentName == "None")
+                {
+                    other.Add(equipmentIndex);
                 }
             }
-            return equipment;
+            var result = equipment.Concat(lunar).Concat(equip).Concat(other).ToList();
+            return result;
         }
 
         public static List<ItemIndex> GetItems()
         {
             List<ItemIndex> items = new List<ItemIndex>();
 
-            // List of null items that I remove from the item list. Will change if requested.
-            string[] unreleasedItems = { "LevelBonus", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "BoostAttackSpeed", "Count", "None" };
-            // string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
-            for (int i = 0; i < Enum.GetNames(typeof(ItemIndex)).Length; i++)
-            {
+            List<ItemIndex> boss = new List<ItemIndex>();
+            List<ItemIndex> tier3 = new List<ItemIndex>();
+            List<ItemIndex> tier2 = new List<ItemIndex>();
+            List<ItemIndex> tier1 = new List<ItemIndex>();
+            List<ItemIndex> lunar = new List<ItemIndex>();
+            List<ItemIndex> other = new List<ItemIndex>();
 
-                string itemName = Enum.GetNames(typeof(ItemIndex))[i];
+            Color32 bossColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.BossItem);
+            Color32 tier3Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier3Item);
+            Color32 tier2Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier2Item);
+            Color32 tier1Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier1Item);
+            Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
+
+            // List of null items that I remove from the item list. Will change if requested.
+            string[] unreleasedItems = { "Count", "None" };
+            var itemList = Enum.GetNames(typeof(ItemIndex)).ToList();
+            // string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                string itemName = itemList[i];
                 bool unreleasednullItem = unreleasedItems.Any(itemName.Contains);
                 ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
                 if (!unreleasednullItem)
                 {
-                    items.Add(itemIndex);
-                }
-                // Since "Ghost" is null item, "GhostOnKill" was getting removed from item list.
-                else if (itemName == "GhostOnKill")
-                {
-                    items.Add(itemIndex);
+                    Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                    if (itemColor.Equals(bossColor)) // boss
+                    {
+                        boss.Add(itemIndex);
+                    }
+                    else if (itemColor.Equals(tier3Color)) // tier 3
+                    {
+                        tier3.Add(itemIndex);
+                    }
+                    else if (itemColor.Equals(tier2Color)) // tier 2
+                    {
+                        tier2.Add(itemIndex);
+                    }
+                    else if (itemColor.Equals(tier1Color)) // tier 1
+                    {
+                        tier1.Add(itemIndex);
+                    }
+                    else if (itemColor.Equals(lunarColor)) // lunar
+                    {
+                        lunar.Add(itemIndex);
+                    }
+                    else // Other
+                    {
+                        other.Add(itemIndex);
+                    }
                 }
             }
-            return items;
+            var result = items.Concat(boss).Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(other).ToList();
+            return result;
         }
 
         public static List<SpawnCard> GetSpawnCards()
@@ -254,9 +312,16 @@ namespace UmbraMenu
             MenuButtons.Items.isDropItemFromInventory = false;
             MenuButtons.Items.AllItemsQuantity = 1;
 
+            MenuButtons.SpawnList.onSpawnListEnable = true;
+            MenuButtons.SpawnList.DisableSpawnList();
+
+            MenuButtons.ChestItemList.DisableChests();
+
             MenuButtons.Render.toggleInteractESP.Enabled = false;
             MenuButtons.Render.toggleMobESP.Enabled = false;
             MenuButtons.Render.onRenderIntEnable = true;
+            MenuButtons.Render.DisableInteractables();
+
 
             //Main.scrolled = false;
             //Main.onChestsEnable = true;
@@ -295,6 +360,17 @@ namespace UmbraMenu
             MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
             UmbraMenu.GetCharacter();
             MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
+        }
+        #endregion
+
+        #region Debugging
+        public static void WriteToLog(string logContent)
+        {
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "UmbraLog.txt"), true))
+            {
+                outputFile.WriteLine("[UmbraMenu]: " + logContent);
+            }
         }
         #endregion
     }

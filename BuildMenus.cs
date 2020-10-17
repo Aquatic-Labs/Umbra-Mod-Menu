@@ -25,6 +25,19 @@ namespace UmbraMenu
                         new Text(menu, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>").Add();
                         new Text(menu, 4, "<color=#11ccee>with bug Reports or suggestions.</color>").Add();
                     }
+
+                    for (int i = 0; i < UmbraMenu.menus.Count; i++)
+                    {
+                        if (UmbraMenu.menus[i].id != 0)
+                        {
+                            UmbraMenu.menus[i].enabled = false;
+                        }
+                    }
+
+                    for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
+                    {
+                        UmbraMenu.listMenus[i].enabled = false;
+                    }
                 }
 
                 if (UmbraMenu.characterCollected)
@@ -34,163 +47,27 @@ namespace UmbraMenu
             }
         }
 
-        public static void BuildPlayerMenu(Menu menu)
+        public static void BuildMenu(Menu menu, TogglableButton activatingButton, Action AddButtons)
         {
-            menu.activatingButton = MenuButtons.Main.togglePlayer;
+            menu.activatingButton = activatingButton;
             if (menu.enabled)
             {
+                AddButtons();
                 menu.SetWindow();
                 menu.DrawMenu();
                 menu.DrawAllButtons();
             }
         }
 
-        public static void BuildMovementMenu(Menu menu)
+        public static void BuildMenu(ListMenu menu, TogglableButton activatingButton, Action AddButtons)
         {
-            menu.activatingButton = MenuButtons.Main.toggleMovement;
+            menu.activatingButton = activatingButton;
             if (menu.enabled)
             {
+                AddButtons();
                 menu.SetWindow();
                 menu.DrawMenu();
                 menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildItemMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.Main.toggleItems;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildSpawnMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.Main.toggleSpawn;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildTeleporterMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.Main.toggleTeleporter;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildRenderMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.Main.toggleRender;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildLobbyMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.Main.toggleLobby;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildStatsModMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.Player.toggleStatsMod;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildViewStatsMenu(Menu menu)
-        {
-            menu.activatingButton = MenuButtons.StatsMod.toggleViewStatsMenu;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildCharacterListMenu(ListMenu menu)
-        {
-            menu.activatingButton = MenuButtons.Player.toggleChangeCharacter;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
-            }
-        }
-
-        public static void BuildBuffListMenu(ListMenu menu)
-        {
-            menu.activatingButton = MenuButtons.Player.toggleBuff;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-            }
-        }
-
-        public static void BuildItemListMenu(ListMenu menu)
-        {
-            menu.activatingButton = MenuButtons.Items.toggleItemListMenu;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-            }
-        }
-
-        public static void BuildEquipmentListMenu(ListMenu menu)
-        {
-            menu.activatingButton = MenuButtons.Items.toggleEquipmentListMenu;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-            }
-        }
-
-        public static void BuildChestItemsListMenu(ListMenu menu)
-        {
-            menu.activatingButton = MenuButtons.Items.toggleChestItemMenu;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
-            }
-        }
-
-        public static void BuildSpawnListMenu(ListMenu menu)
-        {
-            menu.activatingButton = MenuButtons.Spawn.toggleSpawnListMenu;
-            if (menu.enabled)
-            {
-                menu.SetWindow();
-                menu.DrawMenu();
             }
         }
     }
