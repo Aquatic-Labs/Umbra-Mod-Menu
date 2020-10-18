@@ -35,7 +35,7 @@ namespace UmbraMenu
 
         public static List<Menu> menus = new List<Menu>();
         public static List<ListMenu> listMenus = new List<ListMenu>();
-        public static bool characterCollected, navigationToggle, devDoOnce = true;
+        public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
 
         public static Scene currentScene;
 
@@ -49,16 +49,16 @@ namespace UmbraMenu
         public Menu render = new Menu();
         public Menu lobby = new Menu();
         #endregion
-      
+
         #region Create Sub Menus
         public Menu statsMod = new Menu();
         public Menu viewStats = new Menu();
         public ListMenu characterList = new ListMenu();
         public ListMenu buffList = new ListMenu();
-        public ListMenu itemList= new ListMenu();
-        public ListMenu equipmentList= new ListMenu();
-        public ListMenu chestItemList= new ListMenu();
-        public ListMenu spawnList= new ListMenu();
+        public ListMenu itemList = new ListMenu();
+        public ListMenu equipmentList = new ListMenu();
+        public ListMenu chestItemList = new ListMenu();
+        public ListMenu spawnList = new ListMenu();
         #endregion
 
 
@@ -233,7 +233,7 @@ namespace UmbraMenu
             #endregion
 
             #region Lobby Menu
-            lobby.rect = new Rect(10, 985, 20, 20); // Start Position
+            lobby.rect = new Rect(374, 750, 20, 20); // Start Position
             lobby.menuTitle = "L O B B Y   M E N U";
             lobby.id = 7;
             //MenuButtons.Lobby.AddButtonsToMenu();
@@ -241,11 +241,11 @@ namespace UmbraMenu
             #endregion
 
             #endregion
-            
+
             #region Sub Menus
 
             #region Stats Modification Menu
-            statsMod.rect = new Rect(10, 985, 20, 20); // Start Position
+            statsMod.rect = new Rect(1503, 10, 20, 20); // Start Position
             statsMod.menuTitle = "S T A T S   M O D   M E N U";
             statsMod.id = 8;
             //statsMod.buttons = MenuButtons.StatsMod.buttons;
@@ -253,7 +253,7 @@ namespace UmbraMenu
             #endregion
 
             #region View Stats Menu
-            viewStats.rect = new Rect(10, 985, 20, 20); // Start Position
+            viewStats.rect = new Rect(1626, 457, 20, 20); // Start Position
             viewStats.menuTitle = "V I E W   S T A T S   M E N U";
             viewStats.id = 9;
             //viewStats.buttons = MenuButtons.SpawnList.buttons;
@@ -261,7 +261,7 @@ namespace UmbraMenu
             #endregion
 
             #region Character List Menu
-            characterList.rect = new Rect(10, 985, 20, 20); // Start Position
+            characterList.rect = new Rect(1503, 10, 20, 20); // Start Position
             characterList.menuTitle = "C H A R A C T E R S   M E N U";
             characterList.id = 10;
             //characterList.buttons = MenuButtons.CharacterList.buttons;
@@ -269,7 +269,7 @@ namespace UmbraMenu
             #endregion
 
             #region Buff List Menu
-            buffList.rect = new Rect(10, 985, 20, 20); // Start Position
+            buffList.rect = new Rect(1503, 10, 20, 20); // Start Position
             buffList.menuTitle = "B U F F S   M E N U";
             buffList.id = 11;
             //buffList.buttons = MenuButtons.BuffList.buttons;
@@ -277,7 +277,7 @@ namespace UmbraMenu
             #endregion
 
             #region Item List Menu
-            itemList.rect = new Rect(10, 985, 20, 20); // Start Position
+            itemList.rect = new Rect(1503, 10, 20, 20); // Start Position
             itemList.menuTitle = "I T E M S   M E N U";
             itemList.id = 12;
             //itemList.buttons = MenuButtons.ItemList.buttons;
@@ -285,7 +285,7 @@ namespace UmbraMenu
             #endregion
 
             #region Equipment List Menu
-            equipmentList.rect = new Rect(10, 985, 20, 20); // Start Position
+            equipmentList.rect = new Rect(1503, 10, 20, 20); // Start Position
             equipmentList.menuTitle = "E Q U I P M E N T   M E N U";
             equipmentList.id = 13;
             //equipmentList.buttons = MenuButtons.EquipmentList.buttons;
@@ -293,7 +293,7 @@ namespace UmbraMenu
             #endregion
 
             #region Chest Items List Menu
-            chestItemList.rect = new Rect(10, 985, 20, 20); // Start Position
+            chestItemList.rect = new Rect(1503, 10, 20, 20); // Start Position
             chestItemList.menuTitle = "C H E S T   I T E M S   M E N U";
             chestItemList.id = 14;
             //chestItemList.buttons = MenuButtons.ChestItemList.buttons;
@@ -301,7 +301,7 @@ namespace UmbraMenu
             #endregion
 
             #region Spawn List Menu
-            spawnList.rect = new Rect(10, 985, 20, 20); // Start Position
+            spawnList.rect = new Rect(1503, 10, 20, 20); // Start Position
             spawnList.menuTitle = "S P A W N   C A R D S   M E N U";
             spawnList.id = 15;
             //spawnList.buttons = MenuButtons.SpawnList.buttons;
@@ -309,6 +309,37 @@ namespace UmbraMenu
             #endregion
 
             #endregion
+
+            /*
+            #region Resolution Check
+            if (Screen.height > 1080)
+            {
+            }
+            else if (Screen.height < 1080)
+            {
+                lowResolutionMonitor = true;
+                MenuButtons.Render.renderMods = false;
+
+                main.rect = new Rect(10, 10, 20, 20); // Start Position
+                player.rect = new Rect(374, 10, 20, 20); // Start Position
+                movement.rect = new Rect(374, 560, 20, 20); // Start Position
+                item.rect = new Rect(738, 10, 20, 20); // Start Position
+                spawn.rect = new Rect(738, 515, 20, 20); // Start Position
+                teleporter.rect = new Rect(10, 425, 20, 20); // Start Position
+                render.rect = new Rect(10, 795, 20, 20); // Start Position
+                lobby.rect = new Rect(374, 750, 20, 20); // Start Position
+
+                statsMod.rect = new Rect(1503, 10, 20, 20); // Start Position
+                viewStats.rect = new Rect(1626, 457, 20, 20); // Start Position
+                characterList.rect = new Rect(1503, 10, 20, 20); // Start Position
+                buffList.rect = new Rect(1503, 10, 20, 20); // Start Position
+                itemList.rect = new Rect(1503, 10, 20, 20); // Start Position
+                equipmentList.rect = new Rect(1503, 10, 20, 20); // Start Position
+                chestItemList.rect = new Rect(1503, 10, 20, 20); // Start Position
+                spawnList.rect = new Rect(1503, 10, 20, 20); // Start Position
+            }
+            #endregion
+            */
         }
 
         public void Update()
