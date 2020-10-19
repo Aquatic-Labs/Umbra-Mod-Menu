@@ -16,7 +16,7 @@ namespace UmbraMenu.MenuButtons
         private static void SpawnButtonAction() => ToggleMenu(UmbraMenu.menus[4]);
         private static void TeleporterButtonAction() => ToggleMenu(UmbraMenu.menus[5]);
         private static void RenderButtonAction() => ToggleMenu(UmbraMenu.menus[6]);
-        private static void LobbyButtonAction() => ToggleMenu(UmbraMenu.menus[7]);
+        private static void SettingsButtonAction() => ToggleMenu(UmbraMenu.menus[7]);
         private static void UnloadMenu() => Loader.Unload();
 
         private static void DoNothing() => Utility.StubbedFunction();
@@ -27,7 +27,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleSpawn = new TogglableButton(currentMenu, 4, "S P A W N : O F F", "S P A W N : O N", SpawnButtonAction, SpawnButtonAction);
         public static TogglableButton toggleTeleporter = new TogglableButton(currentMenu, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", TeleporterButtonAction, TeleporterButtonAction);
         public static TogglableButton toggleRender = new TogglableButton(currentMenu, 6, "R E N D E R : O F F", "R E N D E R: O N", RenderButtonAction, RenderButtonAction);
-        public static TogglableButton toggleLobby = new TogglableButton(currentMenu, 7, "L O B B Y : O F F", "L O B B Y : O N", LobbyButtonAction, LobbyButtonAction);
+        public static TogglableButton toggleSettings = new TogglableButton(currentMenu, 7, "L O B B Y : O F F", "L O B B Y : O N", SettingsButtonAction, SettingsButtonAction);
         public static TogglableButton unloadMenu = new TogglableButton(currentMenu, 8, "U N L O A D   M E N U", "C O N F I R M ?", DoNothing, UnloadMenu);
 
         private static List<Buttons> buttons = new List<Buttons>()
@@ -38,7 +38,7 @@ namespace UmbraMenu.MenuButtons
             toggleSpawn,
             toggleTeleporter,
             toggleRender,
-            toggleLobby,
+            toggleSettings,
             unloadMenu
         };
 

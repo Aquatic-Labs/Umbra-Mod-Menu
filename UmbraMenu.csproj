@@ -66,7 +66,7 @@
     <Compile Include="MenuButtons\EquipmentList.cs" />
     <Compile Include="MenuButtons\ItemList.cs" />
     <Compile Include="MenuButtons\Items.cs" />
-    <Compile Include="MenuButtons\Lobby.cs" />
+    <Compile Include="MenuButtons\Settings.cs" />
     <Compile Include="MenuButtons\Main.cs" />
     <Compile Include="ButtonTypes\MulButton.cs" />
     <Compile Include="Loader.cs" />

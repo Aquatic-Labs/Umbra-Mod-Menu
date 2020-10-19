@@ -47,7 +47,7 @@ namespace UmbraMenu
         public Menu spawn = new Menu();
         public Menu teleporter = new Menu();
         public Menu render = new Menu();
-        public Menu lobby = new Menu();
+        public Menu settings = new Menu();
         #endregion
 
         #region Create Sub Menus
@@ -123,8 +123,8 @@ namespace UmbraMenu
             BuildMenus.BuildMenu(render, MenuButtons.Main.toggleRender, MenuButtons.Render.AddButtonsToMenu);
             #endregion
 
-            #region Lobby Menu
-            BuildMenus.BuildMenu(lobby, MenuButtons.Main.toggleLobby, MenuButtons.Lobby.AddButtonsToMenu);
+            #region settings Menu
+            BuildMenus.BuildMenu(settings, MenuButtons.Main.toggleSettings, MenuButtons.Settings.AddButtonsToMenu);
             #endregion
 
             #endregion
@@ -232,12 +232,11 @@ namespace UmbraMenu
             menus.Add(render);
             #endregion
 
-            #region Lobby Menu
-            lobby.rect = new Rect(374, 750, 20, 20); // Start Position
-            lobby.menuTitle = "L O B B Y   M E N U";
-            lobby.id = 7;
-            //MenuButtons.Lobby.AddButtonsToMenu();
-            menus.Add(lobby);
+            #region Settings Menu
+            settings.rect = new Rect(374, 750, 20, 20); // Start Position
+            settings.menuTitle = "S E T T I N G S   M E N U";
+            settings.id = 7;
+            menus.Add(settings);
             #endregion
 
             #endregion
