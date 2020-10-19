@@ -1,6 +1,7 @@
 ﻿// TODO:
-//     Add Lobby Menu
+//     Add Settings Menu
 //     Add Navigation
+//     Possibly add OnEnable action for Menu/ListMenu type
 
 using System;
 using System.Collections.Generic;

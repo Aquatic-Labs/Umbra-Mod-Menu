@@ -13,7 +13,8 @@ namespace UmbraMenu.MenuButtons
         private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(7);
         private static List<Buttons> buttons = new List<Buttons>();
 
-        public static TogglableButton ToggleKeybindsMenu = new TogglableButton(currentMenu, 1, "", "", null, null);
+        public static TogglableButton toggleKeybindsMenu = new TogglableButton(currentMenu, 1, "", "", null, null);
+        public static Button changeGodModeType = new Button(currentMenu, 1, "", null);
 
         public static void AddButtonsToMenu()
         {
