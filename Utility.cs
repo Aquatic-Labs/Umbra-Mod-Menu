@@ -13,11 +13,11 @@ namespace UmbraMenu
 {
     public static class Utility
     {
-        public static Menus FindMenuById(int id)
+        public static IMenus FindMenuById(int id)
         {
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                Menus currentMenu = UmbraMenu.menus[i];
+                IMenus currentMenu = UmbraMenu.menus[i];
                 if (currentMenu.id == id)
                 {
                     return currentMenu;
@@ -354,9 +354,9 @@ namespace UmbraMenu
         }
         #endregion
 
-        public static List<Menus> GetMenusOpen()
+        public static List<IMenus> GetMenusOpen()
         {
-            List<Menus> openMenus = new List<Menus>();
+            List<IMenus> openMenus = new List<IMenus>();
             for (int i = 1; i < UmbraMenu.menus.Count; i++)
             {
                 if (UmbraMenu.menus[i].enabled)

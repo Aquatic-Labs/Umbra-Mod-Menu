@@ -14,16 +14,16 @@ namespace UmbraMenu
                 {
                     if (Loader.updateAvailable)
                     {
-                        new Text(menu, 2, "<color=yellow>Buttons will be availble in game.</color>").Add();
-                        new Text(menu, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>").Add();
-                        new Text(menu, 4, "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>").Add();
+                        new Text(menu, 2, "<color=yellow>Buttons will be availble in game.</color>").Draw();
+                        new Text(menu, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>").Draw();
+                        new Text(menu, 4, "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>").Draw();
                     }
 
                     if (Loader.upToDate || Loader.devBuild)
                     {
-                        new Text(menu, 2, "<color=yellow>Buttons will be availble in game.</color>").Add();
-                        new Text(menu, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>").Add();
-                        new Text(menu, 4, "<color=#11ccee>with bug Reports or suggestions.</color>").Add();
+                        new Text(menu, 2, "<color=yellow>Buttons will be availble in game.</color>").Draw();
+                        new Text(menu, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>").Draw();
+                        new Text(menu, 4, "<color=#11ccee>with bug Reports or suggestions.</color>").Draw();
                     }
 
                     for (int i = 0; i < UmbraMenu.menus.Count; i++)

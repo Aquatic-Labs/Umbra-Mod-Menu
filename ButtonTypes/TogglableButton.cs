@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class TogglableButton : Buttons
+    public class TogglableButton : IButtons
     {
         public Menu parentMenu;
         public int position;
@@ -60,7 +60,7 @@ namespace UmbraMenu
             }
         }
 
-        public void Add()
+        public void Draw()
         {
             parentMenu.numberOfButtons = position;
             int btnY = 5 + 45 * parentMenu.numberOfButtons;
@@ -70,8 +70,13 @@ namespace UmbraMenu
             {
                 Action?.Invoke();
                 Enabled = !Enabled;
-                Add();
+                Draw();
             }
+        }
+
+        public void Add()
+        {
+            parentMenu.buttons.Add(this);
         }
     }
 }

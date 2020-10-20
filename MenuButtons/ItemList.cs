@@ -14,7 +14,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            List<Buttons> buttons = new List<Buttons>();
+            List<IButtons> buttons = new List<IButtons>();
 
             int buttonPlacement = 1;
             for (int i = 0; i < UmbraMenu.items.Count; i++)

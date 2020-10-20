@@ -14,7 +14,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            List<Buttons> buttons = new List<Buttons>();
+            List<IButtons> buttons = new List<IButtons>();
             for (int i = 0; i < Enum.GetNames(typeof(BuffIndex)).ToList().Count; i++)
             {
                 int buffIndexInt = i;

@@ -21,7 +21,7 @@ namespace UmbraMenu.MenuButtons
         public static Text experienceStat = new Text(currentMenu, 8, $"E X P E R I E N C E : {playerExperience}");
         public static Text killsStat = new Text(currentMenu, 9, $"K I L L S: {playerKillCount}");
 
-        private static List<Buttons> buttons = new List<Buttons>()
+        private static List<IButtons> buttons = new List<IButtons>()
         {
             damageStat,
             critStat,

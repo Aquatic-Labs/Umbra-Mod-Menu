@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class Button : Buttons
+    public class Button : IButtons
     {
         public Menu parentMenu;
         public ListMenu parentListMenu;
@@ -35,7 +35,7 @@ namespace UmbraMenu
             this.Action = Action;
         }
 
-        public void Add()
+        public void Draw()
         {
             if (parentMenu != null)
             {
@@ -46,7 +46,7 @@ namespace UmbraMenu
                 if (GUI.Button(rect, text, style))
                 {
                     Action?.Invoke();
-                    Add();
+                    Draw();
                 }
             }
             else
@@ -58,9 +58,14 @@ namespace UmbraMenu
                 if (GUI.Button(rect, text, style))
                 {
                     Action?.Invoke();
-                    Add();
+                    Draw();
                 }
             }
+        }
+
+        public void Add()
+        {
+            parentMenu.buttons.Add(this);
         }
     }
 }

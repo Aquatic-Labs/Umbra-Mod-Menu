@@ -12,18 +12,17 @@ using System.Linq;
 
 namespace UmbraMenu
 {
-    public interface Buttons { void Add(); };
-    public interface Menus 
+    public interface IButtons { void Draw(); void Add(); };
+    public interface IMenus 
     { 
         Rect rect { get; }
-        List<Buttons> buttons { get; }
+        List<IButtons> buttons { get; }
         TogglableButton activatingButton { get; }
         bool enabled { get; set; }
         bool ifDragged { get; set; }
         int id { get; }
         void SetWindow(); 
         void DrawMenu(); 
-        void DrawAllButtons();
     }
 
     public class UmbraMenu : MonoBehaviour
@@ -48,7 +47,7 @@ namespace UmbraMenu
         public static List<ItemIndex> items = Utility.GetItems();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
-        public static List<Menus> menus = new List<Menus>();
+        public static List<IMenus> menus = new List<IMenus>();
         public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
 
         public static Scene currentScene;

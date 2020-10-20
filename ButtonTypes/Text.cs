@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class Text : Buttons
+    public class Text : IButtons
     {
         public Menu parentMenu;
         public int position;
@@ -23,13 +23,18 @@ namespace UmbraMenu
             this.text = text;
         }
 
-        public void Add()
+        public void Draw()
         {
             parentMenu.numberOfButtons = position;
             int btnY = 5 + 45 * parentMenu.numberOfButtons;
             rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize, 40);
 
             GUI.Button(rect, text, style);
+        }
+
+        public void Add()
+        {
+            parentMenu.buttons.Add(this);
         }
     }
 }

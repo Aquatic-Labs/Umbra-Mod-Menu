@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class ListMenu : Menus
+    public class ListMenu : IMenus
     {
         public float delay = 0, widthSize = 350, heightMulY = 15;
         public int id { get; set; }
@@ -18,7 +18,7 @@ namespace UmbraMenu
         public int numberOfButtons { get; set; }
         public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
-        public List<Buttons> buttons { get; set; }
+        public List<IButtons> buttons { get; set; }
         public Vector2 currentScrollPosition = Vector2.zero;
         public Vector2 endScrollPosition = Vector2.zero;
         public Vector2 startScrollPosition = Vector2.zero;
@@ -47,7 +47,7 @@ namespace UmbraMenu
             currentScrollPosition = GUI.BeginScrollView(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), false, true);
             for (int i = 0; i < buttons.Count; i++)
             {
-                buttons[i].Add();
+                buttons[i].Draw();
             }
             GUI.EndScrollView();
         }

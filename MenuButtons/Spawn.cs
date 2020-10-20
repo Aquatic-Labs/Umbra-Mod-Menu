@@ -64,7 +64,7 @@ namespace UmbraMenu.MenuButtons
         public static Button killAll = new Button(currentMenu, 5, "K I L L   A L L", KillAllMobs);
         public static Button destroyInteractables = new Button(currentMenu, 6, "D E S T R O Y   I N T E R A C T A B L E S", DestroySpawnedInteractables);
 
-        private static List<Buttons> buttons = new List<Buttons>()
+        private static List<IButtons> buttons = new List<IButtons>()
         {
             changeMinDistance,
             changeMaxDistance,
@@ -79,7 +79,7 @@ namespace UmbraMenu.MenuButtons
             currentMenu.buttons = buttons;
         }
 
-        private static void ToggleMenu(Menus menu)
+        private static void ToggleMenu(IMenus menu)
         {
             menu.enabled = !menu.enabled;
         }

@@ -24,7 +24,7 @@ namespace UmbraMenu.MenuButtons
         public static Button spawnCele = new Button(currentMenu, 6, "S P A W N   C E L E S T A L   P O R T A L", SpawnCelestalPortal);
         public static Button spawnGold = new Button(currentMenu, 7, "S P A W N   G O L D   P O R T A L", SpawnGoldPortal);
 
-        private static List<Buttons> buttons = new List<Buttons>()
+        private static List<IButtons> buttons = new List<IButtons>()
         {
             skipStage,
             instaTele,

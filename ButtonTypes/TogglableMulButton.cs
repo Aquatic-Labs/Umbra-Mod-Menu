@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class TogglableMulButton : Buttons
+    public class TogglableMulButton : IButtons
     {
         public Menu parentMenu;
         public int position;
@@ -55,7 +55,7 @@ namespace UmbraMenu
             this.DecreaseAction = DecreaseAction;
         }
 
-        public void Add()
+        public void Draw()
         {
             parentMenu.numberOfButtons = position;
             int btnY = 5 + 45 * parentMenu.numberOfButtons;
@@ -65,7 +65,7 @@ namespace UmbraMenu
             {
                 Action?.Invoke();
                 Enabled = !Enabled;
-                Add();
+                Draw();
             }
             DrawMulButtons();
         }
@@ -77,13 +77,18 @@ namespace UmbraMenu
             if (GUI.Button(new Rect(menuBg.x + parentMenu.widthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
             {
                 DecreaseAction?.Invoke();
-                Add();
+                Draw();
             }
             if (GUI.Button(new Rect(menuBg.x + parentMenu.widthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
             {
                 IncreaseAction?.Invoke();
-                Add();
+                Draw();
             }
+        }
+
+        public void Add()
+        {
+            parentMenu.buttons.Add(this);
         }
     }
 }

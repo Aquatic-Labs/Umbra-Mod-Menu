@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class Menu : Menus
+    public class Menu : IMenus
     {
         public float delay = 0, widthSize = 350;
         public int id { get; set; }
@@ -20,7 +20,7 @@ namespace UmbraMenu
         public int numberOfButtons { get; set; }
         public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
-        public List<Buttons> buttons { get; set; }
+        public List<IButtons> buttons { get; set; }
 
         public void SetWindow()
         {
@@ -45,7 +45,7 @@ namespace UmbraMenu
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                buttons[i].Add();
+                buttons[i].Draw();
             }
         }
 
