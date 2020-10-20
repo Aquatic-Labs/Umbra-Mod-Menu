@@ -9,19 +9,18 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public interface Buttons { void Add(); };
-    public class Menu
+    public class Menu : Menus
     {
         public float delay = 0, widthSize = 350;
-        public int id;
+        public int id { get; set; }
         public string menuTitle = "Title";
-        public bool enabled = false;
-        public Rect rect;
-        public bool ifDragged = false;
-        public int numberOfButtons = 0;
-        public TogglableButton activatingButton;
+        public bool enabled { get; set; }
+        public Rect rect { get; set; }
+        public bool ifDragged { get; set; }
+        public int numberOfButtons { get; set; }
+        public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
-        public List<Buttons> buttons = new List<Buttons>();
+        public List<Buttons> buttons { get; set; }
 
         public void SetWindow()
         {

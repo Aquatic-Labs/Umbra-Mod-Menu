@@ -33,11 +33,6 @@ namespace UmbraMenu
                             UmbraMenu.menus[i].enabled = false;
                         }
                     }
-
-                    for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
-                    {
-                        UmbraMenu.listMenus[i].enabled = false;
-                    }
                 }
 
                 if (UmbraMenu.characterCollected)

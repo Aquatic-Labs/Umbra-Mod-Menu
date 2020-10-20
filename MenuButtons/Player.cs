@@ -55,8 +55,8 @@ namespace UmbraMenu.MenuButtons
         }
 
         private static void ToggleStatsMenu() => ToggleMenu(UmbraMenu.menus[8]);
-        private static void ToggleCharacterListMenu() => ToggleMenu(UmbraMenu.listMenus[0]);
-        private static void ToggleBuffListMenu() => ToggleMenu(UmbraMenu.listMenus[1]);
+        private static void ToggleCharacterListMenu() => ToggleMenu(UmbraMenu.menus[10]);
+        private static void ToggleBuffListMenu() => ToggleMenu(UmbraMenu.menus[11]);
         public static MulButton giveMoney = new MulButton(currentMenu, 1, $"G I V E   M O N E Y : {MoneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
         public static MulButton giveCoins = new MulButton(currentMenu, 2, $"G I V E   L U N A R   C O I N S : {CoinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
         public static MulButton giveExperience = new MulButton(currentMenu, 3, $"G I V E   E X P E R I E N C E : {XPToGive}", GiveXP, IncreaseXP, DecreaseXP);
@@ -89,12 +89,7 @@ namespace UmbraMenu.MenuButtons
             currentMenu.buttons = buttons;
         }
 
-        public static void ToggleMenu(Menu menu)
-        {
-            menu.enabled = !menu.enabled;
-        }
-
-        public static void ToggleMenu(ListMenu menu)
+        public static void ToggleMenu(Menus menu)
         {
             menu.enabled = !menu.enabled;
         }

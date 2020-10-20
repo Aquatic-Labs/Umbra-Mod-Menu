@@ -79,7 +79,7 @@ namespace UmbraMenu.MenuButtons
             currentMenu.buttons = buttons;
         }
 
-        private static void ToggleMenu(ListMenu menu)
+        private static void ToggleMenu(Menus menu)
         {
             menu.enabled = !menu.enabled;
         }
@@ -94,7 +94,7 @@ namespace UmbraMenu.MenuButtons
             {
                 SpawnList.EnableSpawnList();
             }
-            ToggleMenu((ListMenu)Utility.FindMenuById(15));
+            ToggleMenu(Utility.FindMenuById(15));
         }
 
         public static void SpawnMob(GUIStyle buttonStyle, string buttonId)

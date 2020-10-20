@@ -13,20 +13,11 @@ namespace UmbraMenu
 {
     public static class Utility
     {
-        public static object FindMenuById(int id)
+        public static Menus FindMenuById(int id)
         {
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                Menu currentMenu = UmbraMenu.menus[i];
-                if (currentMenu.id == id)
-                {
-                    return currentMenu;
-                }
-            }
-
-            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
-            {
-                ListMenu currentMenu = UmbraMenu.listMenus[i];
+                Menus currentMenu = UmbraMenu.menus[i];
                 if (currentMenu.id == id)
                 {
                     return currentMenu;
@@ -276,10 +267,10 @@ namespace UmbraMenu
                 UmbraMenu.menus[i].ifDragged = false;
             }
 
-            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                UmbraMenu.listMenus[i].enabled = false;
-                UmbraMenu.listMenus[i].ifDragged = false;
+                UmbraMenu.menus[i].enabled = false;
+                UmbraMenu.menus[i].ifDragged = false;
             }
             UmbraMenu.characterCollected = false;
 
@@ -338,9 +329,9 @@ namespace UmbraMenu
                 }
             }
 
-            for (int i = 0; i < UmbraMenu.listMenus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                UmbraMenu.listMenus[i].enabled = false;
+                UmbraMenu.menus[i].enabled = false;
             }
             UmbraMenu.characterCollected = false;
         }
@@ -362,6 +353,19 @@ namespace UmbraMenu
             MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
         }
         #endregion
+
+        public static List<Menus> GetMenusOpen()
+        {
+            List<Menus> openMenus = new List<Menus>();
+            for (int i = 1; i < UmbraMenu.menus.Count; i++)
+            {
+                if (UmbraMenu.menus[i].enabled)
+                {
+                    openMenus.Add(UmbraMenu.menus[i]);
+                }
+            }
+            return openMenus;
+        }
 
         #region Debugging
         public static void WriteToLog(string logContent)

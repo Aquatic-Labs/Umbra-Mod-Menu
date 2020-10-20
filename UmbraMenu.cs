@@ -12,6 +12,20 @@ using System.Linq;
 
 namespace UmbraMenu
 {
+    public interface Buttons { void Add(); };
+    public interface Menus 
+    { 
+        Rect rect { get; }
+        List<Buttons> buttons { get; }
+        TogglableButton activatingButton { get; }
+        bool enabled { get; set; }
+        bool ifDragged { get; set; }
+        int id { get; }
+        void SetWindow(); 
+        void DrawMenu(); 
+        void DrawAllButtons();
+    }
+
     public class UmbraMenu : MonoBehaviour
     {
         public const string
@@ -34,8 +48,7 @@ namespace UmbraMenu
         public static List<ItemIndex> items = Utility.GetItems();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
 
-        public static List<Menu> menus = new List<Menu>();
-        public static List<ListMenu> listMenus = new List<ListMenu>();
+        public static List<Menus> menus = new List<Menus>();
         public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
 
         public static Scene currentScene;
@@ -105,7 +118,7 @@ namespace UmbraMenu
             #endregion
 
             #region Movement Menu
-            BuildMenus.BuildMenu(movement, MenuButtons.Main.togglePlayer, MenuButtons.Movement.AddButtonsToMenu);
+            BuildMenus.BuildMenu(movement, MenuButtons.Main.toggleMovement, MenuButtons.Movement.AddButtonsToMenu);
             #endregion
 
             #region Item Menu
@@ -167,7 +180,7 @@ namespace UmbraMenu
             #endregion
 
             ESPRoutine();
-            // UpdateButtonsRoutine();
+            UpdateMenusAndButtonsRoutine();
         }
 
         public void Start()
@@ -175,13 +188,14 @@ namespace UmbraMenu
             Styles styles = new Styles();
             styles.BuildStyles();
 
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
             #region Main Menus
 
             #region Main Menu
             main.rect = new Rect(10, 10, 20, 20); // Start Position
             main.menuTitle = $"U M B R A \n<color=grey>v{VERSION}</color>";
             main.id = 0;
-            //MenuButtons.Main.AddButtonsToMenu();
             menus.Add(main);
             #endregion
 
@@ -189,7 +203,6 @@ namespace UmbraMenu
             player.rect = new Rect(374, 10, 20, 20); // Start Position
             player.menuTitle = "P L A Y E R   M E N U";
             player.id = 1;
-            //MenuButtons.Player.AddButtonsToMenu();
             menus.Add(player);
             #endregion
 
@@ -197,7 +210,6 @@ namespace UmbraMenu
             movement.rect = new Rect(374, 560, 20, 20); // Start Position
             movement.menuTitle = "M O V E M E N T   M E N U";
             movement.id = 2;
-            //MenuButtons.Movement.AddButtonsToMenu();
             menus.Add(movement);
             #endregion
 
@@ -205,7 +217,6 @@ namespace UmbraMenu
             item.rect = new Rect(738, 10, 20, 20); // Start Position
             item.menuTitle = "I T E M S   M E N U";
             item.id = 3;
-            //MenuButtons.Items.AddButtonsToMenu();
             menus.Add(item);
             #endregion
 
@@ -213,7 +224,6 @@ namespace UmbraMenu
             spawn.rect = new Rect(738, 515, 20, 20); // Start Position
             spawn.menuTitle = "S P A W N   M E N U";
             spawn.id = 4;
-            //MenuButtons.Spawn.AddButtonsToMenu();
             menus.Add(spawn);
             #endregion
 
@@ -221,7 +231,6 @@ namespace UmbraMenu
             teleporter.rect = new Rect(10, 425, 20, 20); // Start Position
             teleporter.menuTitle = "T E L E P O R T E R   M E N U";
             teleporter.id = 5;
-            //MenuButtons.Teleporter.AddButtonsToMenu();
             menus.Add(teleporter);
             #endregion
 
@@ -229,7 +238,6 @@ namespace UmbraMenu
             render.rect = new Rect(10, 795, 20, 20); // Start Position
             render.menuTitle = "R E N D E R   M E N U";
             render.id = 6;
-            //MenuButtons.Render.AddButtonsToMenu();
             menus.Add(render);
             #endregion
 
@@ -248,7 +256,6 @@ namespace UmbraMenu
             statsMod.rect = new Rect(1503, 10, 20, 20); // Start Position
             statsMod.menuTitle = "S T A T S   M O D   M E N U";
             statsMod.id = 8;
-            //statsMod.buttons = MenuButtons.StatsMod.buttons;
             menus.Add(statsMod);
             #endregion
 
@@ -256,7 +263,6 @@ namespace UmbraMenu
             viewStats.rect = new Rect(1626, 457, 20, 20); // Start Position
             viewStats.menuTitle = "V I E W   S T A T S   M E N U";
             viewStats.id = 9;
-            //viewStats.buttons = MenuButtons.SpawnList.buttons;
             menus.Add(viewStats);
             #endregion
 
@@ -264,53 +270,46 @@ namespace UmbraMenu
             characterList.rect = new Rect(1503, 10, 20, 20); // Start Position
             characterList.menuTitle = "C H A R A C T E R S   M E N U";
             characterList.id = 10;
-            //characterList.buttons = MenuButtons.CharacterList.buttons;
-            listMenus.Add(characterList);
+            menus.Add(characterList);
             #endregion
 
             #region Buff List Menu
             buffList.rect = new Rect(1503, 10, 20, 20); // Start Position
             buffList.menuTitle = "B U F F S   M E N U";
             buffList.id = 11;
-            //buffList.buttons = MenuButtons.BuffList.buttons;
-            listMenus.Add(buffList);
+            menus.Add(buffList);
             #endregion
 
             #region Item List Menu
             itemList.rect = new Rect(1503, 10, 20, 20); // Start Position
             itemList.menuTitle = "I T E M S   M E N U";
             itemList.id = 12;
-            //itemList.buttons = MenuButtons.ItemList.buttons;
-            listMenus.Add(itemList);
+            menus.Add(itemList);
             #endregion
 
             #region Equipment List Menu
             equipmentList.rect = new Rect(1503, 10, 20, 20); // Start Position
             equipmentList.menuTitle = "E Q U I P M E N T   M E N U";
             equipmentList.id = 13;
-            //equipmentList.buttons = MenuButtons.EquipmentList.buttons;
-            listMenus.Add(equipmentList);
+            menus.Add(equipmentList);
             #endregion
 
             #region Chest Items List Menu
             chestItemList.rect = new Rect(1503, 10, 20, 20); // Start Position
             chestItemList.menuTitle = "C H E S T   I T E M S   M E N U";
             chestItemList.id = 14;
-            //chestItemList.buttons = MenuButtons.ChestItemList.buttons;
-            listMenus.Add(chestItemList);
+            menus.Add(chestItemList);
             #endregion
 
             #region Spawn List Menu
             spawnList.rect = new Rect(1503, 10, 20, 20); // Start Position
             spawnList.menuTitle = "S P A W N   C A R D S   M E N U";
             spawnList.id = 15;
-            //spawnList.buttons = MenuButtons.SpawnList.buttons;
-            listMenus.Add(spawnList);
+            menus.Add(spawnList);
             #endregion
 
             #endregion
 
-            /*
             #region Resolution Check
             if (Screen.height > 1080)
             {
@@ -318,34 +317,33 @@ namespace UmbraMenu
             else if (Screen.height < 1080)
             {
                 lowResolutionMonitor = true;
-                MenuButtons.Render.renderMods = false;
 
                 main.rect = new Rect(10, 10, 20, 20); // Start Position
                 player.rect = new Rect(374, 10, 20, 20); // Start Position
-                movement.rect = new Rect(374, 560, 20, 20); // Start Position
-                item.rect = new Rect(738, 10, 20, 20); // Start Position
-                spawn.rect = new Rect(738, 515, 20, 20); // Start Position
-                teleporter.rect = new Rect(10, 425, 20, 20); // Start Position
-                render.rect = new Rect(10, 795, 20, 20); // Start Position
-                lobby.rect = new Rect(374, 750, 20, 20); // Start Position
+                movement.rect = new Rect(374, 10, 20, 20); // Start Position
+                item.rect = new Rect(374, 10, 20, 20); // Start Position
+                spawn.rect = new Rect(374, 10, 20, 20); // Start Position
+                teleporter.rect = new Rect(374, 10, 20, 20); // Start Position
+                render.rect = new Rect(374, 10, 20, 20); // Start Position
+                settings.rect = new Rect(374, 10, 20, 20); // Start Position
 
-                statsMod.rect = new Rect(1503, 10, 20, 20); // Start Position
-                viewStats.rect = new Rect(1626, 457, 20, 20); // Start Position
-                characterList.rect = new Rect(1503, 10, 20, 20); // Start Position
-                buffList.rect = new Rect(1503, 10, 20, 20); // Start Position
-                itemList.rect = new Rect(1503, 10, 20, 20); // Start Position
-                equipmentList.rect = new Rect(1503, 10, 20, 20); // Start Position
-                chestItemList.rect = new Rect(1503, 10, 20, 20); // Start Position
-                spawnList.rect = new Rect(1503, 10, 20, 20); // Start Position
+                statsMod.rect = new Rect(374, 10, 20, 20); // Start Position
+                viewStats.rect = new Rect(374, 10, 20, 20); // Start Position
+                characterList.rect = new Rect(374, 10, 20, 20); // Start Position
+                buffList.rect = new Rect(374, 10, 20, 20); // Start Position
+                itemList.rect = new Rect(374, 10, 20, 20); // Start Position
+                equipmentList.rect = new Rect(374, 10, 20, 20); // Start Position
+                chestItemList.rect = new Rect(374, 10, 20, 20); // Start Position
+                spawnList.rect = new Rect(374, 10, 20, 20); // Start Position
             }
             #endregion
-            */
         }
 
         public void Update()
         {
             try
             {
+                LowResolutionRoutine();
                 DevBuildRoutine();
 
                 CheckInputs();
@@ -414,12 +412,20 @@ namespace UmbraMenu
                             if (LocalPlayerBody.isActiveAndEnabled) characterCollected = true;
                             else characterCollected = false;
                         }
+                        else
+                        {
+                            characterCollected = false;
+                        }
                     }
+                }
+                else
+                {
+                    characterCollected = false;
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                Debug.LogError($"GetCharacter caused an exception: {e}");
                 characterCollected = false;
             }
         }
@@ -434,7 +440,37 @@ namespace UmbraMenu
             return false;
         }
 
+        public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (!InGameCheck())
+            {
+                Utility.ResetMenu();
+            }
+            else
+            {
+                ModStatsRoutine();
+                Utility.SoftResetMenu();
+            }
+        }
+
+        private void LowResolutionMonitor()
+        {
+            var menusOpen = Utility.GetMenusOpen();
+            if (menusOpen.Count > 1)
+            {
+                menusOpen[0].enabled = false;
+            }
+        }
+
         #region Routines
+
+        private void LowResolutionRoutine()
+        {
+            if (lowResolutionMonitor)
+            {
+                LowResolutionMonitor();
+            }
+        }
 
         private void CharacterRoutine()
         {
@@ -641,6 +677,22 @@ namespace UmbraMenu
             else
             {
                 MenuButtons.Movement.jumpPackToggle = false;
+            }
+        }
+
+        private void UpdateMenusAndButtonsRoutine()
+        {
+            for (int i = 1; i < menus.Count; i++)
+            {
+                if (menus[i].enabled)
+                {
+                    menus[i].activatingButton.Enabled = true;
+                }
+                else
+                {
+                    menus[i].activatingButton.Enabled = false;
+
+                }
             }
         }
 

@@ -52,6 +52,12 @@ namespace UmbraMenu
             Action = OffAction;
             this.OffAction = OffAction;
             this.OnAction = OnAction;
+
+            if (defaultEnable)
+            {
+                text = onText;
+                Action = OnAction;
+            }
         }
 
         public void Add()

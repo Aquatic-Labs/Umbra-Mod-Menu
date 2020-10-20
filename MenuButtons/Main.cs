@@ -27,7 +27,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleSpawn = new TogglableButton(currentMenu, 4, "S P A W N : O F F", "S P A W N : O N", SpawnButtonAction, SpawnButtonAction);
         public static TogglableButton toggleTeleporter = new TogglableButton(currentMenu, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", TeleporterButtonAction, TeleporterButtonAction);
         public static TogglableButton toggleRender = new TogglableButton(currentMenu, 6, "R E N D E R : O F F", "R E N D E R: O N", RenderButtonAction, RenderButtonAction);
-        public static TogglableButton toggleSettings = new TogglableButton(currentMenu, 7, "L O B B Y : O F F", "L O B B Y : O N", SettingsButtonAction, SettingsButtonAction);
+        public static TogglableButton toggleSettings = new TogglableButton(currentMenu, 7, "S E T T I N G S : O F F", "L O B B Y : O N", SettingsButtonAction, SettingsButtonAction);
         public static TogglableButton unloadMenu = new TogglableButton(currentMenu, 8, "U N L O A D   M E N U", "C O N F I R M ?", DoNothing, UnloadMenu);
 
         private static List<Buttons> buttons = new List<Buttons>()
@@ -47,7 +47,7 @@ namespace UmbraMenu.MenuButtons
             currentMenu.buttons = buttons;
         }
 
-        public static void ToggleMenu(Menu menu)
+        public static void ToggleMenu(Menus menu)
         {
             menu.enabled = !menu.enabled;
         }
