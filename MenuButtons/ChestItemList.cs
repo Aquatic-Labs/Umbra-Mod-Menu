@@ -14,7 +14,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            List<IButtons> buttons = new List<IButtons>();
+            List<IButton> buttons = new List<IButton>();
 
             if (IsClosestChestEquip())
             {

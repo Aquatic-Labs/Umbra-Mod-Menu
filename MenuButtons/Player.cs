@@ -69,7 +69,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD);
         public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
 
-        private static List<IButtons> buttons = new List<IButtons>()
+        private static List<IButton> buttons = new List<IButton>()
         {
             giveMoney,
             giveCoins,
@@ -86,10 +86,10 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
-        public static void ToggleMenu(IMenus menu)
+        public static void ToggleMenu(IMenu menu)
         {
             menu.enabled = !menu.enabled;
         }

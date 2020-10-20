@@ -30,7 +30,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleSettings = new TogglableButton(currentMenu, 7, "S E T T I N G S : O F F", "L O B B Y : O N", SettingsButtonAction, SettingsButtonAction);
         public static TogglableButton unloadMenu = new TogglableButton(currentMenu, 8, "U N L O A D   M E N U", "C O N F I R M ?", DoNothing, UnloadMenu);
 
-        private static List<IButtons> buttons = new List<IButtons>()
+        private static List<IButton> buttons = new List<IButton>()
         {
             togglePlayer,
             toggleMovement,
@@ -44,10 +44,10 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
-        public static void ToggleMenu(IMenus menu)
+        public static void ToggleMenu(IMenu menu)
         {
             menu.enabled = !menu.enabled;
         }

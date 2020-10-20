@@ -58,7 +58,7 @@ namespace UmbraMenu.MenuButtons
         public static Button clearInventory = new Button(currentMenu, 9, "C L E A R   I N V E N T O R Y", ClearInventory);
         public static TogglableButton toggleChestItemMenu = new TogglableButton(currentMenu, 10, "C H A N G E   C H E S T   I T E M : O F F", "C H A N G E   C H E S T   I T E M : O N", ToggleChestItemListMenu, ToggleChestItemListMenu);
 
-        private static List<IButtons> buttons = new List<IButtons>()
+        private static List<IButton> buttons = new List<IButton>()
         {
             giveAllItems,
             rollItems,
@@ -74,10 +74,10 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
-        private static void ToggleMenu(IMenus menu)
+        private static void ToggleMenu(IMenu menu)
         {
             menu.enabled = !menu.enabled;
         }

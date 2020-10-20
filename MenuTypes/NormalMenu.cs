@@ -1,15 +1,17 @@
-﻿using System;
+﻿using RewiredConsts;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class ListMenu : IMenu
+    public class NormalMenu : IMenu
     {
-        public float delay = 0, widthSize = 350, heightMulY = 15;
+        public float delay = 0, widthSize = 350;
         public int id { get; set; }
         public string title { get; set; }
         public bool enabled { get; set; }
@@ -19,9 +21,14 @@ namespace UmbraMenu
         public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
         public List<IButton> buttons { get; set; }
-        public Vector2 currentScrollPosition = Vector2.zero;
-        public Vector2 endScrollPosition = Vector2.zero;
-        public Vector2 startScrollPosition = Vector2.zero;
+
+        public NormalMenu(int id, Rect rect, string title, List<IButton> buttons)
+        {
+            this.id = id;
+            this.rect = rect;
+            this.title = title;
+            this.buttons = buttons;
+        }
 
         public void SetWindow()
         {
@@ -32,7 +39,7 @@ namespace UmbraMenu
         {
             if (enabled)
             {
-                GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), "", Styles.MainBgStyle);
+                GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), "", Styles.MainBgStyle);
                 GUI.Label(new Rect(rect.x + 5f, rect.y + 5f, widthSize + 5, 85f), title, Styles.TitleStyle);
                 DrawAllButtons();
             }
@@ -40,12 +47,10 @@ namespace UmbraMenu
 
         private void DrawAllButtons()
         {
-            currentScrollPosition = GUI.BeginScrollView(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), false, true);
             for (int i = 0; i < buttons.Count; i++)
             {
                 buttons[i].Draw();
             }
-            GUI.EndScrollView();
         }
 
         private void SetBackground(int windowID)

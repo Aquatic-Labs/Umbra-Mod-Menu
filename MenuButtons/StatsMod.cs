@@ -159,7 +159,7 @@ namespace UmbraMenu.MenuButtons
         public static MulButton changeMultiplier = new MulButton(currentMenu, 6, $"M U L T I P L I E R : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier);
         public static TogglableButton toggleViewStatsMenu = new TogglableButton(currentMenu, 7, "S H O W   S T A T S : O F F", "S H O W   S T A T S : O N", ToggleViewStatsMenu, ToggleViewStatsMenu);
 
-        private static List<IButtons> buttons = new List<IButtons>() 
+        private static List<IButton> buttons = new List<IButton>() 
         {
             changeDmgPerLevel,
             changeCritPerLevel,
@@ -172,12 +172,12 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
         public static void ToggleMenu(Menu menu)
         {
-            menu.enabled = !menu.enabled;
+            menu.Enabled = !menu.Enabled;
         }
 
         public static void LevelPlayersCrit()

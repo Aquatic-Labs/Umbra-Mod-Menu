@@ -15,7 +15,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleInteractESP = new TogglableButton(currentMenu, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables);
         public static TogglableButton toggleMobESP = new TogglableButton(currentMenu, 3, "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", ToggleRenderMobs, ToggleRenderMobs);
 
-        private static List<IButtons> buttons = new List<IButtons>()
+        private static List<IButton> buttons = new List<IButton>()
         {
             toggleActiveMods,
             toggleInteractESP,
@@ -24,7 +24,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();

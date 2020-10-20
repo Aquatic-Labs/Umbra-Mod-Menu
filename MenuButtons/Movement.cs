@@ -16,7 +16,7 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleFlight = new TogglableButton(currentMenu, 2, "F L I G H T : O F F", "F L I G H T : O N", ToggleFlight, ToggleFlight);
         public static TogglableButton toggleJumpPack = new TogglableButton(currentMenu, 3, "J U M P - P A C K : O F F", "J U M P - P A C K : O N", ToggleJump, ToggleJump);
 
-        private static List<IButtons> buttons = new List<IButtons>()
+        private static List<IButton> buttons = new List<IButton>()
         {
             toggleAlwaysSprint,
             toggleFlight,
@@ -25,7 +25,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
         public static int jumpPackMul = 1;

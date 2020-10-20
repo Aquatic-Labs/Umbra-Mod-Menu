@@ -8,16 +8,15 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class Button : IButtons
+    public class Button : IButton
     {
         public Menu parentMenu;
-        public ListMenu parentListMenu;
-        public int position;
+        public int position { get; set; }
         public Rect rect;
         public string text;
         public bool enabled = false;
         public GUIStyle style = Styles.BtnStyle;
-        public Action Action;
+        public Action Action { get; set; }
 
         public Button(Menu parentMenu, int position, string text, Action Action) 
         {
@@ -29,7 +28,6 @@ namespace UmbraMenu
 
         public Button(ListMenu parentListMenu, int position, string text, Action Action)
         {
-            this.parentListMenu = parentListMenu;
             this.position = position;
             this.text = text;
             this.Action = Action;
@@ -39,9 +37,9 @@ namespace UmbraMenu
         {
             if (parentMenu != null)
             {
-                parentMenu.numberOfButtons = position;
-                int btnY = 5 + 45 * parentMenu.numberOfButtons;
-                rect = new Rect(parentMenu.rect.x + 5, parentMenu.rect.y + btnY, parentMenu.widthSize, 40);
+                parentMenu.NumberOfButtons = position;
+                int btnY = 5 + 45 * parentMenu.NumberOfButtons;
+                rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.widthSize, 40);
 
                 if (GUI.Button(rect, text, style))
                 {
@@ -49,23 +47,6 @@ namespace UmbraMenu
                     Draw();
                 }
             }
-            else
-            {
-                parentListMenu.numberOfButtons = position;
-                int btnY = 5 + 45 * parentListMenu.numberOfButtons;
-                rect = new Rect(parentListMenu.rect.x + 5, parentListMenu.rect.y + btnY, parentListMenu.widthSize, 40);
-
-                if (GUI.Button(rect, text, style))
-                {
-                    Action?.Invoke();
-                    Draw();
-                }
-            }
-        }
-
-        public void Add()
-        {
-            parentMenu.buttons.Add(this);
         }
     }
 }

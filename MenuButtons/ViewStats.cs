@@ -21,7 +21,7 @@ namespace UmbraMenu.MenuButtons
         public static Text experienceStat = new Text(currentMenu, 8, $"E X P E R I E N C E : {playerExperience}");
         public static Text killsStat = new Text(currentMenu, 9, $"K I L L S: {playerKillCount}");
 
-        private static List<IButtons> buttons = new List<IButtons>()
+        private static List<IButton> buttons = new List<IButton>()
         {
             damageStat,
             critStat,
@@ -45,12 +45,12 @@ namespace UmbraMenu.MenuButtons
             jumpCountStat.style = Styles.StatsStyle;
             experienceStat.style = Styles.StatsStyle;
             killsStat.style = Styles.StatsStyle;
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
         public static void UpdateViewStats()
         {
-            if (currentMenu.enabled)
+            if (currentMenu.Enabled)
             {
                 if (UmbraMenu.characterCollected)
                 {

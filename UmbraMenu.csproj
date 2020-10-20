@@ -75,6 +75,7 @@
     <Compile Include="MenuButtons\ViewStats.cs" />
     <Compile Include="MenuTypes\ListMenu.cs" />
     <Compile Include="MenuTypes\Menu.cs" />
+    <Compile Include="MenuTypes\NormalMenu.cs" />
     <Compile Include="MenuButtons\Movement.cs" />
     <Compile Include="MenuButtons\Player.cs" />
     <Compile Include="MenuButtons\Render.cs" />

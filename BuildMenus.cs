@@ -7,7 +7,7 @@ namespace UmbraMenu
     {
         public static void BuildMainMenu(Menu menu)
         {
-            if (menu.enabled)
+            if (menu.Enabled)
             {
                 menu.DrawMenu();
                 if (!UmbraMenu.characterCollected)
@@ -44,13 +44,12 @@ namespace UmbraMenu
 
         public static void BuildMenu(Menu menu, TogglableButton activatingButton, Action AddButtons)
         {
-            menu.activatingButton = activatingButton;
-            if (menu.enabled)
+            menu.ActivatingButton = activatingButton;
+            if (menu.Enabled)
             {
                 AddButtons();
                 menu.SetWindow();
                 menu.DrawMenu();
-                menu.DrawAllButtons();
             }
         }
 
@@ -61,8 +60,7 @@ namespace UmbraMenu
             {
                 AddButtons();
                 menu.SetWindow();
-                menu.DrawMenu();
-                menu.DrawAllButtons();
+                menu.Draw();
             }
         }
     }
