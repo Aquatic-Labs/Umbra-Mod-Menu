@@ -9,10 +9,6 @@ namespace UmbraMenu
 {
     class Navigation
     {
-        public void PressButton(Button button)
-        {
-            button?.Action?.Invoke();
-        }
 
         public void IncreaseValue(MulButton button)
         {

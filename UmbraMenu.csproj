@@ -57,30 +57,30 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BuildMenus.cs" />
     <Compile Include="ButtonTypes\Button.cs" />
+    <Compile Include="ButtonTypes\NormalButton.cs" />
     <Compile Include="ESPHelper.cs" />
-    <Compile Include="MenuButtons\BuffList.cs" />
-    <Compile Include="MenuButtons\CharacterList.cs" />
-    <Compile Include="MenuButtons\ChestItemList.cs" />
-    <Compile Include="MenuButtons\EquipmentList.cs" />
-    <Compile Include="MenuButtons\ItemList.cs" />
-    <Compile Include="MenuButtons\Items.cs" />
-    <Compile Include="MenuButtons\Settings.cs" />
-    <Compile Include="MenuButtons\Main.cs" />
+    <Compile Include="Menus\BuffList.cs" />
+    <Compile Include="Menus\CharacterList.cs" />
+    <Compile Include="Menus\ChestItemList.cs" />
+    <Compile Include="Menus\EquipmentList.cs" />
+    <Compile Include="Menus\ItemList.cs" />
+    <Compile Include="Menus\Items.cs" />
+    <Compile Include="Menus\Settings.cs" />
+    <Compile Include="Menus\Main.cs" />
     <Compile Include="ButtonTypes\MulButton.cs" />
     <Compile Include="Loader.cs" />
-    <Compile Include="MenuButtons\SpawnList.cs" />
-    <Compile Include="MenuButtons\StatsMod.cs" />
-    <Compile Include="MenuButtons\ViewStats.cs" />
+    <Compile Include="Menus\SpawnList.cs" />
+    <Compile Include="Menus\StatsMod.cs" />
+    <Compile Include="Menus\ViewStats.cs" />
     <Compile Include="MenuTypes\ListMenu.cs" />
     <Compile Include="MenuTypes\Menu.cs" />
     <Compile Include="MenuTypes\NormalMenu.cs" />
-    <Compile Include="MenuButtons\Movement.cs" />
-    <Compile Include="MenuButtons\Player.cs" />
-    <Compile Include="MenuButtons\Render.cs" />
-    <Compile Include="MenuButtons\Spawn.cs" />
-    <Compile Include="MenuButtons\Teleporter.cs" />
+    <Compile Include="Menus\Movement.cs" />
+    <Compile Include="Menus\Player.cs" />
+    <Compile Include="Menus\Render.cs" />
+    <Compile Include="Menus\Spawn.cs" />
+    <Compile Include="Menus\Teleporter.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

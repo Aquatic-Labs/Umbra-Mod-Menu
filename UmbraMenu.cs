@@ -12,21 +12,20 @@ using System.Linq;
 
 namespace UmbraMenu
 {
-    public interface IButton 
+    // MOVE THESE TO SEPARATE FILES
+    public interface IButton
     { 
-        int position { get; }
         void Draw(); 
     };
-    public interface IMenu 
-    { 
-        Rect rect { get; }
-        List<IButton> buttons { get; }
-        TogglableButton activatingButton { get; }
-        bool enabled { get; set; }
-        bool ifDragged { get; set; }
-        int id { get; }
-        string title { get; set; }
-        void SetWindow(); 
+    public interface IMenu
+    {
+        int Id { get; set; }
+        int NumberOfButtons { get; set; }
+        bool Enabled { get; set; }
+        List<Button> Buttons { get; set; }
+        Rect Rect { get; set; }
+        string Title { get; set; }
+        void SetWindow();
         void Draw(); 
     }
 
@@ -56,318 +55,317 @@ namespace UmbraMenu
 
         public static Scene currentScene;
 
-        #region Create Main Menus
-        public Menu main = new Menu();
-        public Menu player = new Menu();
-        public Menu movement = new Menu();
-        public Menu item = new Menu();
-        public Menu spawn = new Menu();
-        public Menu teleporter = new Menu();
-        public Menu render = new Menu();
-        public Menu settings = new Menu();
+        #region Menus
+        public Menu main = Menus.Main.Instance;
         #endregion
-
-        #region Create Sub Menus
-        public Menu statsMod = new Menu();
-        public Menu viewStats = new Menu();
-        public Menu characterList = new Menu();
-        public Menu buffList = new Menu();
-        public Menu itemList = new Menu();
-        public Menu equipmentList = new Menu();
-        public Menu chestItemList = new Menu();
-        public Menu spawnList = new Menu();
-        #endregion
-
 
         private void OnGUI()
         {
-            #region Watermark
-            if (Loader.updateAvailable)
+            try
             {
-                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+                #region Watermark
+                if (Loader.updateAvailable)
+                {
+                    GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+                }
+                else if (Loader.upToDate)
+                {
+                    GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
+                }
+                else if (Loader.devBuild)
+                {
+                    GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
+                }
+                #endregion
+
+                main.Draw();
+                /*
+                #region Main Menus
+
+                #region Main Menu
+                if (Loader.updateAvailable)
+                {
+                    main.Title = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
+                }
+                else if (Loader.upToDate)
+                {
+                    main.Title = $"U M B R A \n<color=grey>v{VERSION}</color>";
+                }
+                else if (Loader.devBuild)
+                {
+                    main.Title = $"U M B R A \n<color=yellow>D E V</color>";
+                }
+                MenuButtons.Main.AddButtonsToMenu();
+                main.SetWindow();
+                BuildMenus.BuildMainMenu(main);
+                #endregion
+
+                #region Player Menu
+                BuildMenus.BuildMenu(player, MenuButtons.Main.togglePlayer, MenuButtons.Player.AddButtonsToMenu);
+                #endregion
+
+                #region Movement Menu
+                BuildMenus.BuildMenu(movement, MenuButtons.Main.toggleMovement, MenuButtons.Movement.AddButtonsToMenu);
+                #endregion
+
+                #region Item Menu
+                BuildMenus.BuildMenu(item, MenuButtons.Main.toggleItems, MenuButtons.Items.AddButtonsToMenu);
+                #endregion
+
+                #region Spawn Menu
+                BuildMenus.BuildMenu(spawn, MenuButtons.Main.toggleSpawn, MenuButtons.Spawn.AddButtonsToMenu);
+                #endregion
+
+                #region Teleporter Menu
+                BuildMenus.BuildMenu(teleporter, MenuButtons.Main.toggleTeleporter, MenuButtons.Teleporter.AddButtonsToMenu);
+                #endregion
+
+                #region Render Menu
+                BuildMenus.BuildMenu(render, MenuButtons.Main.toggleRender, MenuButtons.Render.AddButtonsToMenu);
+                #endregion
+
+                #region settings Menu
+                BuildMenus.BuildMenu(settings, MenuButtons.Main.toggleSettings, MenuButtons.Settings.AddButtonsToMenu);
+                #endregion
+
+                #endregion
+
+                #region Sub Menus
+
+                #region Stats Modification Menu
+                BuildMenus.BuildMenu(statsMod, MenuButtons.Player.toggleStatsMod, MenuButtons.StatsMod.AddButtonsToMenu);
+                #endregion
+
+                #region View Stats Menu
+                BuildMenus.BuildMenu(viewStats, MenuButtons.StatsMod.toggleViewStatsMenu, MenuButtons.ViewStats.AddTextToMenu);
+                #endregion
+
+                #region Character List Menu
+                BuildMenus.BuildMenu(characterList, MenuButtons.Player.toggleChangeCharacter, MenuButtons.CharacterList.AddButtonsToMenu);
+                #endregion
+
+                #region Buff List Menu
+                BuildMenus.BuildMenu(buffList, MenuButtons.Player.toggleBuff, MenuButtons.BuffList.AddButtonsToMenu);
+                #endregion
+
+                #region Item List Menu
+                BuildMenus.BuildMenu(itemList, MenuButtons.Items.toggleItemListMenu, MenuButtons.ItemList.AddButtonsToMenu);
+                #endregion
+
+                #region Equipment List Menu
+                BuildMenus.BuildMenu(equipmentList, MenuButtons.Items.toggleEquipmentListMenu, MenuButtons.EquipmentList.AddButtonsToMenu);
+                #endregion
+
+                #region Chest Items List Menu
+                BuildMenus.BuildMenu(chestItemList, MenuButtons.Items.toggleChestItemMenu, MenuButtons.ChestItemList.AddButtonsToMenu);
+                #endregion
+
+                #region Spawn List Menu
+                BuildMenus.BuildMenu(spawnList, MenuButtons.Spawn.toggleSpawnListMenu, MenuButtons.SpawnList.AddButtonsToMenu);
+                #endregion
+
+                #endregion
+                */
+
+                // ESPRoutine();
+                // UpdateMenusAndButtonsRoutine();
             }
-            else if (Loader.upToDate)
+            catch (Exception e)
             {
-                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
+                Debug.Log($"OnGUI threw exception: {e}");
             }
-            else if (Loader.devBuild)
-            {
-                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
-            }
-            #endregion
-
-            #region Main Menus
-
-            #region Main Menu
-            if (Loader.updateAvailable)
-            {
-                main.Title = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
-            }
-            else if (Loader.upToDate)
-            {
-                main.Title = $"U M B R A \n<color=grey>v{VERSION}</color>";
-            }
-            else if (Loader.devBuild)
-            {
-                main.Title = $"U M B R A \n<color=yellow>D E V</color>";
-            }
-            MenuButtons.Main.AddButtonsToMenu();
-            main.SetWindow();
-            BuildMenus.BuildMainMenu(main);
-            #endregion
-
-            #region Player Menu
-            BuildMenus.BuildMenu(player, MenuButtons.Main.togglePlayer, MenuButtons.Player.AddButtonsToMenu);
-            #endregion
-
-            #region Movement Menu
-            BuildMenus.BuildMenu(movement, MenuButtons.Main.toggleMovement, MenuButtons.Movement.AddButtonsToMenu);
-            #endregion
-
-            #region Item Menu
-            BuildMenus.BuildMenu(item, MenuButtons.Main.toggleItems, MenuButtons.Items.AddButtonsToMenu);
-            #endregion
-
-            #region Spawn Menu
-            BuildMenus.BuildMenu(spawn, MenuButtons.Main.toggleSpawn, MenuButtons.Spawn.AddButtonsToMenu);
-            #endregion
-
-            #region Teleporter Menu
-            BuildMenus.BuildMenu(teleporter, MenuButtons.Main.toggleTeleporter, MenuButtons.Teleporter.AddButtonsToMenu);
-            #endregion
-
-            #region Render Menu
-            BuildMenus.BuildMenu(render, MenuButtons.Main.toggleRender, MenuButtons.Render.AddButtonsToMenu);
-            #endregion
-
-            #region settings Menu
-            BuildMenus.BuildMenu(settings, MenuButtons.Main.toggleSettings, MenuButtons.Settings.AddButtonsToMenu);
-            #endregion
-
-            #endregion
-
-            #region Sub Menus
-
-            #region Stats Modification Menu
-            BuildMenus.BuildMenu(statsMod, MenuButtons.Player.toggleStatsMod, MenuButtons.StatsMod.AddButtonsToMenu);
-            #endregion
-
-            #region View Stats Menu
-            BuildMenus.BuildMenu(viewStats, MenuButtons.StatsMod.toggleViewStatsMenu, MenuButtons.ViewStats.AddTextToMenu);
-            #endregion
-
-            #region Character List Menu
-            BuildMenus.BuildMenu(characterList, MenuButtons.Player.toggleChangeCharacter, MenuButtons.CharacterList.AddButtonsToMenu);
-            #endregion
-
-            #region Buff List Menu
-            BuildMenus.BuildMenu(buffList, MenuButtons.Player.toggleBuff, MenuButtons.BuffList.AddButtonsToMenu);
-            #endregion
-
-            #region Item List Menu
-            BuildMenus.BuildMenu(itemList, MenuButtons.Items.toggleItemListMenu, MenuButtons.ItemList.AddButtonsToMenu);
-            #endregion
-
-            #region Equipment List Menu
-            BuildMenus.BuildMenu(equipmentList, MenuButtons.Items.toggleEquipmentListMenu, MenuButtons.EquipmentList.AddButtonsToMenu);
-            #endregion
-
-            #region Chest Items List Menu
-            BuildMenus.BuildMenu(chestItemList, MenuButtons.Items.toggleChestItemMenu, MenuButtons.ChestItemList.AddButtonsToMenu);
-            #endregion
-
-            #region Spawn List Menu
-            BuildMenus.BuildMenu(spawnList, MenuButtons.Spawn.toggleSpawnListMenu, MenuButtons.SpawnList.AddButtonsToMenu);
-            #endregion
-
-            #endregion
-
-            ESPRoutine();
-            UpdateMenusAndButtonsRoutine();
         }
 
         public void Start()
         {
-            Styles styles = new Styles();
-            styles.BuildStyles();
-
-            SceneManager.sceneLoaded += OnSceneLoaded;
-
-            #region Main Menus
-
-            #region Main Menu
-            main.Rect = new Rect(10, 10, 20, 20); // Start Position
-            main.Title = $"U M B R A \n<color=grey>v{VERSION}</color>";
-            main.Id = 0;
-            menus.Add(main);
-            #endregion
-
-            #region Player Menu
-            player.Rect = new Rect(374, 10, 20, 20); // Start Position
-            player.Title = "P L A Y E R   M E N U";
-            player.Id = 1;
-            menus.Add(player);
-            #endregion
-
-            #region Movement Menu
-            movement.Rect = new Rect(374, 560, 20, 20); // Start Position
-            movement.Title = "M O V E M E N T   M E N U";
-            movement.Id = 2;
-            menus.Add(movement);
-            #endregion
-
-            #region Items Menu
-            item.Rect = new Rect(738, 10, 20, 20); // Start Position
-            item.Title = "I T E M S   M E N U";
-            item.Id = 3;
-            menus.Add(item);
-            #endregion
-
-            #region Spawn Menu
-            spawn.Rect = new Rect(738, 515, 20, 20); // Start Position
-            spawn.Title = "S P A W N   M E N U";
-            spawn.Id = 4;
-            menus.Add(spawn);
-            #endregion
-
-            #region Teleporter Menu
-            teleporter.Rect = new Rect(10, 425, 20, 20); // Start Position
-            teleporter.Title = "T E L E P O R T E R   M E N U";
-            teleporter.Id = 5;
-            menus.Add(teleporter);
-            #endregion
-
-            #region Render Menu
-            render.Rect = new Rect(10, 795, 20, 20); // Start Position
-            render.Title = "R E N D E R   M E N U";
-            render.Id = 6;
-            menus.Add(render);
-            #endregion
-
-            #region Settings Menu
-            settings.Rect = new Rect(374, 750, 20, 20); // Start Position
-            settings.Title = "S E T T I N G S   M E N U";
-            settings.Id = 7;
-            menus.Add(settings);
-            #endregion
-
-            #endregion
-
-            #region Sub Menus
-
-            #region Stats Modification Menu
-            statsMod.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            statsMod.Title = "S T A T S   M O D   M E N U";
-            statsMod.Id = 8;
-            menus.Add(statsMod);
-            #endregion
-
-            #region View Stats Menu
-            viewStats.Rect = new Rect(1626, 457, 20, 20); // Start Position
-            viewStats.Title = "V I E W   S T A T S   M E N U";
-            viewStats.Id = 9;
-            menus.Add(viewStats);
-            #endregion
-
-            #region Character List Menu
-            characterList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            characterList.Title = "C H A R A C T E R S   M E N U";
-            characterList.Id = 10;
-            menus.Add(characterList);
-            #endregion
-
-            #region Buff List Menu
-            buffList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            buffList.Title = "B U F F S   M E N U";
-            buffList.Id = 11;
-            menus.Add(buffList);
-            #endregion
-
-            #region Item List Menu
-            itemList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            itemList.Title = "I T E M S   M E N U";
-            itemList.Id = 12;
-            menus.Add(itemList);
-            #endregion
-
-            #region Equipment List Menu
-            equipmentList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            equipmentList.Title = "E Q U I P M E N T   M E N U";
-            equipmentList.Id = 13;
-            menus.Add(equipmentList);
-            #endregion
-
-            #region Chest Items List Menu
-            chestItemList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            chestItemList.Title = "C H E S T   I T E M S   M E N U";
-            chestItemList.Id = 14;
-            menus.Add(chestItemList);
-            #endregion
-
-            #region Spawn List Menu
-            spawnList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-            spawnList.Title = "S P A W N   C A R D S   M E N U";
-            spawnList.Id = 15;
-            menus.Add(spawnList);
-            #endregion
-
-            #endregion
-
-            #region Resolution Check
-            if (Screen.height > 1080)
+            try
             {
-            }
-            else if (Screen.height < 1080)
-            {
-                lowResolutionMonitor = true;
+                Styles styles = new Styles();
+                styles.BuildStyles();
 
+                // SceneManager.sceneLoaded += OnSceneLoaded;
+
+                #region Old Build Menus
+
+                /*#region Main Menu
                 main.Rect = new Rect(10, 10, 20, 20); // Start Position
-                player.Rect = new Rect(374, 10, 20, 20); // Start Position
-                movement.Rect = new Rect(374, 10, 20, 20); // Start Position
-                item.Rect = new Rect(374, 10, 20, 20); // Start Position
-                spawn.Rect = new Rect(374, 10, 20, 20); // Start Position
-                teleporter.Rect = new Rect(374, 10, 20, 20); // Start Position
-                render.Rect = new Rect(374, 10, 20, 20); // Start Position
-                settings.Rect = new Rect(374, 10, 20, 20); // Start Position
+                main.Title = $"U M B R A \n<color=grey>v{VERSION}</color>";
+                main.Id = 0;
+                menus.Add(main);
+                #endregion
 
-                statsMod.Rect = new Rect(374, 10, 20, 20); // Start Position
-                viewStats.Rect = new Rect(374, 10, 20, 20); // Start Position
-                characterList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                buffList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                itemList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                equipmentList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                chestItemList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                spawnList.Rect = new Rect(374, 10, 20, 20); // Start Position
+                #region Player Menu
+                player.Rect = new Rect(374, 10, 20, 20); // Start Position
+                player.Title = "P L A Y E R   M E N U";
+                player.Id = 1;
+                menus.Add(player);
+                #endregion
+
+                #region Movement Menu
+                movement.Rect = new Rect(374, 560, 20, 20); // Start Position
+                movement.Title = "M O V E M E N T   M E N U";
+                movement.Id = 2;
+                menus.Add(movement);
+                #endregion
+
+                #region Items Menu
+                item.Rect = new Rect(738, 10, 20, 20); // Start Position
+                item.Title = "I T E M S   M E N U";
+                item.Id = 3;
+                menus.Add(item);
+                #endregion
+
+                #region Spawn Menu
+                spawn.Rect = new Rect(738, 515, 20, 20); // Start Position
+                spawn.Title = "S P A W N   M E N U";
+                spawn.Id = 4;
+                menus.Add(spawn);
+                #endregion
+
+                #region Teleporter Menu
+                teleporter.Rect = new Rect(10, 425, 20, 20); // Start Position
+                teleporter.Title = "T E L E P O R T E R   M E N U";
+                teleporter.Id = 5;
+                menus.Add(teleporter);
+                #endregion
+
+                #region Render Menu
+                render.Rect = new Rect(10, 795, 20, 20); // Start Position
+                render.Title = "R E N D E R   M E N U";
+                render.Id = 6;
+                menus.Add(render);
+                #endregion
+
+                #region Settings Menu
+                settings.Rect = new Rect(374, 750, 20, 20); // Start Position
+                settings.Title = "S E T T I N G S   M E N U";
+                settings.Id = 7;
+                menus.Add(settings);
+                #endregion
+
+                #endregion
+
+                #region Sub Menus
+
+                #region Stats Modification Menu
+                statsMod.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                statsMod.Title = "S T A T S   M O D   M E N U";
+                statsMod.Id = 8;
+                menus.Add(statsMod);
+                #endregion
+
+                #region View Stats Menu
+                viewStats.Rect = new Rect(1626, 457, 20, 20); // Start Position
+                viewStats.Title = "V I E W   S T A T S   M E N U";
+                viewStats.Id = 9;
+                menus.Add(viewStats);
+                #endregion
+
+                #region Character List Menu
+                characterList.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                characterList.Title = "C H A R A C T E R S   M E N U";
+                characterList.Id = 10;
+                menus.Add(characterList);
+                #endregion
+
+                #region Buff List Menu
+                buffList.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                buffList.Title = "B U F F S   M E N U";
+                buffList.Id = 11;
+                menus.Add(buffList);
+                #endregion
+
+                #region Item List Menu
+                itemList.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                itemList.Title = "I T E M S   M E N U";
+                itemList.Id = 12;
+                menus.Add(itemList);
+                #endregion
+
+                #region Equipment List Menu
+                equipmentList.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                equipmentList.Title = "E Q U I P M E N T   M E N U";
+                equipmentList.Id = 13;
+                menus.Add(equipmentList);
+                #endregion
+
+                #region Chest Items List Menu
+                chestItemList.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                chestItemList.Title = "C H E S T   I T E M S   M E N U";
+                chestItemList.Id = 14;
+                menus.Add(chestItemList);
+                #endregion
+
+                #region Spawn List Menu
+                spawnList.Rect = new Rect(1503, 10, 20, 20); // Start Position
+                spawnList.Title = "S P A W N   C A R D S   M E N U";
+                spawnList.Id = 15;
+                menus.Add(spawnList);
+                #endregion*/
+
+                #endregion
+
+                #region Resolution Check
+                if (Screen.height > 1080)
+                {
+                }
+                else if (Screen.height < 1080)
+                {
+                    lowResolutionMonitor = true;
+
+                    main.Rect = new Rect(10, 10, 20, 20); // Start Position
+                    /*
+                    player.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    movement.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    item.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    spawn.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    teleporter.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    render.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    settings.Rect = new Rect(374, 10, 20, 20); // Start Position
+
+                    statsMod.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    viewStats.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    characterList.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    buffList.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    itemList.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    equipmentList.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    chestItemList.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    spawnList.Rect = new Rect(374, 10, 20, 20); // Start Position*/
+                }
+                #endregion
             }
-            #endregion
+            catch (Exception e)
+            {
+                Debug.Log($"Start threw exception: {e}");
+            }
         }
 
         public void Update()
         {
             try
             {
-                LowResolutionRoutine();
-                DevBuildRoutine();
+                // LowResolutionRoutine();
+                // DevBuildRoutine();
 
                 CheckInputs();
                 CharacterRoutine();
 
-                SkillsRoutine();
-                AimBotRoutine();
-                GodRoutine();
-                EquipCooldownRoutine();
-                ModStatsRoutine();
-                FlightRoutine();
-                SprintRoutine();
-                JumpPackRoutine();
+                // SkillsRoutine();
+                // AimBotRoutine();
+                // GodRoutine();
+                // EquipCooldownRoutine();
+                // ModStatsRoutine();
+                // FlightRoutine();
+                // SprintRoutine();
+                // JumpPackRoutine();
 
-                //UpdateNavIndexRoutine();
-                //UpdateMenuPositions();
-                MenuButtons.ViewStats.UpdateViewStats();
+                // UpdateNavIndexRoutine();
+                // UpdateMenuPositions();
+                // MenuButtons.ViewStats.UpdateViewStats();
             }
-            catch (NullReferenceException)
+            catch (Exception e)
             {
-                Debug.Log("Update is throwing an NRE");
+                Debug.Log($"Update threw exception: {e}");
             }
         }
 
@@ -461,7 +459,7 @@ namespace UmbraMenu
             var menusOpen = Utility.GetMenusOpen();
             if (menusOpen.Count > 1)
             {
-                menusOpen[0].enabled = false;
+                menusOpen[0].Enabled = false;
             }
         }
 
@@ -541,10 +539,10 @@ namespace UmbraMenu
                     MenuButtons.Render.renderMods = false;
                 }
 
-                if (chestItemList.Enabled)
+                /*if (chestItemList.Enabled)
                 {
                     MenuButtons.ChestItemList.RenderClosestChest();
-                }
+                }*/
             }
         }
 
@@ -683,7 +681,7 @@ namespace UmbraMenu
             }
         }
 
-        private void UpdateMenusAndButtonsRoutine()
+        /*private void UpdateMenusAndButtonsRoutine()
         {
             for (int i = 1; i < Menu.menus.Count; i++)
             {
@@ -698,6 +696,7 @@ namespace UmbraMenu
                 }
             }
         }
+        */
 
         #endregion
     }

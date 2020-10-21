@@ -9,7 +9,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class Render
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(6);
+        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(6);
 
         public static TogglableButton toggleActiveMods = new TogglableButton(currentMenu, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true);
         public static TogglableButton toggleInteractESP = new TogglableButton(currentMenu, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables);
@@ -24,7 +24,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();

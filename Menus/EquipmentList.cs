@@ -10,11 +10,11 @@ namespace UmbraMenu.MenuButtons
 {
     public class EquipmentList
     {
-        private static readonly ListMenu currentMenu = (ListMenu)Utility.FindMenuById(13);
+        private static readonly ListMenu currentMenu = null; // (ListMenu)Utility.FindMenuById(13);
 
         public static void AddButtonsToMenu()
         {
-            List<IButton> buttons = new List<IButton>();
+            List<Button> buttons = new List<Button>();
 
             int buttonPlacement = 1;
             for (int i = 0; i < UmbraMenu.equipment.Count; i++)
@@ -25,20 +25,20 @@ namespace UmbraMenu.MenuButtons
                     void ButtonAction() => GiveEquipment(equipmentIndex);
                     Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
                     string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                    Button button = new Button(currentMenu, buttonPlacement, equipmentName, ButtonAction);
-                    buttons.Add(button);
+                    //Button button = new Button(currentMenu, buttonPlacement, equipmentName, ButtonAction);
+                    //buttons.Add(button);
                     buttonPlacement++;
                 }
                 else
                 {
                     void ButtonAction() => GiveEquipment(equipmentIndex);
                     string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
-                    Button button = new Button(currentMenu, buttonPlacement, equipmentName, ButtonAction);
-                    buttons.Add(button);
+                    //Button button = new Button(currentMenu, buttonPlacement, equipmentName, ButtonAction);
+                    //buttons.Add(button);
                     buttonPlacement++;
                 }
             }
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
         private static void GiveEquipment(EquipmentIndex equipIndex)

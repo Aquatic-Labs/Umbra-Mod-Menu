@@ -12,50 +12,50 @@ namespace UmbraMenu
     public class NormalMenu : IMenu
     {
         public float delay = 0, widthSize = 350;
-        public int id { get; set; }
-        public string title { get; set; }
-        public bool enabled { get; set; }
-        public Rect rect { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool Enabled { get; set; }
+        public Rect Rect { get; set; }
         public bool ifDragged { get; set; }
-        public int numberOfButtons { get; set; }
+        public int NumberOfButtons { get; set; }
         public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
-        public List<IButton> buttons { get; set; }
+        public List<Button> Buttons { get; set; }
 
-        public NormalMenu(int id, Rect rect, string title, List<IButton> buttons)
+        public NormalMenu(int id, Rect rect, string title)
         {
-            this.id = id;
-            this.rect = rect;
-            this.title = title;
-            this.buttons = buttons;
+            Id = id;
+            Rect = rect;
+            Title = title;
+            NumberOfButtons = 0;
         }
 
         public void SetWindow()
         {
-            rect = GUI.Window(id, rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
+            Rect = GUI.Window(Id, Rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
         }
 
         public void Draw()
         {
-            if (enabled)
+            if (Enabled)
             {
-                GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), "", Styles.MainBgStyle);
-                GUI.Label(new Rect(rect.x + 5f, rect.y + 5f, widthSize + 5, 85f), title, Styles.TitleStyle);
+                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, widthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
+                GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, widthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
             }
         }
 
         private void DrawAllButtons()
         {
-            for (int i = 0; i < buttons.Count; i++)
+            for (int i = 0; i < Buttons.Count; i++)
             {
-                buttons[i].Draw();
+                Buttons[i].Draw();
             }
         }
 
         private void SetBackground(int windowID)
         {
-            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * numberOfButtons), "", Styles.CornerStyle);
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
             {
                 delay += Time.deltaTime;
@@ -69,7 +69,7 @@ namespace UmbraMenu
                 delay = 0;
                 if (!ifDragged)
                 {
-                    enabled = !enabled;
+                    Enabled = !Enabled;
                     if (activatingButton != null)
                     {
                         activatingButton.Enabled = !activatingButton.Enabled;

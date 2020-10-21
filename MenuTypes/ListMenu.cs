@@ -9,48 +9,48 @@ namespace UmbraMenu
 {
     public class ListMenu : IMenu
     {
-        public float delay = 0, widthSize = 350, heightMulY = 15;
-        public int id { get; set; }
-        public string title { get; set; }
-        public bool enabled { get; set; }
-        public Rect rect { get; set; }
+        public float delay = 0, heightMulY = 15, widthSize = 350;
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool Enabled { get; set; }
+        public Rect Rect { get; set; }
         public bool ifDragged { get; set; }
-        public int numberOfButtons { get; set; }
+        public int NumberOfButtons { get; set; }
         public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
-        public List<IButton> buttons { get; set; }
+        public List<Button> Buttons { get; set; }
         public Vector2 currentScrollPosition = Vector2.zero;
         public Vector2 endScrollPosition = Vector2.zero;
         public Vector2 startScrollPosition = Vector2.zero;
 
         public void SetWindow()
         {
-            rect = GUI.Window(id, rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
+            Rect = GUI.Window(Id, Rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
         }
 
         public void Draw()
         {
-            if (enabled)
+            if (Enabled)
             {
-                GUI.Box(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), "", Styles.MainBgStyle);
-                GUI.Label(new Rect(rect.x + 5f, rect.y + 5f, widthSize + 5, 85f), title, Styles.TitleStyle);
+                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), "", Styles.MainBgStyle);
+                GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, widthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
             }
         }
 
         private void DrawAllButtons()
         {
-            currentScrollPosition = GUI.BeginScrollView(new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(rect.x + 0f, rect.y + 0f, widthSize + 10, 50f + 45 * numberOfButtons), false, true);
-            for (int i = 0; i < buttons.Count; i++)
+            currentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x + 0f, Rect.y + 0f, widthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(Rect.x + 0f, Rect.y + 0f, widthSize + 10, 50f + 45 * NumberOfButtons), false, true);
+            for (int i = 0; i < Buttons.Count; i++)
             {
-                buttons[i].Draw();
+                Buttons[i].Draw();
             }
             GUI.EndScrollView();
         }
 
         private void SetBackground(int windowID)
         {
-            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * numberOfButtons), "", Styles.CornerStyle);
+            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
             {
                 delay += Time.deltaTime;
@@ -64,7 +64,7 @@ namespace UmbraMenu
                 delay = 0;
                 if (!ifDragged)
                 {
-                    enabled = !enabled;
+                    Enabled = !Enabled;
                     if (activatingButton != null)
                     {
                         activatingButton.Enabled = !activatingButton.Enabled;

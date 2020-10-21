@@ -12,7 +12,8 @@ namespace UmbraMenu
         public Menu parentMenu;
         public int position { get; set; }
         public Rect rect;
-        public string offText, onText, text;
+        public string offText, onText;
+        public string text { get; set; }
         public GUIStyle style = Styles.OffStyle;
         public Action Action { get; set; }
         public Action OffAction, OnAction;
@@ -65,7 +66,7 @@ namespace UmbraMenu
         {
             parentMenu.NumberOfButtons = position;
             int btnY = 5 + 45 * parentMenu.NumberOfButtons;
-            rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.widthSize, 40);
+            rect = new Rect(parentMenu.Rect.x + 5, parentMenu.Rect.y + btnY, parentMenu.WidthSize, 40);
 
             if (GUI.Button(rect, text, style))
             {

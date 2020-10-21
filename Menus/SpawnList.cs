@@ -10,7 +10,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class SpawnList
     {
-        private static readonly ListMenu currentMenu = (ListMenu)Utility.FindMenuById(15);
+        private static readonly ListMenu currentMenu = null; //(ListMenu)Utility.FindMenuById(15);
 
         public static void AddButtonsToMenu()
         {
@@ -49,10 +49,10 @@ namespace UmbraMenu.MenuButtons
                 string path = $"SpawnCards/{category}/{cardName}";
 
                 void ButtonAction() => SpawnSpawnCard(spawnCard);
-                Button button = new Button(currentMenu, i + 1, buttonText, ButtonAction);
-                buttons.Add(button);
+                //Button button = new Button(currentMenu, i + 1, buttonText, ButtonAction);
+                //buttons.Add(button);
             }
-            currentMenu.buttons = buttons;
+            //currentMenu.buttons = buttons;
         }
 
         private static void SpawnSpawnCard(SpawnCard spawnCard)

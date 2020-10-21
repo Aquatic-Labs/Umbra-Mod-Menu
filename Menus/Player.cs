@@ -11,7 +11,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class Player
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(1);
+        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(1);
 
         public static bool skillToggle, aimBotToggle, godToggle;
 
@@ -54,44 +54,44 @@ namespace UmbraMenu.MenuButtons
             }
         }
 
-        private static void ToggleStatsMenu() => ToggleMenu(UmbraMenu.menus[8]);
-        private static void ToggleCharacterListMenu() => ToggleMenu(UmbraMenu.menus[10]);
-        private static void ToggleBuffListMenu() => ToggleMenu(UmbraMenu.menus[11]);
+        //private static void ToggleStatsMenu() => ToggleMenu(UmbraMenu.menus[8]);
+        //private static void ToggleCharacterListMenu() => ToggleMenu(UmbraMenu.menus[10]);
+        //private static void ToggleBuffListMenu() => ToggleMenu(UmbraMenu.menus[11]);
         public static MulButton giveMoney = new MulButton(currentMenu, 1, $"G I V E   M O N E Y : {MoneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
         public static MulButton giveCoins = new MulButton(currentMenu, 2, $"G I V E   L U N A R   C O I N S : {CoinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
         public static MulButton giveExperience = new MulButton(currentMenu, 3, $"G I V E   E X P E R I E N C E : {XPToGive}", GiveXP, IncreaseXP, DecreaseXP);
-        public static TogglableButton toggleStatsMod = new TogglableButton(currentMenu, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu);
-        public static TogglableButton toggleChangeCharacter = new TogglableButton(currentMenu, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu);
-        public static TogglableButton toggleBuff = new TogglableButton(currentMenu, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu);
-        public static Button removeBuffs = new Button(currentMenu, 7, "R E M O V E   A L L   B U F F S", RemoveAllBuffs);
+        //public static TogglableButton toggleStatsMod = new TogglableButton(currentMenu, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu);
+        //public static TogglableButton toggleChangeCharacter = new TogglableButton(currentMenu, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu);
+        //public static TogglableButton toggleBuff = new TogglableButton(currentMenu, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu);
+        //public static Button removeBuffs = new Button(currentMenu, 7, "R E M O V E   A L L   B U F F S", RemoveAllBuffs);
         public static TogglableButton toggleAimbot = new TogglableButton(currentMenu, 8, "A I M B O T : O F F", "A I M B O T : O N", ToggleAimbot, ToggleAimbot);
         public static TogglableButton toggleGod = new TogglableButton(currentMenu, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", ToggleGodMode, ToggleGodMode);
         public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD);
-        public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
+        //public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
 
         private static List<IButton> buttons = new List<IButton>()
         {
             giveMoney,
             giveCoins,
             giveExperience,
-            toggleStatsMod,
-            toggleChangeCharacter,
-            toggleBuff,
-            removeBuffs,
+            //toggleStatsMod,
+            //toggleChangeCharacter,
+            //toggleBuff,
+            //removeBuffs,
             toggleAimbot,
             toggleGod,
             toggleSkillCD,
-            unlockAll
+            //unlockAll
         };
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
         public static void ToggleMenu(IMenu menu)
         {
-            menu.enabled = !menu.enabled;
+            menu.Enabled = !menu.Enabled;
         }
 
         public static void ToggleAimbot()

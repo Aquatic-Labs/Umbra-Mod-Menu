@@ -8,7 +8,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class StatsMod
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(8);
+        private static readonly Menu currentMenu = null;//(Menu)Utility.FindMenuById(8);
 
         private static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
         public static int DamagePerLevel
@@ -172,7 +172,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
         public static void ToggleMenu(Menu menu)

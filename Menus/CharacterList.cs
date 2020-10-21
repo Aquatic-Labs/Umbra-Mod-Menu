@@ -10,19 +10,19 @@ namespace UmbraMenu.MenuButtons
 {
     public class CharacterList
     {
-        private static readonly ListMenu currentMenu = (ListMenu)Utility.FindMenuById(10);
+        private static readonly Menu currentMenu = new Menu(null);
 
         public static void AddButtonsToMenu()
         {
-            List<IButton> buttons = new List<IButton>();
+            List<Button> buttons = new List<Button>();
             for (int i = 0; i < UmbraMenu.bodyPrefabs.Count; i++)
             {
                 int prefabIndex = i;
                 void ButtonAction() => ChangeCharacter(prefabIndex);
-                Button button = new Button(currentMenu, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction);
+                Button button = new Button(new NormalButton(currentMenu, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction));
                 buttons.Add(button);
             }
-            currentMenu.buttons = buttons;
+            currentMenu.Buttons = buttons;
         }
 
         private static void ChangeCharacter(int prefabIndex)

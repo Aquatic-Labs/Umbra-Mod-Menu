@@ -13,7 +13,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class Items
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(3);
+        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(3);
 
         private static readonly WeightedSelection<List<ItemIndex>> weightedSelection = BuildRollItemsDropTable();
         private static int itemsToRoll = 5;
@@ -54,8 +54,8 @@ namespace UmbraMenu.MenuButtons
         public static TogglableButton toggleDropItems = new TogglableButton(currentMenu, 5, "D R O P   I T E M S / E Q U I P M E N T : O F F", "D R O P   I T E M S / E Q U I P M E N T : O N", ToggleDrop, ToggleDrop);
         public static TogglableButton toggleDropInvItems = new TogglableButton(currentMenu, 6, "D R O P   F R O M   I N V E N T O R Y : O F F", "D R O P   F R O M   I N V E N T O R Y : O N", ToggleDropFromInventory, ToggleDropFromInventory);
         public static TogglableButton toggleEquipmentCD = new TogglableButton(currentMenu, 7, "I N F I N I T E   E Q U I P M E N T : O F F", "I N F I N I T E   E Q U I P M E N T : O N", ToggleEquipmentCD, ToggleEquipmentCD);
-        public static Button stackInventory = new Button(currentMenu, 8, "S T A C K   I N V E N T O R Y", StackInventory);
-        public static Button clearInventory = new Button(currentMenu, 9, "C L E A R   I N V E N T O R Y", ClearInventory);
+        //public static Button stackInventory = new Button(currentMenu, 8, "S T A C K   I N V E N T O R Y", StackInventory);
+        //public static Button clearInventory = new Button(currentMenu, 9, "C L E A R   I N V E N T O R Y", ClearInventory);
         public static TogglableButton toggleChestItemMenu = new TogglableButton(currentMenu, 10, "C H A N G E   C H E S T   I T E M : O F F", "C H A N G E   C H E S T   I T E M : O N", ToggleChestItemListMenu, ToggleChestItemListMenu);
 
         private static List<IButton> buttons = new List<IButton>()
@@ -67,19 +67,19 @@ namespace UmbraMenu.MenuButtons
             toggleDropItems,
             toggleDropInvItems,
             toggleEquipmentCD,
-            stackInventory,
-            clearInventory,
+            //stackInventory,
+            //clearInventory,
             toggleChestItemMenu
         };
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
-        private static void ToggleMenu(IMenu menu)
+        private static void ToggleMenu(Menu menu)
         {
-            menu.enabled = !menu.enabled;
+            menu.Enabled = !menu.Enabled;
         }
 
         #region Toggle cheat functions
@@ -108,7 +108,7 @@ namespace UmbraMenu.MenuButtons
             {
                 ChestItemList.EnableChests();
             }
-            ToggleMenu((ListMenu)Utility.FindMenuById(14));
+            //ToggleMenu((ListMenu)Utility.FindMenuById(14));
         }
         #endregion
 

@@ -10,15 +10,15 @@ namespace UmbraMenu.MenuButtons
 {
     public class Settings
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(7);
+        private static readonly Menu currentMenu = null; // (Menu)Utility.FindMenuById(7);
         private static List<IButton> buttons = new List<IButton>();
 
         public static TogglableButton toggleKeybindsMenu = new TogglableButton(currentMenu, 1, "", "", null, null);
-        public static Button changeGodModeType = new Button(currentMenu, 1, "", null);
+        //public static Button changeGodModeType = new Button(currentMenu, 1, "", null);
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
     }
 }

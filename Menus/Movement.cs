@@ -8,7 +8,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class Movement
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(2);
+        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(2);
 
         public static bool jumpPackToggle, flightToggle, alwaysSprintToggle;
 
@@ -25,7 +25,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
         public static int jumpPackMul = 1;

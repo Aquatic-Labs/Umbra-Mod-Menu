@@ -10,19 +10,19 @@ namespace UmbraMenu.MenuButtons
 {
     public class BuffList
     {
-        private static readonly ListMenu currentMenu = (ListMenu)Utility.FindMenuById(11);
+        private static readonly Menu currentMenu = null; // Utility.FindMenuById(11);
 
         public static void AddButtonsToMenu()
         {
-            List<IButton> buttons = new List<IButton>();
+            List<Button> buttons = new List<Button>();
             for (int i = 0; i < Enum.GetNames(typeof(BuffIndex)).ToList().Count; i++)
             {
                 int buffIndexInt = i;
                 void ButtonAction() => ApplyBuff(buffIndexInt);
-                Button button = new Button(currentMenu, i + 1, Enum.GetNames(typeof(BuffIndex)).ToList()[i], ButtonAction);
-                buttons.Add(button);
+                //Button button = new Button(currentMenu, i + 1, Enum.GetNames(typeof(BuffIndex)).ToList()[i], ButtonAction);
+                //buttons.Add(button);
             }
-            currentMenu.buttons = buttons;
+            //currentMenu.buttons = buttons;
         }
 
         private static void ApplyBuff(int buffIndexInt)

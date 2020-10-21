@@ -8,7 +8,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class Spawn
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(4);
+        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(4);
 
         public static TeamIndex[] team = { TeamIndex.Monster, TeamIndex.Neutral, TeamIndex.Player, TeamIndex.None };
         private static int teamIndex = 0;
@@ -61,8 +61,8 @@ namespace UmbraMenu.MenuButtons
         public static MulButton changeMaxDistance = new MulButton(currentMenu, 2, $"M A X   D I S T A N C E : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance);
         public static MulButton changeTeamIndex = new MulButton(currentMenu, 3, $"T E A M : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex);
         public static TogglableButton toggleSpawnListMenu = new TogglableButton(currentMenu, 4, "S P A W N   L I S T : O F F", "S P A W N   L I S T : O N", ToggleSpawnListMenu, ToggleSpawnListMenu);
-        public static Button killAll = new Button(currentMenu, 5, "K I L L   A L L", KillAllMobs);
-        public static Button destroyInteractables = new Button(currentMenu, 6, "D E S T R O Y   I N T E R A C T A B L E S", DestroySpawnedInteractables);
+        //public static Button killAll = new Button(currentMenu, 5, "K I L L   A L L", KillAllMobs);
+        //public static Button destroyInteractables = new Button(currentMenu, 6, "D E S T R O Y   I N T E R A C T A B L E S", DestroySpawnedInteractables);
 
         private static List<IButton> buttons = new List<IButton>()
         {
@@ -70,18 +70,18 @@ namespace UmbraMenu.MenuButtons
             changeMaxDistance,
             changeTeamIndex,
             toggleSpawnListMenu,
-            killAll,
-            destroyInteractables
+            //killAll,
+            //destroyInteractables
         };
 
         public static void AddButtonsToMenu()
         {
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
-        private static void ToggleMenu(IMenu menu)
+        private static void ToggleMenu(Menu menu)
         {
-            menu.enabled = !menu.enabled;
+            menu.Enabled = !menu.Enabled;
         }
 
         private static void ToggleSpawnListMenu()

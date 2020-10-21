@@ -13,12 +13,12 @@ namespace UmbraMenu
 {
     public static class Utility
     {
-        public static IMenu FindMenuById(int id)
+        public static Menu FindMenuById(int id)
         {
             for (int i = 0; i < Menu.menus.Count; i++)
             {
-                IMenu currentMenu = Menu.menus[i];
-                if (currentMenu.id == id)
+                Menu currentMenu = Menu.menus[i];
+                if (currentMenu.Id == id)
                 {
                     return currentMenu;
                 }
@@ -263,18 +263,18 @@ namespace UmbraMenu
         {
             for (int i = 0; i < Menu.menus.Count; i++)
             {
-                Menu.menus[i].enabled = false;
-                Menu.menus[i].ifDragged = false;
+                Menu.menus[i].Enabled = false;
+                //Menu.menus[i].ifDragged = false;
             }
 
             for (int i = 0; i < Menu.menus.Count; i++)
             {
-                Menu.menus[i].enabled = false;
-                Menu.menus[i].ifDragged = false;
+                Menu.menus[i].Enabled = false;
+                //Menu.menus[i].ifDragged = false;
             }
             UmbraMenu.characterCollected = false;
 
-            MenuButtons.Main.unloadMenu.Enabled = false;
+            //MenuButtons.Main.unloadMenu.Enabled = false;
 
             MenuButtons.Player.toggleSkillCD.Enabled = false;
             MenuButtons.Player.toggleGod.Enabled = false;
@@ -323,15 +323,15 @@ namespace UmbraMenu
         {
             for (int i = 0; i < Menu.menus.Count; i++)
             {
-                if (Menu.menus[i].id != 9)
+                if (Menu.menus[i].Id != 9)
                 {
-                    Menu.menus[i].enabled = false;
+                    Menu.menus[i].Enabled = false;
                 }
             }
 
             for (int i = 0; i < Menu.menus.Count; i++)
             {
-                Menu.menus[i].enabled = false;
+                Menu.menus[i].Enabled = false;
             }
             UmbraMenu.characterCollected = false;
         }
@@ -354,12 +354,12 @@ namespace UmbraMenu
         }
         #endregion
 
-        public static List<IMenu> GetMenusOpen()
+        public static List<Menu> GetMenusOpen()
         {
-            List<IMenu> openMenus = new List<IMenu>();
+            List<Menu> openMenus = new List<Menu>();
             for (int i = 1; i < Menu.menus.Count; i++)
             {
-                if (Menu.menus[i].enabled)
+                if (Menu.menus[i].Enabled)
                 {
                     openMenus.Add(Menu.menus[i]);
                 }

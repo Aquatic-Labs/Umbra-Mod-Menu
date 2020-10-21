@@ -6,7 +6,7 @@ namespace UmbraMenu.MenuButtons
 {
     public class ViewStats
     {
-        private static readonly Menu currentMenu = (Menu)Utility.FindMenuById(9);
+        private static readonly Menu currentMenu = null; // (Menu)Utility.FindMenuById(9);
 
         private static float playerDamage, playerCrit, playerAttackSpeed, playerArmor, playerRegen, playerMoveSpeed, playerExperience;
         private static int playerMaxJumpCount, playerKillCount;
@@ -45,7 +45,7 @@ namespace UmbraMenu.MenuButtons
             jumpCountStat.style = Styles.StatsStyle;
             experienceStat.style = Styles.StatsStyle;
             killsStat.style = Styles.StatsStyle;
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
         public static void UpdateViewStats()
