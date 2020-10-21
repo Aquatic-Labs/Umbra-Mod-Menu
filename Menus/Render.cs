@@ -95,7 +95,7 @@ namespace UmbraMenu.MenuButtons
                 var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
                 if (BoundingVector.z > 0.01)
                 {
-                    Styles.renderTeleporterStyle.normal.textColor =
+                    Styles.RenderTeleporterStyle.normal.textColor =
                         teleporterInteraction.isIdle ? Color.magenta :
                         teleporterInteraction.isIdleToCharging || teleporterInteraction.isCharging ? Color.yellow :
                         teleporterInteraction.isCharged ? Color.green : Color.yellow;
@@ -110,7 +110,7 @@ namespace UmbraMenu.MenuButtons
                         teleporterInteraction.isInFinalSequence ? "Final-Sequence" :
                         "???");
                     string boxText = $"{friendlyName}\n{status}\n{distance}m";
-                    GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.renderTeleporterStyle);
+                    GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderTeleporterStyle);
                 }
             }
 
@@ -127,7 +127,7 @@ namespace UmbraMenu.MenuButtons
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, barrel.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
             }
@@ -144,7 +144,7 @@ namespace UmbraMenu.MenuButtons
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, secretButton.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.renderSecretsStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderSecretsStyle);
                     }
                 }
             }
@@ -161,7 +161,7 @@ namespace UmbraMenu.MenuButtons
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, scrapper.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
             }
@@ -187,7 +187,7 @@ namespace UmbraMenu.MenuButtons
                         String friendlyName = purchaseInteraction.GetDisplayName();
                         int cost = purchaseInteraction.cost;
                         string boxText = dropName != null ? $"{friendlyName}\n${cost}\n{distance}m\n{dropName}" : $"{friendlyName}\n${cost}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
             }
@@ -219,7 +219,7 @@ namespace UmbraMenu.MenuButtons
                         string mobName = mob.name.Replace("Body(Clone)", "");
                         int mobDistance = (int)distanceToMob;
                         string mobBoxText = $"{mobName}\n{mobDistance}m";
-                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 50f, 100f, 50f), mobBoxText, Styles.renderMobsStyle);
+                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 50f, 100f, 50f), mobBoxText, Styles.RenderMobsStyle);
                         ESPHelper.DrawBox(MobBoundingVector.x - width / 2, (float)Screen.height - MobBoundingVector.y - height / 2, width, height, new Color32(255, 0, 0, 255));
                     }
                 }

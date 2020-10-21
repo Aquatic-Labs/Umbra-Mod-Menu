@@ -10,15 +10,10 @@ namespace UmbraMenu.Menus
 {
     public sealed class Main : Menu
     {
-        public static Main Instance { get; } = new Main();
         private static IMenu main = new NormalMenu(0, new Rect(10, 10, 20, 20), "U M B R A   M E N U");
 
-        static Main() { }
-        private Main() : base(main)
+        public Main() : base(main)
         {
-            Debug.Log($"Starting Main Menu creation");
-            Utility.WriteToLog($"Starting Main Menu creation");
-
             Rect = new Rect(10, 10, 20, 20); // Starting Position
 
             if (Loader.updateAvailable)
@@ -33,11 +28,9 @@ namespace UmbraMenu.Menus
             {
                 Title = $"U M B R A \n<color=yellow>D E V</color>";
             }
-            Utility.WriteToLog($"Set title to {Title}");
 
             if (UmbraMenu.characterCollected)
             {
-                Utility.WriteToLog($"Character is Collected");
                 /*
                 Button togglePlayer = new Button(new TogglableButton(this, 1, "P L A Y E R : O F F", "P L A Y E R : O N", PlayerButtonAction, PlayerButtonAction));
                 Button toggleMovement = new Button(new TogglableButton(this, 2, "M O V E M E N T : O F F", "M O V E M E N T : O N", MovementButtonAction, MovementButtonAction));
@@ -55,7 +48,7 @@ namespace UmbraMenu.Menus
                 Button toggleTeleporter = new Button(new TogglableButton(this, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", null, null));
                 Button toggleRender = new Button(new TogglableButton(this, 6, "R E N D E R : O F F", "R E N D E R: O N", null, null));
                 Button toggleSettings = new Button(new TogglableButton(this, 7, "S E T T I N G S : O F F", "L O B B Y : O N", null, null));
-                Button unloadMenu = new Button(new TogglableButton(this, 8, "U N L O A D   M E N U", "C O N F I R M ?", null, null));
+                Button unloadMenu = new Button(new TogglableButton(this, 8, "U N L O A D   M E N U", "C O N F I R M ?", DoNothing, UnloadMenu));
 
                 Buttons = new List<Button>
                 {
@@ -73,10 +66,8 @@ namespace UmbraMenu.Menus
             }
             else
             {
-                Utility.WriteToLog($"Character Not Collected");
                 if (Loader.updateAvailable)
                 {
-                    Utility.WriteToLog($"update available");
                     Button text1 = new Button(new Text(this, 2, "<color=yellow>Buttons will be availble in game.</color>"));
                     Button text2 = new Button(new Text(this, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>"));
                     Button text3 = new Button(new Text(this, 4, "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>"));
@@ -87,16 +78,13 @@ namespace UmbraMenu.Menus
                         text3
                     };
                     NumberOfButtons = Buttons.Count;
-                    Utility.WriteToLog($"Added buttons");
                 }
 
                 if (Loader.upToDate || Loader.devBuild)
                 {
-                    Utility.WriteToLog($"no update available");
                     Button text1 = new Button(new Text(this, 2, "<color=yellow>Buttons will be availble in game.</color>"));
                     Button text2 = new Button(new Text(this, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>"));
                     Button text3 = new Button(new Text(this, 4, "<color=#11ccee>with bug Reports or suggestions.</color>"));
-                    Utility.WriteToLog($"created upToDate text buttons");
                     Buttons = new List<Button>
                     {
                         text1,
@@ -104,31 +92,19 @@ namespace UmbraMenu.Menus
                         text3
                     };
                     NumberOfButtons = Buttons.Count;
-                    Utility.WriteToLog($"Added buttons");
                 }
             }
-            Utility.WriteToLog($"menu id: {Id}");
-            Utility.WriteToLog($"menu title: {Title}");
-            Utility.WriteToLog($"menu #ofButtons: {NumberOfButtons}");
-            Utility.WriteToLog($"menu rect: {Rect}");
         }
 
         public override void Draw()
         {
-            Utility.WriteToLog($"Attempting to draw menu");
-            Utility.WriteToLog($"{this}: id: {Id}, rect: {Rect}");
             SetWindow();
-            Utility.WriteToLog($"Set Window");
             if (Enabled)
             {
-                Utility.WriteToLog($"Menu is enabled");
                 base.Draw();
-                Utility.WriteToLog($"drew menu");
             }
-            Utility.WriteToLog($"menu not enabled");
         }
 
-        /*
         private static void PlayerButtonAction() => ToggleMenu(Utility.FindMenuById(1));
         private static void MovementButtonAction() => ToggleMenu(Utility.FindMenuById(2));
         private static void ItemsButtonAction() => ToggleMenu(Utility.FindMenuById(3));
@@ -142,6 +118,6 @@ namespace UmbraMenu.Menus
         {
             menu.Enabled = !menu.Enabled;
         }
-        */
+        
     }
 }

@@ -9,6 +9,7 @@ using UnityEngine;
 using RoR2;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using Octokit;
 
 namespace UmbraMenu
 {
@@ -54,9 +55,8 @@ namespace UmbraMenu
         public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
 
         public static Scene currentScene;
-
         #region Menus
-        public Menu main = Menus.Main.Instance;
+        public static Menu main = new Menus.Main();
         #endregion
 
         private void OnGUI()
@@ -180,9 +180,6 @@ namespace UmbraMenu
         {
             try
             {
-                Styles styles = new Styles();
-                styles.BuildStyles();
-
                 // SceneManager.sceneLoaded += OnSceneLoaded;
 
                 #region Old Build Menus
@@ -475,7 +472,12 @@ namespace UmbraMenu
 
         private void CharacterRoutine()
         {
+            bool prevCharCollected = characterCollected;
             GetCharacter();
+            if (prevCharCollected != characterCollected)
+            {
+                main = new Menus.Main();
+            }
         }
 
         /*private void LowResolutionRoutine()
