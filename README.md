@@ -1,6 +1,7 @@
 # Umbra Menu ![Downloads](https://img.shields.io/github/downloads/Acher0ns/Umbra-Mod-Menu/total)
-
 ![UmbraInjecter-icon](https://user-images.githubusercontent.com/12210881/87236402-2d05ae80-c3b7-11ea-96d9-61f2136e8607.png)
+
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/kamroncole/)
 
 A small collection of hacks and cheats for Risk of Rain 2.
 
