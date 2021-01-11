@@ -24,13 +24,13 @@ namespace UmbraMenu.MenuButtons
                 {
                     changeDmgPerLevel.offText = $"D A M A G E / L V L ( O F F ) : {damagePerLvl}";
                     changeDmgPerLevel.onText = $"D A M A G E / L V L ( O N ) : {damagePerLvl}";
-                    changeDmgPerLevel.text = changeDmgPerLevel.onText;
+                    //changeDmgPerLevel.text = changeDmgPerLevel.onText;
                 }
                 else
                 {
                     changeDmgPerLevel.onText = $"D A M A G E / L V L ( O N ) : {damagePerLvl}";
                     changeDmgPerLevel.offText = $"D A M A G E / L V L ( O F F ) : {damagePerLvl}";
-                    changeDmgPerLevel.text = changeDmgPerLevel.offText;
+                    //changeDmgPerLevel.text = changeDmgPerLevel.offText;
                 }
             }
         }
@@ -48,13 +48,13 @@ namespace UmbraMenu.MenuButtons
                 {
                     changeCritPerLevel.offText = $"C R I T / L V L ( O F F ) : {critPerLvl}";
                     changeCritPerLevel.onText = $"C R I T / L V L ( O N ) : {critPerLvl}";
-                    changeCritPerLevel.text = changeCritPerLevel.onText;
+                    //changeCritPerLevel.text = changeCritPerLevel.onText;
                 }
                 else
                 {
                     changeCritPerLevel.onText = $"C R I T / L V L ( O N ) : {critPerLvl}";
                     changeCritPerLevel.offText = $"C R I T / L V L ( O F F ) : {critPerLvl}";
-                    changeCritPerLevel.text = changeCritPerLevel.offText;
+                    //changeCritPerLevel.text = changeCritPerLevel.offText;
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace UmbraMenu.MenuButtons
             set
             {
                 multiplier = value;
-                changeMultiplier.text = $"M U L T I P L I E R : {multiplier}";
+                //changeMultiplier.text = $"M U L T I P L I E R : {multiplier}";
             }
         }
 
@@ -86,13 +86,13 @@ namespace UmbraMenu.MenuButtons
                 {
                     changeAttackSpeed.offText = $"A T T A C K   S P E E D ( O F F ) : {attackSpeed}";
                     changeAttackSpeed.onText = $"A T T A C K   S P E E D ( O N ) : {attackSpeed}";
-                    changeAttackSpeed.text = changeAttackSpeed.onText;
+                    //changeAttackSpeed.text = changeAttackSpeed.onText;
                 }
                 else
                 {
                     changeAttackSpeed.onText = $"A T T A C K   S P E E D ( O N ) : {attackSpeed}";
                     changeAttackSpeed.offText = $"A T T A C K   S P E E D ( O F F ) : {attackSpeed}";
-                    changeAttackSpeed.text = changeAttackSpeed.offText;
+                    //changeAttackSpeed.text = changeAttackSpeed.offText;
                 }
             }
         }
@@ -111,13 +111,13 @@ namespace UmbraMenu.MenuButtons
                 {
                     changeArmor.offText = $"A R M O R ( O F F ) : {armor}";
                     changeArmor.onText = $"A R M O R ( O N ) : {armor}";
-                    changeArmor.text = changeArmor.onText;
+                    //changeArmor.text = changeArmor.onText;
                 }
                 else
                 {
                     changeArmor.onText = $"A R M O R ( O N ) : {armor}";
                     changeArmor.offText = $"A R M O R ( O F F ) : {armor}";
-                    changeArmor.text = changeArmor.offText;
+                    //changeArmor.text = changeArmor.offText;
                 }
             }
         }
@@ -135,13 +135,13 @@ namespace UmbraMenu.MenuButtons
                 {
                     changeMoveSpeed.offText = $"M O V E   S P E E D ( O F F ) : {moveSpeed}";
                     changeMoveSpeed.onText = $"M O V E   S P E E D ( O N ) : {moveSpeed}";
-                    changeMoveSpeed.text = changeMoveSpeed.onText;
+                    //changeMoveSpeed.text = changeMoveSpeed.onText;
                 }
                 else
                 {
                     changeMoveSpeed.onText = $"M O V E   S P E E D ( O N ) : {moveSpeed}";
                     changeMoveSpeed.offText = $"M O V E   S P E E D ( O F F ) : {moveSpeed}";
-                    changeMoveSpeed.text = changeMoveSpeed.onText;
+                    //changeMoveSpeed.text = changeMoveSpeed.onText;
                 }
             }
         }

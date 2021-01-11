@@ -15,7 +15,10 @@ namespace UmbraMenu
 {
     // MOVE THESE TO SEPARATE FILES
     public interface IButton
-    { 
+    {
+        bool Enabled { get; set; }
+
+        string Text { get; set; }
         void Draw(); 
     };
     public interface IMenu
@@ -57,6 +60,13 @@ namespace UmbraMenu
         public static Scene currentScene;
         #region Menus
         public static Menu main = new Menus.Main();
+        public static Menu player = new Menus.Player();
+
+        public static List<Menu> menus = new List<Menu>()
+        {
+            main,
+            player
+        };
         #endregion
 
         private void OnGUI()
@@ -79,6 +89,7 @@ namespace UmbraMenu
                 #endregion
 
                 main.Draw();
+                player.Draw();
                 /*
                 #region Main Menus
 
@@ -347,14 +358,14 @@ namespace UmbraMenu
                 CheckInputs();
                 CharacterRoutine();
 
-                // SkillsRoutine();
-                // AimBotRoutine();
-                // GodRoutine();
-                // EquipCooldownRoutine();
-                // ModStatsRoutine();
-                // FlightRoutine();
-                // SprintRoutine();
-                // JumpPackRoutine();
+                SkillsRoutine();
+                AimBotRoutine();
+                GodRoutine();
+                EquipCooldownRoutine();
+                ModStatsRoutine();
+                FlightRoutine();
+                SprintRoutine();
+                JumpPackRoutine();
 
                 // UpdateNavIndexRoutine();
                 // UpdateMenuPositions();
@@ -477,6 +488,13 @@ namespace UmbraMenu
             if (prevCharCollected != characterCollected)
             {
                 main = new Menus.Main();
+                player = new Menus.Player();
+
+                menus = new List<Menu>()
+                {
+                    main,
+                    player
+                };
             }
         }
 
@@ -497,7 +515,7 @@ namespace UmbraMenu
                 {
                     if (devDoOnce)
                     {
-                        MenuButtons.Player.toggleGod.Enabled = true;
+                        //MenuButtons.Player.toggleGod.Enabled = true;
                         MenuButtons.Movement.toggleFlight.Enabled = true;
                         MenuButtons.Movement.toggleAlwaysSprint.Enabled = true;
                         LocalPlayer.GiveMoney(10000);
@@ -553,11 +571,6 @@ namespace UmbraMenu
             if (MenuButtons.Items.toggleEquipmentCD.Enabled)
             {
                 MenuButtons.Items.NoEquipmentCooldown();
-                MenuButtons.Items.noEquipmentCD = true;
-            }
-            else
-            {
-                MenuButtons.Items.noEquipmentCD = false;
             }
         }
 
@@ -565,45 +578,31 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (MenuButtons.Player.toggleSkillCD.Enabled)
+                if (Menus.Player.SkillToggle)
                 {
                     LocalSkills.ApplyAmmoPack();
-                    MenuButtons.Player.skillToggle = true;
-                }
-                else
-                {
-                    MenuButtons.Player.skillToggle = false;
                 }
             }
         }
 
         private void AimBotRoutine()
         {
-            if (MenuButtons.Player.toggleAimbot.Enabled)
+            if (Menus.Player.AimBotToggle)
             {
-                MenuButtons.Player.AimBot();
-                MenuButtons.Player.aimBotToggle = true;
+                Menus.Player.AimBot();
             }
-            else
-            {
-                MenuButtons.Player.aimBotToggle = false;
-            }
+
         }
 
         private void GodRoutine()
         {
             if (characterCollected)
             {
-                if (MenuButtons.Player.toggleGod.Enabled)
+                if (Menus.Player.GodToggle)
                 {
-                    MenuButtons.Player.GodMode();
-                    MenuButtons.Player.godToggle = true;
+                    Menus.Player.GodMode();
                 }
-                else
-                {
-                    LocalHealth.godMode = false;
-                    MenuButtons.Player.godToggle = false;
-                }
+
             }
         }
 

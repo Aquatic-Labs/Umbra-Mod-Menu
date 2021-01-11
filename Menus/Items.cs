@@ -26,7 +26,7 @@ namespace UmbraMenu.MenuButtons
             set
             {
                 itemsToRoll = value;
-                rollItems.text = $"R O L L   I T E M S : {itemsToRoll}";
+                rollItems.Text = $"R O L L   I T E M S : {itemsToRoll}";
             }
         }
         public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD;
@@ -40,7 +40,7 @@ namespace UmbraMenu.MenuButtons
             set
             {
                 allItemsQuantity = value;
-                giveAllItems.text = $"G I V E   A L L   I T E M S : {allItemsQuantity}";
+                giveAllItems.Text = $"G I V E   A L L   I T E M S : {allItemsQuantity}";
             }
         }
 
@@ -260,7 +260,7 @@ namespace UmbraMenu.MenuButtons
                 }
                 UmbraMenu.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
             }
-            Player.RemoveAllBuffs();
+            //Player.RemoveAllBuffs();
         }
 
         // random items

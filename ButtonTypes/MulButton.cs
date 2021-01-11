@@ -12,38 +12,18 @@ namespace UmbraMenu
         public Menu parentMenu;
         public int position { get; set; }
         public Rect rect;
-        public string text { get; set; }
-        public bool enabled = false;
+        public string Text { get; set; }
+        public bool Enabled { get; set; }
         public GUIStyle style = Styles.BtnStyle;
         public Action Action { get; set; }
-        public Action IncreaseAction, DecreaseAction;
-        private bool highlighted = false;
+        public Action IncreaseAction { get; set; }
+        public Action DecreaseAction{ get; set; }
 
-        public bool Highlighted
-        {
-            get
-            {
-                return highlighted;
-            }
-            set
-            {
-                enabled = value;
-                if (highlighted)
-                {
-
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
+    public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;
-            this.text = text;
+            this.Text = text;
             this.Action = Action;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
@@ -55,7 +35,7 @@ namespace UmbraMenu
             int btnY = 5 + 45 * parentMenu.NumberOfButtons;
             rect = new Rect(parentMenu.Rect.x + 5, parentMenu.Rect.y + btnY, parentMenu.WidthSize - 90, 40);
 
-            if (GUI.Button(rect, text, style))
+            if (GUI.Button(rect, Text, style))
             {
                 Action?.Invoke();
                 Draw();

@@ -10,6 +10,7 @@ namespace UmbraMenu
     public class Button
     {
         public IButton _button;
+        public bool Enabled;
 
         public Button(IButton button)
         {
@@ -19,6 +20,11 @@ namespace UmbraMenu
         public void Draw()
         {
             _button.Draw();
+        }
+
+        public void UpdateText(string newText)
+        {
+            _button.Text = newText;
         }
     }
 }

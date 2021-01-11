@@ -13,7 +13,7 @@ namespace UmbraMenu
         public int position { get; set; }
         public Rect rect;
         public string offText, onText;
-        public string text { get; set; }
+        public string Text { get; set; }
         public GUIStyle style = Styles.OffStyle;
         public Action Action { get; set; }
         public Action OffAction, OnAction;
@@ -30,13 +30,13 @@ namespace UmbraMenu
                 enabled = value;
                 if (enabled)
                 {
-                    text = onText;
+                    Text = onText;
                     Action = OnAction;
                     style = Styles.OnStyle;
                 }
                 else
                 {
-                    text = offText;
+                    Text = offText;
                     Action = OffAction;
                     style = Styles.OffStyle;
                 }
@@ -48,7 +48,7 @@ namespace UmbraMenu
             Enabled = defaultEnable;
             this.parentMenu = parentMenu;
             this.position = position;
-            text = offText;
+            Text = offText;
             this.offText = offText;
             this.onText = onText;
             Action = OffAction;
@@ -57,7 +57,7 @@ namespace UmbraMenu
 
             if (defaultEnable)
             {
-                text = onText;
+                Text = onText;
                 Action = OnAction;
             }
         }
@@ -68,7 +68,7 @@ namespace UmbraMenu
             int btnY = 5 + 45 * parentMenu.NumberOfButtons;
             rect = new Rect(parentMenu.Rect.x + 5, parentMenu.Rect.y + btnY, parentMenu.WidthSize, 40);
 
-            if (GUI.Button(rect, text, style))
+            if (GUI.Button(rect, Text, style))
             {
                 Action?.Invoke();
                 Enabled = !Enabled;

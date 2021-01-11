@@ -24,7 +24,7 @@ namespace UmbraMenu.MenuButtons
             set
             {
                 teamIndex = value;
-                changeTeamIndex.text = $"T E A M : {team[teamIndex]}";
+                //changeTeamIndex.text = $"T E A M : {team[teamIndex]}";
             }
         }
 
@@ -37,7 +37,7 @@ namespace UmbraMenu.MenuButtons
             set 
             {
                 minDistance = value;
-                changeMinDistance.text = $"M I N   D I S T A N C E : {minDistance}";
+                //changeMinDistance.text = $"M I N   D I S T A N C E : {minDistance}";
             } 
         }
 
@@ -50,7 +50,7 @@ namespace UmbraMenu.MenuButtons
             set 
             {
                 maxDistance = value;
-                changeMaxDistance.text = $"M A X   D I S T A N C E : {maxDistance}";
+                //changeMaxDistance.text = $"M A X   D I S T A N C E : {maxDistance}";
             }
         }
 

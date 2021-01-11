@@ -15,9 +15,9 @@ namespace UmbraMenu
     {
         public static Menu FindMenuById(int id)
         {
-            for (int i = 0; i < Menu.menus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                Menu currentMenu = Menu.menus[i];
+                Menu currentMenu = UmbraMenu.menus[i];
                 if (currentMenu.Id == id)
                 {
                     return currentMenu;
@@ -261,27 +261,27 @@ namespace UmbraMenu
         #region Menu Resets
         public static void ResetMenu()
         {
-            for (int i = 0; i < Menu.menus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                Menu.menus[i].Enabled = false;
+                UmbraMenu.menus[i].Enabled = false;
                 //Menu.menus[i].ifDragged = false;
             }
 
-            for (int i = 0; i < Menu.menus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                Menu.menus[i].Enabled = false;
+                UmbraMenu.menus[i].Enabled = false;
                 //Menu.menus[i].ifDragged = false;
             }
             UmbraMenu.characterCollected = false;
 
             //MenuButtons.Main.unloadMenu.Enabled = false;
 
-            MenuButtons.Player.toggleSkillCD.Enabled = false;
-            MenuButtons.Player.toggleGod.Enabled = false;
-            MenuButtons.Player.toggleAimbot.Enabled = false;
-            MenuButtons.Player.XPToGive = 50;
-            MenuButtons.Player.MoneyToGive = 50;
-            MenuButtons.Player.CoinsToGive = 50;
+            //MenuButtons.Player.toggleSkillCD.Enabled = false;
+            //MenuButtons.Player.toggleGod.Enabled = false;
+            //MenuButtons.Player.toggleAimbot.Enabled = false;
+            //MenuButtons.Player.XPToGive = 50;
+            //MenuButtons.Player.MoneyToGive = 50;
+            //MenuButtons.Player.CoinsToGive = 50;
 
             MenuButtons.StatsMod.DamagePerLevel = 10;
             MenuButtons.StatsMod.CritPerLevel = 1;
@@ -321,17 +321,17 @@ namespace UmbraMenu
 
         public static void CloseAllMenus()
         {
-            for (int i = 0; i < Menu.menus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                if (Menu.menus[i].Id != 9)
+                if (UmbraMenu.menus[i].Id != 9)
                 {
-                    Menu.menus[i].Enabled = false;
+                    UmbraMenu.menus[i].Enabled = false;
                 }
             }
 
-            for (int i = 0; i < Menu.menus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                Menu.menus[i].Enabled = false;
+                UmbraMenu.menus[i].Enabled = false;
             }
             UmbraMenu.characterCollected = false;
         }
@@ -344,24 +344,24 @@ namespace UmbraMenu
             UmbraMenu.GetCharacter();
             MainMenu.Enabled = !MainMenu.Enabled;
 
-            MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
-            UmbraMenu.GetCharacter();
-            MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
+            //MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
+            //UmbraMenu.GetCharacter();
+            //MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
 
-            MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
-            UmbraMenu.GetCharacter();
-            MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
+            //MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
+            //UmbraMenu.GetCharacter();
+            //MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
         }
         #endregion
 
         public static List<Menu> GetMenusOpen()
         {
             List<Menu> openMenus = new List<Menu>();
-            for (int i = 1; i < Menu.menus.Count; i++)
+            for (int i = 1; i < UmbraMenu.menus.Count; i++)
             {
-                if (Menu.menus[i].Enabled)
+                if (UmbraMenu.menus[i].Enabled)
                 {
-                    openMenus.Add(Menu.menus[i]);
+                    openMenus.Add(UmbraMenu.menus[i]);
                 }
             }
             return openMenus;

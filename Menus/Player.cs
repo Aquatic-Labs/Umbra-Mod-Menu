@@ -3,110 +3,131 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using RoR2;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
-    public class Player
+    public sealed class Player : Menu
     {
-        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(1);
+        //public static Player Instance { get; } = new Player();
+        private static readonly IMenu player = new NormalMenu(1, new Rect(374, 10, 20, 20), "P L A Y E R   M E N U");
 
-        public static bool skillToggle, aimBotToggle, godToggle;
+        public static bool SkillToggle, AimBotToggle, GodToggle;
+        public static ulong xpToGive = 50;
+        public static uint moneyToGive = 50, coinsToGive = 50;
 
-        private static ulong xpToGive = 50;
-        public static ulong XPToGive
+        public ulong XPToGive
         {
             get
             {
                 return xpToGive;
             }
+
             set
             {
                 xpToGive = value;
-                giveExperience.text = $"G I V E   E X P E R I E N C E : {xpToGive}";
+                giveExperience.UpdateText($"G I V E   E X P E R I E N C E : {xpToGive}");
             }
         }
-        private static uint moneyToGive = 50, coinsToGive = 50;
-        public static uint MoneyToGive
+        public uint MoneyToGive
         {
             get
             {
                 return moneyToGive;
             }
+
             set
             {
                 moneyToGive = value;
-                giveMoney.text = $"G I V E   M O N E Y : {moneyToGive}";
+                giveMoney.UpdateText($"G I V E   M O N E Y : {moneyToGive}");
             }
         }
-        public static uint CoinsToGive
+
+        public uint CoinsToGive
         {
             get
             {
                 return coinsToGive;
             }
+
             set
             {
                 coinsToGive = value;
-                giveCoins.text = $"G I V E   L U N A R   C O I N S : {coinsToGive}";
+                giveCoins.UpdateText($"G I V E   L U N A R   C O I N S : {coinsToGive}");
             }
         }
 
-        //private static void ToggleStatsMenu() => ToggleMenu(UmbraMenu.menus[8]);
-        //private static void ToggleCharacterListMenu() => ToggleMenu(UmbraMenu.menus[10]);
-        //private static void ToggleBuffListMenu() => ToggleMenu(UmbraMenu.menus[11]);
-        public static MulButton giveMoney = new MulButton(currentMenu, 1, $"G I V E   M O N E Y : {MoneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
-        public static MulButton giveCoins = new MulButton(currentMenu, 2, $"G I V E   L U N A R   C O I N S : {CoinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
-        public static MulButton giveExperience = new MulButton(currentMenu, 3, $"G I V E   E X P E R I E N C E : {XPToGive}", GiveXP, IncreaseXP, DecreaseXP);
-        //public static TogglableButton toggleStatsMod = new TogglableButton(currentMenu, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu);
-        //public static TogglableButton toggleChangeCharacter = new TogglableButton(currentMenu, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu);
-        //public static TogglableButton toggleBuff = new TogglableButton(currentMenu, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu);
-        //public static Button removeBuffs = new Button(currentMenu, 7, "R E M O V E   A L L   B U F F S", RemoveAllBuffs);
-        public static TogglableButton toggleAimbot = new TogglableButton(currentMenu, 8, "A I M B O T : O F F", "A I M B O T : O N", ToggleAimbot, ToggleAimbot);
-        public static TogglableButton toggleGod = new TogglableButton(currentMenu, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", ToggleGodMode, ToggleGodMode);
-        public static TogglableButton toggleSkillCD = new TogglableButton(currentMenu, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD);
-        //public static Button unlockAll = new Button(currentMenu, 11, "U N L O C K   A L L", UnlockAll);
+        public Button giveMoney;
+        public Button giveCoins;
+        public Button giveExperience;
+        public Button toggleStatsMod;
+        public Button toggleChangeCharacter;
+        public Button toggleBuff;
+        public Button removeBuffs;
+        public Button toggleAimbot;
+        public Button toggleGod;
+        public Button toggleSkillCD;
+        public Button unlockAll;
 
-        private static List<IButton> buttons = new List<IButton>()
+        public Player() : base(player)
         {
-            giveMoney,
-            giveCoins,
-            giveExperience,
-            //toggleStatsMod,
-            //toggleChangeCharacter,
-            //toggleBuff,
-            //removeBuffs,
-            toggleAimbot,
-            toggleGod,
-            toggleSkillCD,
-            //unlockAll
-        };
+            Id = 1;
+            Rect = new Rect(374, 10, 20, 20);
+            Title = "P L A Y E R   M E N U";
 
-        public static void AddButtonsToMenu()
-        {
-            //currentMenu.Buttons = buttons;
+            if (UmbraMenu.characterCollected)
+            {
+                void ToggleStatsMenu() => ToggleMenu(Utility.FindMenuById(8));
+                void ToggleCharacterListMenu() => ToggleMenu(Utility.FindMenuById(10));
+                void ToggleBuffListMenu() => ToggleMenu(Utility.FindMenuById(11));
+
+                giveMoney = new Button(new MulButton(this, 1, $"G I V E   M O N E Y : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));
+                giveCoins = new Button(new MulButton(this, 2, $"G I V E   L U N A R   C O I N S : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins));
+                giveExperience = new Button(new MulButton(this, 3, $"G I V E   E X P E R I E N C E : {xpToGive}", GiveXP, IncreaseXP, DecreaseXP));
+                toggleStatsMod = new Button(new TogglableButton(this, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu));
+                toggleChangeCharacter = new Button(new TogglableButton(this, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu));
+                toggleBuff = new Button(new TogglableButton(this, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu));
+                removeBuffs = new Button(new NormalButton(this, 7, "R E M O V E   A L L   B U F F S", RemoveAllBuffs));
+                toggleAimbot = new Button(new TogglableButton(this, 8, "A I M B O T : O F F", "A I M B O T : O N", ToggleAimbot, ToggleAimbot));
+                toggleGod = new Button(new TogglableButton(this, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", ToggleGodMode, ToggleGodMode));
+                toggleSkillCD = new Button(new TogglableButton(this, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD));
+                unlockAll = new Button(new NormalButton(this, 11, "U N L O C K   A L L", UnlockAll));
+
+                Buttons = new List<Button>()
+                {
+                    giveMoney,
+                    giveCoins,
+                    giveExperience,
+                    toggleStatsMod,
+                    toggleChangeCharacter,
+                    toggleBuff,
+                    removeBuffs,
+                    toggleAimbot,
+                    toggleGod,
+                    toggleSkillCD,
+                    unlockAll
+                };
+                NumberOfButtons = Buttons.Count;
+            }
         }
 
-        public static void ToggleMenu(IMenu menu)
+        public void ToggleMenu(Menu menu)
         {
             menu.Enabled = !menu.Enabled;
         }
 
-        public static void ToggleAimbot()
+        public void ToggleAimbot()
         {
-            aimBotToggle = !aimBotToggle;
+            AimBotToggle = !AimBotToggle;
         }
 
-        public static void ToggleGodMode()
+        public void ToggleGodMode()
         {
-            godToggle = !godToggle;
+            GodToggle = !GodToggle;
         }
 
         public static void ToggleSkillCD()
         {
-            skillToggle = !skillToggle;
+            SkillToggle = !SkillToggle;
         }
 
         public static void RemoveAllBuffs()
@@ -228,37 +249,37 @@ namespace UmbraMenu.MenuButtons
         }
 
         #region Increase/Decrease Value Actions
-        public static void IncreaseMoney()
+        public void IncreaseMoney()
         {
             if (MoneyToGive >= 50)
                 MoneyToGive += 50;
         }
 
-        public static void IncreaseCoins()
+        public void IncreaseCoins()
         {
             if (CoinsToGive >= 10)
                 CoinsToGive += 10;
         }
 
-        public static void IncreaseXP()
+        public void IncreaseXP()
         {
             if (XPToGive >= 50)
                 XPToGive += 50;
         }
 
-        public static void DecreaseMoney()
+        public void DecreaseMoney()
         {
             if (MoneyToGive > 50)
-               MoneyToGive -= 50;
+                MoneyToGive -= 50;
         }
 
-        public static void DecreaseCoins()
+        public void DecreaseCoins()
         {
             if (CoinsToGive > 10)
                 CoinsToGive -= 10;
         }
 
-        public static void DecreaseXP()
+        public void DecreaseXP()
         {
             if (XPToGive > 50)
                 XPToGive -= 50;
@@ -266,3 +287,4 @@ namespace UmbraMenu.MenuButtons
         #endregion
     }
 }
+

@@ -12,8 +12,6 @@ namespace UmbraMenu
 {
     public class Menu
     {
-        public static List<Menu> menus = new List<Menu>();
-
         public IMenu _menu;
         public float Delay = 0, WidthSize = 350;
         public int Id { get; set; }
@@ -22,13 +20,12 @@ namespace UmbraMenu
         public string Title { get; set; }
         public bool Enabled { get; set; }
         public bool IfDragged { get; set; }
-        public TogglableButton ActivatingButton { get; set; }
+        public Button ActivatingButton { get; set; }
         public List<Button> Buttons { get; set; }
 
         public Menu(IMenu menu)
         {
             _menu = menu;
-            //menus.Add(this);
         }
 
         public void SetWindow()
