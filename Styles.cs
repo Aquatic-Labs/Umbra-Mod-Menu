@@ -169,7 +169,7 @@ namespace UmbraMenu
             {
                 if (selectedChestStyle == null)
                 {
-                    selectedChestStyle = CreateGUIStyle(null, null, Color.blue, 14, FontStyle.Normal, TextAnchor.MiddleRight);
+                    selectedChestStyle = CreateGUIStyle(null, null, Color.HSVToRGB(0.5256f, 0.9286f, 0.9333f), 14, FontStyle.Normal, TextAnchor.MiddleRight);
                 }
                 return selectedChestStyle;
             }

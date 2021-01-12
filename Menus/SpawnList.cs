@@ -8,51 +8,64 @@ using RoR2;
 
 namespace UmbraMenu.Menus
 {
-    public class SpawnList
+    public class SpawnList : Menu
     {
-        private static readonly ListMenu currentMenu = null; //(ListMenu)Utility.FindMenuById(15);
+        private static readonly IMenu spawnList = new ListMenu(15, new Rect(1503, 10, 20, 20), "S P A W N   C A R D S   M E N U");
 
-        public static void AddButtonsToMenu()
+        public SpawnList() : base(spawnList)
         {
-            List<IButton> buttons = new List<IButton>();
-
-            for (int i = 0; i < UmbraMenu.spawnCards.Count; i++)
+            if (UmbraMenu.characterCollected)
             {
-                var spawnCard = UmbraMenu.spawnCards[i];
-                string cardName = spawnCard.ToString();
-                string category = "";
-                string buttonText = "";
-                if (cardName.Contains("MultiCharacterSpawnCard"))
-                {
-                    cardName = cardName.Replace(" (RoR2.MultiCharacterSpawnCard)", "");
-                    category = "CharacterSpawnCard";
-                    buttonText = cardName.Replace("csc", "");
-                }
-                else if (cardName.Contains("CharacterSpawnCard"))
-                {
-                    cardName = cardName.Replace(" (RoR2.CharacterSpawnCard)", "");
-                    category = "CharacterSpawnCard";
-                    buttonText = cardName.Replace("csc", "");
-                }
-                else if (cardName.Contains("InteractableSpawnCard"))
-                {
-                    cardName = cardName.Replace(" (RoR2.InteractableSpawnCard)", "");
-                    category = "InteractableSpawnCard";
-                    buttonText = cardName.Replace("isc", "");
-                }
-                else if (cardName.Contains("BodySpawnCard"))
-                {
-                    cardName = cardName.Replace(" (RoR2.BodySpawnCard)", "");
-                    category = "BodySpawnCard";
-                    buttonText = cardName.Replace("bsc", "");
-                }
-                string path = $"SpawnCards/{category}/{cardName}";
+                EnableSpawnList();
 
-                void ButtonAction() => SpawnSpawnCard(spawnCard);
-                //Button button = new Button(currentMenu, i + 1, buttonText, ButtonAction);
-                //buttons.Add(button);
+                List<Button> buttons = new List<Button>();
+                for (int i = 0; i < UmbraMenu.spawnCards.Count; i++)
+                {
+                    var spawnCard = UmbraMenu.spawnCards[i];
+                    string cardName = spawnCard.ToString();
+                    string category = "";
+                    string buttonText = "";
+                    if (cardName.Contains("MultiCharacterSpawnCard"))
+                    {
+                        cardName = cardName.Replace(" (RoR2.MultiCharacterSpawnCard)", "");
+                        category = "CharacterSpawnCard";
+                        buttonText = cardName.Replace("csc", "");
+                    }
+                    else if (cardName.Contains("CharacterSpawnCard"))
+                    {
+                        cardName = cardName.Replace(" (RoR2.CharacterSpawnCard)", "");
+                        category = "CharacterSpawnCard";
+                        buttonText = cardName.Replace("csc", "");
+                    }
+                    else if (cardName.Contains("InteractableSpawnCard"))
+                    {
+                        cardName = cardName.Replace(" (RoR2.InteractableSpawnCard)", "");
+                        category = "InteractableSpawnCard";
+                        buttonText = cardName.Replace("isc", "");
+                    }
+                    else if (cardName.Contains("BodySpawnCard"))
+                    {
+                        cardName = cardName.Replace(" (RoR2.BodySpawnCard)", "");
+                        category = "BodySpawnCard";
+                        buttonText = cardName.Replace("bsc", "");
+                    }
+                    string path = $"SpawnCards/{category}/{cardName}";
+
+                    void ButtonAction() => SpawnSpawnCard(spawnCard);
+                    Button button = new Button(new NormalButton(this, i + 1, buttonText, ButtonAction));
+                    buttons.Add(button);
+                }
+                AddButtons(buttons);
             }
-            //currentMenu.buttons = buttons;
+        }
+
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
         }
 
         private static void SpawnSpawnCard(SpawnCard spawnCard)
@@ -104,7 +117,6 @@ namespace UmbraMenu.Menus
                 }
                 string path = $"SpawnCards/{category}/{cardName}";
 
-                // Add chat message
                 if (cardName.Contains("isc"))
                 {
                     var interactable = Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorSpawnRequest).spawnedInstance.gameObject;
@@ -120,7 +132,6 @@ namespace UmbraMenu.Menus
         }
 
         public static bool onSpawnListEnable = true;
-
         public static void EnableSpawnList()
         {
             if (onSpawnListEnable)

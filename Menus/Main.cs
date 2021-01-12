@@ -37,7 +37,7 @@ namespace UmbraMenu.Menus
                 Button toggleSpawn = new Button(new TogglableButton(this, 4, "S P A W N : O F F", "S P A W N : O N", SpawnButtonAction, SpawnButtonAction));
                 Button toggleTeleporter = new Button(new TogglableButton(this, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", TeleporterButtonAction, TeleporterButtonAction));
                 Button toggleRender = new Button(new TogglableButton(this, 6, "R E N D E R : O F F", "R E N D E R: O N", RenderButtonAction, RenderButtonAction));
-                Button toggleSettings = new Button(new TogglableButton(this, 7, "S E T T I N G S : O F F", "L O B B Y : O N", null, null));
+                Button toggleSettings = new Button(new TogglableButton(this, 7, "S E T T I N G S : O F F", "S E T T I N G S : O N", SettingsButtonAction, SettingsButtonAction));
                 Button unloadMenu = new Button(new TogglableButton(this, 8, "U N L O A D   M E N U", "C O N F I R M ?", DoNothing, UnloadMenu));
 
                 AddButtons(new List<Button>

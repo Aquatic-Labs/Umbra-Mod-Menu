@@ -8,40 +8,39 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class ChestItemList
+    public class ChestItemList : Menu
     {
-        private static readonly ListMenu currentMenu = null;//(ListMenu)Utility.FindMenuById(14);
+        private static readonly IMenu chestItemsList = new ListMenu(14, new Rect(1503, 10, 20, 20), "C H E S T   I T E M S   M E N U");
 
-        public static void AddButtonsToMenu()
-        {
-            List<Button> buttons = new List<Button>();
-
-            if (IsClosestChestEquip())
+        public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
+        public static List<ChestBehavior> chests = new List<ChestBehavior>();
+        public static bool onChestsEnable = true;
+        private static bool isClosestChestEquip = false;
+        public static bool IsClosestChestEquip 
+        { 
+            get
+            { 
+                return isClosestChestEquip;
+            } 
+            
+            set 
             {
-                for (int i = 0; i < UmbraMenu.equipment.Count; i++)
+                bool temp = isClosestChestEquip;
+                isClosestChestEquip = value;
+                if (temp != isClosestChestEquip)
                 {
-                    var equipmentIndex = UmbraMenu.equipment[i];
-                    if (equipmentIndex != EquipmentIndex.None)
-                    {
-                        void ButtonAction() => SetChestEquipment(equipmentIndex);
-                        if (equipmentIndex != EquipmentIndex.AffixYellow)
-                        {
-                            Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
-                            string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                            //Button button = new Button(currentMenu, i + 1, equipmentName, ButtonAction);
-                            //buttons.Add(button);
-                        }
-                        else
-                        {
-                            string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
-                            //Button button = new Button(currentMenu, i + 1, equipmentName, ButtonAction);
-                            //buttons.Add(button);
-                        }
-                    }
+                    UpdateChestListMenu();
                 }
-            }
-            else
+            } 
+        }
+
+        public ChestItemList() : base(chestItemsList)
+        {
+            if (UmbraMenu.characterCollected)
             {
+                EnableChests();
+
+                List<Button> buttons = new List<Button>();
                 for (int i = 0; i < UmbraMenu.items.Count; i++)
                 {
                     var itemIndex = UmbraMenu.items[i];
@@ -50,23 +49,28 @@ namespace UmbraMenu.Menus
                     if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
                     {
                         string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(0, 0, 0, 255));
-                        //Button button = new Button(currentMenu, i + 1, itemName, ButtonAction);
-                        //buttons.Add(button);
+                        Button button = new Button(new NormalButton(this, i + 1, itemName, ButtonAction));
+                        buttons.Add(button);
                     }
                     else
                     {
                         string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
-                        //Button button = new Button(currentMenu, i + 1, itemName, ButtonAction);
-                        //buttons.Add(button);
+                        Button button = new Button(new NormalButton(this, i + 1, itemName, ButtonAction));
+                        buttons.Add(button);
                     }
                 }
+                AddButtons(buttons);
             }
-            currentMenu.Buttons = buttons;
         }
 
-        public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
-        public static List<ChestBehavior> chests = new List<ChestBehavior>();
-        public static bool onChestsEnable = true;
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
 
         public static void EnableChests()
         {
@@ -120,14 +124,11 @@ namespace UmbraMenu.Menus
             Dictionary<float, ChestBehavior> chestsWithDistance = new Dictionary<float, ChestBehavior>();
             foreach (var chest in chests)
             {
-                if (chest)
+                string dropName = Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken());
+                if (dropName != null && dropName != "???")
                 {
-                    string dropName = Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken());
-                    if (dropName != null && dropName != "???")
-                    {
-                        float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
-                        chestsWithDistance.Add(distanceToChest, chest);
-                    }
+                    float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
+                    chestsWithDistance.Add(distanceToChest, chest);
                 }
             }
             var keys = chestsWithDistance.Keys.ToList();
@@ -165,7 +166,7 @@ namespace UmbraMenu.Menus
                 {
                     GUI.Label(new Rect(chestBoundingVector.x - 50f, (float)Screen.height - chestBoundingVector.y + 35f, 100f, 50f), $"Selected Chest\n{dropNameColored}", Styles.SelectedChestStyle);
                 }
-                ESPHelper.DrawBox(chestBoundingVector.x - width / 2, (float)Screen.height - chestBoundingVector.y - height / 2, width, height, new Color32(0, 0, 255, 255));
+                ESPHelper.DrawBox(chestBoundingVector.x - width / 2, (float)Screen.height - chestBoundingVector.y - height / 2, width, height, new Color32(17, 204, 238, 255));
             }
         }
 
@@ -181,7 +182,7 @@ namespace UmbraMenu.Menus
             chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(euipmentIndex));
         }
 
-        public static bool IsClosestChestEquip()
+        public static bool CheckClosestChestEquip()
         {
             var chest = FindClosestChest();
             var equipmentDrop = chest.GetField<PickupIndex>("dropPickup").equipmentIndex;
@@ -190,6 +191,57 @@ namespace UmbraMenu.Menus
                 return true;
             }
             return false;
+        }
+
+        public static void UpdateChestListMenu()
+        {
+            List<Button> buttons = new List<Button>();
+            if (isClosestChestEquip)
+            {
+                for (int i = 0; i < UmbraMenu.equipment.Count; i++)
+                {
+                    var equipmentIndex = UmbraMenu.equipment[i];
+                    if (equipmentIndex != EquipmentIndex.None)
+                    {
+                        void ButtonAction() => SetChestEquipment(equipmentIndex);
+                        if (equipmentIndex != EquipmentIndex.AffixYellow)
+                        {
+                            Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                            string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                            Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, equipmentName, ButtonAction));
+                            buttons.Add(button);
+                        }
+                        else
+                        {
+                            string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
+                            Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, equipmentName, ButtonAction));
+                            buttons.Add(button);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < UmbraMenu.items.Count; i++)
+                {
+                    var itemIndex = UmbraMenu.items[i];
+                    void ButtonAction() => SetChestItem(itemIndex);
+                    Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                    if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
+                    {
+                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(0, 0, 0, 255));
+                        Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, itemName, ButtonAction));
+                        buttons.Add(button);
+                    }
+                    else
+                    {
+                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
+                        Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, itemName, ButtonAction));
+                        buttons.Add(button);
+                    }
+                }
+            }
+            UmbraMenu.chestItemListMenu.AddButtons(buttons);
         }
     }
 }

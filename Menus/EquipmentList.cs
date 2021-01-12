@@ -8,40 +8,51 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class EquipmentList
+    public class EquipmentList : Menu
     {
-        private static readonly ListMenu currentMenu = null; // (ListMenu)Utility.FindMenuById(13);
-
-        public static void AddButtonsToMenu()
+        private static readonly IMenu equipmentList = new ListMenu(13, new Rect(1503, 10, 20, 20), "E Q U I P M E N T   M E N U");
+        
+        public EquipmentList() : base(equipmentList)
         {
-            List<Button> buttons = new List<Button>();
-
-            int buttonPlacement = 1;
-            for (int i = 0; i < UmbraMenu.equipment.Count; i++)
+            if (UmbraMenu.characterCollected)
             {
-                var equipmentIndex = UmbraMenu.equipment[i];
-                if (equipmentIndex != EquipmentIndex.None && equipmentIndex != EquipmentIndex.AffixYellow)
+                int buttonPlacement = 1;
+                List<Button> buttons = new List<Button>();
+                for (int i = 0; i < UmbraMenu.equipment.Count; i++)
                 {
-                    void ButtonAction() => GiveEquipment(equipmentIndex);
-                    Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
-                    string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                    //Button button = new Button(currentMenu, buttonPlacement, equipmentName, ButtonAction);
-                    //buttons.Add(button);
-                    buttonPlacement++;
+                    var equipmentIndex = UmbraMenu.equipment[i];
+                    if (equipmentIndex != EquipmentIndex.None && equipmentIndex != EquipmentIndex.AffixYellow)
+                    {
+                        void ButtonAction() => GiveEquipment(equipmentIndex);
+                        Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                        Button button = new Button(new NormalButton(this, buttonPlacement, equipmentName, ButtonAction));
+                        buttons.Add(button);
+                        buttonPlacement++;
+                    }
+                    else
+                    {
+                        void ButtonAction() => GiveEquipment(equipmentIndex);
+                        string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
+                        Button button = new Button(new NormalButton(this, buttonPlacement, equipmentName, ButtonAction));
+                        buttons.Add(button);
+                        buttonPlacement++;
+                    }
                 }
-                else
-                {
-                    void ButtonAction() => GiveEquipment(equipmentIndex);
-                    string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
-                    //Button button = new Button(currentMenu, buttonPlacement, equipmentName, ButtonAction);
-                    //buttons.Add(button);
-                    buttonPlacement++;
-                }
+                AddButtons(buttons);
             }
-            currentMenu.Buttons = buttons;
         }
 
-        private static void GiveEquipment(EquipmentIndex equipIndex)
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        private void GiveEquipment(EquipmentIndex equipIndex)
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser.cachedMasterController && localUser.cachedMasterController.master)

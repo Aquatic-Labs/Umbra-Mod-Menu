@@ -1,7 +1,12 @@
 ﻿// TODO:
-//     Add Settings Menu
+//     Somehow link buttons/menus to their toggles so if the menu closes, the toggle is updated or if a toggle is enabled by default, so is the button
+//     Make it so only 1 drop item toggle can be enabled at a time
+//     Implement Settings Menu
+//     Add LowResolution support
 //     Add Navigation
-//     Possibly add OnEnable action for Menu/ListMenu type
+//     Move Interfaces to their own files
+//     remove unused code
+//     Implement enhancements and bug fixes from github issues.
 
 using System;
 using System.Collections.Generic;
@@ -64,6 +69,7 @@ namespace UmbraMenu
 
         #region Menus
         public static Menu mainMenu = new Menus.Main();
+
         public static Menu playerMenu = new Menus.Player();
         public static Menu movementMenu = new Menus.Movement();
         public static Menu itemsMenu = new Menus.Items();
@@ -75,6 +81,12 @@ namespace UmbraMenu
         public static Menu viewStatsMenu = new Menus.ViewStats();
         public static Menu characterListMenu = new Menus.CharacterList();
         public static Menu buffListMenu = new Menus.BuffList();
+
+        public static Menu itemListMenu = new Menus.ItemList();
+        public static Menu equipmentListMenu = new Menus.EquipmentList();
+        public static Menu chestItemListMenu = new Menus.ChestItemList();
+
+        public static Menu spawnListMenu = new Menus.SpawnList();
 
         public static List<Menu> menus = new List<Menu>()
         {
@@ -88,7 +100,11 @@ namespace UmbraMenu
             statsModMenu, //8
             viewStatsMenu, //9
             characterListMenu, //10
-            buffListMenu //11
+            buffListMenu, //11
+            itemListMenu, //12
+            equipmentListMenu, //13
+            chestItemListMenu, //14
+            spawnListMenu //15
         };
         #endregion
 
@@ -123,50 +139,14 @@ namespace UmbraMenu
                 viewStatsMenu.Draw(); //9
                 characterListMenu.Draw(); //10
                 buffListMenu.Draw(); //11
+
+                itemListMenu.Draw(); //12
+                equipmentListMenu.Draw(); //13
+                chestItemListMenu.Draw(); //14
+
+                spawnListMenu.Draw(); //15
                 /*
                 #region Main Menus
-
-                #region Main Menu
-                if (Loader.updateAvailable)
-                {
-                    main.Title = $"U M B R A \n<color=yellow>O U T D A T E D</color>";
-                }
-                else if (Loader.upToDate)
-                {
-                    main.Title = $"U M B R A \n<color=grey>v{VERSION}</color>";
-                }
-                else if (Loader.devBuild)
-                {
-                    main.Title = $"U M B R A \n<color=yellow>D E V</color>";
-                }
-                MenuButtons.Main.AddButtonsToMenu();
-                main.SetWindow();
-                BuildMenus.BuildMainMenu(main);
-                #endregion
-
-                #region Player Menu
-                BuildMenus.BuildMenu(player, MenuButtons.Main.togglePlayer, MenuButtons.Player.AddButtonsToMenu);
-                #endregion
-
-                #region Movement Menu
-                BuildMenus.BuildMenu(movement, MenuButtons.Main.toggleMovement, MenuButtons.Movement.AddButtonsToMenu);
-                #endregion
-
-                #region Item Menu
-                BuildMenus.BuildMenu(item, MenuButtons.Main.toggleItems, MenuButtons.Items.AddButtonsToMenu);
-                #endregion
-
-                #region Spawn Menu
-                BuildMenus.BuildMenu(spawn, MenuButtons.Main.toggleSpawn, MenuButtons.Spawn.AddButtonsToMenu);
-                #endregion
-
-                #region Teleporter Menu
-                BuildMenus.BuildMenu(teleporter, MenuButtons.Main.toggleTeleporter, MenuButtons.Teleporter.AddButtonsToMenu);
-                #endregion
-
-                #region Render Menu
-                BuildMenus.BuildMenu(render, MenuButtons.Main.toggleRender, MenuButtons.Render.AddButtonsToMenu);
-                #endregion
 
                 #region settings Menu
                 BuildMenus.BuildMenu(settings, MenuButtons.Main.toggleSettings, MenuButtons.Settings.AddButtonsToMenu);
@@ -175,34 +155,6 @@ namespace UmbraMenu
                 #endregion
 
                 #region Sub Menus
-
-                #region Stats Modification Menu
-                BuildMenus.BuildMenu(statsMod, MenuButtons.Player.toggleStatsMod, MenuButtons.StatsMod.AddButtonsToMenu);
-                #endregion
-
-                #region View Stats Menu
-                BuildMenus.BuildMenu(viewStats, MenuButtons.StatsMod.toggleViewStatsMenu, MenuButtons.ViewStats.AddTextToMenu);
-                #endregion
-
-                #region Character List Menu
-                BuildMenus.BuildMenu(characterList, MenuButtons.Player.toggleChangeCharacter, MenuButtons.CharacterList.AddButtonsToMenu);
-                #endregion
-
-                #region Buff List Menu
-                BuildMenus.BuildMenu(buffList, MenuButtons.Player.toggleBuff, MenuButtons.BuffList.AddButtonsToMenu);
-                #endregion
-
-                #region Item List Menu
-                BuildMenus.BuildMenu(itemList, MenuButtons.Items.toggleItemListMenu, MenuButtons.ItemList.AddButtonsToMenu);
-                #endregion
-
-                #region Equipment List Menu
-                BuildMenus.BuildMenu(equipmentList, MenuButtons.Items.toggleEquipmentListMenu, MenuButtons.EquipmentList.AddButtonsToMenu);
-                #endregion
-
-                #region Chest Items List Menu
-                BuildMenus.BuildMenu(chestItemList, MenuButtons.Items.toggleChestItemMenu, MenuButtons.ChestItemList.AddButtonsToMenu);
-                #endregion
 
                 #region Spawn List Menu
                 BuildMenus.BuildMenu(spawnList, MenuButtons.Spawn.toggleSpawnListMenu, MenuButtons.SpawnList.AddButtonsToMenu);
@@ -228,56 +180,7 @@ namespace UmbraMenu
 
                 #region Old Build Menus
 
-                /*#region Main Menu
-                main.Rect = new Rect(10, 10, 20, 20); // Start Position
-                main.Title = $"U M B R A \n<color=grey>v{VERSION}</color>";
-                main.Id = 0;
-                menus.Add(main);
-                #endregion
-
-                #region Player Menu
-                player.Rect = new Rect(374, 10, 20, 20); // Start Position
-                player.Title = "P L A Y E R   M E N U";
-                player.Id = 1;
-                menus.Add(player);
-                #endregion
-
-                #region Movement Menu
-                movement.Rect = new Rect(374, 560, 20, 20); // Start Position
-                movement.Title = "M O V E M E N T   M E N U";
-                movement.Id = 2;
-                menus.Add(movement);
-                #endregion
-
-                #region Items Menu
-                item.Rect = new Rect(738, 10, 20, 20); // Start Position
-                item.Title = "I T E M S   M E N U";
-                item.Id = 3;
-                menus.Add(item);
-                #endregion
-
-                #region Spawn Menu
-                spawn.Rect = new Rect(738, 515, 20, 20); // Start Position
-                spawn.Title = "S P A W N   M E N U";
-                spawn.Id = 4;
-                menus.Add(spawn);
-                #endregion
-
-                #region Teleporter Menu
-                teleporter.Rect = new Rect(10, 425, 20, 20); // Start Position
-                teleporter.Title = "T E L E P O R T E R   M E N U";
-                teleporter.Id = 5;
-                menus.Add(teleporter);
-                #endregion
-
-                #region Render Menu
-                render.Rect = new Rect(10, 795, 20, 20); // Start Position
-                render.Title = "R E N D E R   M E N U";
-                render.Id = 6;
-                menus.Add(render);
-                #endregion
-
-                #region Settings Menu
+                /*#region Settings Menu
                 settings.Rect = new Rect(374, 750, 20, 20); // Start Position
                 settings.Title = "S E T T I N G S   M E N U";
                 settings.Id = 7;
@@ -287,55 +190,6 @@ namespace UmbraMenu
                 #endregion
 
                 #region Sub Menus
-
-                #region Stats Modification Menu
-                statsMod.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                statsMod.Title = "S T A T S   M O D   M E N U";
-                statsMod.Id = 8;
-                menus.Add(statsMod);
-                #endregion
-
-                #region View Stats Menu
-                viewStats.Rect = new Rect(1626, 457, 20, 20); // Start Position
-                viewStats.Title = "V I E W   S T A T S   M E N U";
-                viewStats.Id = 9;
-                menus.Add(viewStats);
-                #endregion
-
-                #region Character List Menu
-                characterList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                characterList.Title = "C H A R A C T E R S   M E N U";
-                characterList.Id = 10;
-                menus.Add(characterList);
-                #endregion
-
-                #region Buff List Menu
-                buffList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                buffList.Title = "B U F F S   M E N U";
-                buffList.Id = 11;
-                menus.Add(buffList);
-                #endregion
-
-                #region Item List Menu
-                itemList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                itemList.Title = "I T E M S   M E N U";
-                itemList.Id = 12;
-                menus.Add(itemList);
-                #endregion
-
-                #region Equipment List Menu
-                equipmentList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                equipmentList.Title = "E Q U I P M E N T   M E N U";
-                equipmentList.Id = 13;
-                menus.Add(equipmentList);
-                #endregion
-
-                #region Chest Items List Menu
-                chestItemList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                chestItemList.Title = "C H E S T   I T E M S   M E N U";
-                chestItemList.Id = 14;
-                menus.Add(chestItemList);
-                #endregion
 
                 #region Spawn List Menu
                 spawnList.Rect = new Rect(1503, 10, 20, 20); // Start Position
@@ -416,6 +270,10 @@ namespace UmbraMenu
             if (Menus.Render.renderMobs)
             {
                 Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
+            }
+            if (Menus.Items.chestItemList)
+            {
+                Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
             }
         }
 
@@ -532,6 +390,12 @@ namespace UmbraMenu
                 viewStatsMenu = new Menus.ViewStats();
                 characterListMenu = new Menus.CharacterList();
                 buffListMenu = new Menus.BuffList();
+                
+                itemListMenu = new Menus.ItemList();
+                equipmentListMenu = new Menus.EquipmentList();
+                chestItemListMenu = new Menus.ChestItemList();
+
+                spawnListMenu = new Menus.SpawnList();
 
                 menus = new List<Menu>()
                 {
@@ -545,7 +409,11 @@ namespace UmbraMenu
                     statsModMenu, //8
                     viewStatsMenu, //9
                     characterListMenu, //10
-                    buffListMenu
+                    buffListMenu, //11
+                    itemListMenu, //12
+                    equipmentListMenu, //13
+                    chestItemListMenu, //14
+                    spawnListMenu //15
                 };
             }
         }
@@ -611,10 +479,10 @@ namespace UmbraMenu
                     Menus.Render.renderMods = false;
                 }
 
-                /*if (chestItemList.Enabled)
+                if (Menus.Items.chestItemList)
                 {
-                    MenuButtons.ChestItemList.RenderClosestChest();
-                }*/
+                    Menus.ChestItemList.RenderClosestChest();
+                }
             }
         }
 

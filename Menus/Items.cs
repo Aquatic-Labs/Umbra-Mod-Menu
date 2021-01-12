@@ -14,7 +14,7 @@ namespace UmbraMenu.Menus
     public class Items : Menu
     {
         private static readonly IMenu items = new NormalMenu(3, new Rect(738, 10, 20, 20), "I T E M S   M E N U");
-        public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD;
+        public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD, chestItemList;
 
         private readonly WeightedSelection<List<ItemIndex>> weightedSelection = BuildRollItemsDropTable();
         private int itemsToRoll = 5;
@@ -119,10 +119,12 @@ namespace UmbraMenu.Menus
             if (toggleChestItemMenu.IsEnabled())
             {
                 ChestItemList.DisableChests();
+                chestItemList = false;
             }
             else
             {
                 ChestItemList.EnableChests();
+                chestItemList = true;
             }
             Utility.FindMenuById(14).ToggleMenu();
         }
