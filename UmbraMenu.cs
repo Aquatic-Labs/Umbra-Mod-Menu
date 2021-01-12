@@ -17,8 +17,9 @@ namespace UmbraMenu
     public interface IButton
     {
         bool Enabled { get; set; }
-
         string Text { get; set; }
+        string OnText { get; set; }
+        string OffText { get; set; }
         void Draw(); 
     };
     public interface IMenu
@@ -27,7 +28,6 @@ namespace UmbraMenu
         int NumberOfButtons { get; set; }
         bool Enabled { get; set; }
         bool IfDragged { get; set; }
-
         float WidthSize { get; set; }
         List<Button> Buttons { get; set; }
         Rect Rect { get; set; }
@@ -71,15 +71,24 @@ namespace UmbraMenu
         public static Menu teleporterMenu = new Menus.Teleporter();
         public static Menu renderMenu = new Menus.Render();
 
+        public static Menu statsModMenu = new Menus.StatsMod();
+        public static Menu viewStatsMenu = new Menus.ViewStats();
+        public static Menu characterListMenu = new Menus.CharacterList();
+        public static Menu buffListMenu = new Menus.BuffList();
+
         public static List<Menu> menus = new List<Menu>()
         {
-            mainMenu,
-            playerMenu,
-            movementMenu,
-            itemsMenu,
-            spawnMenu,
-            teleporterMenu,
-            renderMenu
+            mainMenu, //0
+            playerMenu, //1
+            movementMenu, //2
+            itemsMenu, //3
+            spawnMenu, //4
+            teleporterMenu, //5
+            renderMenu, //6
+            statsModMenu, //8
+            viewStatsMenu, //9
+            characterListMenu, //10
+            buffListMenu //11
         };
         #endregion
 
@@ -102,13 +111,18 @@ namespace UmbraMenu
                 }
                 #endregion
 
-                mainMenu.Draw();
-                playerMenu.Draw();
-                movementMenu.Draw();
-                itemsMenu.Draw();
-                spawnMenu.Draw();
-                teleporterMenu.Draw();
-                renderMenu.Draw();
+                mainMenu.Draw(); //0
+                playerMenu.Draw(); //1
+                movementMenu.Draw(); //2
+                itemsMenu.Draw(); //3
+                spawnMenu.Draw(); //4
+                teleporterMenu.Draw(); //5
+                renderMenu.Draw(); //6
+
+                statsModMenu.Draw(); //8
+                viewStatsMenu.Draw(); //9
+                characterListMenu.Draw(); //10
+                buffListMenu.Draw(); //11
                 /*
                 #region Main Menus
 
@@ -388,7 +402,7 @@ namespace UmbraMenu
 
                 // UpdateNavIndexRoutine();
                 // UpdateMenuPositions();
-                // MenuButtons.ViewStats.UpdateViewStats();
+                Menus.ViewStats.UpdateViewStats();
             }
             catch (Exception e)
             {
@@ -514,15 +528,24 @@ namespace UmbraMenu
                 teleporterMenu = new Menus.Teleporter();
                 renderMenu = new Menus.Render();
 
+                statsModMenu = new Menus.StatsMod();
+                viewStatsMenu = new Menus.ViewStats();
+                characterListMenu = new Menus.CharacterList();
+                buffListMenu = new Menus.BuffList();
+
                 menus = new List<Menu>()
                 {
-                    mainMenu,
-                    playerMenu,
-                    movementMenu,
-                    itemsMenu,
-                    spawnMenu,
-                    teleporterMenu,
-                    renderMenu
+                    mainMenu, //0
+                    playerMenu, //1
+                    movementMenu, //2
+                    itemsMenu, //3
+                    spawnMenu, //4
+                    teleporterMenu, //5
+                    renderMenu, //6
+                    statsModMenu, //8
+                    viewStatsMenu, //9
+                    characterListMenu, //10
+                    buffListMenu
                 };
             }
         }
@@ -663,23 +686,23 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (Menus.StatsMod.changeDmgPerLevel.Enabled)
+                if (Menus.StatsMod.damageToggle)
                 {
                     Menus.StatsMod.LevelPlayersDamage();
                 }
-                if (Menus.StatsMod.changeCritPerLevel.Enabled)
+                if (Menus.StatsMod.critToggle)
                 {
                     Menus.StatsMod.LevelPlayersCrit();
                 }
-                if (Menus.StatsMod.changeAttackSpeed.Enabled)
+                if (Menus.StatsMod.attackSpeedToggle)
                 {
                     Menus.StatsMod.SetplayersAttackSpeed();
                 }
-                if (Menus.StatsMod.changeArmor.Enabled)
+                if (Menus.StatsMod.armorToggle)
                 {
                     Menus.StatsMod.SetplayersArmor();
                 }
-                if (Menus.StatsMod.changeMoveSpeed.Enabled)
+                if (Menus.StatsMod.moveSpeedToggle)
                 {
                     Menus.StatsMod.SetplayersMoveSpeed();
                 }

@@ -26,6 +26,26 @@ namespace UmbraMenu
             _button.Text = newText;
         }
 
+        public void SetOnText(string newText)
+        {
+            _button.OnText = newText;
+        }
+
+        public void SetOffText(string newText)
+        {
+            _button.OffText = newText;
+        }
+
+        public string GetOnText()
+        {
+            return _button.OnText;
+        }
+
+        public string GetOffText()
+        {
+            return _button.OffText;
+        }
+
         public bool IsEnabled()
         {
             return _button.Enabled;

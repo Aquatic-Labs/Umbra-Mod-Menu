@@ -283,16 +283,16 @@ namespace UmbraMenu
             //MenuButtons.Player.MoneyToGive = 50;
             //MenuButtons.Player.CoinsToGive = 50;
 
-            Menus.StatsMod.DamagePerLevel = 10;
-            Menus.StatsMod.CritPerLevel = 1;
-            Menus.StatsMod.AttackSpeed = 1;
-            Menus.StatsMod.Armor = 0;
-            Menus.StatsMod.MoveSpeed = 7;
-            Menus.StatsMod.changeDmgPerLevel.Enabled = false;
-            Menus.StatsMod.changeCritPerLevel.Enabled = false;
-            Menus.StatsMod.changeAttackSpeed.Enabled = false;
-            Menus.StatsMod.changeArmor.Enabled = false;
-            Menus.StatsMod.changeMoveSpeed.Enabled = false;
+            //Menus.StatsMod.DamagePerLevel = 10;
+            //Menus.StatsMod.CritPerLevel = 1;
+            //Menus.StatsMod.AttackSpeed = 1;
+            //Menus.StatsMod.Armor = 0;
+            //Menus.StatsMod.MoveSpeed = 7;
+            //Menus.StatsMod.changeDmgPerLevel.Enabled = false;
+            //Menus.StatsMod.changeCritPerLevel.Enabled = false;
+            //Menus.StatsMod.changeAttackSpeed.Enabled = false;
+            //Menus.StatsMod.changeArmor.Enabled = false;
+            //Menus.StatsMod.changeMoveSpeed.Enabled = false;
 
             //Menus.Movement.toggleFlight.Enabled = false;
             //Movement.toggleAlwaysSprint.Enabled = false;

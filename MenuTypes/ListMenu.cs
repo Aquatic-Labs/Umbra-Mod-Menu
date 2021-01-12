@@ -42,7 +42,7 @@ namespace UmbraMenu
         {
             if (Enabled)
             {
-                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, WidthSize + 10, 50f + 45 * heightMulY), "", Styles.MainBgStyle);
+                GUI.Box(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * heightMulY), "", Styles.MainBgStyle);
                 GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, WidthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
             }
@@ -50,7 +50,7 @@ namespace UmbraMenu
 
         private void DrawAllButtons()
         {
-            currentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x + 0f, Rect.y + 0f, WidthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(Rect.x + 0f, Rect.y + 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), false, true);
+            currentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), false, true);
             for (int i = 0; i < Buttons.Count; i++)
             {
                 Buttons[i].Draw();

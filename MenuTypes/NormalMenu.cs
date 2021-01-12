@@ -41,7 +41,7 @@ namespace UmbraMenu
         {
             if (Enabled)
             {
-                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
+                GUI.Box(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
                 GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, WidthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
             }

@@ -12,12 +12,14 @@ namespace UmbraMenu
         public Menu parentMenu;
         public int position { get; set; }
         public Rect rect;
-        public string offText, onText;
         public string Text { get; set; }
         public GUIStyle style = Styles.OffStyle;
         public Action Action { get; set; }
         public Action OffAction, OnAction;
         private bool enabled = false;
+        public string OnText { get; set; }
+        public string OffText { get; set; }
+
 
         public bool Enabled
         {
@@ -30,13 +32,13 @@ namespace UmbraMenu
                 enabled = value;
                 if (enabled)
                 {
-                    Text = onText;
+                    Text = OnText;
                     Action = OnAction;
                     style = Styles.OnStyle;
                 }
                 else
                 {
-                    Text = offText;
+                    Text = OffText;
                     Action = OffAction;
                     style = Styles.OffStyle;
                 }
@@ -49,8 +51,8 @@ namespace UmbraMenu
             this.parentMenu = parentMenu;
             this.position = position;
             Text = offText;
-            this.offText = offText;
-            this.onText = onText;
+            this.OffText = offText;
+            this.OnText = onText;
             Action = OffAction;
             this.OffAction = OffAction;
             this.OnAction = OnAction;

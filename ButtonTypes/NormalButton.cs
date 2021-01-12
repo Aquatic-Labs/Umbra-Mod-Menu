@@ -18,6 +18,9 @@ namespace UmbraMenu
         public GUIStyle style = Styles.BtnStyle;
         public Action Action { get; set; }
 
+        public string OnText { get; set; }
+        public string OffText { get; set; }
+
         public NormalButton(Menu parentMenu, int position, string text, Action Action) 
         {
             this.parentMenu = parentMenu;

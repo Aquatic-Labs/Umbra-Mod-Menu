@@ -19,7 +19,10 @@ namespace UmbraMenu
         public Action IncreaseAction { get; set; }
         public Action DecreaseAction{ get; set; }
 
-    public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
+        public string OnText { get; set; }
+        public string OffText { get; set; }
+
+        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
             this.position = position;

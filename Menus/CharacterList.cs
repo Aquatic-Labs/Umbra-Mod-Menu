@@ -8,24 +8,36 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class CharacterList
+    public class CharacterList : Menu
     {
-        private static readonly Menu currentMenu = new Menu(null);
+        private static readonly IMenu characterList = new ListMenu(10, new Rect(1503, 10, 20, 20), "C H A R A C T E R S   M E N U");
 
-        public static void AddButtonsToMenu()
+        public CharacterList() : base(characterList)
         {
-            List<Button> buttons = new List<Button>();
-            for (int i = 0; i < UmbraMenu.bodyPrefabs.Count; i++)
+            if (UmbraMenu.characterCollected)
             {
-                int prefabIndex = i;
-                void ButtonAction() => ChangeCharacter(prefabIndex);
-                Button button = new Button(new NormalButton(currentMenu, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction));
-                buttons.Add(button);
+                List<Button> buttons = new List<Button>();
+                for (int i = 0; i < UmbraMenu.bodyPrefabs.Count; i++)
+                {
+                    int prefabIndex = i;
+                    void ButtonAction() => ChangeCharacter(prefabIndex);
+                    Button button = new Button(new NormalButton(this, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction));
+                    buttons.Add(button);
+                }
+                AddButtons(buttons);
             }
-            //currentMenu.Buttons = buttons;
         }
 
-        private static void ChangeCharacter(int prefabIndex)
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        private void ChangeCharacter(int prefabIndex)
         {
             GameObject newBody = BodyCatalog.FindBodyPrefab(UmbraMenu.bodyPrefabs[prefabIndex].name);
             if (newBody == null) return;

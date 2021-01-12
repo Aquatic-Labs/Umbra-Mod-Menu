@@ -6,26 +6,38 @@ using System.Threading.Tasks;
 using RoR2;
 using UnityEngine;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
-    public class BuffList
+    public class BuffList : Menu
     {
-        private static readonly Menu currentMenu = null; // Utility.FindMenuById(11);
+        private static readonly IMenu buffList = new ListMenu(11, new Rect(1503, 10, 20, 20), "B U F F S   M E N U");
 
-        public static void AddButtonsToMenu()
+        public BuffList() : base(buffList)
         {
-            List<Button> buttons = new List<Button>();
-            for (int i = 0; i < Enum.GetNames(typeof(BuffIndex)).ToList().Count; i++)
+            if (UmbraMenu.characterCollected)
             {
-                int buffIndexInt = i;
-                void ButtonAction() => ApplyBuff(buffIndexInt);
-                //Button button = new Button(currentMenu, i + 1, Enum.GetNames(typeof(BuffIndex)).ToList()[i], ButtonAction);
-                //buttons.Add(button);
+                List<Button> buttons = new List<Button>();
+                for (int i = 0; i < Enum.GetNames(typeof(BuffIndex)).ToList().Count; i++)
+                {
+                    int buffIndexInt = i;
+                    void ButtonAction() => ApplyBuff(buffIndexInt);
+                    Button button = new Button(new NormalButton(this, i + 1, Enum.GetNames(typeof(BuffIndex)).ToList()[i], ButtonAction));
+                    buttons.Add(button);
+                }
+                AddButtons(buttons);
             }
-            //currentMenu.buttons = buttons;
         }
 
-        private static void ApplyBuff(int buffIndexInt)
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        private void ApplyBuff(int buffIndexInt)
         {
             BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), Enum.GetNames(typeof(BuffIndex))[buffIndexInt]);
             var localUser = LocalUserManager.GetFirstLocalUser();

@@ -17,6 +17,9 @@ namespace UmbraMenu
         public bool Enabled { get; set; }
         public GUIStyle style = Styles.LabelStyle;
 
+        public string OnText { get; set; }
+        public string OffText { get; set; }
+
         public TextButton(Menu parentMenu, int position, string text)
         {
             this.parentMenu = parentMenu;
