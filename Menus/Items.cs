@@ -79,7 +79,7 @@ namespace UmbraMenu.MenuButtons
 
         private static void ToggleMenu(Menu menu)
         {
-            menu.Enabled = !menu.Enabled;
+            menu.ToggleMenu();
         }
 
         #region Toggle cheat functions

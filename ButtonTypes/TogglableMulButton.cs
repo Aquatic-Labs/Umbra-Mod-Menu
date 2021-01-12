@@ -59,9 +59,9 @@ namespace UmbraMenu
 
         public void Draw()
         {
-            parentMenu.NumberOfButtons = position;
-            int btnY = 5 + 45 * parentMenu.NumberOfButtons;
-            rect = new Rect(parentMenu.Rect.x + 5, parentMenu.Rect.y + btnY, parentMenu.WidthSize - 90, 40);
+            parentMenu.SetNumberOfButtons(position);
+            int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
+            rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize() - 90, 40);
 
             if (GUI.Button(rect, Text, style))
             {
@@ -74,14 +74,14 @@ namespace UmbraMenu
 
         private void DrawMulButtons()
         {
-            Rect menuBg = parentMenu.Rect;
+            Rect menuBg = parentMenu.GetRect();
             int btnY = 5 + 45 * position;
-            if (GUI.Button(new Rect(menuBg.x + parentMenu.WidthSize - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
+            if (GUI.Button(new Rect(menuBg.x + parentMenu.GetWidthSize() - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
             {
                 DecreaseAction?.Invoke();
                 Draw();
             }
-            if (GUI.Button(new Rect(menuBg.x + parentMenu.WidthSize - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
+            if (GUI.Button(new Rect(menuBg.x + parentMenu.GetWidthSize() - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
             {
                 IncreaseAction?.Invoke();
                 Draw();

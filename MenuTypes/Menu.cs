@@ -13,15 +13,6 @@ namespace UmbraMenu
     public class Menu
     {
         public IMenu _menu;
-        public float Delay = 0, WidthSize = 350;
-        public int Id { get; set; }
-        public int NumberOfButtons { get; set; }
-        public Rect Rect { get; set; }
-        public string Title { get; set; }
-        public bool Enabled { get; set; }
-        public bool IfDragged { get; set; }
-        public Button ActivatingButton { get; set; }
-        public List<Button> Buttons { get; set; }
 
         public Menu(IMenu menu)
         {
@@ -30,53 +21,82 @@ namespace UmbraMenu
 
         public void SetWindow()
         {
-            Rect = GUI.Window(Id, Rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
+            _menu.SetWindow();
         }
 
         public virtual void Draw()
         {
-            if (Enabled)
-            {
-                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
-                GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, WidthSize + 5, 85f), Title, Styles.TitleStyle);
-                DrawAllButtons();
-            }
+            _menu.Draw();
         }
 
-        private void DrawAllButtons()
+        public void AddButtons(List<Button> buttonList)
         {
-            for (int i = 0; i < Buttons.Count; i++)
-            {
-                Buttons[i].Draw();
-            }
+            _menu.Buttons = buttonList;
+            _menu.NumberOfButtons = buttonList.Count;
         }
 
-        private void SetBackground(int windowID)
+        public int GetId()
         {
-            GUI.Box(new Rect(0f, 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
-            if (Event.current.type == EventType.MouseDrag)
-            {
-                Delay += Time.deltaTime;
-                if (Delay > 0.3f)
-                {
-                    IfDragged = true;
-                }
-            }
-            else if (Event.current.type == EventType.MouseUp)
-            {
-                Delay = 0;
-                if (!IfDragged)
-                {
-                    Enabled = !Enabled;
-                    if (ActivatingButton != null)
-                    {
-                        ActivatingButton.Enabled = !ActivatingButton.Enabled;
-                    }
-                    UmbraMenu.GetCharacter();
-                }
-                IfDragged = false;
-            }
-            GUI.DragWindow();
+            return _menu.Id;
+        }
+        public bool IsEnabled()
+        {
+            return _menu.Enabled;
+        }
+        
+        public Rect GetRect()
+        {
+            return _menu.Rect;
+        }
+        
+        public string GetTitle()
+        {
+            return _menu.Title;
+        }
+
+        public void SetTitle(string newTitle)
+        {
+            _menu.Title = newTitle;
+        }
+
+        public List<Button> GetButtons()
+        {
+            return _menu.Buttons;
+        }
+
+        public void ToggleMenu()
+        {
+            _menu.Enabled = !_menu.Enabled;
+        }
+
+        public void SetEnabled(bool value)
+        {
+            _menu.Enabled = value;
+        }
+
+        public void SetIfDragged(bool value)
+        {
+            _menu.IfDragged = value;
+        }
+
+        public void SetRect(Rect rect)
+        {
+            _menu.Rect = rect;
+        }
+
+        public int GetNumberOfButtons()
+        {
+            return _menu.NumberOfButtons;
+        }
+
+        public void SetNumberOfButtons(int value)
+        {
+            _menu.NumberOfButtons = value;
+        }
+
+        public float GetWidthSize()
+        {
+            return _menu.WidthSize;
         }
     }
 }

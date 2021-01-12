@@ -4,31 +4,59 @@ using UnityEngine;
 using RoR2;
 
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
-    public class Movement
+    public sealed class Movement : Menu
     {
-        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(2);
+        private static readonly IMenu movement = new NormalMenu(2, new Rect(374, 560, 20, 20), "M O V E M E N T   M E N U");
 
         public static bool jumpPackToggle, flightToggle, alwaysSprintToggle;
+        public static int jumpPackMul = 1;
 
-        public static TogglableButton toggleAlwaysSprint = new TogglableButton(currentMenu, 1, "A L W A Y S   S P R I N T : O F F", "A L W A Y S   S P R I N T : O N", ToggleSprint, ToggleSprint);
-        public static TogglableButton toggleFlight = new TogglableButton(currentMenu, 2, "F L I G H T : O F F", "F L I G H T : O N", ToggleFlight, ToggleFlight);
-        public static TogglableButton toggleJumpPack = new TogglableButton(currentMenu, 3, "J U M P - P A C K : O F F", "J U M P - P A C K : O N", ToggleJump, ToggleJump);
+        public Button toggleAlwaysSprint;
+        public Button toggleFlight;
+        public Button toggleJumpPack;
 
-        private static List<IButton> buttons = new List<IButton>()
+        public Movement() : base(movement)
         {
-            toggleAlwaysSprint,
-            toggleFlight,
-            toggleJumpPack
-        };
+            if (UmbraMenu.characterCollected)
+            {
+                toggleAlwaysSprint = new Button(new TogglableButton(this, 1, "A L W A Y S   S P R I N T : O F F", "A L W A Y S   S P R I N T : O N", ToggleSprint, ToggleSprint));
+                toggleFlight = new Button(new TogglableButton(this, 2, "F L I G H T : O F F", "F L I G H T : O N", ToggleFlight, ToggleFlight));
+                toggleJumpPack = new Button(new TogglableButton(this, 3, "J U M P - P A C K : O F F", "J U M P - P A C K : O N", ToggleJump, ToggleJump));
 
-        public static void AddButtonsToMenu()
-        {
-            //currentMenu.Buttons = buttons;
+                AddButtons(new List<Button>()
+                {
+                    toggleAlwaysSprint,
+                    toggleFlight,
+                    toggleJumpPack
+                });
+            }
         }
 
-        public static int jumpPackMul = 1;
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        private static void ToggleFlight()
+        {
+            flightToggle = !flightToggle;
+        }
+
+        private static void ToggleSprint()
+        {
+            alwaysSprintToggle = !alwaysSprintToggle;
+        }
+
+        private static void ToggleJump()
+        {
+            jumpPackToggle = !jumpPackToggle;
+        }
 
         public static void AlwaysSprint()
         {
@@ -154,21 +182,6 @@ namespace UmbraMenu.MenuButtons
             {
                 Debug.Log("Jump - Pack is throwing a NullReferenceException");
             }
-        }
-
-        private static void ToggleFlight()
-        {
-            flightToggle = !flightToggle;
-        }
-
-        private static void ToggleSprint()
-        {
-            alwaysSprintToggle = !alwaysSprintToggle;
-        }
-
-        private static void ToggleJump()
-        {
-            jumpPackToggle = !jumpPackToggle;
         }
     }
 }

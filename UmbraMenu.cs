@@ -26,6 +26,9 @@ namespace UmbraMenu
         int Id { get; set; }
         int NumberOfButtons { get; set; }
         bool Enabled { get; set; }
+        bool IfDragged { get; set; }
+
+        float WidthSize { get; set; }
         List<Button> Buttons { get; set; }
         Rect Rect { get; set; }
         string Title { get; set; }
@@ -58,14 +61,17 @@ namespace UmbraMenu
         public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
 
         public static Scene currentScene;
+
         #region Menus
         public static Menu main = new Menus.Main();
         public static Menu player = new Menus.Player();
+        public static Menu movement = new Menus.Movement();
 
         public static List<Menu> menus = new List<Menu>()
         {
             main,
-            player
+            player,
+            movement
         };
         #endregion
 
@@ -90,6 +96,7 @@ namespace UmbraMenu
 
                 main.Draw();
                 player.Draw();
+                movement.Draw();
                 /*
                 #region Main Menus
 
@@ -321,7 +328,7 @@ namespace UmbraMenu
                 {
                     lowResolutionMonitor = true;
 
-                    main.Rect = new Rect(10, 10, 20, 20); // Start Position
+                    main.SetRect(new Rect(10, 10, 20, 20)); // Start Position
                     /*
                     player.Rect = new Rect(374, 10, 20, 20); // Start Position
                     movement.Rect = new Rect(374, 10, 20, 20); // Start Position
@@ -390,7 +397,7 @@ namespace UmbraMenu
         {
             if (Input.GetKeyDown(KeyCode.Insert))
             {
-                main.Enabled = !main.Enabled;
+                main.ToggleMenu();
                 GetCharacter();
             }
         }
@@ -467,7 +474,7 @@ namespace UmbraMenu
             var menusOpen = Utility.GetMenusOpen();
             if (menusOpen.Count > 1)
             {
-                menusOpen[0].Enabled = false;
+                menusOpen[0].SetEnabled(false);
             }
         }
 
@@ -489,11 +496,13 @@ namespace UmbraMenu
             {
                 main = new Menus.Main();
                 player = new Menus.Player();
+                movement = new Menus.Movement();
 
                 menus = new List<Menu>()
                 {
                     main,
-                    player
+                    player,
+                    movement
                 };
             }
         }
@@ -515,9 +524,9 @@ namespace UmbraMenu
                 {
                     if (devDoOnce)
                     {
-                        //MenuButtons.Player.toggleGod.Enabled = true;
-                        MenuButtons.Movement.toggleFlight.Enabled = true;
-                        MenuButtons.Movement.toggleAlwaysSprint.Enabled = true;
+                        Menus.Player.GodToggle = true;
+                        Menus.Movement.flightToggle = true;
+                        Menus.Movement.alwaysSprintToggle = true;
                         LocalPlayer.GiveMoney(10000);
                         devDoOnce = false;
                     }
@@ -608,27 +617,25 @@ namespace UmbraMenu
 
         private void SprintRoutine()
         {
-            if (MenuButtons.Movement.toggleAlwaysSprint.Enabled)
+            if (Menus.Movement.alwaysSprintToggle)
             {
-                MenuButtons.Movement.AlwaysSprint();
-                MenuButtons.Movement.alwaysSprintToggle = true;
-            }
-            else
-            {
-                MenuButtons.Movement.alwaysSprintToggle = false;
+                Menus.Movement.AlwaysSprint();
             }
         }
 
         private void FlightRoutine()
         {
-            if (MenuButtons.Movement.toggleFlight.Enabled)
+            if (Menus.Movement.flightToggle)
             {
-                MenuButtons.Movement.Flight();
-                MenuButtons.Movement.flightToggle = true;
+                Menus.Movement.Flight();
             }
-            else
+        }
+
+        private void JumpPackRoutine()
+        {
+            if (Menus.Movement.jumpPackToggle)
             {
-                MenuButtons.Movement.flightToggle = false;
+                Menus.Movement.JumpPack();
             }
         }
 
@@ -668,19 +675,6 @@ namespace UmbraMenu
                 Navigation.UpdateIndexValues();
             }
         }*/
-
-        private void JumpPackRoutine()
-        {
-            if (MenuButtons.Movement.toggleJumpPack.Enabled)
-            {
-                MenuButtons.Movement.JumpPack();
-                MenuButtons.Movement.jumpPackToggle = true;
-            }
-            else
-            {
-                MenuButtons.Movement.jumpPackToggle = false;
-            }
-        }
 
         /*private void UpdateMenusAndButtonsRoutine()
         {

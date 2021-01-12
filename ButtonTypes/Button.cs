@@ -10,7 +10,6 @@ namespace UmbraMenu
     public class Button
     {
         public IButton _button;
-        public bool Enabled;
 
         public Button(IButton button)
         {

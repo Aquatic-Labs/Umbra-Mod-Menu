@@ -26,9 +26,9 @@ namespace UmbraMenu
 
         public void Draw()
         {
-            parentMenu.NumberOfButtons = position;
-            int btnY = 5 + 45 * parentMenu.NumberOfButtons;
-            rect = new Rect(parentMenu.Rect.x + 5, parentMenu.Rect.y + btnY, parentMenu.WidthSize, 40);
+            parentMenu.SetNumberOfButtons(position);
+            int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
+            rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize(), 40);
 
             GUI.Button(rect, Text, style);
         }

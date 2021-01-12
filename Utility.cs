@@ -18,7 +18,7 @@ namespace UmbraMenu
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
                 Menu currentMenu = UmbraMenu.menus[i];
-                if (currentMenu.Id == id)
+                if (currentMenu.GetId() == id)
                 {
                     return currentMenu;
                 }
@@ -263,14 +263,14 @@ namespace UmbraMenu
         {
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                UmbraMenu.menus[i].Enabled = false;
-                //Menu.menus[i].ifDragged = false;
+                UmbraMenu.menus[i].SetEnabled(false);
+                UmbraMenu.menus[i].SetIfDragged(false);
             }
 
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                UmbraMenu.menus[i].Enabled = false;
-                //Menu.menus[i].ifDragged = false;
+                UmbraMenu.menus[i].SetEnabled(false);
+                UmbraMenu.menus[i].SetIfDragged(false);
             }
             UmbraMenu.characterCollected = false;
 
@@ -294,8 +294,8 @@ namespace UmbraMenu
             MenuButtons.StatsMod.changeArmor.Enabled = false;
             MenuButtons.StatsMod.changeMoveSpeed.Enabled = false;
 
-            MenuButtons.Movement.toggleFlight.Enabled = false;
-            MenuButtons.Movement.toggleAlwaysSprint.Enabled = false;
+            //Menus.Movement.toggleFlight.Enabled = false;
+            //Movement.toggleAlwaysSprint.Enabled = false;
 
             MenuButtons.Items.toggleEquipmentCD.Enabled = false;
             MenuButtons.Items.ItemsToRoll = 5;
@@ -323,15 +323,15 @@ namespace UmbraMenu
         {
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                if (UmbraMenu.menus[i].Id != 9)
+                if (UmbraMenu.menus[i].GetId() != 9)
                 {
-                    UmbraMenu.menus[i].Enabled = false;
+                    UmbraMenu.menus[i].SetEnabled(false);
                 }
             }
 
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                UmbraMenu.menus[i].Enabled = false;
+                UmbraMenu.menus[i].SetEnabled(false);
             }
             UmbraMenu.characterCollected = false;
         }
@@ -340,9 +340,9 @@ namespace UmbraMenu
         public static void SoftResetMenu()
         {
             Menu MainMenu = (Menu)FindMenuById(0);
-            MainMenu.Enabled = !MainMenu.Enabled;
+            MainMenu.ToggleMenu();
             UmbraMenu.GetCharacter();
-            MainMenu.Enabled = !MainMenu.Enabled;
+            MainMenu.ToggleMenu();
 
             //MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
             //UmbraMenu.GetCharacter();
@@ -359,7 +359,7 @@ namespace UmbraMenu
             List<Menu> openMenus = new List<Menu>();
             for (int i = 1; i < UmbraMenu.menus.Count; i++)
             {
-                if (UmbraMenu.menus[i].Enabled)
+                if (UmbraMenu.menus[i].IsEnabled())
                 {
                     openMenus.Add(UmbraMenu.menus[i]);
                 }

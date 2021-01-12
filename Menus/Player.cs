@@ -41,7 +41,6 @@ namespace UmbraMenu.Menus
                 giveMoney.UpdateText($"G I V E   M O N E Y : {moneyToGive}");
             }
         }
-
         public uint CoinsToGive
         {
             get
@@ -70,10 +69,6 @@ namespace UmbraMenu.Menus
 
         public Player() : base(player)
         {
-            Id = 1;
-            Rect = new Rect(374, 10, 20, 20);
-            Title = "P L A Y E R   M E N U";
-
             if (UmbraMenu.characterCollected)
             {
                 void ToggleStatsMenu() => ToggleMenu(Utility.FindMenuById(8));
@@ -92,7 +87,7 @@ namespace UmbraMenu.Menus
                 toggleSkillCD = new Button(new TogglableButton(this, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD));
                 unlockAll = new Button(new NormalButton(this, 11, "U N L O C K   A L L", UnlockAll));
 
-                Buttons = new List<Button>()
+                AddButtons(new List<Button>()
                 {
                     giveMoney,
                     giveCoins,
@@ -105,14 +100,22 @@ namespace UmbraMenu.Menus
                     toggleGod,
                     toggleSkillCD,
                     unlockAll
-                };
-                NumberOfButtons = Buttons.Count;
+                });
+            }
+        }
+
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
             }
         }
 
         public void ToggleMenu(Menu menu)
         {
-            menu.Enabled = !menu.Enabled;
+            menu.ToggleMenu();
         }
 
         public void ToggleAimbot()

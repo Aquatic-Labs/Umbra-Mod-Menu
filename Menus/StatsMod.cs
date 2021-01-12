@@ -177,7 +177,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void ToggleMenu(Menu menu)
         {
-            menu.Enabled = !menu.Enabled;
+            menu.ToggleMenu();
         }
 
         public static void LevelPlayersCrit()

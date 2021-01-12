@@ -50,7 +50,7 @@ namespace UmbraMenu.MenuButtons
 
         public static void UpdateViewStats()
         {
-            if (currentMenu.Enabled)
+            if (currentMenu.IsEnabled())
             {
                 if (UmbraMenu.characterCollected)
                 {

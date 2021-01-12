@@ -22,7 +22,7 @@ namespace UmbraMenu.MenuButtons
                 Button button = new Button(new NormalButton(currentMenu, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction));
                 buttons.Add(button);
             }
-            currentMenu.Buttons = buttons;
+            //currentMenu.Buttons = buttons;
         }
 
         private static void ChangeCharacter(int prefabIndex)

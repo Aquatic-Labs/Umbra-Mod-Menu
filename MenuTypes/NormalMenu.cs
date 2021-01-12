@@ -11,12 +11,13 @@ namespace UmbraMenu
 {
     public class NormalMenu : IMenu
     {
-        public float delay = 0, widthSize = 350;
+        public float delay = 0;
+        public float WidthSize { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public bool Enabled { get; set; }
         public Rect Rect { get; set; }
-        public bool ifDragged { get; set; }
+        public bool IfDragged { get; set; }
         public int NumberOfButtons { get; set; }
         public TogglableButton activatingButton { get; set; }
         public bool highlighted = false;
@@ -28,6 +29,7 @@ namespace UmbraMenu
             Rect = rect;
             Title = title;
             NumberOfButtons = 0;
+            WidthSize = 350;
         }
 
         public void SetWindow()
@@ -39,8 +41,8 @@ namespace UmbraMenu
         {
             if (Enabled)
             {
-                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, widthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
-                GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, widthSize + 5, 85f), Title, Styles.TitleStyle);
+                GUI.Box(new Rect(Rect.x + 0f, Rect.y + 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
+                GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, WidthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
             }
         }
@@ -55,19 +57,19 @@ namespace UmbraMenu
 
         private void SetBackground(int windowID)
         {
-            GUI.Box(new Rect(0f, 0f, widthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
+            GUI.Box(new Rect(0f, 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
             if (Event.current.type == EventType.MouseDrag)
             {
                 delay += Time.deltaTime;
                 if (delay > 0.3f)
                 {
-                    ifDragged = true;
+                    IfDragged = true;
                 }
             }
             else if (Event.current.type == EventType.MouseUp)
             {
                 delay = 0;
-                if (!ifDragged)
+                if (!IfDragged)
                 {
                     Enabled = !Enabled;
                     if (activatingButton != null)
@@ -76,7 +78,7 @@ namespace UmbraMenu
                     }
                     UmbraMenu.GetCharacter();
                 }
-                ifDragged = false;
+                IfDragged = false;
             }
             GUI.DragWindow();
         }

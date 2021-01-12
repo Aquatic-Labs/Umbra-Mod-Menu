@@ -231,13 +231,13 @@ namespace UmbraMenu.MenuButtons
             List<string> modsActive = new List<string>();
             Dictionary<string, bool> allMods = new Dictionary<string, bool>()
             {
-                //{ "Aimbot", Player.aimBotToggle },
-                { "Always-Sprint", Movement.alwaysSprintToggle },
+                { "Aimbot", Menus.Player.AimBotToggle },
+                { "Always-Sprint", Menus.Movement.alwaysSprintToggle },
                 { "Drop-Items", Items.isDropItemForAll },
                 { "Drop-Items-from-Inventory", Items.isDropItemFromInventory },
-                { "Flight", Movement.flightToggle },
-                //{ "God-Mode", Player.godToggle },
-                { "Jump-Pack", Movement.jumpPackToggle },
+                { "Flight", Menus.Movement.flightToggle },
+                { "God-Mode", Menus.Player.GodToggle },
+                { "Jump-Pack", Menus.Movement.jumpPackToggle },
                 { "Keyboard-Navigation", UmbraMenu.navigationToggle },
                 { "Modified-Armor", StatsMod.armorToggle },
                 { "Modified-Attack Speed", StatsMod.attackSpeedToggle },
@@ -246,7 +246,7 @@ namespace UmbraMenu.MenuButtons
                 { "Modified-Move-Speed", StatsMod.moveSpeedToggle },
                 { "Modified-Regen", StatsMod.regenToggle },
                 { "No-Equipment-Cooldown", Items.noEquipmentCD },
-                //{ "No-Skill-Cooldowns", Player.skillToggle },
+                { "No-Skill-Cooldowns", Menus.Player.SkillToggle },
                 { "Render-Interactables", renderInteractables },
                 { "Render-Mobs", renderMobs }
             };
