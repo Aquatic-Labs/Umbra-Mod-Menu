@@ -10,7 +10,7 @@ namespace UmbraMenu
     public class MulButton : IButton
     {
         public Menu parentMenu;
-        public int position { get; set; }
+        public int Position { get; set; }
         public Rect rect;
         public string Text { get; set; }
         public bool Enabled { get; set; }
@@ -25,7 +25,7 @@ namespace UmbraMenu
         public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
-            this.position = position;
+            this.Position = position;
             this.Text = text;
             this.Action = Action;
             this.IncreaseAction = IncreaseAction;
@@ -34,7 +34,7 @@ namespace UmbraMenu
 
         public void Draw()
         {
-            parentMenu.SetNumberOfButtons(position);
+            parentMenu.SetNumberOfButtons(Position);
             int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
             rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize() - 90, 40);
 
@@ -49,7 +49,7 @@ namespace UmbraMenu
         private void DrawMulButtons()
         {
             Rect menuBg = parentMenu.GetRect();
-            int btnY = 5 + 45 * position;
+            int btnY = 5 + 45 * Position;
             if (GUI.Button(new Rect(menuBg.x + parentMenu.GetWidthSize() - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
             {
                 DecreaseAction?.Invoke();

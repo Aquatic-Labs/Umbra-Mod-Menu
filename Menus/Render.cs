@@ -36,6 +36,7 @@ namespace UmbraMenu.Menus
                     toggleInteractESP,
                     toggleMobESP
                 });
+                SetActivatingButton(Utility.FindButtonById(0, 6));
             }
         }
 

@@ -11,7 +11,7 @@ namespace UmbraMenu
     public class NormalButton : IButton
     {
         public Menu parentMenu;
-        public int position { get; set; }
+        public int Position { get; set; }
         public Rect rect;
         public string Text { get; set; }
         public bool Enabled { get; set; }
@@ -24,7 +24,7 @@ namespace UmbraMenu
         public NormalButton(Menu parentMenu, int position, string text, Action Action) 
         {
             this.parentMenu = parentMenu;
-            this.position = position;
+            this.Position = position;
             this.Text = text;
             this.Action = Action;
         }
@@ -33,7 +33,7 @@ namespace UmbraMenu
         {
             if (parentMenu != null)
             {
-                parentMenu.SetNumberOfButtons(position);
+                parentMenu.SetNumberOfButtons(Position);
                 int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
                 rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize(), 40);
 

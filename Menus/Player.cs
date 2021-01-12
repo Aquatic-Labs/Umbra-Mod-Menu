@@ -101,6 +101,7 @@ namespace UmbraMenu.Menus
                     toggleSkillCD,
                     unlockAll
                 });
+                SetActivatingButton(Utility.FindButtonById(0, 1));
             }
         }
 

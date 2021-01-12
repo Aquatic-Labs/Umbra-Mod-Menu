@@ -98,5 +98,15 @@ namespace UmbraMenu
         {
             return _menu.WidthSize;
         }
+
+        public void SetActivatingButton(Button button)
+        {
+            _menu.ActivatingButton = button;
+        }
+
+        public Button GetActivatingButton()
+        {
+            return _menu.ActivatingButton;
+        }
     }
 }

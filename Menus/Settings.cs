@@ -19,6 +19,7 @@ namespace UmbraMenu.Menus
         public static void AddButtonsToMenu()
         {
             //currentMenu.Buttons = buttons;
+            //SetActivatingButton(Utility.FindButtonById(0, 7));
         }
     }
 }

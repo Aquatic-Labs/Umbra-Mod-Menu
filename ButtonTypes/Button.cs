@@ -60,5 +60,10 @@ namespace UmbraMenu
         {
             _button.Enabled = !_button.Enabled;
         }
+
+        public int GetId()
+        {
+            return _button.Position;
+        }
     }
 }

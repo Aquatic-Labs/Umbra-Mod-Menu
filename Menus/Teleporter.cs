@@ -46,6 +46,16 @@ namespace UmbraMenu.Menus
                     spawnCele,
                     spawnGold
                 });
+                SetActivatingButton(Utility.FindButtonById(0, 5));
+            }
+        }
+
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
             }
         }
 

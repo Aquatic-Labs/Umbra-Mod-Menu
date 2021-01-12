@@ -10,7 +10,7 @@ namespace UmbraMenu
     public class TogglableMulButton : IButton
     {
         public Menu parentMenu { get; set; }
-        public int position { get; set; }
+        public int Position { get; set; }
         public Rect rect;
         public string Text { get; set; }
         public GUIStyle style = Styles.OffStyle;
@@ -48,7 +48,7 @@ namespace UmbraMenu
         public TogglableMulButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, Action IncreaseAction, Action DecreaseAction)
         {
             this.parentMenu = parentMenu;
-            this.position = position;
+            this.Position = position;
             Text = offText;
             this.OffText = offText;
             this.OnText = onText;
@@ -61,7 +61,7 @@ namespace UmbraMenu
 
         public void Draw()
         {
-            parentMenu.SetNumberOfButtons(position);
+            parentMenu.SetNumberOfButtons(Position);
             int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
             rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize() - 90, 40);
 
@@ -77,7 +77,7 @@ namespace UmbraMenu
         private void DrawMulButtons()
         {
             Rect menuBg = parentMenu.GetRect();
-            int btnY = 5 + 45 * position;
+            int btnY = 5 + 45 * Position;
             if (GUI.Button(new Rect(menuBg.x + parentMenu.GetWidthSize() - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
             {
                 DecreaseAction?.Invoke();

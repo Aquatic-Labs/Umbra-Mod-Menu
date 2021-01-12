@@ -10,7 +10,7 @@ namespace UmbraMenu
     public class TogglableButton : IButton
     {
         public Menu parentMenu;
-        public int position { get; set; }
+        public int Position { get; set; }
         public Rect rect;
         public string Text { get; set; }
         public GUIStyle style = Styles.OffStyle;
@@ -49,7 +49,7 @@ namespace UmbraMenu
         {
             Enabled = defaultEnable;
             this.parentMenu = parentMenu;
-            this.position = position;
+            this.Position = position;
             Text = offText;
             this.OffText = offText;
             this.OnText = onText;
@@ -66,7 +66,7 @@ namespace UmbraMenu
 
         public void Draw()
         {
-            parentMenu.SetNumberOfButtons(position);
+            parentMenu.SetNumberOfButtons(Position);
             int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
             rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize(), 40);
 

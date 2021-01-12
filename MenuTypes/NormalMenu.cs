@@ -19,7 +19,7 @@ namespace UmbraMenu
         public Rect Rect { get; set; }
         public bool IfDragged { get; set; }
         public int NumberOfButtons { get; set; }
-        public TogglableButton activatingButton { get; set; }
+        public Button ActivatingButton { get; set; }
         public bool highlighted = false;
         public List<Button> Buttons { get; set; }
 
@@ -72,9 +72,9 @@ namespace UmbraMenu
                 if (!IfDragged)
                 {
                     Enabled = !Enabled;
-                    if (activatingButton != null)
+                    if (ActivatingButton != null)
                     {
-                        activatingButton.Enabled = !activatingButton.Enabled;
+                        ActivatingButton.SetEnabled(!ActivatingButton.IsEnabled());
                     }
                     UmbraMenu.GetCharacter();
                 }

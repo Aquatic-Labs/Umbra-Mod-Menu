@@ -25,6 +25,7 @@ namespace UmbraMenu
         string Text { get; set; }
         string OnText { get; set; }
         string OffText { get; set; }
+        int Position { get; set; }
         void Draw(); 
     };
     public interface IMenu
@@ -34,6 +35,7 @@ namespace UmbraMenu
         bool Enabled { get; set; }
         bool IfDragged { get; set; }
         float WidthSize { get; set; }
+        Button ActivatingButton { get; set; }
         List<Button> Buttons { get; set; }
         Rect Rect { get; set; }
         string Title { get; set; }

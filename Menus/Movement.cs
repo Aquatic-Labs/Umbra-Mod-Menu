@@ -31,6 +31,7 @@ namespace UmbraMenu.Menus
                     toggleFlight,
                     toggleJumpPack
                 });
+                SetActivatingButton(Utility.FindButtonById(0, 2));
             }
         }
 

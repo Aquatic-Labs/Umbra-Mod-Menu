@@ -86,6 +86,7 @@ namespace UmbraMenu.Menus
                     clearInventory,
                     toggleChestItemMenu
                 });
+                SetActivatingButton(Utility.FindButtonById(0, 3));
             }
         }
 

@@ -82,6 +82,7 @@ namespace UmbraMenu.Menus
                     killAll,
                     destroyInteractables
                 });
+                SetActivatingButton(Utility.FindButtonById(0, 4));
             }
         }
 
