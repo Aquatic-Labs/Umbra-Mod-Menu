@@ -177,6 +177,7 @@ namespace UmbraMenu.Menus
                     changeMultiplier,
                     toggleViewStatsMenu
                 });
+                SetActivatingButton(Utility.FindButtonById(1, 4));
             }
         }
 

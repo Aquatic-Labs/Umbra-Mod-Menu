@@ -25,6 +25,7 @@ namespace UmbraMenu.Menus
                     buttons.Add(button);
                 }
                 AddButtons(buttons);
+                SetActivatingButton(Utility.FindButtonById(1, 6));
             }
         }
 
