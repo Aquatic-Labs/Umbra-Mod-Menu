@@ -33,7 +33,7 @@ namespace UmbraMenu.Menus
 
                 Button togglePlayer = new Button(new TogglableButton(this, 1, "P L A Y E R : O F F", "P L A Y E R : O N", PlayerButtonAction, PlayerButtonAction));
                 Button toggleMovement = new Button(new TogglableButton(this, 2, "M O V E M E N T : O F F", "M O V E M E N T : O N", MovementButtonAction, MovementButtonAction));
-                Button toggleItems = new Button(new TogglableButton(this, 3, "I T E M S : O F F", "I T E M S : O N", null, null));
+                Button toggleItems = new Button(new TogglableButton(this, 3, "I T E M S : O F F", "I T E M S : O N", ItemsButtonAction, ItemsButtonAction));
                 Button toggleSpawn = new Button(new TogglableButton(this, 4, "S P A W N : O F F", "S P A W N : O N", null, null));
                 Button toggleTeleporter = new Button(new TogglableButton(this, 5, "T E L E P O R T E R : O F F", "T E L E P O R T E R : O N", null, null));
                 Button toggleRender = new Button(new TogglableButton(this, 6, "R E N D E R : O F F", "R E N D E R: O N", null, null));
@@ -91,13 +91,13 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private static void PlayerButtonAction() => ToggleMenu(Utility.FindMenuById(1));
-        private static void MovementButtonAction() => ToggleMenu(Utility.FindMenuById(2));
-        private static void ItemsButtonAction() => ToggleMenu(Utility.FindMenuById(3));
-        private static void SpawnButtonAction() => ToggleMenu(Utility.FindMenuById(4));
-        private static void TeleporterButtonAction() => ToggleMenu(Utility.FindMenuById(5));
-        private static void RenderButtonAction() => ToggleMenu(Utility.FindMenuById(6));
-        private static void SettingsButtonAction() => ToggleMenu(Utility.FindMenuById(7));
+        private static void PlayerButtonAction() => Utility.FindMenuById(1).ToggleMenu();
+        private static void MovementButtonAction() => Utility.FindMenuById(2).ToggleMenu();
+        private static void ItemsButtonAction() => Utility.FindMenuById(3).ToggleMenu();
+        private static void SpawnButtonAction() => Utility.FindMenuById(4).ToggleMenu();
+        private static void TeleporterButtonAction() => Utility.FindMenuById(5).ToggleMenu();
+        private static void RenderButtonAction() => Utility.FindMenuById(6).ToggleMenu();
+        private static void SettingsButtonAction() => Utility.FindMenuById(7).ToggleMenu();
         private static void UnloadMenu() => Loader.Unload();
         private static void DoNothing() => Utility.StubbedFunction();
         public static void ToggleMenu(Menu menu)

@@ -21,9 +21,24 @@ namespace UmbraMenu
             _button.Draw();
         }
 
-        public void UpdateText(string newText)
+        public void SetText(string newText)
         {
             _button.Text = newText;
+        }
+
+        public bool IsEnabled()
+        {
+            return _button.Enabled;
+        }
+
+        public void SetEnabled(bool value)
+        {
+            _button.Enabled = value;
+        }
+
+        public void ToggleButton()
+        {
+            _button.Enabled = !_button.Enabled;
         }
     }
 }

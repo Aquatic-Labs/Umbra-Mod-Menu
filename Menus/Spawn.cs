@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class Spawn
     {

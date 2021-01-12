@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using RoR2;
 using UnityEngine;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class ItemList
     {
         private static readonly ListMenu currentMenu = null; // (ListMenu)Utility.FindMenuById(12);
 
-        public static void AddButtonsToMenu()
+        public void AddButtonsToMenu()
         {
             List<Button> buttons = new List<Button>();
 
@@ -40,7 +40,7 @@ namespace UmbraMenu.MenuButtons
             currentMenu.Buttons = buttons;
         }
 
-        private static void GiveItem(ItemIndex itemIndex)
+        private void GiveItem(ItemIndex itemIndex)
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser.cachedMasterController && localUser.cachedMasterController.master)

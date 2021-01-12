@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class CharacterList
     {

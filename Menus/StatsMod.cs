@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class StatsMod
     {

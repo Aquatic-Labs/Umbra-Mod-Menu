@@ -2,7 +2,7 @@
 using RoR2;
 using UnityEngine;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class ViewStats
     {

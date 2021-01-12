@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using RoR2;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class SpawnList
     {

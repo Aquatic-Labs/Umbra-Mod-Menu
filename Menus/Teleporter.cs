@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class Teleporter
     {

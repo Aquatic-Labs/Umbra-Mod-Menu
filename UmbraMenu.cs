@@ -63,15 +63,17 @@ namespace UmbraMenu
         public static Scene currentScene;
 
         #region Menus
-        public static Menu main = new Menus.Main();
-        public static Menu player = new Menus.Player();
-        public static Menu movement = new Menus.Movement();
+        public static Menu mainMenu = new Menus.Main();
+        public static Menu playerMenu = new Menus.Player();
+        public static Menu movementMenu = new Menus.Movement();
+        public static Menu itemsMenu = new Menus.Items();
 
         public static List<Menu> menus = new List<Menu>()
         {
-            main,
-            player,
-            movement
+            mainMenu,
+            playerMenu,
+            movementMenu,
+            itemsMenu
         };
         #endregion
 
@@ -94,9 +96,10 @@ namespace UmbraMenu
                 }
                 #endregion
 
-                main.Draw();
-                player.Draw();
-                movement.Draw();
+                mainMenu.Draw();
+                playerMenu.Draw();
+                movementMenu.Draw();
+                itemsMenu.Draw();
                 /*
                 #region Main Menus
 
@@ -328,7 +331,7 @@ namespace UmbraMenu
                 {
                     lowResolutionMonitor = true;
 
-                    main.SetRect(new Rect(10, 10, 20, 20)); // Start Position
+                    mainMenu.SetRect(new Rect(10, 10, 20, 20)); // Start Position
                     /*
                     player.Rect = new Rect(374, 10, 20, 20); // Start Position
                     movement.Rect = new Rect(374, 10, 20, 20); // Start Position
@@ -387,9 +390,9 @@ namespace UmbraMenu
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
-            if (MenuButtons.Render.toggleMobESP.Enabled)
+            if (Menus.Render.toggleMobESP.Enabled)
             {
-                MenuButtons.Render.hurtBoxes = Utility.GetHurtBoxes();
+                Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
             }
         }
 
@@ -397,7 +400,7 @@ namespace UmbraMenu
         {
             if (Input.GetKeyDown(KeyCode.Insert))
             {
-                main.ToggleMenu();
+                mainMenu.ToggleMenu();
                 GetCharacter();
             }
         }
@@ -494,15 +497,17 @@ namespace UmbraMenu
             GetCharacter();
             if (prevCharCollected != characterCollected)
             {
-                main = new Menus.Main();
-                player = new Menus.Player();
-                movement = new Menus.Movement();
+                mainMenu = new Menus.Main();
+                playerMenu = new Menus.Player();
+                movementMenu = new Menus.Movement();
+                itemsMenu = new Menus.Items();
 
                 menus = new List<Menu>()
                 {
-                    main,
-                    player,
-                    movement
+                    mainMenu,
+                    playerMenu,
+                    movementMenu,
+                    itemsMenu
                 };
             }
         }
@@ -538,34 +543,34 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (MenuButtons.Render.toggleInteractESP.Enabled)
+                if (Menus.Render.toggleInteractESP.Enabled)
                 {
-                    MenuButtons.Render.Interactables();
-                    MenuButtons.Render.renderInteractables = true;
+                    Menus.Render.Interactables();
+                    Menus.Render.renderInteractables = true;
                 }
                 else
                 {
-                    MenuButtons.Render.renderInteractables = false;
+                    Menus.Render.renderInteractables = false;
                 }
 
-                if (MenuButtons.Render.toggleMobESP.Enabled)
+                if (Menus.Render.toggleMobESP.Enabled)
                 {
-                    MenuButtons.Render.Mobs();
-                    MenuButtons.Render.renderMobs = true;
+                    Menus.Render.Mobs();
+                    Menus.Render.renderMobs = true;
                 }
                 else
                 {
-                    MenuButtons.Render.renderMobs = false;
+                    Menus.Render.renderMobs = false;
                 }
 
-                if (MenuButtons.Render.toggleActiveMods.Enabled)
+                if (Menus.Render.toggleActiveMods.Enabled)
                 {
-                    MenuButtons.Render.ActiveMods();
-                    MenuButtons.Render.renderMods = true;
+                    Menus.Render.ActiveMods();
+                    Menus.Render.renderMods = true;
                 }
                 else
                 {
-                    MenuButtons.Render.renderMods = false;
+                    Menus.Render.renderMods = false;
                 }
 
                 /*if (chestItemList.Enabled)
@@ -577,9 +582,9 @@ namespace UmbraMenu
 
         private void EquipCooldownRoutine()
         {
-            if (MenuButtons.Items.toggleEquipmentCD.Enabled)
+            if (Menus.Items.noEquipmentCD)
             {
-                MenuButtons.Items.NoEquipmentCooldown();
+                Menus.Items.NoEquipmentCooldown();
             }
         }
 
@@ -643,25 +648,25 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (MenuButtons.StatsMod.changeDmgPerLevel.Enabled)
+                if (Menus.StatsMod.changeDmgPerLevel.Enabled)
                 {
-                    MenuButtons.StatsMod.LevelPlayersDamage();
+                    Menus.StatsMod.LevelPlayersDamage();
                 }
-                if (MenuButtons.StatsMod.changeCritPerLevel.Enabled)
+                if (Menus.StatsMod.changeCritPerLevel.Enabled)
                 {
-                    MenuButtons.StatsMod.LevelPlayersCrit();
+                    Menus.StatsMod.LevelPlayersCrit();
                 }
-                if (MenuButtons.StatsMod.changeAttackSpeed.Enabled)
+                if (Menus.StatsMod.changeAttackSpeed.Enabled)
                 {
-                    MenuButtons.StatsMod.SetplayersAttackSpeed();
+                    Menus.StatsMod.SetplayersAttackSpeed();
                 }
-                if (MenuButtons.StatsMod.changeArmor.Enabled)
+                if (Menus.StatsMod.changeArmor.Enabled)
                 {
-                    MenuButtons.StatsMod.SetplayersArmor();
+                    Menus.StatsMod.SetplayersArmor();
                 }
-                if (MenuButtons.StatsMod.changeMoveSpeed.Enabled)
+                if (Menus.StatsMod.changeMoveSpeed.Enabled)
                 {
-                    MenuButtons.StatsMod.SetplayersMoveSpeed();
+                    Menus.StatsMod.SetplayersMoveSpeed();
                 }
                 LocalPlayerBody.RecalculateStats();
             }

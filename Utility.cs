@@ -283,35 +283,35 @@ namespace UmbraMenu
             //MenuButtons.Player.MoneyToGive = 50;
             //MenuButtons.Player.CoinsToGive = 50;
 
-            MenuButtons.StatsMod.DamagePerLevel = 10;
-            MenuButtons.StatsMod.CritPerLevel = 1;
-            MenuButtons.StatsMod.AttackSpeed = 1;
-            MenuButtons.StatsMod.Armor = 0;
-            MenuButtons.StatsMod.MoveSpeed = 7;
-            MenuButtons.StatsMod.changeDmgPerLevel.Enabled = false;
-            MenuButtons.StatsMod.changeCritPerLevel.Enabled = false;
-            MenuButtons.StatsMod.changeAttackSpeed.Enabled = false;
-            MenuButtons.StatsMod.changeArmor.Enabled = false;
-            MenuButtons.StatsMod.changeMoveSpeed.Enabled = false;
+            Menus.StatsMod.DamagePerLevel = 10;
+            Menus.StatsMod.CritPerLevel = 1;
+            Menus.StatsMod.AttackSpeed = 1;
+            Menus.StatsMod.Armor = 0;
+            Menus.StatsMod.MoveSpeed = 7;
+            Menus.StatsMod.changeDmgPerLevel.Enabled = false;
+            Menus.StatsMod.changeCritPerLevel.Enabled = false;
+            Menus.StatsMod.changeAttackSpeed.Enabled = false;
+            Menus.StatsMod.changeArmor.Enabled = false;
+            Menus.StatsMod.changeMoveSpeed.Enabled = false;
 
             //Menus.Movement.toggleFlight.Enabled = false;
             //Movement.toggleAlwaysSprint.Enabled = false;
 
-            MenuButtons.Items.toggleEquipmentCD.Enabled = false;
-            MenuButtons.Items.ItemsToRoll = 5;
-            MenuButtons.Items.isDropItemForAll = false;
-            MenuButtons.Items.isDropItemFromInventory = false;
-            MenuButtons.Items.AllItemsQuantity = 1;
+            //Menus.Items.toggleEquipmentCD.SetEnabled(false);
+            //Menus.Items.ItemsToRoll = 5;
+            Menus.Items.isDropItemForAll = false;
+            Menus.Items.isDropItemFromInventory = false;
+           // Menus.Items.AllItemsQuantity = 1;
 
-            MenuButtons.SpawnList.onSpawnListEnable = true;
-            MenuButtons.SpawnList.DisableSpawnList();
+            Menus.SpawnList.onSpawnListEnable = true;
+            Menus.SpawnList.DisableSpawnList();
 
-            MenuButtons.ChestItemList.DisableChests();
+            Menus.ChestItemList.DisableChests();
 
-            MenuButtons.Render.toggleInteractESP.Enabled = false;
-            MenuButtons.Render.toggleMobESP.Enabled = false;
-            MenuButtons.Render.onRenderIntEnable = true;
-            MenuButtons.Render.DisableInteractables();
+            Menus.Render.toggleInteractESP.Enabled = false;
+            Menus.Render.toggleMobESP.Enabled = false;
+            Menus.Render.onRenderIntEnable = true;
+            Menus.Render.DisableInteractables();
 
 
             //Main.scrolled = false;

@@ -25,7 +25,7 @@ namespace UmbraMenu.Menus
             set
             {
                 xpToGive = value;
-                giveExperience.UpdateText($"G I V E   E X P E R I E N C E : {xpToGive}");
+                giveExperience.SetText($"G I V E   E X P E R I E N C E : {xpToGive}");
             }
         }
         public uint MoneyToGive
@@ -38,7 +38,7 @@ namespace UmbraMenu.Menus
             set
             {
                 moneyToGive = value;
-                giveMoney.UpdateText($"G I V E   M O N E Y : {moneyToGive}");
+                giveMoney.SetText($"G I V E   M O N E Y : {moneyToGive}");
             }
         }
         public uint CoinsToGive
@@ -51,7 +51,7 @@ namespace UmbraMenu.Menus
             set
             {
                 coinsToGive = value;
-                giveCoins.UpdateText($"G I V E   L U N A R   C O I N S : {coinsToGive}");
+                giveCoins.SetText($"G I V E   L U N A R   C O I N S : {coinsToGive}");
             }
         }
 
@@ -71,9 +71,9 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                void ToggleStatsMenu() => ToggleMenu(Utility.FindMenuById(8));
-                void ToggleCharacterListMenu() => ToggleMenu(Utility.FindMenuById(10));
-                void ToggleBuffListMenu() => ToggleMenu(Utility.FindMenuById(11));
+                void ToggleStatsMenu() => Utility.FindMenuById(8).ToggleMenu();
+                void ToggleCharacterListMenu() => Utility.FindMenuById(10).ToggleMenu();
+                void ToggleBuffListMenu() => Utility.FindMenuById(11).ToggleMenu();
 
                 giveMoney = new Button(new MulButton(this, 1, $"G I V E   M O N E Y : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));
                 giveCoins = new Button(new MulButton(this, 2, $"G I V E   L U N A R   C O I N S : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins));

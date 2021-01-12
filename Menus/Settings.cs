@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UmbraMenu.MenuButtons
+namespace UmbraMenu.Menus
 {
     public class Settings
     {
