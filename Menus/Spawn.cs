@@ -6,16 +6,15 @@ using System.Linq;
 
 namespace UmbraMenu.Menus
 {
-    public class Spawn
+    public class Spawn : Menu
     {
-        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(4);
+        private static readonly IMenu spawn = new NormalMenu(4, new Rect(738, 515, 20, 20), "S P A W N   M E N U");
 
         public static TeamIndex[] team = { TeamIndex.Monster, TeamIndex.Neutral, TeamIndex.Player, TeamIndex.None };
-        private static int teamIndex = 0;
-        private static float minDistance = 3f;
-        private static float maxDistance = 40f;
-
-        public static int TeamIndexInt
+        public static int teamIndex = 0;
+        public static float minDistance = 3f;
+        public static float maxDistance = 40f;
+        public int TeamIndexInt
         {
             get
             {
@@ -24,11 +23,10 @@ namespace UmbraMenu.Menus
             set
             {
                 teamIndex = value;
-                //changeTeamIndex.text = $"T E A M : {team[teamIndex]}";
+                changeTeamIndex.SetText($"T E A M : {team[teamIndex]}");
             }
         }
-
-        public static float MinDistance
+        public float MinDistance
         {
             get
             {
@@ -37,11 +35,10 @@ namespace UmbraMenu.Menus
             set 
             {
                 minDistance = value;
-                //changeMinDistance.text = $"M I N   D I S T A N C E : {minDistance}";
+                changeMinDistance.SetText($"M I N   D I S T A N C E : {minDistance}");
             } 
         }
-
-        public static float MaxDistance
+        public float MaxDistance
         {
             get
             {
@@ -50,43 +47,56 @@ namespace UmbraMenu.Menus
             set 
             {
                 maxDistance = value;
-                //changeMaxDistance.text = $"M A X   D I S T A N C E : {maxDistance}";
+                changeMaxDistance.SetText($"M A X   D I S T A N C E : {maxDistance}");
             }
         }
 
         public static List<GameObject> spawnedObjects = new List<GameObject>();
-        private static void DoNothing() => Utility.StubbedFunction();
 
-        public static MulButton changeMinDistance = new MulButton(currentMenu, 1, $"M I N   D I S T A N C E : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance);
-        public static MulButton changeMaxDistance = new MulButton(currentMenu, 2, $"M A X   D I S T A N C E : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance);
-        public static MulButton changeTeamIndex = new MulButton(currentMenu, 3, $"T E A M : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex);
-        public static TogglableButton toggleSpawnListMenu = new TogglableButton(currentMenu, 4, "S P A W N   L I S T : O F F", "S P A W N   L I S T : O N", ToggleSpawnListMenu, ToggleSpawnListMenu);
-        //public static Button killAll = new Button(currentMenu, 5, "K I L L   A L L", KillAllMobs);
-        //public static Button destroyInteractables = new Button(currentMenu, 6, "D E S T R O Y   I N T E R A C T A B L E S", DestroySpawnedInteractables);
+        public Button changeMinDistance;
+        public Button changeMaxDistance;
+        public Button changeTeamIndex;
+        public Button toggleSpawnListMenu;
+        public Button killAll;
+        public Button destroyInteractables;
 
-        private static List<IButton> buttons = new List<IButton>()
+        public Spawn() : base(spawn)
         {
-            changeMinDistance,
-            changeMaxDistance,
-            changeTeamIndex,
-            toggleSpawnListMenu,
-            //killAll,
-            //destroyInteractables
-        };
+            if (UmbraMenu.characterCollected)
+            {
+                void DoNothing() => Utility.StubbedFunction();
 
-        public static void AddButtonsToMenu()
-        {
-            //currentMenu.Buttons = buttons;
+                 changeMinDistance = new Button(new MulButton(this, 1, $"M I N   D I S T A N C E : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance));
+                 changeMaxDistance = new Button(new MulButton(this, 2, $"M A X   D I S T A N C E : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance));
+                 changeTeamIndex = new Button(new MulButton(this, 3, $"T E A M : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex));
+                 toggleSpawnListMenu = new Button(new TogglableButton(this, 4, "S P A W N   L I S T : O F F", "S P A W N   L I S T : O N", ToggleSpawnListMenu, ToggleSpawnListMenu));
+                 killAll = new Button(new NormalButton(this, 5, "K I L L   A L L", KillAllMobs));
+                 destroyInteractables = new Button(new NormalButton(this, 6, "D E S T R O Y   I N T E R A C T A B L E S", DestroySpawnedInteractables));
+
+                AddButtons(new List<Button>()
+                {
+                    changeMinDistance,
+                    changeMaxDistance,
+                    changeTeamIndex,
+                    toggleSpawnListMenu,
+                    killAll,
+                    destroyInteractables
+                });
+            }
         }
 
-        private static void ToggleMenu(Menu menu)
+        public override void Draw()
         {
-            menu.ToggleMenu();
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
         }
 
-        private static void ToggleSpawnListMenu()
+        private void ToggleSpawnListMenu()
         {
-            if (toggleSpawnListMenu.Enabled)
+            if (toggleSpawnListMenu.IsEnabled())
             {
                 SpawnList.DisableSpawnList();
             }
@@ -94,7 +104,7 @@ namespace UmbraMenu.Menus
             {
                 SpawnList.EnableSpawnList();
             }
-            ToggleMenu(Utility.FindMenuById(15));
+            Utility.FindMenuById(15).ToggleMenu();
         }
 
         public static void SpawnMob(GUIStyle buttonStyle, string buttonId)
@@ -177,7 +187,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void DestroySpawnedInteractables()
+        public void DestroySpawnedInteractables()
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
@@ -203,7 +213,7 @@ namespace UmbraMenu.Menus
         }
 
         #region Increase/Decrease Value Actions
-        public static void IncreaseMinDistance()
+        public void IncreaseMinDistance()
         {
             if (MinDistance < MaxDistance)
             {
@@ -211,14 +221,14 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void IncreaseMaxDistance()
+        public void IncreaseMaxDistance()
         {
             if (MaxDistance >= MinDistance)
             {
                 MaxDistance += 1;
             }
         }
-        public static void IncreaseTeamIndex()
+        public void IncreaseTeamIndex()
         {
             if (TeamIndexInt < 3)
             {
@@ -230,7 +240,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void DecreaseMinDistance()
+        public void DecreaseMinDistance()
         {
             if (MinDistance > 0)
             {
@@ -238,7 +248,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void DecreaseMaxDistance()
+        public void DecreaseMaxDistance()
         {
             if (MaxDistance > MinDistance)
             {
@@ -246,7 +256,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void DecreaseTeamIndex()
+        public void DecreaseTeamIndex()
         {
             if (TeamIndexInt > 0)
             {

@@ -64,13 +64,13 @@ namespace UmbraMenu.Menus
                 var directorSpawnRequest = new DirectorSpawnRequest(spawnCard, new DirectorPlacementRule
                 {
                     placementMode = DirectorPlacementRule.PlacementMode.Approximate,
-                    minDistance = Spawn.MinDistance,
-                    maxDistance = Spawn.MaxDistance,
+                    minDistance = Spawn.minDistance,
+                    maxDistance = Spawn.maxDistance,
                     position = UmbraMenu.LocalPlayerBody.footPosition
                 }, RoR2Application.rng)
                 {
                     ignoreTeamMemberLimit = true,
-                    teamIndexOverride = Spawn.team[Spawn.TeamIndexInt]
+                    teamIndexOverride = Spawn.team[Spawn.teamIndex]
                 };
 
                 directorSpawnRequest.spawnCard.sendOverNetwork = true;
@@ -107,14 +107,14 @@ namespace UmbraMenu.Menus
                 // Add chat message
                 if (cardName.Contains("isc"))
                 {
-                    var interactable = Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.MinDistance), body.rotation, directorSpawnRequest).spawnedInstance.gameObject;
+                    var interactable = Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorSpawnRequest).spawnedInstance.gameObject;
                     Spawn.spawnedObjects.Add(interactable);
                     Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\"</color>");
                 }
                 else
                 {
                     DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-                    Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.TeamIndexInt]}\" </color>");
+                    Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
                 }
             }
         }

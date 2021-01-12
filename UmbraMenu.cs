@@ -67,13 +67,15 @@ namespace UmbraMenu
         public static Menu playerMenu = new Menus.Player();
         public static Menu movementMenu = new Menus.Movement();
         public static Menu itemsMenu = new Menus.Items();
+        public static Menu spawnMenu = new Menus.Spawn();
 
         public static List<Menu> menus = new List<Menu>()
         {
             mainMenu,
             playerMenu,
             movementMenu,
-            itemsMenu
+            itemsMenu,
+            spawnMenu
         };
         #endregion
 
@@ -100,6 +102,7 @@ namespace UmbraMenu
                 playerMenu.Draw();
                 movementMenu.Draw();
                 itemsMenu.Draw();
+                spawnMenu.Draw();
                 /*
                 #region Main Menus
 
@@ -501,13 +504,15 @@ namespace UmbraMenu
                 playerMenu = new Menus.Player();
                 movementMenu = new Menus.Movement();
                 itemsMenu = new Menus.Items();
+                spawnMenu = new Menus.Spawn();
 
                 menus = new List<Menu>()
                 {
                     mainMenu,
                     playerMenu,
                     movementMenu,
-                    itemsMenu
+                    itemsMenu,
+                    spawnMenu
                 };
             }
         }
