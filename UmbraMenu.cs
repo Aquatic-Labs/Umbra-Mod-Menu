@@ -69,6 +69,7 @@ namespace UmbraMenu
         public static Menu itemsMenu = new Menus.Items();
         public static Menu spawnMenu = new Menus.Spawn();
         public static Menu teleporterMenu = new Menus.Teleporter();
+        public static Menu renderMenu = new Menus.Render();
 
         public static List<Menu> menus = new List<Menu>()
         {
@@ -77,7 +78,8 @@ namespace UmbraMenu
             movementMenu,
             itemsMenu,
             spawnMenu,
-            teleporterMenu
+            teleporterMenu,
+            renderMenu
         };
         #endregion
 
@@ -106,6 +108,7 @@ namespace UmbraMenu
                 itemsMenu.Draw();
                 spawnMenu.Draw();
                 teleporterMenu.Draw();
+                renderMenu.Draw();
                 /*
                 #region Main Menus
 
@@ -194,7 +197,7 @@ namespace UmbraMenu
                 #endregion
                 */
 
-                // ESPRoutine();
+                ESPRoutine();
                 // UpdateMenusAndButtonsRoutine();
             }
             catch (Exception e)
@@ -396,7 +399,7 @@ namespace UmbraMenu
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
-            if (Menus.Render.toggleMobESP.Enabled)
+            if (Menus.Render.renderMobs)
             {
                 Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
             }
@@ -509,6 +512,7 @@ namespace UmbraMenu
                 itemsMenu = new Menus.Items();
                 spawnMenu = new Menus.Spawn();
                 teleporterMenu = new Menus.Teleporter();
+                renderMenu = new Menus.Render();
 
                 menus = new List<Menu>()
                 {
@@ -517,7 +521,8 @@ namespace UmbraMenu
                     movementMenu,
                     itemsMenu,
                     spawnMenu,
-                    teleporterMenu
+                    teleporterMenu,
+                    renderMenu
                 };
             }
         }
@@ -553,7 +558,7 @@ namespace UmbraMenu
         {
             if (characterCollected)
             {
-                if (Menus.Render.toggleInteractESP.Enabled)
+                if (Menus.Render.renderInteractables)
                 {
                     Menus.Render.Interactables();
                     Menus.Render.renderInteractables = true;
@@ -563,7 +568,7 @@ namespace UmbraMenu
                     Menus.Render.renderInteractables = false;
                 }
 
-                if (Menus.Render.toggleMobESP.Enabled)
+                if (Menus.Render.renderMobs)
                 {
                     Menus.Render.Mobs();
                     Menus.Render.renderMobs = true;
@@ -573,7 +578,7 @@ namespace UmbraMenu
                     Menus.Render.renderMobs = false;
                 }
 
-                if (Menus.Render.toggleActiveMods.Enabled)
+                if (Menus.Render.renderMods)
                 {
                     Menus.Render.ActiveMods();
                     Menus.Render.renderMods = true;

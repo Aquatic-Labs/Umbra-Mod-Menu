@@ -7,25 +7,9 @@ using EntityStates.Scrapper;
 
 namespace UmbraMenu.Menus
 {
-    public class Render
+    public class Render : Menu
     {
-        private static readonly Menu currentMenu = null;// (Menu)Utility.FindMenuById(6);
-
-        public static TogglableButton toggleActiveMods = new TogglableButton(currentMenu, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true);
-        public static TogglableButton toggleInteractESP = new TogglableButton(currentMenu, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables);
-        public static TogglableButton toggleMobESP = new TogglableButton(currentMenu, 3, "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", "M O B   E S P : O N\n<color=red>Warning: May lag/crash game </color>", ToggleRenderMobs, ToggleRenderMobs);
-
-        private static List<IButton> buttons = new List<IButton>()
-        {
-            toggleActiveMods,
-            toggleInteractESP,
-            toggleMobESP
-        };
-
-        public static void AddButtonsToMenu()
-        {
-            //currentMenu.Buttons = buttons;
-        }
+        private static readonly IMenu render = new NormalMenu(6, new Rect(10, 795, 20, 20), "R E N D E R   M E N U");
 
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
@@ -34,9 +18,39 @@ namespace UmbraMenu.Menus
         public static List<HurtBox> hurtBoxes;
         public static bool onRenderIntEnable = true, renderMobs, renderInteractables, renderMods = true;
 
-        private static void ToggleRenderInteractables()
+        public Button toggleActiveMods;
+        public Button toggleInteractESP;
+        public Button toggleMobESP;
+
+        public Render() : base(render)
         {
-            if (renderInteractables || toggleInteractESP.Enabled)
+            if (UmbraMenu.characterCollected)
+            {
+                toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true));
+                toggleInteractESP = new Button(new TogglableButton(this, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables));
+                toggleMobESP = new Button(new TogglableButton(this, 3, "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", "M O B   E S P : O N", ToggleRenderMobs, ToggleRenderMobs));
+
+                AddButtons(new List<Button>()
+                {
+                    toggleActiveMods,
+                    toggleInteractESP,
+                    toggleMobESP
+                });
+            }
+        }
+
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        private void ToggleRenderInteractables()
+        {
+            if (renderInteractables || toggleInteractESP.IsEnabled())
             {
                 DisableInteractables();
             }
@@ -47,12 +61,12 @@ namespace UmbraMenu.Menus
             renderInteractables = !renderInteractables;
         }
 
-        private static void ToggleRenderMods()
+        private void ToggleRenderMods()
         {
             renderMods = !renderMods;
         }
 
-        private static void ToggleRenderMobs()
+        private void ToggleRenderMobs()
         {
             renderMobs = !renderMobs;
         }

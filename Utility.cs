@@ -308,8 +308,8 @@ namespace UmbraMenu
 
             Menus.ChestItemList.DisableChests();
 
-            Menus.Render.toggleInteractESP.Enabled = false;
-            Menus.Render.toggleMobESP.Enabled = false;
+            //Menus.Render.toggleInteractESP.Enabled = false;
+            //Menus.Render.toggleMobESP.Enabled = false;
             Menus.Render.onRenderIntEnable = true;
             Menus.Render.DisableInteractables();
 
