@@ -146,14 +146,15 @@ pause
 5. Click browse. The required resources are found in > `\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed`
 ```
 1) Assembly-CSharp.dll
-2) netstandard.dll
-3) Rewired_Core.dll
-4) System.dll
-5) UnityEngine.CoreModule.dll
-6) UnityEngine.dll
-7) UnityEngine.IMGUIModule.dll
-8) UnityEngine.Networking.dll
-9) UnityEngine.TextRenderingModule.dll
+2) HGCSharpUtils
+3) netstandard.dll
+4) Rewired_Core.dll
+5) System.dll
+6) UnityEngine.CoreModule.dll
+7) UnityEngine.dll
+8) UnityEngine.IMGUIModule.dll
+9) UnityEngine.Networking.dll
+10) UnityEngine.TextRenderingModule.dll
 ```
 6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
