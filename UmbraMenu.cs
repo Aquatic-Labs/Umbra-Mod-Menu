@@ -68,6 +68,7 @@ namespace UmbraMenu
         public static Menu movementMenu = new Menus.Movement();
         public static Menu itemsMenu = new Menus.Items();
         public static Menu spawnMenu = new Menus.Spawn();
+        public static Menu teleporterMenu = new Menus.Teleporter();
 
         public static List<Menu> menus = new List<Menu>()
         {
@@ -75,7 +76,8 @@ namespace UmbraMenu
             playerMenu,
             movementMenu,
             itemsMenu,
-            spawnMenu
+            spawnMenu,
+            teleporterMenu
         };
         #endregion
 
@@ -103,6 +105,7 @@ namespace UmbraMenu
                 movementMenu.Draw();
                 itemsMenu.Draw();
                 spawnMenu.Draw();
+                teleporterMenu.Draw();
                 /*
                 #region Main Menus
 
@@ -366,7 +369,7 @@ namespace UmbraMenu
             try
             {
                 // LowResolutionRoutine();
-                // DevBuildRoutine();
+                DevBuildRoutine();
 
                 CheckInputs();
                 CharacterRoutine();
@@ -505,6 +508,7 @@ namespace UmbraMenu
                 movementMenu = new Menus.Movement();
                 itemsMenu = new Menus.Items();
                 spawnMenu = new Menus.Spawn();
+                teleporterMenu = new Menus.Teleporter();
 
                 menus = new List<Menu>()
                 {
@@ -512,7 +516,8 @@ namespace UmbraMenu
                     playerMenu,
                     movementMenu,
                     itemsMenu,
-                    spawnMenu
+                    spawnMenu,
+                    teleporterMenu
                 };
             }
         }

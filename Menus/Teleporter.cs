@@ -7,40 +7,49 @@ using System.Linq;
 
 namespace UmbraMenu.Menus
 {
-    public class Teleporter
+    public class Teleporter : Menu
     {
-        private static readonly Menu currentMenu = null; // (Menu)Utility.FindMenuById(5);
+        private static readonly IMenu teleporter = new NormalMenu(5, new Rect(10, 425, 20, 20), "T E L E P O R T E R   M E N U");
         private static int mountainStacks = 0;
 
-        private static void SpawnAllPortals() => SpawnPortals("all");
-        private static void SpawnBluePortal() => SpawnPortals("blue");
-        private static void SpawnCelestalPortal() => SpawnPortals("cele");
-        private static void SpawnGoldPortal() => SpawnPortals("gold");
-        //public static Button skipStage = new Button(currentMenu, 1, "S K I P   S T A G E", SkipStage);
-        //public static Button instaTele = new Button(currentMenu, 2, "I N S T A N T   T E L E P O R T E R", InstaTeleporter);
-        //public static Button addMountain = new Button(currentMenu, 3, $"A D D   M O U N T A I N - C O U N T : {mountainStacks}", AddMountain);
-        //public static Button spawnAll = new Button(currentMenu, 4, "S P A W N   A L L   P O R T A L S", SpawnAllPortals);
-        //public static Button spawnBlue = new Button(currentMenu, 5, "S P A W N   B L U E   P O R T A L", SpawnBluePortal);
-        //public static Button spawnCele = new Button(currentMenu, 6, "S P A W N   C E L E S T A L   P O R T A L", SpawnCelestalPortal);
-        //public static Button spawnGold = new Button(currentMenu, 7, "S P A W N   G O L D   P O R T A L", SpawnGoldPortal);
+        public Button skipStage;
+        public Button instaTele;
+        public Button addMountain;
+        public Button spawnAll;
+        public Button spawnBlue;
+        public Button spawnCele;
+        public Button spawnGold;
 
-        private static List<IButton> buttons = new List<IButton>()
+        public Teleporter() : base(teleporter)
         {
-            //skipStage,
-            //instaTele,
-            //addMountain,
-            //spawnAll,
-            //spawnBlue,
-            //spawnCele,
-            //spawnGold
-        };
+            if (UmbraMenu.characterCollected)
+            {
+                void SpawnAllPortals() => SpawnPortals("all");
+                void SpawnBluePortal() => SpawnPortals("blue");
+                void SpawnCelestalPortal() => SpawnPortals("cele");
+                void SpawnGoldPortal() => SpawnPortals("gold");
+                skipStage = new Button(new NormalButton(this, 1, "S K I P   S T A G E", SkipStage));
+                instaTele = new Button(new NormalButton(this, 2, "I N S T A N T   T E L E P O R T E R", InstaTeleporter));
+                addMountain = new Button(new NormalButton(this, 3, $"A D D   M O U N T A I N - C O U N T : {mountainStacks}", AddMountain));
+                spawnAll = new Button(new NormalButton(this, 4, "S P A W N   A L L   P O R T A L S", SpawnAllPortals));
+                spawnBlue = new Button(new NormalButton(this, 5, "S P A W N   B L U E   P O R T A L", SpawnBluePortal));
+                spawnCele = new Button(new NormalButton(this, 6, "S P A W N   C E L E S T A L   P O R T A L", SpawnCelestalPortal));
+                spawnGold = new Button(new NormalButton(this, 7, "S P A W N   G O L D   P O R T A L", SpawnGoldPortal));
 
-        public static void AddButtonsToMenu()
-        {
-            //currentMenu.Buttons = buttons;
+                AddButtons(new List<Button>()
+                {
+                    skipStage,
+                    instaTele,
+                    addMountain,
+                    spawnAll,
+                    spawnBlue,
+                    spawnCele,
+                    spawnGold
+                });
+            }
         }
 
-        public static void InstaTeleporter()
+        public void InstaTeleporter()
         {
             if (TeleporterInteraction.instance)
             {
@@ -48,19 +57,19 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void SkipStage()
+        public void SkipStage()
         {
             Run.instance.AdvanceStage(Run.instance.nextStageScene);
         }
 
-        public static void AddMountain()
+        public void AddMountain()
         {
             TeleporterInteraction.instance.AddShrineStack();
             mountainStacks = TeleporterInteraction.instance.shrineBonusStacks;
-            //addMountain.text = $"A D D   M O U N T A I N - C O U N T : {mountainStacks}";
+            addMountain.SetText($"A D D   M O U N T A I N - C O U N T : {mountainStacks}");
         }
 
-        public static void SpawnPortals(string portal)
+        public void SpawnPortals(string portal)
         {
             if (TeleporterInteraction.instance)
             {
