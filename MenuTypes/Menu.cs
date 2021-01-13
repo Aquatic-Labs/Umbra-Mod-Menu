@@ -71,6 +71,7 @@ namespace UmbraMenu
 
         public void SetEnabled(bool value)
         {
+            _menu.ActivatingButton.SetEnabled(false);
             _menu.Enabled = value;
         }
 
@@ -107,6 +108,11 @@ namespace UmbraMenu
         public Button GetActivatingButton()
         {
             return _menu.ActivatingButton;
+        }
+
+        public virtual void Reset()
+        {
+            _menu.Reset();
         }
     }
 }

@@ -37,13 +37,24 @@ namespace UmbraMenu
             Rect = GUI.Window(Id, Rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             if (Enabled)
             {
                 GUI.Box(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.MainBgStyle);
                 GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, WidthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
+            }
+        }
+
+        public virtual void Reset()
+        {
+            Enabled = false;
+            IfDragged = false;
+            for (int i = 0; i < Buttons.Count; i++)
+            {
+                Button currentButton = Buttons[i];
+                currentButton.SetEnabled(false);
             }
         }
 
@@ -74,7 +85,7 @@ namespace UmbraMenu
                     Enabled = !Enabled;
                     if (ActivatingButton != null)
                     {
-                        ActivatingButton.SetEnabled(!ActivatingButton.IsEnabled());
+                        ActivatingButton.ToggleButton();
                     }
                     UmbraMenu.GetCharacter();
                 }

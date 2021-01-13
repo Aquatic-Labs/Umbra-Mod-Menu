@@ -44,6 +44,15 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            jumpPackToggle = false;
+            flightToggle = false;
+            alwaysSprintToggle = false;
+            jumpPackMul = 1;
+            base.Reset();
+        }
+
         private static void ToggleFlight()
         {
             flightToggle = !flightToggle;

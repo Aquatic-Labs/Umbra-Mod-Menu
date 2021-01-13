@@ -3,7 +3,6 @@ using UnityEngine;
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
-using EntityStates.Scrapper;
 
 namespace UmbraMenu.Menus
 {
@@ -28,7 +27,7 @@ namespace UmbraMenu.Menus
             {
                 toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true));
                 toggleInteractESP = new Button(new TogglableButton(this, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables));
-                toggleMobESP = new Button(new TogglableButton(this, 3, "M O B   E S P : O F F\n<color=red>Warning: May lag/crash game </color>", "M O B   E S P : O N", ToggleRenderMobs, ToggleRenderMobs));
+                toggleMobESP = new Button(new TogglableButton(this, 3, "M O B   E S P : O F F", "M O B   E S P : O N", ToggleRenderMobs, ToggleRenderMobs));
 
                 AddButtons(new List<Button>()
                 {
@@ -49,9 +48,19 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            renderMobs = false;
+            renderInteractables = false;
+            // Add check here later for low resolution monitors
+            renderMods = true;
+            DisableInteractables();
+            base.Reset();
+        }
+
         private void ToggleRenderInteractables()
         {
-            if (renderInteractables || toggleInteractESP.IsEnabled())
+            if (renderInteractables)
             {
                 DisableInteractables();
             }

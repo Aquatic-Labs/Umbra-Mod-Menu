@@ -95,6 +95,14 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            teamIndex = 0;
+            minDistance = 3f;
+            maxDistance = 40f;
+            base.Reset();
+        }
+
         private void ToggleSpawnListMenu()
         {
             if (toggleSpawnListMenu.IsEnabled())

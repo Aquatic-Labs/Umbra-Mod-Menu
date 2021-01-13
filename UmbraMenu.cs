@@ -1,6 +1,5 @@
 ﻿// TODO:
-//     Somehow link buttons/menus to their toggles so if the menu closes, the toggle is updated or if a toggle is enabled by default, so is the button
-//     Make it so only 1 drop item toggle can be enabled at a time
+//     Implement Fix for Main Menu buttons resetting even though their menu is open
 //     Implement Settings Menu
 //     Add LowResolution support
 //     Add Navigation
@@ -40,7 +39,8 @@ namespace UmbraMenu
         Rect Rect { get; set; }
         string Title { get; set; }
         void SetWindow();
-        void Draw(); 
+        void Draw();
+        void Reset();
     }
 
     public class UmbraMenu : MonoBehaviour
@@ -178,7 +178,7 @@ namespace UmbraMenu
         {
             try
             {
-                // SceneManager.sceneLoaded += OnSceneLoaded;
+                SceneManager.activeSceneChanged += OnSceneLoaded;
 
                 #region Old Build Menus
 
@@ -269,13 +269,16 @@ namespace UmbraMenu
         public void FixedUpdate()
         {
             currentScene = SceneManager.GetActiveScene();
-            if (Menus.Render.renderMobs)
+            if (InGameCheck())
             {
-                Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
-            }
-            if (Menus.Items.chestItemList)
-            {
-                Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
+                if (Menus.Render.renderMobs)
+                {
+                    Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
+                }
+                if (Menus.Items.chestItemList)
+                {
+                    Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
+                }
             }
         }
 
@@ -342,16 +345,52 @@ namespace UmbraMenu
             return false;
         }
 
-        public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        public void OnSceneLoaded(Scene s1, Scene s2)
         {
-            if (!InGameCheck())
+            if (s2 != null)
             {
-                Utility.ResetMenu();
-            }
-            else
-            {
-                ModStatsRoutine();
-                Utility.SoftResetMenu();
+                bool inGame = s2.name != "title" && s2.name != "lobby" && s2.name != "" && s2.name != " ";
+                if (!inGame)
+                {
+                    Utility.ResetMenu();
+                    mainMenu = new Menus.Main();
+                    playerMenu = new Menus.Player();
+                    movementMenu = new Menus.Movement();
+                    itemsMenu = new Menus.Items();
+                    spawnMenu = new Menus.Spawn();
+                    teleporterMenu = new Menus.Teleporter();
+                    renderMenu = new Menus.Render();
+
+                    statsModMenu = new Menus.StatsMod();
+                    viewStatsMenu = new Menus.ViewStats();
+                    characterListMenu = new Menus.CharacterList();
+                    buffListMenu = new Menus.BuffList();
+
+                    itemListMenu = new Menus.ItemList();
+                    equipmentListMenu = new Menus.EquipmentList();
+                    chestItemListMenu = new Menus.ChestItemList();
+
+                    spawnListMenu = new Menus.SpawnList();
+
+                    menus = new List<Menu>()
+                    {
+                        mainMenu, //0
+                        playerMenu, //1
+                        movementMenu, //2
+                        itemsMenu, //3
+                        spawnMenu, //4
+                        teleporterMenu, //5
+                        renderMenu, //6
+                        statsModMenu, //8
+                        viewStatsMenu, //9
+                        characterListMenu, //10
+                        buffListMenu, //11
+                        itemListMenu, //12
+                        equipmentListMenu, //13
+                        chestItemListMenu, //14
+                        spawnListMenu //15
+                    };
+                }
             }
         }
 
@@ -378,8 +417,9 @@ namespace UmbraMenu
         {
             bool prevCharCollected = characterCollected;
             GetCharacter();
-            if (prevCharCollected != characterCollected)
+            if (prevCharCollected != characterCollected && characterCollected && InGameCheck())
             {
+                var savedMenuState = Utility.SaveMenuState();
                 mainMenu = new Menus.Main();
                 playerMenu = new Menus.Player();
                 movementMenu = new Menus.Movement();
@@ -417,7 +457,12 @@ namespace UmbraMenu
                     chestItemListMenu, //14
                     spawnListMenu //15
                 };
+                Utility.ReadMenuState(savedMenuState);
             }
+            /*else if (!InGameCheck())
+            {
+                Utility.ResetMenu();
+            }*/
         }
 
         /*private void LowResolutionRoutine()
@@ -437,9 +482,9 @@ namespace UmbraMenu
                 {
                     if (devDoOnce)
                     {
-                        Menus.Player.GodToggle = true;
-                        Menus.Movement.flightToggle = true;
-                        Menus.Movement.alwaysSprintToggle = true;
+                        //Menus.Player.GodToggle = true;
+                        //Menus.Movement.flightToggle = true;
+                        //Menus.Movement.alwaysSprintToggle = true;
                         LocalPlayer.GiveMoney(10000);
                         devDoOnce = false;
                     }
@@ -523,6 +568,10 @@ namespace UmbraMenu
                 if (Menus.Player.GodToggle)
                 {
                     Menus.Player.GodMode();
+                }
+                else
+                {
+                    UmbraMenu.LocalHealth.godMode = false;
                 }
 
             }

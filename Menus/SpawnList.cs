@@ -69,6 +69,11 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            DisableSpawnList();
+            base.Reset();
+        }
         private static void SpawnSpawnCard(SpawnCard spawnCard)
         {
             var localUser = LocalUserManager.GetFirstLocalUser();

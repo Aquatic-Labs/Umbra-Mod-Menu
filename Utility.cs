@@ -37,7 +37,7 @@ namespace UmbraMenu
                     return currentButton;
                 }
             }
-            throw new NullReferenceException($"Button with id '{buttonId}' was not found");
+            throw new NullReferenceException($"Button with id '{buttonId}' was not found in menu '{menuId}'");
         }
 
         public static bool CursorIsVisible()
@@ -58,6 +58,64 @@ namespace UmbraMenu
             var bodyIndex = BodyCatalog.FindBodyIndex(UmbraMenu.LocalPlayerBody);
             var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
             return survivorIndex;
+        }
+
+        public static HashSet<Tuple<int, int, bool>> SaveMenuState()
+        {
+            HashSet<Tuple<int, int, bool>> enabledButtons = new HashSet<Tuple<int, int, bool>>();
+            for (int menuId = 1; menuId < UmbraMenu.menus.Count; menuId++)
+            {
+                Tuple<int, int, bool> menuButtonsEnabled = new Tuple<int, int, bool>(-1, -1, false);
+                try
+                {
+                    if (menuId != 7)
+                    {
+                        for (int buttonPos = 1; buttonPos < UmbraMenu.menus[menuId].GetButtons().Count + 1; buttonPos++)
+                        {
+                            Button currentButton = FindButtonById(menuId, buttonPos);
+
+                            if (currentButton.IsEnabled())
+                            {
+                                menuButtonsEnabled = new Tuple<int, int, bool>(menuId, buttonPos, UmbraMenu.menus[menuId].IsEnabled());
+                            }
+                            else if (UmbraMenu.menus[menuId].IsEnabled())
+                            {
+                                menuButtonsEnabled = new Tuple<int, int, bool>(menuId, -1, UmbraMenu.menus[menuId].IsEnabled());
+                            }
+                            if (menuButtonsEnabled?.Item1 != -1)
+                            {
+                                enabledButtons.Add(menuButtonsEnabled);
+                            }
+                        }
+                    }
+                }
+                catch (NullReferenceException e)
+                {
+                    continue;
+                }
+            }
+            return enabledButtons;
+        }
+
+        public static void ReadMenuState(HashSet<Tuple<int, int, bool>> menuState)
+        {
+            foreach (var currentTuple in menuState)
+            {
+                int menuId = currentTuple.Item1;
+                int buttonPos = currentTuple.Item2;
+                bool isMenuOpen = currentTuple.Item3;
+                try
+                {
+                    if (menuId != -1 && buttonPos != -1)
+                    {
+                        FindButtonById(menuId, buttonPos).SetEnabled(true);
+                    }
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+            }
         }
 
         public static void StubbedFunction()
@@ -267,6 +325,10 @@ namespace UmbraMenu
                 {
                     updatedHurtboxes.Add(hurtBox);
                 }
+                /*else
+                {
+                    WriteToLog($"Blocked: {mobName}");
+                }*/
             }
             return updatedHurtboxes;
         }
@@ -277,60 +339,12 @@ namespace UmbraMenu
         {
             for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                UmbraMenu.menus[i].SetEnabled(false);
-                UmbraMenu.menus[i].SetIfDragged(false);
-            }
-
-            for (int i = 0; i < UmbraMenu.menus.Count; i++)
-            {
-                UmbraMenu.menus[i].SetEnabled(false);
-                UmbraMenu.menus[i].SetIfDragged(false);
+                Menu currentMenu = UmbraMenu.menus[i];
+                currentMenu.Reset();
             }
             UmbraMenu.characterCollected = false;
 
-            //MenuButtons.Main.unloadMenu.Enabled = false;
-
-            //MenuButtons.Player.toggleSkillCD.Enabled = false;
-            //MenuButtons.Player.toggleGod.Enabled = false;
-            //MenuButtons.Player.toggleAimbot.Enabled = false;
-            //MenuButtons.Player.XPToGive = 50;
-            //MenuButtons.Player.MoneyToGive = 50;
-            //MenuButtons.Player.CoinsToGive = 50;
-
-            //Menus.StatsMod.DamagePerLevel = 10;
-            //Menus.StatsMod.CritPerLevel = 1;
-            //Menus.StatsMod.AttackSpeed = 1;
-            //Menus.StatsMod.Armor = 0;
-            //Menus.StatsMod.MoveSpeed = 7;
-            //Menus.StatsMod.changeDmgPerLevel.Enabled = false;
-            //Menus.StatsMod.changeCritPerLevel.Enabled = false;
-            //Menus.StatsMod.changeAttackSpeed.Enabled = false;
-            //Menus.StatsMod.changeArmor.Enabled = false;
-            //Menus.StatsMod.changeMoveSpeed.Enabled = false;
-
-            //Menus.Movement.toggleFlight.Enabled = false;
-            //Movement.toggleAlwaysSprint.Enabled = false;
-
-            //Menus.Items.toggleEquipmentCD.SetEnabled(false);
-            //Menus.Items.ItemsToRoll = 5;
-            Menus.Items.isDropItemForAll = false;
-            Menus.Items.isDropItemFromInventory = false;
-           // Menus.Items.AllItemsQuantity = 1;
-
-            Menus.SpawnList.onSpawnListEnable = true;
-            Menus.SpawnList.DisableSpawnList();
-
-            Menus.ChestItemList.DisableChests();
-
-            //Menus.Render.toggleInteractESP.Enabled = false;
-            //Menus.Render.toggleMobESP.Enabled = false;
-            Menus.Render.onRenderIntEnable = true;
-            Menus.Render.DisableInteractables();
-
-
             //Main.scrolled = false;
-            //Main.onChestsEnable = true;
-            //Main.onChestsDisable = false;
         }
 
         public static void CloseAllMenus()
@@ -342,11 +356,6 @@ namespace UmbraMenu
                     UmbraMenu.menus[i].SetEnabled(false);
                 }
             }
-
-            for (int i = 0; i < UmbraMenu.menus.Count; i++)
-            {
-                UmbraMenu.menus[i].SetEnabled(false);
-            }
             UmbraMenu.characterCollected = false;
         }
 
@@ -357,14 +366,6 @@ namespace UmbraMenu
             MainMenu.ToggleMenu();
             UmbraMenu.GetCharacter();
             MainMenu.ToggleMenu();
-
-            //MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
-            //UmbraMenu.GetCharacter();
-            //MenuButtons.Player.toggleGod.Enabled = !MenuButtons.Player.toggleGod.Enabled;
-
-            //MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
-            //UmbraMenu.GetCharacter();
-            //MenuButtons.Player.toggleAimbot.Enabled = !MenuButtons.Player.toggleAimbot.Enabled;
         }
         #endregion
 

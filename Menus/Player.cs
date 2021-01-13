@@ -114,6 +114,17 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            SkillToggle = false;
+            AimBotToggle = false;
+            GodToggle = false;
+            xpToGive = 50;
+            moneyToGive = 50;
+            coinsToGive = 50;
+            base.Reset();
+        }
+
         public void ToggleMenu(Menu menu)
         {
             menu.ToggleMenu();

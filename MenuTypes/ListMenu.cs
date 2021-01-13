@@ -48,6 +48,12 @@ namespace UmbraMenu
             }
         }
 
+        public virtual void Reset()
+        {
+            Enabled = false;
+            IfDragged = false;
+        }
+
         private void DrawAllButtons()
         {
             currentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), false, true);

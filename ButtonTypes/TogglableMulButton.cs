@@ -67,8 +67,8 @@ namespace UmbraMenu
 
             if (GUI.Button(rect, Text, style))
             {
-                Action?.Invoke();
                 Enabled = !Enabled;
+                Action?.Invoke();
                 Draw();
             }
             DrawMulButtons();

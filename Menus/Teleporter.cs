@@ -59,6 +59,12 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            mountainStacks = 0;
+            base.Reset();
+        }
+
         public void InstaTeleporter()
         {
             if (TeleporterInteraction.instance)

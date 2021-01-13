@@ -15,9 +15,41 @@ namespace UmbraMenu.Menus
     {
         private static readonly IMenu items = new NormalMenu(3, new Rect(738, 10, 20, 20), "I T E M S   M E N U");
         public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD, chestItemList;
+        public bool IsDropItemForAll
+        {
+            get
+            {
+                return isDropItemForAll;
+            }
+            set
+            {
+                isDropItemForAll = value;
+                if (isDropItemFromInventory && isDropItemForAll)
+                {
+                    isDropItemFromInventory = false;
+                    toggleDropInvItems.SetEnabled(false);
+                }
+            }
+        }
+        public bool IsDropItemFromInventory
+        {
+            get
+            {
+                return isDropItemFromInventory;
+            }
+            set
+            {
+                isDropItemFromInventory = value;
+                if (isDropItemFromInventory && isDropItemForAll)
+                {
+                    isDropItemForAll = false;
+                    toggleDropItems.SetEnabled(false);
+                }
+            }
+        }
 
         private readonly WeightedSelection<List<ItemIndex>> weightedSelection = BuildRollItemsDropTable();
-        private int itemsToRoll = 5;
+        public static int itemsToRoll = 5;
         public int ItemsToRoll
         {
             get
@@ -30,7 +62,7 @@ namespace UmbraMenu.Menus
                 rollItems.SetText($"R O L L   I T E M S : {itemsToRoll}");
             }
         }
-        private static int allItemsQuantity = 1;
+        public static int allItemsQuantity = 1;
         public int AllItemsQuantity
         {
             get
@@ -99,15 +131,26 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            isDropItemForAll = false;
+            isDropItemFromInventory = false;
+            noEquipmentCD = false;
+            chestItemList = false;
+            itemsToRoll = 5;
+            allItemsQuantity = 1;
+            base.Reset();
+        }
+
         #region Toggle cheat functions
         private void ToggleDrop()
         {
-            isDropItemForAll = !isDropItemForAll;
+            IsDropItemForAll = !IsDropItemForAll;
         }
 
         private void ToggleDropFromInventory()
         {
-            isDropItemFromInventory = !isDropItemFromInventory;
+            IsDropItemFromInventory = !IsDropItemFromInventory;
         }
 
         private void ToggleEquipmentCD()

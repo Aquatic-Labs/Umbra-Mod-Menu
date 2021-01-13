@@ -104,6 +104,5 @@ namespace UmbraMenu.Menus
         {
             menu.ToggleMenu();
         }
-        
     }
 }

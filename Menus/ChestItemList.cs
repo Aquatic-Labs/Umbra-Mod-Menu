@@ -73,6 +73,13 @@ namespace UmbraMenu.Menus
             }
         }
 
+        public override void Reset()
+        {
+            isClosestChestEquip = false;
+            DisableChests();
+            base.Reset();
+        }
+
         public static void EnableChests()
         {
             if (onChestsEnable)

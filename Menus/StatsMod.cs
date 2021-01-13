@@ -12,7 +12,7 @@ namespace UmbraMenu.Menus
     {
         private static readonly IMenu statsMod = new NormalMenu(8, new Rect(1503, 10, 20, 20), "S T A T S   M O D   M E N U");
 
-        private static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
+        public static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
         public int DamagePerLevel
         {
             get
@@ -72,7 +72,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private static float attackSpeed = 1, armor = 0, moveSpeed = 7;
+        public static float attackSpeed = 1, armor = 0, moveSpeed = 7;
         public float AttackSpeed
         {
             get
@@ -188,6 +188,23 @@ namespace UmbraMenu.Menus
                 SetWindow();
                 base.Draw();
             }
+        }
+
+        public override void Reset()
+        {
+            DamagePerLevel = 10;
+            CritPerLevel = 1;
+            AttackSpeed = 1;
+            Armor = 0;
+            MoveSpeed = 7;
+            Multiplier = 10;
+            armorToggle = false;
+            attackSpeedToggle = false;
+            critToggle = false;
+            damageToggle = false;
+            moveSpeedToggle = false;
+            regenToggle = false;
+            base.Reset();
         }
 
         public static void LevelPlayersCrit()
