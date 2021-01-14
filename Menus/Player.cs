@@ -8,7 +8,6 @@ namespace UmbraMenu.Menus
 {
     public sealed class Player : Menu
     {
-        //public static Player Instance { get; } = new Player();
         private static readonly IMenu player = new NormalMenu(1, new Rect(374, 10, 20, 20), "P L A Y E R   M E N U");
 
         public static bool SkillToggle, AimBotToggle, GodToggle;
@@ -74,6 +73,7 @@ namespace UmbraMenu.Menus
                 void ToggleStatsMenu() => Utility.FindMenuById(8).ToggleMenu();
                 void ToggleCharacterListMenu() => Utility.FindMenuById(10).ToggleMenu();
                 void ToggleBuffListMenu() => Utility.FindMenuById(11).ToggleMenu();
+                void DoNothing() => Utility.StubbedFunction();
 
                 giveMoney = new Button(new MulButton(this, 1, $"G I V E   M O N E Y : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));
                 giveCoins = new Button(new MulButton(this, 2, $"G I V E   L U N A R   C O I N S : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins));
@@ -85,7 +85,7 @@ namespace UmbraMenu.Menus
                 toggleAimbot = new Button(new TogglableButton(this, 8, "A I M B O T : O F F", "A I M B O T : O N", ToggleAimbot, ToggleAimbot));
                 toggleGod = new Button(new TogglableButton(this, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", ToggleGodMode, ToggleGodMode));
                 toggleSkillCD = new Button(new TogglableButton(this, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD));
-                unlockAll = new Button(new NormalButton(this, 11, "U N L O C K   A L L", UnlockAll));
+                unlockAll = new Button(new TogglableButton(this, 11, "U N L O C K   A L L", "C O N F I R M ?", DoNothing, UnlockAll));
 
                 AddButtons(new List<Button>()
                 {

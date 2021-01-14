@@ -53,6 +53,11 @@ namespace UmbraMenu
                 buttonIndex = 0;
                 return;
             }
+            else if (menuIndex == 1 && buttonIndex == 11)
+            {
+                Utility.FindButtonById(1, 11).SetEnabled(false);
+                return;
+            }
 
 
             if (!UmbraMenu.lowResolutionMonitor)
