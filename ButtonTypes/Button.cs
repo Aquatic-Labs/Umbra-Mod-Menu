@@ -70,5 +70,20 @@ namespace UmbraMenu
         {
             return _button.ParentMenu;
         }
+
+        public Action GetAction()
+        {
+            return _button.Action;
+        }
+
+        public Action GetIncreaseAction()
+        {
+            return _button.IncreaseAction;
+        }
+
+        public Action GetDecreaseAction()
+        {
+            return _button.DecreaseAction;
+        }
     }
 }

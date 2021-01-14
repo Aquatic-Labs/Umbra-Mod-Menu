@@ -114,5 +114,25 @@ namespace UmbraMenu
         {
             _menu.Reset();
         }
+
+        public int GetPrevMenuId()
+        {
+            return _menu.PrevMenuId;
+        }
+
+        public void SetPrevMenuId(int value)
+        {
+            _menu.PrevMenuId = value;
+        }
+
+        public void SetScrollPosition(Vector2 value) 
+        {
+            _menu.CurrentScrollPosition = value;
+        }
+
+        public Vector2 GetScrollPosition()
+        {
+            return _menu.CurrentScrollPosition;
+        }
     }
 }

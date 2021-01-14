@@ -48,6 +48,7 @@ namespace UmbraMenu.Menus
                     killsStat
                 });
                 SetActivatingButton(Utility.FindButtonById(8, 7));
+                SetPrevMenuId(8);
             }
         }
 

@@ -15,8 +15,10 @@ namespace UmbraMenu
         public string Text { get; set; }
         public GUIStyle style = Styles.OffStyle;
         public Action Action { get; set; }
-        public Action OffAction, OnAction, IncreaseAction, DecreaseAction;
+        public Action OffAction, OnAction;
         private bool enabled = false;
+        public Action IncreaseAction { get; set; }
+        public Action DecreaseAction { get; set; }
 
         public string OnText { get; set; }
         public string OffText { get; set; }
@@ -65,7 +67,7 @@ namespace UmbraMenu
             int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
             rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize() - 90, 40);
 
-            if (GUI.Button(rect, Text, style))
+            if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))
             {
                 Enabled = !Enabled;
                 Action?.Invoke();

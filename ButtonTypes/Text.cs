@@ -19,6 +19,8 @@ namespace UmbraMenu
 
         public string OnText { get; set; }
         public string OffText { get; set; }
+        public Action IncreaseAction { get; set; }
+        public Action DecreaseAction { get; set; }
 
         public TextButton(Menu parentMenu, int position, string text)
         {

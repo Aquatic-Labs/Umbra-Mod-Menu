@@ -21,7 +21,10 @@ namespace UmbraMenu
         public int NumberOfButtons { get; set; }
         public Button ActivatingButton { get; set; }
         public bool highlighted = false;
+        public int PrevMenuId { get; set; }
         public List<Button> Buttons { get; set; }
+
+        public Vector2 CurrentScrollPosition { get; set; }
 
         public bool Enabled 
         {
@@ -33,6 +36,10 @@ namespace UmbraMenu
             {
                 enabled = value;
                 UmbraMenu.previousMenuOpen = Id;
+                if (UmbraMenu.navigationToggle && value)
+                {
+                    Navigation.menuIndex = Id;
+                }
             }
         }
 

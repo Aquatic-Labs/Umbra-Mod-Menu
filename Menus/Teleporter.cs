@@ -47,6 +47,7 @@ namespace UmbraMenu.Menus
                     spawnGold
                 });
                 SetActivatingButton(Utility.FindButtonById(0, 5));
+                SetPrevMenuId(0);
             }
         }
 

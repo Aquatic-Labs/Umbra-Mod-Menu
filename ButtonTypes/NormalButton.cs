@@ -20,6 +20,8 @@ namespace UmbraMenu
 
         public string OnText { get; set; }
         public string OffText { get; set; }
+        public Action IncreaseAction { get; set; }
+        public Action DecreaseAction { get; set; }
 
         public NormalButton(Menu parentMenu, int position, string text, Action Action) 
         {
@@ -37,7 +39,7 @@ namespace UmbraMenu
                 int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
                 rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize(), 40);
 
-                if (GUI.Button(rect, Text, style))
+                if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))
                 {
                     Action?.Invoke();
                     Draw();

@@ -20,6 +20,7 @@ namespace UmbraMenu.Menus
         {
             //currentMenu.Buttons = buttons;
             //SetActivatingButton(Utility.FindButtonById(0, 7));
+            //SetPrevMenuId(0);
         }
     }
 }

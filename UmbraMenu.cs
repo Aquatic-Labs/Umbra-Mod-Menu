@@ -1,9 +1,9 @@
 ﻿// TODO:
-//     Add Navigation
-//     Move Interfaces to their own files
-//     remove unused code
+//     Update allowed hurtbox list to track new mobs
+//     remove unused code (including unused 'using's)
 //     Implement Settings Menu
 //     Implement enhancements and bug fixes from github issues.
+//     Add Comments :)
 
 using System;
 using System.Collections.Generic;
@@ -11,37 +11,9 @@ using UnityEngine;
 using RoR2;
 using UnityEngine.SceneManagement;
 using System.Linq;
-using Octokit;
 
 namespace UmbraMenu
 {
-    // MOVE THESE TO SEPARATE FILES
-    public interface IButton
-    {
-        bool Enabled { get; set; }
-        string Text { get; set; }
-        string OnText { get; set; }
-        string OffText { get; set; }
-        int Position { get; set; }
-        Menu ParentMenu { get; set; }
-        void Draw(); 
-    };
-    public interface IMenu
-    {
-        int Id { get; set; }
-        int NumberOfButtons { get; set; }
-        bool Enabled { get; set; }
-        bool IfDragged { get; set; }
-        float WidthSize { get; set; }
-        Button ActivatingButton { get; set; }
-        List<Button> Buttons { get; set; }
-        Rect Rect { get; set; }
-        string Title { get; set; }
-        void SetWindow();
-        void Draw();
-        void Reset();
-    }
-
     public class UmbraMenu : MonoBehaviour
     {
         public const string
@@ -58,16 +30,19 @@ namespace UmbraMenu
         public static CharacterMotor LocalMotor;
         #endregion
 
+        #region Init Lists
         public static List<string> unlockableNames = Utility.GetAllUnlockables();
         public static List<GameObject> bodyPrefabs = Utility.GetBodyPrefabs();
         public static List<EquipmentIndex> equipment = Utility.GetEquipment();
         public static List<ItemIndex> items = Utility.GetItems();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
+        #endregion
+
+        #region Misc Variabled used in some features
         public static int previousMenuOpen;
-
-        public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
-
+        public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor, chatOpen, msgSent = true, scrolled;
         public static Scene currentScene;
+        #endregion
 
         #region Menus
         public static Menu mainMenu = new Menus.Main();
@@ -110,6 +85,7 @@ namespace UmbraMenu
         };
         #endregion
 
+        #region Main Unity Functions
         private void OnGUI()
         {
             try
@@ -164,9 +140,6 @@ namespace UmbraMenu
                 SceneManager.activeSceneChanged += OnSceneLoaded;
 
                 #region Resolution Check
-                if (Screen.height > 1080)
-                {
-                }
                 if (Screen.height < 1080)
                 {
                     lowResolutionMonitor = true;
@@ -188,6 +161,8 @@ namespace UmbraMenu
                     equipmentListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                     chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                     spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position*/
+
+                    Menus.Render.renderMods = false;
                 }
                 #endregion
             }
@@ -216,7 +191,7 @@ namespace UmbraMenu
                 SprintRoutine();
                 JumpPackRoutine();
 
-                // UpdateNavIndexRoutine();
+                UpdateNavIndexRoutine();
                 // UpdateMenuPositions();
                 Menus.ViewStats.UpdateViewStats();
                 UpdateMainButtonsRoutine();
@@ -242,13 +217,224 @@ namespace UmbraMenu
                 }
             }
         }
+        #endregion
 
+        #region Inputs
         private void CheckInputs()
         {
+            if (InGameCheck())
+            {
+                if (chatOpen && Input.GetKeyDown(KeyCode.Escape))
+                {
+                    chatOpen = false;
+                    msgSent = true;
+                }
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    if (msgSent)
+                    {
+                        chatOpen = true;
+                        msgSent = false;
+                    }
+                    else
+                    {
+                        chatOpen = false;
+                        msgSent = true;
+                    }
+                }
+            }
+
+            if (mainMenu.IsEnabled())
+            {
+                Cursor.visible = true;
+                if (characterCollected)
+                {
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        if (!navigationToggle)
+                        {
+                            Utility.CloseOpenMenus();
+                        }
+
+                        navigationToggle = true;
+                        Navigation.buttonIndex++;
+                    }
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
+                    {
+                        if (!navigationToggle)
+                        {
+                            Utility.CloseOpenMenus();
+                        }
+
+                        navigationToggle = true;
+                        Navigation.buttonIndex--;
+                    }
+                }
+                if (navigationToggle)
+                {
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        int oldMenuIndex = Navigation.menuIndex;
+                        Navigation.PressBtn(Navigation.menuIndex, Navigation.buttonIndex);
+                        int newMenuIndex = Navigation.menuIndex;
+
+                        if (oldMenuIndex != newMenuIndex)
+                        {
+                            Navigation.buttonIndex = 1;
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
+                        bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
+                        {
+                            Navigation.IncreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
+                        }
+                        else
+                        {
+                            float oldMenuIndex = Navigation.menuIndex;
+                            Navigation.PressBtn(Navigation.menuIndex, Navigation.buttonIndex);
+                            float newMenuIndex = Navigation.menuIndex;
+
+                            if (oldMenuIndex != newMenuIndex)
+                            {
+                                Navigation.buttonIndex = 1;
+                            }
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                        bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
+                        bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
+                        bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn)
+                        {
+                            Navigation.DecreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
+                        }
+                        else
+                        {
+                            Navigation.GoBackAMenu();
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.Backspace))
+                    {
+                        Navigation.GoBackAMenu();
+                    }
+
+                    if (buffListMenu.IsEnabled() || characterListMenu.IsEnabled() || chestItemListMenu.IsEnabled() || equipmentListMenu.IsEnabled() || itemListMenu.IsEnabled() || spawnListMenu.IsEnabled())
+                    {
+                        if (!scrolled)
+                        {
+                            if (Input.GetAxis("Mouse ScrollWheel") != 0f) // Scrolled
+                            {
+                                scrolled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+                            {
+                                scrolled = false;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (!mainMenu.IsEnabled())
+            {
+                navigationToggle = false;
+                Navigation.buttonIndex = 0;
+                Navigation.menuIndex = 0;
+                Cursor.visible = false;
+            }
+
             if (Input.GetKeyDown(KeyCode.Insert))
             {
+                if (InGameCheck())
+                {
+                    Utility.FindButtonById(0, 8).SetEnabled(false);
+                }
+
+                if (mainMenu.IsEnabled() && navigationToggle)
+                {
+                    Utility.CloseOpenMenus();
+                }
                 mainMenu.ToggleMenu();
                 GetCharacter();
+            }
+
+            if (!chatOpen && InGameCheck())
+            {
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    playerMenu.ToggleMenu();
+                    if (navigationToggle)
+                    {
+                        Navigation.menuIndex = 1;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    itemListMenu.ToggleMenu();
+                    if (navigationToggle)
+                    {
+                        Navigation.menuIndex = 12;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    Menus.Movement.flightToggle = !Menus.Movement.flightToggle;
+                    Utility.FindButtonById(2, 2).SetEnabled(Menus.Movement.flightToggle);
+                }
+
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    teleporterMenu.ToggleMenu();
+                    if (navigationToggle)
+                    {
+                        Navigation.menuIndex = 5;
+                    }
+                }
+            }
+        }
+        #endregion Inputs
+
+        #region Misc Functions
+        public void OnSceneLoaded(Scene s1, Scene s2)
+        {
+            if (s2 != null)
+            {
+                bool inGame = s2.name != "title" && s2.name != "lobby" && s2.name != "" && s2.name != " ";
+                if (!inGame)
+                {
+                    if (Screen.height < 1080)
+                    {
+                        lowResolutionMonitor = true;
+                        Menus.Render.renderMods = false;
+                    }
+                    Utility.ResetMenu();
+                }
+            }
+        }
+
+        private void LowResolutionMonitor()
+        {
+            var menusOpen = Utility.GetMenusOpen();
+
+            int closingIndex = 0;
+            if (menusOpen.Count > 1)
+            {
+                if (menusOpen[1].GetId() > previousMenuOpen)
+                {
+                    closingIndex = 1;
+                }
+                menusOpen[closingIndex].SetEnabled(false);
             }
         }
 
@@ -305,36 +491,9 @@ namespace UmbraMenu
             }
             return false;
         }
-
-        public void OnSceneLoaded(Scene s1, Scene s2)
-        {
-            if (s2 != null)
-            {
-                bool inGame = s2.name != "title" && s2.name != "lobby" && s2.name != "" && s2.name != " ";
-                if (!inGame)
-                {
-                    Utility.ResetMenu();
-                }
-            }
-        }
-
-        private void LowResolutionMonitor()
-        {
-            var menusOpen = Utility.GetMenusOpen();
-
-            int closingIndex = 0;
-            if (menusOpen.Count > 1)
-            {
-                if (menusOpen[1].GetId() > previousMenuOpen)
-                {
-                    closingIndex = 1;
-                }
-                menusOpen[closingIndex].SetEnabled(false);
-            }
-        }
+        #endregion
 
         #region Routines
-
         private void LowResolutionRoutine()
         {
             if (lowResolutionMonitor)
@@ -361,9 +520,15 @@ namespace UmbraMenu
                 {
                     if (devDoOnce)
                     {
-                        //Menus.Player.GodToggle = true;
-                        //Menus.Movement.flightToggle = true;
-                        //Menus.Movement.alwaysSprintToggle = true;
+                        Menus.Player.GodToggle = true;
+                        Utility.FindButtonById(1, 9).SetEnabled(true);
+
+                        Menus.Movement.flightToggle = true;
+                        Utility.FindButtonById(2, 2).SetEnabled(true);
+
+                        Menus.Movement.alwaysSprintToggle = true;
+                        Utility.FindButtonById(2, 1).SetEnabled(true);
+
                         LocalPlayer.GiveMoney(10000);
                         devDoOnce = false;
                     }
@@ -527,32 +692,13 @@ namespace UmbraMenu
             }
         }
 
-        /*
         private void UpdateNavIndexRoutine()
         {
             if (navigationToggle)
             {
                 Navigation.UpdateIndexValues();
             }
-        }*/
-
-        /*private void UpdateMenusAndButtonsRoutine()
-        {
-            for (int i = 1; i < Menu.menus.Count; i++)
-            {
-                if (Menu.menus[i].enabled)
-                {
-                    Menu.menus[i].activatingButton.Enabled = true;
-                }
-                else
-                {
-                    Menu.menus[i].activatingButton.Enabled = false;
-
-                }
-            }
         }
-        */
-
         #endregion
     }
 }

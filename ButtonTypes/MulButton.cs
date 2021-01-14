@@ -38,7 +38,7 @@ namespace UmbraMenu
             int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
             rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize() - 90, 40);
 
-            if (GUI.Button(rect, Text, style))
+            if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))
             {
                 Action?.Invoke();
                 Draw();

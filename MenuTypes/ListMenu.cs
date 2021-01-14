@@ -13,16 +13,32 @@ namespace UmbraMenu
         public float WidthSize { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
-        public bool Enabled { get; set; }
+        public bool enabled { get; set; }
         public Rect Rect { get; set; }
         public bool IfDragged { get; set; }
         public int NumberOfButtons { get; set; }
         public Button ActivatingButton { get; set; }
+        public int PrevMenuId { get; set; }
         public bool highlighted = false;
         public List<Button> Buttons { get; set; }
-        public Vector2 currentScrollPosition = Vector2.zero;
-        public Vector2 endScrollPosition = Vector2.zero;
-        public Vector2 startScrollPosition = Vector2.zero;
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+                UmbraMenu.previousMenuOpen = Id;
+                if (UmbraMenu.navigationToggle && value)
+                {
+                    Navigation.menuIndex = Id;
+                }
+            }
+        }
+
+        public Vector2 CurrentScrollPosition { get; set; }
 
         public ListMenu(int id, Rect rect, string title)
         {
@@ -31,6 +47,11 @@ namespace UmbraMenu
             Title = title;
             NumberOfButtons = 0;
             WidthSize = 350;
+
+            if (UmbraMenu.lowResolutionMonitor)
+            {
+                heightMulY = 10;
+            }
         }
 
         public void SetWindow()
@@ -56,7 +77,7 @@ namespace UmbraMenu
 
         private void DrawAllButtons()
         {
-            currentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * heightMulY), currentScrollPosition, new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), false, true);
+            CurrentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * heightMulY), CurrentScrollPosition, new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), false, true);
             for (int i = 0; i < Buttons.Count; i++)
             {
                 Buttons[i].Draw();

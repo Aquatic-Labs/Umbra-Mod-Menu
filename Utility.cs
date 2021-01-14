@@ -103,7 +103,6 @@ namespace UmbraMenu
             {
                 int menuId = currentTuple.Item1;
                 int buttonPos = currentTuple.Item2;
-                bool isMenuOpen = currentTuple.Item3;
                 try
                 {
                     if (menuId != -1 && buttonPos != -1)
@@ -347,16 +346,13 @@ namespace UmbraMenu
             //Main.scrolled = false;
         }
 
-        public static void CloseAllMenus()
+        public static void CloseOpenMenus()
         {
-            for (int i = 0; i < UmbraMenu.menus.Count; i++)
+            List<Menu> openMenus = GetMenusOpen();
+            for(int i = 0; i < openMenus.Count; i++)
             {
-                if (UmbraMenu.menus[i].GetId() != 9)
-                {
-                    UmbraMenu.menus[i].SetEnabled(false);
-                }
+                openMenus[i].SetEnabled(false);
             }
-            UmbraMenu.characterCollected = false;
         }
 
         // Soft reset when moving to next stage to keep player stat mods and god mode between stages
@@ -437,7 +433,7 @@ namespace UmbraMenu
             List<Menu> openMenus = new List<Menu>();
             for (int i = 1; i < UmbraMenu.menus.Count; i++)
             {
-                if (UmbraMenu.menus[i].IsEnabled())
+                if (UmbraMenu.menus[i].IsEnabled() && UmbraMenu.menus[i].GetId() != 9)
                 {
                     openMenus.Add(UmbraMenu.menus[i]);
                 }

@@ -60,6 +60,8 @@
     <Compile Include="ButtonTypes\Button.cs" />
     <Compile Include="ButtonTypes\NormalButton.cs" />
     <Compile Include="ESPHelper.cs" />
+    <Compile Include="Interfaces\IButton.cs" />
+    <Compile Include="Interfaces\IMenu.cs" />
     <Compile Include="Menus\BuffList.cs" />
     <Compile Include="Menus\CharacterList.cs" />
     <Compile Include="Menus\ChestItemList.cs" />
@@ -152,6 +154,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

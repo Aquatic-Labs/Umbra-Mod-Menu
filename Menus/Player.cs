@@ -102,6 +102,7 @@ namespace UmbraMenu.Menus
                     unlockAll
                 });
                 SetActivatingButton(Utility.FindButtonById(0, 1));
+                SetPrevMenuId(0);
             }
         }
 

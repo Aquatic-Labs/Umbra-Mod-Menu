@@ -119,6 +119,7 @@ namespace UmbraMenu.Menus
                     toggleChestItemMenu
                 });
                 SetActivatingButton(Utility.FindButtonById(0, 3));
+                SetPrevMenuId(0);
             }
         }
 

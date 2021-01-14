@@ -25,7 +25,14 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true));
+                if (UmbraMenu.lowResolutionMonitor)
+                {
+                    toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods));
+                }
+                else
+                {
+                    toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true));
+                }
                 toggleInteractESP = new Button(new TogglableButton(this, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables));
                 toggleMobESP = new Button(new TogglableButton(this, 3, "M O B   E S P : O F F", "M O B   E S P : O N", ToggleRenderMobs, ToggleRenderMobs));
 
@@ -36,6 +43,7 @@ namespace UmbraMenu.Menus
                     toggleMobESP
                 });
                 SetActivatingButton(Utility.FindButtonById(0, 6));
+                SetPrevMenuId(0);
             }
         }
 

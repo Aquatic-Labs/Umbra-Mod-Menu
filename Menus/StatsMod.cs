@@ -178,6 +178,7 @@ namespace UmbraMenu.Menus
                     toggleViewStatsMenu
                 });
                 SetActivatingButton(Utility.FindButtonById(1, 4));
+                SetPrevMenuId(1);
             }
         }
 
