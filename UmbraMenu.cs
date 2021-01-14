@@ -25,6 +25,7 @@ namespace UmbraMenu
         string OnText { get; set; }
         string OffText { get; set; }
         int Position { get; set; }
+        Menu ParentMenu { get; set; }
         void Draw(); 
     };
     public interface IMenu
@@ -259,6 +260,7 @@ namespace UmbraMenu
                 // UpdateNavIndexRoutine();
                 // UpdateMenuPositions();
                 Menus.ViewStats.UpdateViewStats();
+                UpdateMainButtonsRoutine();
             }
             catch (Exception e)
             {
@@ -626,6 +628,25 @@ namespace UmbraMenu
                     Menus.StatsMod.SetplayersMoveSpeed();
                 }
                 LocalPlayerBody.RecalculateStats();
+            }
+        }
+
+        private void UpdateMainButtonsRoutine()
+        {
+            List<Button> buttons = mainMenu.GetButtons();
+            int menuIndex = 1;
+            int buttonIndex = 1;
+            for (int i = 0; i < buttons.Count - 1; i++)
+            {
+                Button currentButton = Utility.FindButtonById(0, buttonIndex);
+                Menu menu = Utility.FindMenuById(menuIndex);
+
+                if (currentButton.IsEnabled() != menu.IsEnabled())
+                {
+                    currentButton.SetEnabled(menu.IsEnabled());
+                }
+                menuIndex++;
+                buttonIndex++;
             }
         }
 

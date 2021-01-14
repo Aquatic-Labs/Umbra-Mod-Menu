@@ -65,5 +65,10 @@ namespace UmbraMenu
         {
             return _button.Position;
         }
+
+        public Menu GetParentMenu()
+        {
+            return _button.ParentMenu;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace UmbraMenu
 {
     public class TextButton : IButton
     {
-        public Menu parentMenu;
+        public Menu ParentMenu { get; set; }
         public int Position { get; set; }
         public Rect rect;
         public string Text { get; set; }
@@ -22,16 +22,16 @@ namespace UmbraMenu
 
         public TextButton(Menu parentMenu, int position, string text)
         {
-            this.parentMenu = parentMenu;
+            this.ParentMenu = parentMenu;
             this.Position = position;
             this.Text = text;
         }
 
         public void Draw()
         {
-            parentMenu.SetNumberOfButtons(Position);
-            int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
-            rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize(), 40);
+            ParentMenu.SetNumberOfButtons(Position);
+            int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
+            rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize(), 40);
 
             GUI.Button(rect, Text, style);
         }

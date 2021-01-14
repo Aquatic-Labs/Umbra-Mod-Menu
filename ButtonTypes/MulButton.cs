@@ -9,7 +9,7 @@ namespace UmbraMenu
 {
     public class MulButton : IButton
     {
-        public Menu parentMenu;
+        public Menu ParentMenu { get; set; }
         public int Position { get; set; }
         public Rect rect;
         public string Text { get; set; }
@@ -24,7 +24,7 @@ namespace UmbraMenu
 
         public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
         {
-            this.parentMenu = parentMenu;
+            this.ParentMenu = parentMenu;
             this.Position = position;
             this.Text = text;
             this.Action = Action;
@@ -34,9 +34,9 @@ namespace UmbraMenu
 
         public void Draw()
         {
-            parentMenu.SetNumberOfButtons(Position);
-            int btnY = 5 + 45 * parentMenu.GetNumberOfButtons();
-            rect = new Rect(parentMenu.GetRect().x + 5, parentMenu.GetRect().y + btnY, parentMenu.GetWidthSize() - 90, 40);
+            ParentMenu.SetNumberOfButtons(Position);
+            int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
+            rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize() - 90, 40);
 
             if (GUI.Button(rect, Text, style))
             {
@@ -48,14 +48,14 @@ namespace UmbraMenu
 
         private void DrawMulButtons()
         {
-            Rect menuBg = parentMenu.GetRect();
+            Rect menuBg = ParentMenu.GetRect();
             int btnY = 5 + 45 * Position;
-            if (GUI.Button(new Rect(menuBg.x + parentMenu.GetWidthSize() - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
+            if (GUI.Button(new Rect(menuBg.x + ParentMenu.GetWidthSize() - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
             {
                 DecreaseAction?.Invoke();
                 Draw();
             }
-            if (GUI.Button(new Rect(menuBg.x + parentMenu.GetWidthSize() - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
+            if (GUI.Button(new Rect(menuBg.x + ParentMenu.GetWidthSize() - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
             {
                 IncreaseAction?.Invoke();
                 Draw();
