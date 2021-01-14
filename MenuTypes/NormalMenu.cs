@@ -15,13 +15,27 @@ namespace UmbraMenu
         public float WidthSize { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
-        public bool Enabled { get; set; }
+        public bool enabled { get; set; }
         public Rect Rect { get; set; }
         public bool IfDragged { get; set; }
         public int NumberOfButtons { get; set; }
         public Button ActivatingButton { get; set; }
         public bool highlighted = false;
         public List<Button> Buttons { get; set; }
+
+        public bool Enabled 
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+                UmbraMenu.previousMenuOpen = Id;
+            }
+        }
+
 
         public NormalMenu(int id, Rect rect, string title)
         {

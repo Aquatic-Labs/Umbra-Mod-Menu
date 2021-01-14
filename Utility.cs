@@ -343,7 +343,7 @@ namespace UmbraMenu
                 currentMenu.Reset();
             }
             UmbraMenu.characterCollected = false;
-
+            SoftResetMenu(false);
             //Main.scrolled = false;
         }
 
@@ -360,12 +360,75 @@ namespace UmbraMenu
         }
 
         // Soft reset when moving to next stage to keep player stat mods and god mode between stages
-        public static void SoftResetMenu()
+        public static void SoftResetMenu(bool preserveState)
         {
-            Menu MainMenu = (Menu)FindMenuById(0);
-            MainMenu.ToggleMenu();
-            UmbraMenu.GetCharacter();
-            MainMenu.ToggleMenu();
+            HashSet<Tuple<int, int, bool>> savedMenuState = new HashSet<Tuple<int, int, bool>>();
+            if (preserveState)
+            {
+                savedMenuState = SaveMenuState();
+            }
+            UmbraMenu.mainMenu = new Menus.Main();
+            UmbraMenu.playerMenu = new Menus.Player();
+            UmbraMenu.movementMenu = new Menus.Movement();
+            UmbraMenu.itemsMenu = new Menus.Items();
+            UmbraMenu.spawnMenu = new Menus.Spawn();
+            UmbraMenu.teleporterMenu = new Menus.Teleporter();
+            UmbraMenu.renderMenu = new Menus.Render();
+
+            UmbraMenu.statsModMenu = new Menus.StatsMod();
+            UmbraMenu.viewStatsMenu = new Menus.ViewStats();
+            UmbraMenu.characterListMenu = new Menus.CharacterList();
+            UmbraMenu.buffListMenu = new Menus.BuffList();
+
+            UmbraMenu.itemListMenu = new Menus.ItemList();
+            UmbraMenu.equipmentListMenu = new Menus.EquipmentList();
+            UmbraMenu.chestItemListMenu = new Menus.ChestItemList();
+
+            UmbraMenu.spawnListMenu = new Menus.SpawnList();
+
+            UmbraMenu.menus = new List<Menu>()
+            {
+                UmbraMenu.mainMenu, //0
+                UmbraMenu.playerMenu, //1
+                UmbraMenu.movementMenu, //2
+                UmbraMenu.itemsMenu, //3
+                UmbraMenu.spawnMenu, //4
+                UmbraMenu.teleporterMenu, //5
+                UmbraMenu.renderMenu, //6
+                UmbraMenu.statsModMenu, //8
+                UmbraMenu.viewStatsMenu, //9
+                UmbraMenu.characterListMenu, //10
+                UmbraMenu.buffListMenu, //11
+                UmbraMenu.itemListMenu, //12
+                UmbraMenu.equipmentListMenu, //13
+                UmbraMenu.chestItemListMenu, //14
+                UmbraMenu.spawnListMenu //15
+            };
+            if (preserveState)
+            {
+                ReadMenuState(savedMenuState);
+            }
+
+            if (UmbraMenu.lowResolutionMonitor)
+            {
+                UmbraMenu.mainMenu.SetRect(new Rect(10, 10, 20, 20)); // Start Position
+                UmbraMenu.playerMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.movementMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.itemsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.spawnMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.teleporterMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.renderMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                //UmbraMenu.settingsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+
+                UmbraMenu.statsModMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.viewStatsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.characterListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.buffListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.itemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.equipmentListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position*/
+            }
         }
         #endregion
 

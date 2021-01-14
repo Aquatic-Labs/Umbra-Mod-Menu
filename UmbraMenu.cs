@@ -1,10 +1,8 @@
 ﻿// TODO:
-//     Implement Fix for Main Menu buttons resetting even though their menu is open
-//     Implement Settings Menu
-//     Add LowResolution support
 //     Add Navigation
 //     Move Interfaces to their own files
 //     remove unused code
+//     Implement Settings Menu
 //     Implement enhancements and bug fixes from github issues.
 
 using System;
@@ -65,6 +63,7 @@ namespace UmbraMenu
         public static List<EquipmentIndex> equipment = Utility.GetEquipment();
         public static List<ItemIndex> items = Utility.GetItems();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
+        public static int previousMenuOpen;
 
         public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor;
 
@@ -148,23 +147,6 @@ namespace UmbraMenu
                 chestItemListMenu.Draw(); //14
 
                 spawnListMenu.Draw(); //15
-                /*
-                #region Main Menus
-
-                #region settings Menu
-                BuildMenus.BuildMenu(settings, MenuButtons.Main.toggleSettings, MenuButtons.Settings.AddButtonsToMenu);
-                #endregion
-
-                #endregion
-
-                #region Sub Menus
-
-                #region Spawn List Menu
-                BuildMenus.BuildMenu(spawnList, MenuButtons.Spawn.toggleSpawnListMenu, MenuButtons.SpawnList.AddButtonsToMenu);
-                #endregion
-
-                #endregion
-                */
 
                 ESPRoutine();
                 // UpdateMenusAndButtonsRoutine();
@@ -181,54 +163,31 @@ namespace UmbraMenu
             {
                 SceneManager.activeSceneChanged += OnSceneLoaded;
 
-                #region Old Build Menus
-
-                /*#region Settings Menu
-                settings.Rect = new Rect(374, 750, 20, 20); // Start Position
-                settings.Title = "S E T T I N G S   M E N U";
-                settings.Id = 7;
-                menus.Add(settings);
-                #endregion
-
-                #endregion
-
-                #region Sub Menus
-
-                #region Spawn List Menu
-                spawnList.Rect = new Rect(1503, 10, 20, 20); // Start Position
-                spawnList.Title = "S P A W N   C A R D S   M E N U";
-                spawnList.Id = 15;
-                menus.Add(spawnList);
-                #endregion*/
-
-                #endregion
-
                 #region Resolution Check
                 if (Screen.height > 1080)
                 {
                 }
-                else if (Screen.height < 1080)
+                if (Screen.height < 1080)
                 {
                     lowResolutionMonitor = true;
 
                     mainMenu.SetRect(new Rect(10, 10, 20, 20)); // Start Position
-                    /*
-                    player.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    movement.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    item.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    spawn.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    teleporter.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    render.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    settings.Rect = new Rect(374, 10, 20, 20); // Start Position
+                    playerMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    movementMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    itemsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    spawnMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    teleporterMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    renderMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    //settingsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
 
-                    statsMod.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    viewStats.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    characterList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    buffList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    itemList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    equipmentList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    chestItemList.Rect = new Rect(374, 10, 20, 20); // Start Position
-                    spawnList.Rect = new Rect(374, 10, 20, 20); // Start Position*/
+                    statsModMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    viewStatsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    characterListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    buffListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    itemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    equipmentListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position*/
                 }
                 #endregion
             }
@@ -242,7 +201,7 @@ namespace UmbraMenu
         {
             try
             {
-                // LowResolutionRoutine();
+                LowResolutionRoutine();
                 DevBuildRoutine();
 
                 CheckInputs();
@@ -355,43 +314,6 @@ namespace UmbraMenu
                 if (!inGame)
                 {
                     Utility.ResetMenu();
-                    mainMenu = new Menus.Main();
-                    playerMenu = new Menus.Player();
-                    movementMenu = new Menus.Movement();
-                    itemsMenu = new Menus.Items();
-                    spawnMenu = new Menus.Spawn();
-                    teleporterMenu = new Menus.Teleporter();
-                    renderMenu = new Menus.Render();
-
-                    statsModMenu = new Menus.StatsMod();
-                    viewStatsMenu = new Menus.ViewStats();
-                    characterListMenu = new Menus.CharacterList();
-                    buffListMenu = new Menus.BuffList();
-
-                    itemListMenu = new Menus.ItemList();
-                    equipmentListMenu = new Menus.EquipmentList();
-                    chestItemListMenu = new Menus.ChestItemList();
-
-                    spawnListMenu = new Menus.SpawnList();
-
-                    menus = new List<Menu>()
-                    {
-                        mainMenu, //0
-                        playerMenu, //1
-                        movementMenu, //2
-                        itemsMenu, //3
-                        spawnMenu, //4
-                        teleporterMenu, //5
-                        renderMenu, //6
-                        statsModMenu, //8
-                        viewStatsMenu, //9
-                        characterListMenu, //10
-                        buffListMenu, //11
-                        itemListMenu, //12
-                        equipmentListMenu, //13
-                        chestItemListMenu, //14
-                        spawnListMenu //15
-                    };
                 }
             }
         }
@@ -399,9 +321,15 @@ namespace UmbraMenu
         private void LowResolutionMonitor()
         {
             var menusOpen = Utility.GetMenusOpen();
+
+            int closingIndex = 0;
             if (menusOpen.Count > 1)
             {
-                menusOpen[0].SetEnabled(false);
+                if (menusOpen[1].GetId() > previousMenuOpen)
+                {
+                    closingIndex = 1;
+                }
+                menusOpen[closingIndex].SetEnabled(false);
             }
         }
 
@@ -421,60 +349,9 @@ namespace UmbraMenu
             GetCharacter();
             if (prevCharCollected != characterCollected && characterCollected && InGameCheck())
             {
-                var savedMenuState = Utility.SaveMenuState();
-                mainMenu = new Menus.Main();
-                playerMenu = new Menus.Player();
-                movementMenu = new Menus.Movement();
-                itemsMenu = new Menus.Items();
-                spawnMenu = new Menus.Spawn();
-                teleporterMenu = new Menus.Teleporter();
-                renderMenu = new Menus.Render();
-
-                statsModMenu = new Menus.StatsMod();
-                viewStatsMenu = new Menus.ViewStats();
-                characterListMenu = new Menus.CharacterList();
-                buffListMenu = new Menus.BuffList();
-                
-                itemListMenu = new Menus.ItemList();
-                equipmentListMenu = new Menus.EquipmentList();
-                chestItemListMenu = new Menus.ChestItemList();
-
-                spawnListMenu = new Menus.SpawnList();
-
-                menus = new List<Menu>()
-                {
-                    mainMenu, //0
-                    playerMenu, //1
-                    movementMenu, //2
-                    itemsMenu, //3
-                    spawnMenu, //4
-                    teleporterMenu, //5
-                    renderMenu, //6
-                    statsModMenu, //8
-                    viewStatsMenu, //9
-                    characterListMenu, //10
-                    buffListMenu, //11
-                    itemListMenu, //12
-                    equipmentListMenu, //13
-                    chestItemListMenu, //14
-                    spawnListMenu //15
-                };
-                Utility.ReadMenuState(savedMenuState);
+                Utility.SoftResetMenu(true);
             }
-            /*else if (!InGameCheck())
-            {
-                Utility.ResetMenu();
-            }*/
         }
-
-        /*private void LowResolutionRoutine()
-        {
-            if (lowResolutionMonitor)
-            {
-                Utility.MenusOpenKeys();
-                LowResolutionMonitor();
-            }
-        }*/
 
         private void DevBuildRoutine()
         {
@@ -633,20 +510,20 @@ namespace UmbraMenu
 
         private void UpdateMainButtonsRoutine()
         {
-            List<Button> buttons = mainMenu.GetButtons();
-            int menuIndex = 1;
-            int buttonIndex = 1;
-            for (int i = 0; i < buttons.Count - 1; i++)
+            if (InGameCheck())
             {
-                Button currentButton = Utility.FindButtonById(0, buttonIndex);
-                Menu menu = Utility.FindMenuById(menuIndex);
-
-                if (currentButton.IsEnabled() != menu.IsEnabled())
+                for (int i = 1; i < menus.Count; i++)
                 {
-                    currentButton.SetEnabled(menu.IsEnabled());
+                    if (menus[i].IsEnabled())
+                    {
+                        menus[i].GetActivatingButton().SetEnabled(true);
+                    }
+                    else
+                    {
+                        menus[i].GetActivatingButton().SetEnabled(false);
+
+                    }
                 }
-                menuIndex++;
-                buttonIndex++;
             }
         }
 

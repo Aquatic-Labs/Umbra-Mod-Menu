@@ -48,7 +48,8 @@ namespace UmbraMenu.Menus
 
             master.bodyPrefab = newBody;
             master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
-            Utility.SoftResetMenu();
+            UmbraMenu.GetCharacter();
+            Utility.SoftResetMenu(true);
         }
     }
 }
