@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using RoR2;
+using System.Text;
+
 
 namespace UmbraMenu.Menus
 {
@@ -261,6 +263,23 @@ namespace UmbraMenu.Menus
             {
                 EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
                 profile.DiscoverPickup(PickupCatalog.FindPickupIndex(equipmentIndex));
+            }
+
+            //All Eclipse unlockables as well
+            StringBuilder stringBuilder = StringBuilderPool.RentStringBuilder();
+            foreach (SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs)
+            {
+                for (int i = 2; i < 9; i++)
+                {
+                    stringBuilder.Clear().Append("Eclipse.").Append(survivorDef.name).Append(".").AppendInt(i, 0U, uint.MaxValue);
+                    UnlockableDef unlockableDef = UnlockableCatalog.GetUnlockableDef(stringBuilder.ToString());
+                    NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMenu.LocalPlayerBody);
+                    if (networkUser)
+                    {
+                        networkUser.ServerHandleUnlock(unlockableDef);
+                    }
+                }
+
             }
         }
 
