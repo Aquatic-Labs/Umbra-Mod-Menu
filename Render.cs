@@ -14,6 +14,7 @@ namespace UmbraRoR
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
         public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
         public static List<ScrapperController> scrappers = new List<ScrapperController>();
+
         public static void EnableInteractables()
         {
             if (Main.onRenderIntEnable)
@@ -27,6 +28,7 @@ namespace UmbraRoR
                 return;
             }
         }
+
         public static void DisableInteractables()
         {
             if (!Main.onRenderIntEnable)
@@ -78,8 +80,11 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (BarrelInteraction barrel in barrelInteractions)
+            // FOR LOOP FROM FOREACH
+            for (int i = 0; i < barrelInteractions.Count; i++)
             {
+                BarrelInteraction barrel = barrelInteractions[i];
+
                 if (!barrel.Networkopened)
                 {
                     string friendlyName = "Barrel";
@@ -94,8 +99,9 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (PressurePlateController secretButton in secretButtons)
+            for (int i = 0; i < secretButtons.Count; i++)
             {
+                PressurePlateController secretButton = secretButtons[i];
                 if (secretButton)
                 {
                     string friendlyName = "Secret Button";
@@ -105,13 +111,15 @@ namespace UmbraRoR
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, secretButton.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderSecretsStyle);
                     }
                 }
             }
 
-            foreach (ScrapperController scrapper in scrappers)
+
+            for (int i = 0; i < scrappers.Count; i++)
             {
+                ScrapperController scrapper = scrappers[i];
                 if (scrapper)
                 {
                     string friendlyName = "Scrapper";
@@ -126,8 +134,10 @@ namespace UmbraRoR
                 }
             }
 
-            foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)
+            for (int i = 0; i < purchaseInteractions.Count; i++)
             {
+                PurchaseInteraction purchaseInteraction = purchaseInteractions[i];
+
                 if (purchaseInteraction.available)
                 {
                     string dropName = null;
@@ -148,14 +158,16 @@ namespace UmbraRoR
                         GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
                     }
                 }
+
             }
         }
 
         public static void Mobs()
         {
-            foreach (var hurtbox in Main.hurtBoxes)
+            for (int i = 0; i < Main.hurtBoxes.Count; i++)
             {
-                var mob = HurtBox.FindEntityObject(hurtbox);
+                var mob = HurtBox.FindEntityObject(Main.hurtBoxes[i]);
+
                 if (mob)
                 {
                     Vector3 MobPosition = Camera.main.WorldToScreenPoint(mob.transform.position);
