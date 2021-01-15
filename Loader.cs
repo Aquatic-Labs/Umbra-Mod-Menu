@@ -35,6 +35,7 @@ namespace UmbraMenu
 
         public static void Unload()
         {
+            Utility.SaveSettings();
             UnityEngine.Object.Destroy(gameObject);
         }
 

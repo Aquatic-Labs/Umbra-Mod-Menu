@@ -46,7 +46,7 @@ namespace UmbraMenu
             Rect = rect;
             Title = title;
             NumberOfButtons = 0;
-            WidthSize = 350;
+            WidthSize = UmbraMenu.Width;
 
             if (UmbraMenu.lowResolutionMonitor)
             {

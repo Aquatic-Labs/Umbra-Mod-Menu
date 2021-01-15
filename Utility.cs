@@ -441,6 +441,44 @@ namespace UmbraMenu
             return openMenus;
         }
 
+        #region Settings
+        public static void SaveSettings()
+        {
+            using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, true))
+            {
+                outputFile.WriteLine($"{UmbraMenu.Width},{UmbraMenu.AllowNavigation},{UmbraMenu.GodVersion}");
+            }
+        }
+
+        public static string[] ReadSettings()
+        {
+            if (!File.Exists(UmbraMenu.SETTINGSPATH))
+            {
+                CreateDefaultSettingsFile();
+            }
+            return File.ReadAllLines(UmbraMenu.SETTINGSPATH)[0].Split(',');
+        }
+
+        public static void ApplySettings(string[] settings)
+        {
+            float.TryParse(settings[0], out UmbraMenu.Width);
+            WriteToLog($"0: {settings[0]} replaced {UmbraMenu.Width}");
+            bool.TryParse(settings[1], out UmbraMenu.AllowNavigation);
+            WriteToLog($"1: {settings[1]} replaced {UmbraMenu.AllowNavigation}");
+            int.TryParse(settings[2], out UmbraMenu.GodVersion);
+            WriteToLog($"1: {settings[2]} replaced {UmbraMenu.GodVersion}");
+        }
+
+        public static void CreateDefaultSettingsFile()
+        {
+            Directory.CreateDirectory(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UmbraMenu"));
+            using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, true))
+            {
+                outputFile.WriteLine($"{350},{true},{0}");
+            }
+        }
+        #endregion
+
         #region Debugging
         public static void WriteToLog(string logContent)
         {

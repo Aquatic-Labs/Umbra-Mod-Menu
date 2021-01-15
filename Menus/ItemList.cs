@@ -53,7 +53,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private void GiveItem(ItemIndex itemIndex)
+        public static void GiveItem(ItemIndex itemIndex)
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser.cachedMasterController && localUser.cachedMasterController.master)

@@ -1,5 +1,6 @@
 ﻿// TODO:
 //     Update allowed hurtbox list to track new mobs
+//     charge purple w/ HoldOutZoneController
 //     remove unused code (including unused 'using's)
 //     Implement Settings Menu
 //     Implement enhancements and bug fixes from github issues.
@@ -11,6 +12,7 @@ using UnityEngine;
 using RoR2;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.IO;
 
 namespace UmbraMenu
 {
@@ -19,6 +21,8 @@ namespace UmbraMenu
         public const string
             NAME = "U M B R A",
             VERSION = "2.0.0";
+
+        public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UmbraMenu/settings.ini");
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -42,6 +46,13 @@ namespace UmbraMenu
         public static int previousMenuOpen;
         public static bool characterCollected, navigationToggle, devDoOnce = true, lowResolutionMonitor, chatOpen, msgSent = true, scrolled;
         public static Scene currentScene;
+        #endregion
+
+        #region Settings Variables
+        public static string[] Settings = Utility.ReadSettings();
+        public static float Width = float.Parse(Settings[0]);
+        public static bool AllowNavigation = bool.Parse(Settings[1]);
+        public static int GodVersion = int.Parse(Settings[2]);
         #endregion
 
         #region Menus
@@ -177,7 +188,7 @@ namespace UmbraMenu
             try
             {
                 LowResolutionRoutine();
-                DevBuildRoutine();
+                //DevBuildRoutine();
 
                 CheckInputs();
                 CharacterRoutine();
@@ -249,28 +260,31 @@ namespace UmbraMenu
                 Cursor.visible = true;
                 if (characterCollected)
                 {
-                    if (Input.GetKeyDown(KeyCode.DownArrow))
+                    if (AllowNavigation)
                     {
-                        if (!navigationToggle)
+                        if (Input.GetKeyDown(KeyCode.DownArrow))
                         {
-                            Utility.CloseOpenMenus();
-                        }
+                            if (!navigationToggle)
+                            {
+                                Utility.CloseOpenMenus();
+                            }
 
-                        navigationToggle = true;
-                        Navigation.buttonIndex++;
-                    }
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        if (!navigationToggle)
+                            navigationToggle = true;
+                            Navigation.buttonIndex++;
+                        }
+                        if (Input.GetKeyDown(KeyCode.UpArrow))
                         {
-                            Utility.CloseOpenMenus();
-                        }
+                            if (!navigationToggle)
+                            {
+                                Utility.CloseOpenMenus();
+                            }
 
-                        navigationToggle = true;
-                        Navigation.buttonIndex--;
+                            navigationToggle = true;
+                            Navigation.buttonIndex--;
+                        }
                     }
                 }
-                if (navigationToggle)
+                if (navigationToggle && AllowNavigation)
                 {
                     if (Input.GetKeyDown(KeyCode.V))
                     {
@@ -359,7 +373,7 @@ namespace UmbraMenu
                     Utility.FindButtonById(0, 8).SetEnabled(false);
                 }
 
-                if (mainMenu.IsEnabled() && navigationToggle)
+                if (mainMenu.IsEnabled() && navigationToggle && AllowNavigation)
                 {
                     Utility.CloseOpenMenus();
                 }
@@ -372,7 +386,7 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     playerMenu.ToggleMenu();
-                    if (navigationToggle)
+                    if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 1;
                     }
@@ -381,7 +395,7 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(KeyCode.I))
                 {
                     itemListMenu.ToggleMenu();
-                    if (navigationToggle)
+                    if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 12;
                     }
@@ -396,7 +410,7 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(KeyCode.B))
                 {
                     teleporterMenu.ToggleMenu();
-                    if (navigationToggle)
+                    if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 5;
                     }
@@ -611,13 +625,120 @@ namespace UmbraMenu
             {
                 if (Menus.Player.GodToggle)
                 {
-                    Menus.Player.GodMode();
+                    switch (GodVersion)
+                    {
+                        case 0:
+                            {
+                                // works
+                                // Normal
+                                Menus.Player.GodMode();
+                                break;
+                            }
+
+                        case 1:
+                            {
+                                // works
+                                // Barrier
+                                LocalHealth.AddBarrier(float.MaxValue);
+                                break;
+                            }
+
+                        case 2:
+                            {
+                                // works
+                                // Regen
+                                LocalHealth.Heal(float.MaxValue, new ProcChainMask(), false);
+                                break;
+                            }
+
+                        case 3:
+                            {
+                                // works
+                                // Negative
+                                LocalHealth.SetField<bool>("wasAlive", false);
+                                break;
+                            }
+                        case 4:
+                            {
+                                // works
+                                // Revive
+                                LocalHealth.SetField<bool>("wasAlive", false);
+                                int itemELCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
+                                int itemELCCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
+                                if (LocalHealth.health < 1)
+                                {
+                                    if (itemELCount == 0)
+                                    {
+                                        Menus.ItemList.GiveItem(ItemIndex.ExtraLife);
+                                        LocalHealth.SetField<bool>("wasAlive", true);
+                                    }
+                                }
+                                if (itemELCCount > 0)
+                                {
+                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
+                                }
+                                if (itemELCount > 0)
+                                {
+                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
+                                }
+                                break;
+                            }
+
+
+                        default:
+                            break;
+                    }
                 }
                 else
                 {
-                    UmbraMenu.LocalHealth.godMode = false;
-                }
+                    switch (GodVersion)
+                    {
+                        case 0:
+                            {
+                                LocalHealth.godMode = false;
+                                break;
+                            }
 
+                        case 1:
+                            {
+                                LocalHealth.barrier = 0;
+                                break;
+                            }
+
+                        case 3:
+                            {
+                                if (LocalHealth.health < 0)
+                                {
+                                    LocalHealth.health = 1;
+                                }
+                                LocalHealth.SetField<bool>("wasAlive", true);
+                                break;
+                            }
+
+                        case 4:
+                            {
+                                if (LocalHealth.health < 0)
+                                {
+                                    LocalHealth.health = 1;
+                                }
+                                LocalHealth.SetField<bool>("wasAlive", true);
+                                int itemELCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
+                                int itemELCCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
+                                if (itemELCCount > 0)
+                                {
+                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
+                                }
+                                if (itemELCount > 0)
+                                {
+                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
+                                }
+                                break;
+                            }
+
+                        default:
+                            break;
+                    }
+                }
             }
         }
 
