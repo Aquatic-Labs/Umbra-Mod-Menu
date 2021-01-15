@@ -101,9 +101,5 @@ namespace UmbraMenu.Menus
         private static void SettingsButtonAction() => Utility.FindMenuById(7).ToggleMenu();
         private static void UnloadMenu() => Loader.Unload();
         private static void DoNothing() => Utility.StubbedFunction();
-        public static void ToggleMenu(Menu menu)
-        {
-            menu.ToggleMenu();
-        }
     }
 }

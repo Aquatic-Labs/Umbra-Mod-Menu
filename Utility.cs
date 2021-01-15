@@ -68,24 +68,21 @@ namespace UmbraMenu
                 Tuple<int, int, bool> menuButtonsEnabled = new Tuple<int, int, bool>(-1, -1, false);
                 try
                 {
-                    if (menuId != 7)
+                    for (int buttonPos = 1; buttonPos < UmbraMenu.menus[menuId].GetButtons().Count + 1; buttonPos++)
                     {
-                        for (int buttonPos = 1; buttonPos < UmbraMenu.menus[menuId].GetButtons().Count + 1; buttonPos++)
-                        {
-                            Button currentButton = FindButtonById(menuId, buttonPos);
+                        Button currentButton = FindButtonById(menuId, buttonPos);
 
-                            if (currentButton.IsEnabled())
-                            {
-                                menuButtonsEnabled = new Tuple<int, int, bool>(menuId, buttonPos, UmbraMenu.menus[menuId].IsEnabled());
-                            }
-                            else if (UmbraMenu.menus[menuId].IsEnabled())
-                            {
-                                menuButtonsEnabled = new Tuple<int, int, bool>(menuId, -1, UmbraMenu.menus[menuId].IsEnabled());
-                            }
-                            if (menuButtonsEnabled?.Item1 != -1)
-                            {
-                                enabledButtons.Add(menuButtonsEnabled);
-                            }
+                        if (currentButton.IsEnabled())
+                        {
+                            menuButtonsEnabled = new Tuple<int, int, bool>(menuId, buttonPos, UmbraMenu.menus[menuId].IsEnabled());
+                        }
+                        else if (UmbraMenu.menus[menuId].IsEnabled())
+                        {
+                            menuButtonsEnabled = new Tuple<int, int, bool>(menuId, -1, UmbraMenu.menus[menuId].IsEnabled());
+                        }
+                        if (menuButtonsEnabled?.Item1 != -1)
+                        {
+                            enabledButtons.Add(menuButtonsEnabled);
                         }
                     }
                 }
@@ -343,7 +340,8 @@ namespace UmbraMenu
             }
             UmbraMenu.characterCollected = false;
             SoftResetMenu(false);
-            //Main.scrolled = false;
+            UmbraMenu.scrolled = false;
+            UmbraMenu.navigationToggle = false;
         }
 
         public static void CloseOpenMenus()
@@ -370,6 +368,7 @@ namespace UmbraMenu
             UmbraMenu.spawnMenu = new Menus.Spawn();
             UmbraMenu.teleporterMenu = new Menus.Teleporter();
             UmbraMenu.renderMenu = new Menus.Render();
+            UmbraMenu.settingsMenu = new Menus.Render();
 
             UmbraMenu.statsModMenu = new Menus.StatsMod();
             UmbraMenu.viewStatsMenu = new Menus.ViewStats();
@@ -391,6 +390,7 @@ namespace UmbraMenu
                 UmbraMenu.spawnMenu, //4
                 UmbraMenu.teleporterMenu, //5
                 UmbraMenu.renderMenu, //6
+                UmbraMenu.settingsMenu, //7
                 UmbraMenu.statsModMenu, //8
                 UmbraMenu.viewStatsMenu, //9
                 UmbraMenu.characterListMenu, //10
@@ -414,7 +414,7 @@ namespace UmbraMenu
                 UmbraMenu.spawnMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.teleporterMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.renderMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                //UmbraMenu.settingsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.settingsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
 
                 UmbraMenu.statsModMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.viewStatsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
@@ -441,12 +441,65 @@ namespace UmbraMenu
             return openMenus;
         }
 
-        #region Settings
+        #region Settings Functions
         public static void SaveSettings()
         {
-            using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, true))
+            using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, false))
             {
-                outputFile.WriteLine($"{UmbraMenu.Width},{UmbraMenu.AllowNavigation},{UmbraMenu.GodVersion}");
+                outputFile.WriteLine($"{UmbraMenu.Width}");
+                outputFile.WriteLine($"{UmbraMenu.AllowNavigation}");
+                outputFile.WriteLine($"{UmbraMenu.GodVersion}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenMainMenuKeybind}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenPlayerMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.GiveMoneyKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.GiveCoinKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.GiveExpKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenStatsModKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenViewStatsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenChangeCharacterListKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenBuffListKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.RemoveAllBuffsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.AimbotKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.GodModeKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.InfiniteSkillsKeybind}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenMovementMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.AlwaysSprintKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.FlightKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.JumpPackKeybind}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenItemsMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.GiveAllKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.RollItemsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenItemsListMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenEquipmentListMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.DropItemsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.DropInvItemsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.InfiniteEquipmentKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.StackInvKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.ClearInvKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenChestItemListKeybind}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenSpawnMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.OpenSpawnListMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.KillAllKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.DestroyIntKeybind}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenTeleMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.SkipStageKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.InstantTeleKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.AddMtnKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.SpawnAllPortalsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.SpawnBlueKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.SpawnCelKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.SpawnGoldKeybind}");
+
+                outputFile.WriteLine($"{UmbraMenu.OpenRenderMenuKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.RenActiveModsKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.RenIntKeybind}");
+                outputFile.WriteLine($"{UmbraMenu.RenMobKeybind}");
             }
         }
 
@@ -456,17 +509,7 @@ namespace UmbraMenu
             {
                 CreateDefaultSettingsFile();
             }
-            return File.ReadAllLines(UmbraMenu.SETTINGSPATH)[0].Split(',');
-        }
-
-        public static void ApplySettings(string[] settings)
-        {
-            float.TryParse(settings[0], out UmbraMenu.Width);
-            WriteToLog($"0: {settings[0]} replaced {UmbraMenu.Width}");
-            bool.TryParse(settings[1], out UmbraMenu.AllowNavigation);
-            WriteToLog($"1: {settings[1]} replaced {UmbraMenu.AllowNavigation}");
-            int.TryParse(settings[2], out UmbraMenu.GodVersion);
-            WriteToLog($"1: {settings[2]} replaced {UmbraMenu.GodVersion}");
+            return File.ReadAllLines(UmbraMenu.SETTINGSPATH);
         }
 
         public static void CreateDefaultSettingsFile()
@@ -474,7 +517,60 @@ namespace UmbraMenu
             Directory.CreateDirectory(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UmbraMenu"));
             using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, true))
             {
-                outputFile.WriteLine($"{350},{true},{0}");
+                outputFile.WriteLine($"{350}"); // Width
+                outputFile.WriteLine($"{true}"); // Allow Navigation
+                outputFile.WriteLine($"{0}"); // Godmode Version
+
+                outputFile.WriteLine($"{KeyCode.Insert}"); // Open Menu
+
+                outputFile.WriteLine($"{KeyCode.Z}"); // Open Player Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Give Money
+                outputFile.WriteLine($"{KeyCode.None}"); // Give Coin
+                outputFile.WriteLine($"{KeyCode.None}"); // Give Exp
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Stats Mod Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Open View Stats Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Change Character List Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Open BuffList
+                outputFile.WriteLine($"{KeyCode.None}"); // Remove all buffs
+                outputFile.WriteLine($"{KeyCode.None}"); // Aimbot
+                outputFile.WriteLine($"{KeyCode.None}"); // God
+                outputFile.WriteLine($"{KeyCode.None}"); // Infinite Skills
+
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Movement Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Always Sprint
+                outputFile.WriteLine($"{KeyCode.C}"); // Flight
+                outputFile.WriteLine($"{KeyCode.None}"); // Jump Pack
+
+                outputFile.WriteLine($"{KeyCode.I}"); // Open Items Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Give All Items
+                outputFile.WriteLine($"{KeyCode.None}"); // Roll Items
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Item List Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Equipment List Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Drop Items
+                outputFile.WriteLine($"{KeyCode.None}"); // Drop Invetory Items
+                outputFile.WriteLine($"{KeyCode.None}"); // Infinite Equipment
+                outputFile.WriteLine($"{KeyCode.None}"); // Stack Inventory
+                outputFile.WriteLine($"{KeyCode.None}"); // Clear Inventory
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Chest Item List Menu
+
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Spawn Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Spawn List Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Kill All Mobs
+                outputFile.WriteLine($"{KeyCode.None}"); // Destroy Spawned Interactables
+
+                outputFile.WriteLine($"{KeyCode.B}"); // Open Teleporter Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Skip Stage
+                outputFile.WriteLine($"{KeyCode.None}"); // Instant Teleporter
+                outputFile.WriteLine($"{KeyCode.None}"); // Add Mountain Stack
+                outputFile.WriteLine($"{KeyCode.None}"); // Spawn All Portals
+                outputFile.WriteLine($"{KeyCode.None}"); // Spawn Blue Portal
+                outputFile.WriteLine($"{KeyCode.None}"); // Spawn Celestial Portal
+                outputFile.WriteLine($"{KeyCode.None}"); // Spawn Gold Portal
+
+                outputFile.WriteLine($"{KeyCode.None}"); // Open Render Menu
+                outputFile.WriteLine($"{KeyCode.None}"); // Active Mods
+                outputFile.WriteLine($"{KeyCode.None}"); // Interactables
+                outputFile.WriteLine($"{KeyCode.None}"); // Mob ESP
             }
         }
         #endregion
