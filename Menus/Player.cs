@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public sealed class Player : Menu
     {
-        private static readonly IMenu player = new NormalMenu(1, new Rect(374, 10, 20, 20), "P L A Y E R   M E N U");
+        private static readonly IMenu player = new NormalMenu(1, new Rect(374, 10, 20, 20), "PLAYER MENU");
 
         public static bool SkillToggle, AimBotToggle, GodToggle;
         public static ulong xpToGive = 50;
@@ -77,7 +77,7 @@ namespace UmbraMenu.Menus
                 void ToggleBuffListMenu() => Utility.FindMenuById(11).ToggleMenu();
                 void DoNothing() => Utility.StubbedFunction();
 
-                giveMoney = new Button(new MulButton(this, 1, $"G I V E   M O N E Y : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));
+                giveMoney = new Button(new MulButton(this, 1, $"GIVE MONEY : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));
                 giveCoins = new Button(new MulButton(this, 2, $"G I V E   L U N A R   C O I N S : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins));
                 giveExperience = new Button(new MulButton(this, 3, $"G I V E   E X P E R I E N C E : {xpToGive}", GiveXP, IncreaseXP, DecreaseXP));
                 toggleStatsMod = new Button(new TogglableButton(this, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu));
@@ -156,10 +156,18 @@ namespace UmbraMenu.Menus
         {
             foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
             {
-                BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), buffName);
-                while (UmbraMenu.LocalPlayerBody.HasBuff(buffIndex))
+                try
                 {
-                    UmbraMenu.LocalPlayerBody.RemoveBuff(buffIndex);
+                    BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), buffName);
+                    while (UmbraMenu.LocalPlayerBody.HasBuff(buffIndex))
+                    {
+                        UmbraMenu.LocalPlayerBody.RemoveBuff(buffIndex);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                    continue;
                 }
             }
         }
@@ -302,7 +310,7 @@ namespace UmbraMenu.Menus
 
                 case 1:
                     {
-                        UmbraMenu.LocalPlayerBody.RemoveBuff(BuffIndex.Intangible);
+                        RemoveAllBuffs();
                         break;
                     }
 

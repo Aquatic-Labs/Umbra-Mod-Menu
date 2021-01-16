@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class BuffList : Menu
     {
-        private static readonly IMenu buffList = new ListMenu(11, new Rect(1503, 10, 20, 20), "B U F F S   M E N U");
+        private static readonly IMenu buffList = new ListMenu(11, new Rect(1503, 10, 20, 20), "BUFFS MENU");
 
         public BuffList() : base(buffList)
         {
