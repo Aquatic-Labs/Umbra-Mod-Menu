@@ -19,7 +19,6 @@ namespace UmbraMenu
         public int NumberOfButtons { get; set; }
         public Button ActivatingButton { get; set; }
         public int PrevMenuId { get; set; }
-        public bool highlighted = false;
         public List<Button> Buttons { get; set; }
         public bool Enabled
         {

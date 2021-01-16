@@ -67,6 +67,7 @@ namespace UmbraMenu.Menus
         public void IncreaseWidth()
         {
             UmbraMenu.Width++;
+            UpdateMenuWidths();
             Utility.SaveSettings();
             Utility.SoftResetMenu(true);
         }
@@ -74,6 +75,7 @@ namespace UmbraMenu.Menus
         public void DecreaseWidth()
         {
             UmbraMenu.Width--;
+            UpdateMenuWidths();
             Utility.SaveSettings();
             Utility.SoftResetMenu(true);
         }
@@ -116,6 +118,14 @@ namespace UmbraMenu.Menus
 
             Utility.SaveSettings();
             Utility.SoftResetMenu(true);
+        }
+
+        public void UpdateMenuWidths()
+        {
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
+            {
+                UmbraMenu.menus[i].SetWidthSize(UmbraMenu.Width);
+            }
         }
     }
 }

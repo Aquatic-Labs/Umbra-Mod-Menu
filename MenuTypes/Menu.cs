@@ -130,9 +130,9 @@ namespace UmbraMenu
             _menu.CurrentScrollPosition = value;
         }
 
-        public Vector2 GetScrollPosition()
+        public void SetWidthSize(float value)
         {
-            return _menu.CurrentScrollPosition;
+            _menu.WidthSize = value;
         }
     }
 }

@@ -20,7 +20,6 @@ namespace UmbraMenu
         public bool IfDragged { get; set; }
         public int NumberOfButtons { get; set; }
         public Button ActivatingButton { get; set; }
-        public bool highlighted = false;
         public int PrevMenuId { get; set; }
         public List<Button> Buttons { get; set; }
 
