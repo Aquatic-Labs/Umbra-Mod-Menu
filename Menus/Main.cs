@@ -18,15 +18,15 @@ namespace UmbraMenu.Menus
         {
             if (Loader.updateAvailable)
             {
-                SetTitle($"U M B R A \n<color=yellow>OUTDATED</color>");
+                SetTitle($"UMBRA\n<color=yellow>OUTDATED</color>");
             }
             else if (Loader.upToDate)
             {
-                SetTitle($"U M B R A \n<color=grey>v{UmbraMenu.VERSION}</color>");
+                SetTitle($"UMBRA\n<color=grey>v{UmbraMenu.VERSION}</color>");
             }
             else if (Loader.devBuild)
             {
-                SetTitle($"U M B R A \n<color=yellow>D E V</color>");
+                SetTitle($"UMBRA\n<color=yellow>DEV</color>");
             }
 
             if (UmbraMenu.characterCollected)

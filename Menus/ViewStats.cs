@@ -6,7 +6,7 @@ namespace UmbraMenu.Menus
 {
     public class ViewStats : Menu
     {
-        private static readonly IMenu viewStats = new NormalMenu(9, new Rect(1626, 457, 20, 20), "V I E W   S T A T S   M E N U");
+        private static readonly IMenu viewStats = new NormalMenu(9, new Rect(1626, 457, 20, 20), "VIEW STATS MENU");
 
         private static float playerDamage, playerCrit, playerAttackSpeed, playerArmor, playerRegen, playerMoveSpeed, playerExperience;
         private static int playerMaxJumpCount, playerKillCount;
@@ -25,15 +25,15 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                damageStat = new Button(new TextButton(this, 1, $"D A M A G E : {playerDamage}"));
-                critStat = new Button(new TextButton(this, 2, $"C R I T : {playerCrit}"));
-                attackSpeedStat = new Button(new TextButton(this, 3, $"A T T A C K   S P E E D : {playerAttackSpeed}"));
-                armorStat = new Button(new TextButton(this, 4, $"A R M O R : {playerArmor}"));
-                regenStat = new Button(new TextButton(this, 5, $"R E G E N : {playerRegen}"));
-                moveSpeedStat = new Button(new TextButton(this, 6, $"M O V E   S P E E D : {playerMoveSpeed}"));
-                jumpCountStat = new Button(new TextButton(this, 7, $"J U M P   C O U N T : {playerMaxJumpCount}"));
-                experienceStat = new Button(new TextButton(this, 8, $"E X P E R I E N C E : {playerExperience}"));
-                killsStat = new Button(new TextButton(this, 9, $"K I L L S: {playerKillCount}"));
+                damageStat = new Button(new TextButton(this, 1, $"DAMAGE : {playerDamage}"));
+                critStat = new Button(new TextButton(this, 2, $"CRIT : {playerCrit}"));
+                attackSpeedStat = new Button(new TextButton(this, 3, $"ATTACK SPEED : {playerAttackSpeed}"));
+                armorStat = new Button(new TextButton(this, 4, $"ARMOR : {playerArmor}"));
+                regenStat = new Button(new TextButton(this, 5, $"REGEN : {playerRegen}"));
+                moveSpeedStat = new Button(new TextButton(this, 6, $"MOVE SPEED : {playerMoveSpeed}"));
+                jumpCountStat = new Button(new TextButton(this, 7, $"JUMP COUNT : {playerMaxJumpCount}"));
+                experienceStat = new Button(new TextButton(this, 8, $"EXPERIENCE : {playerExperience}"));
+                killsStat = new Button(new TextButton(this, 9, $"KILLS: {playerKillCount}"));
 
                 AddButtons(new List<Button>()
                 {
@@ -78,15 +78,15 @@ namespace UmbraMenu.Menus
                     playerKillCount = UmbraMenu.LocalPlayerBody.killCountServer;
                 }
 
-                damageStat.SetText($"D A M A G E : {playerDamage}");
-                critStat.SetText($"C R I T : {playerCrit}");
-                attackSpeedStat.SetText($"A T T A C K   S P E E D : {playerAttackSpeed}");
-                armorStat.SetText($"A R M O R : {playerArmor}");
-                regenStat.SetText($"R E G E N : {playerRegen}");
-                moveSpeedStat.SetText($"M O V E   S P E E D : {playerMoveSpeed}");
-                jumpCountStat.SetText($"J U M P   C O U N T : {playerMaxJumpCount}");
-                experienceStat.SetText($"E X P E R I E N C E : {playerExperience}");
-                killsStat.SetText($"K I L L S: {playerKillCount}");
+                damageStat.SetText($"DAMAGE : {playerDamage}");
+                critStat.SetText($"CRIT : {playerCrit}");
+                attackSpeedStat.SetText($"ATTACK SPEED : {playerAttackSpeed}");
+                armorStat.SetText($"ARMOR : {playerArmor}");
+                regenStat.SetText($"REGEN : {playerRegen}");
+                moveSpeedStat.SetText($"MOVE SPEED : {playerMoveSpeed}");
+                jumpCountStat.SetText($"JUMP COUNT : {playerMaxJumpCount}");
+                experienceStat.SetText($"EXPERIENCE : {playerExperience}");
+                killsStat.SetText($"KILLS: {playerKillCount}");
             }
         }
     }

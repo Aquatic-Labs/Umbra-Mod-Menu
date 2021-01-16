@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class SpawnList : Menu
     {
-        private static readonly IMenu spawnList = new ListMenu(15, new Rect(1503, 10, 20, 20), "S P A W N   C A R D S   M E N U");
+        private static readonly IMenu spawnList = new ListMenu(15, new Rect(1503, 10, 20, 20), "SPAWN CARDS MENU");
 
         public SpawnList() : base(spawnList)
         {

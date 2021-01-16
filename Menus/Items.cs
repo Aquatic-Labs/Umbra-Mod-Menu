@@ -13,7 +13,7 @@ namespace UmbraMenu.Menus
 {
     public class Items : Menu
     {
-        private static readonly IMenu items = new NormalMenu(3, new Rect(738, 10, 20, 20), "I T E M S   M E N U");
+        private static readonly IMenu items = new NormalMenu(3, new Rect(738, 10, 20, 20), "ITEMS MENU");
         public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD, chestItemList;
         public bool IsDropItemForAll
         {
@@ -59,7 +59,7 @@ namespace UmbraMenu.Menus
             set
             {
                 itemsToRoll = value;
-                rollItems.SetText($"R O L L   I T E M S : {itemsToRoll}");
+                rollItems.SetText($"ROLL ITEMS : {itemsToRoll}");
             }
         }
         public static int allItemsQuantity = 1;
@@ -72,7 +72,7 @@ namespace UmbraMenu.Menus
             set
             {
                 allItemsQuantity = value;
-                giveAllItems.SetText($"G I V E   A L L   I T E M S : {allItemsQuantity}");
+                giveAllItems.SetText($"GIVE ALL ITEMS : {allItemsQuantity}");
             }
         }
 
@@ -94,16 +94,16 @@ namespace UmbraMenu.Menus
                 void ToggleItemsListMenu() => Utility.FindMenuById(12).ToggleMenu();
                 void ToggleEquipmentListMenu() => Utility.FindMenuById(13).ToggleMenu();
 
-                giveAllItems = new Button(new MulButton(this, 1, $"G I V E   A L L   I T E M S : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity));
-                rollItems = new Button(new MulButton(this, 2, $"R O L L   I T E M S : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll));
-                toggleItemListMenu = new Button(new TogglableButton(this, 3, "I T E M   S P A W N   M E N U : O F F", "I T E M   S P A W N   M E N U : O N", ToggleItemsListMenu, ToggleItemsListMenu));
-                toggleEquipmentListMenu = new Button(new TogglableButton(this, 4, "E Q U I P M E N T   S P A W N   M E N U : O F F", "E Q U I P M E N T   S P A W N   M E N U : O N", ToggleEquipmentListMenu, ToggleEquipmentListMenu));
-                toggleDropItems = new Button(new TogglableButton(this, 5, "D R O P   I T E M S / E Q U I P M E N T : O F F", "D R O P   I T E M S / E Q U I P M E N T : O N", ToggleDrop, ToggleDrop));
-                toggleDropInvItems = new Button(new TogglableButton(this, 6, "D R O P   F R O M   I N V E N T O R Y : O F F", "D R O P   F R O M   I N V E N T O R Y : O N", ToggleDropFromInventory, ToggleDropFromInventory));
-                toggleEquipmentCD = new Button(new TogglableButton(this, 7, "I N F I N I T E   E Q U I P M E N T : O F F", "I N F I N I T E   E Q U I P M E N T : O N", ToggleEquipmentCD, ToggleEquipmentCD));
-                stackInventory = new Button(new NormalButton(this, 8, "S T A C K   I N V E N T O R Y", StackInventory));
-                clearInventory = new Button(new NormalButton(this, 9, "C L E A R   I N V E N T O R Y", ClearInventory));
-                toggleChestItemMenu = new Button(new TogglableButton(this, 10, "C H A N G E   C H E S T   I T E M : O F F", "C H A N G E   C H E S T   I T E M : O N", ToggleChestItemListMenu, ToggleChestItemListMenu));
+                giveAllItems = new Button(new MulButton(this, 1, $"GIVE ALL ITEMS : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity));
+                rollItems = new Button(new MulButton(this, 2, $"ROLL ITEMS : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll));
+                toggleItemListMenu = new Button(new TogglableButton(this, 3, "ITEM SPAWN MENU : OFF", "ITEM SPAWN MENU : ON", ToggleItemsListMenu, ToggleItemsListMenu));
+                toggleEquipmentListMenu = new Button(new TogglableButton(this, 4, "EQUIPMENT SPAWN MENU : OFF", "EQUIPMENT SPAWN MENU : ON", ToggleEquipmentListMenu, ToggleEquipmentListMenu));
+                toggleDropItems = new Button(new TogglableButton(this, 5, "DROP ITEMS : OFF", "DROP ITEMS : ON", ToggleDrop, ToggleDrop));
+                toggleDropInvItems = new Button(new TogglableButton(this, 6, "DROP FROM INVENTORY : OFF", "DROP FROM INVENTORY : ON", ToggleDropFromInventory, ToggleDropFromInventory));
+                toggleEquipmentCD = new Button(new TogglableButton(this, 7, "INFINITE EQUIPMENT : OFF", "INFINITE EQUIPMENT : ON", ToggleEquipmentCD, ToggleEquipmentCD));
+                stackInventory = new Button(new NormalButton(this, 8, "STACK INVENTORY", StackInventory));
+                clearInventory = new Button(new NormalButton(this, 9, "CLEAR INVENTORY", ClearInventory));
+                toggleChestItemMenu = new Button(new TogglableButton(this, 10, "CHANGE CHEST ITEM : OFF", "CHANGE CHEST ITEM : ON", ToggleChestItemListMenu, ToggleChestItemListMenu));
 
                 AddButtons(new List<Button>()
                 {

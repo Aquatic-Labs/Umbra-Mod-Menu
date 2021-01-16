@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class ChestItemList : Menu
     {
-        private static readonly IMenu chestItemsList = new ListMenu(14, new Rect(1503, 10, 20, 20), "C H E S T   I T E M S   M E N U");
+        private static readonly IMenu chestItemsList = new ListMenu(14, new Rect(1503, 10, 20, 20), "CHEST ITEMS MENU");
 
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<ChestBehavior> chests = new List<ChestBehavior>();

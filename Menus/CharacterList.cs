@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class CharacterList : Menu
     {
-        private static readonly IMenu characterList = new ListMenu(10, new Rect(1503, 10, 20, 20), "C H A R A C T E R S   M E N U");
+        private static readonly IMenu characterList = new ListMenu(10, new Rect(1503, 10, 20, 20), "CHARACTERS MENU");
 
         public CharacterList() : base(characterList)
         {

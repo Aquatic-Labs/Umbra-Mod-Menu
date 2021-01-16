@@ -26,7 +26,7 @@ namespace UmbraMenu.Menus
             set
             {
                 xpToGive = value;
-                giveExperience.SetText($"G I V E   E X P E R I E N C E : {xpToGive}");
+                giveExperience.SetText($"GIVE EXPERIENCE : {xpToGive}");
             }
         }
         public uint MoneyToGive
@@ -39,7 +39,7 @@ namespace UmbraMenu.Menus
             set
             {
                 moneyToGive = value;
-                giveMoney.SetText($"G I V E   M O N E Y : {moneyToGive}");
+                giveMoney.SetText($"GIVE MONEY : {moneyToGive}");
             }
         }
         public uint CoinsToGive
@@ -52,7 +52,7 @@ namespace UmbraMenu.Menus
             set
             {
                 coinsToGive = value;
-                giveCoins.SetText($"G I V E   L U N A R   C O I N S : {coinsToGive}");
+                giveCoins.SetText($"GIVE LUNAR COINS : {coinsToGive}");
             }
         }
 
@@ -78,16 +78,16 @@ namespace UmbraMenu.Menus
                 void DoNothing() => Utility.StubbedFunction();
 
                 giveMoney = new Button(new MulButton(this, 1, $"GIVE MONEY : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));
-                giveCoins = new Button(new MulButton(this, 2, $"G I V E   L U N A R   C O I N S : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins));
-                giveExperience = new Button(new MulButton(this, 3, $"G I V E   E X P E R I E N C E : {xpToGive}", GiveXP, IncreaseXP, DecreaseXP));
-                toggleStatsMod = new Button(new TogglableButton(this, 4, "S T A T S   M E N U : O F F", "S T A T S   M E N U : O N", ToggleStatsMenu, ToggleStatsMenu));
-                toggleChangeCharacter = new Button(new TogglableButton(this, 5, "C H A N G E   C H A R A C T E R : O F F", "C H A N G E   C H A R A C T E R : O N", ToggleCharacterListMenu, ToggleCharacterListMenu));
-                toggleBuff = new Button(new TogglableButton(this, 6, "G I V E   B U F F   M E N U : O F F", "G I V E   B U F F   M E N U : O N", ToggleBuffListMenu, ToggleBuffListMenu));
-                removeBuffs = new Button(new NormalButton(this, 7, "R E M O V E   A L L   B U F F S", RemoveAllBuffs));
-                toggleAimbot = new Button(new TogglableButton(this, 8, "A I M B O T : O F F", "A I M B O T : O N", ToggleAimbot, ToggleAimbot));
-                toggleGod = new Button(new TogglableButton(this, 9, "G O D   M O D E : O F F", "G O D   M O D E : O N", ToggleGodMode, ToggleGodMode));
-                toggleSkillCD = new Button(new TogglableButton(this, 10, "I N F I N I T E   S K I L L S : O F F", "I N F I N I T E   S K I L L S : O N", ToggleSkillCD, ToggleSkillCD));
-                unlockAll = new Button(new TogglableButton(this, 11, "U N L O C K   A L L", "C O N F I R M ?", DoNothing, UnlockAll));
+                giveCoins = new Button(new MulButton(this, 2, $"GIVE LUNAR COINS : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins));
+                giveExperience = new Button(new MulButton(this, 3, $"GIVE EXPERIENCE : {xpToGive}", GiveXP, IncreaseXP, DecreaseXP));
+                toggleStatsMod = new Button(new TogglableButton(this, 4, "STATS MENU : OFF", "STATS MENU : ON", ToggleStatsMenu, ToggleStatsMenu));
+                toggleChangeCharacter = new Button(new TogglableButton(this, 5, "CHANGE CHARACTER : OFF", "CHANGE CHARACTER : ON", ToggleCharacterListMenu, ToggleCharacterListMenu));
+                toggleBuff = new Button(new TogglableButton(this, 6, "GIVE BUFF MENU : OFF", "GIVE BUFF MENU : ON", ToggleBuffListMenu, ToggleBuffListMenu));
+                removeBuffs = new Button(new NormalButton(this, 7, "REMOVE ALL BUFFS", RemoveAllBuffs));
+                toggleAimbot = new Button(new TogglableButton(this, 8, "AIMBOT : OFF", "AIMBOT : ON", ToggleAimbot, ToggleAimbot));
+                toggleGod = new Button(new TogglableButton(this, 9, "GOD MODE : OFF", "GOD MODE : ON", ToggleGodMode, ToggleGodMode));
+                toggleSkillCD = new Button(new TogglableButton(this, 10, "INFINITE SKILLS : OFF", "INFINITE SKILLS : ON", ToggleSkillCD, ToggleSkillCD));
+                unlockAll = new Button(new TogglableButton(this, 11, "UNLOCK ALL", "CONFIRM?", DoNothing, UnlockAll));
 
                 AddButtons(new List<Button>()
                 {

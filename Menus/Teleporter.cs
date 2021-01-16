@@ -9,7 +9,7 @@ namespace UmbraMenu.Menus
 {
     public class Teleporter : Menu
     {
-        private static readonly IMenu teleporter = new NormalMenu(5, new Rect(10, 425, 20, 20), "T E L E P O R T E R   M E N U");
+        private static readonly IMenu teleporter = new NormalMenu(5, new Rect(10, 425, 20, 20), "TELEPORTER MENU");
         private static int mountainStacks = 0;
 
         public Button skipStage;
@@ -28,13 +28,13 @@ namespace UmbraMenu.Menus
                 void SpawnBluePortal() => SpawnPortals("blue");
                 void SpawnCelestalPortal() => SpawnPortals("cele");
                 void SpawnGoldPortal() => SpawnPortals("gold");
-                skipStage = new Button(new NormalButton(this, 1, "S K I P   S T A G E", SkipStage));
-                instaTele = new Button(new NormalButton(this, 2, "I N S T A N T   T E L E P O R T E R", InstaTeleporter));
-                addMountain = new Button(new NormalButton(this, 3, $"A D D   M O U N T A I N - C O U N T : {mountainStacks}", AddMountain));
-                spawnAll = new Button(new NormalButton(this, 4, "S P A W N   A L L   P O R T A L S", SpawnAllPortals));
-                spawnBlue = new Button(new NormalButton(this, 5, "S P A W N   B L U E   P O R T A L", SpawnBluePortal));
-                spawnCele = new Button(new NormalButton(this, 6, "S P A W N   C E L E S T A L   P O R T A L", SpawnCelestalPortal));
-                spawnGold = new Button(new NormalButton(this, 7, "S P A W N   G O L D   P O R T A L", SpawnGoldPortal));
+                skipStage = new Button(new NormalButton(this, 1, "SKIP STAGE", SkipStage));
+                instaTele = new Button(new NormalButton(this, 2, "INSTANT TELEPORTER", InstaTeleporter));
+                addMountain = new Button(new NormalButton(this, 3, $"ADD MOUNTAIN-COUNT : {mountainStacks}", AddMountain));
+                spawnAll = new Button(new NormalButton(this, 4, "SPAWN ALL PORTALS", SpawnAllPortals));
+                spawnBlue = new Button(new NormalButton(this, 5, "SPAWN BLUE PORTAL", SpawnBluePortal));
+                spawnCele = new Button(new NormalButton(this, 6, "SPAWN CELESTAL PORTAL", SpawnCelestalPortal));
+                spawnGold = new Button(new NormalButton(this, 7, "SPAWN GOLD PORTAL", SpawnGoldPortal));
 
                 AddButtons(new List<Button>()
                 {
@@ -83,7 +83,7 @@ namespace UmbraMenu.Menus
         {
             TeleporterInteraction.instance.AddShrineStack();
             mountainStacks = TeleporterInteraction.instance.shrineBonusStacks;
-            addMountain.SetText($"A D D   M O U N T A I N - C O U N T : {mountainStacks}");
+            addMountain.SetText($"ADD MOUNTAIN-COUNT : {mountainStacks}");
         }
 
         public void SpawnPortals(string portal)

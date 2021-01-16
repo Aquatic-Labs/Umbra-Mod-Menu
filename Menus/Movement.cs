@@ -8,7 +8,7 @@ namespace UmbraMenu.Menus
 {
     public sealed class Movement : Menu
     {
-        private static readonly IMenu movement = new NormalMenu(2, new Rect(374, 560, 20, 20), "M O V E M E N T   M E N U");
+        private static readonly IMenu movement = new NormalMenu(2, new Rect(374, 560, 20, 20), "MOVEMENT MENU");
 
         public static bool jumpPackToggle, flightToggle, alwaysSprintToggle;
         public static int jumpPackMul = 1;
@@ -21,9 +21,9 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                toggleAlwaysSprint = new Button(new TogglableButton(this, 1, "A L W A Y S   S P R I N T : O F F", "A L W A Y S   S P R I N T : O N", ToggleSprint, ToggleSprint));
-                toggleFlight = new Button(new TogglableButton(this, 2, "F L I G H T : O F F", "F L I G H T : O N", ToggleFlight, ToggleFlight));
-                toggleJumpPack = new Button(new TogglableButton(this, 3, "J U M P - P A C K : O F F", "J U M P - P A C K : O N", ToggleJump, ToggleJump));
+                toggleAlwaysSprint = new Button(new TogglableButton(this, 1, "ALWAYS SPRINT : OFF", "ALWAYS SPRINT : ON", ToggleSprint, ToggleSprint));
+                toggleFlight = new Button(new TogglableButton(this, 2, "FLIGHT : OFF", "FLIGHT : ON", ToggleFlight, ToggleFlight));
+                toggleJumpPack = new Button(new TogglableButton(this, 3, "JUMP PACK : OFF", "JUMP PACK : ON", ToggleJump, ToggleJump));
 
                 AddButtons(new List<Button>()
                 {

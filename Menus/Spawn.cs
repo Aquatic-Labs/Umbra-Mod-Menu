@@ -8,7 +8,7 @@ namespace UmbraMenu.Menus
 {
     public class Spawn : Menu
     {
-        private static readonly IMenu spawn = new NormalMenu(4, new Rect(738, 515, 20, 20), "S P A W N   M E N U");
+        private static readonly IMenu spawn = new NormalMenu(4, new Rect(738, 515, 20, 20), "SPAWN MENU");
 
         public static TeamIndex[] team = { TeamIndex.Monster, TeamIndex.Neutral, TeamIndex.Player, TeamIndex.None };
         public static int teamIndex = 0;
@@ -23,7 +23,7 @@ namespace UmbraMenu.Menus
             set
             {
                 teamIndex = value;
-                changeTeamIndex.SetText($"T E A M : {team[teamIndex]}");
+                changeTeamIndex.SetText($"TEAM : {team[teamIndex]}");
             }
         }
         public float MinDistance
@@ -35,7 +35,7 @@ namespace UmbraMenu.Menus
             set 
             {
                 minDistance = value;
-                changeMinDistance.SetText($"M I N   D I S T A N C E : {minDistance}");
+                changeMinDistance.SetText($"MIN DISTANCE : {minDistance}");
             } 
         }
         public float MaxDistance
@@ -47,7 +47,7 @@ namespace UmbraMenu.Menus
             set 
             {
                 maxDistance = value;
-                changeMaxDistance.SetText($"M A X   D I S T A N C E : {maxDistance}");
+                changeMaxDistance.SetText($"MAX DISTANCE : {maxDistance}");
             }
         }
 
@@ -66,12 +66,12 @@ namespace UmbraMenu.Menus
             {
                 void DoNothing() => Utility.StubbedFunction();
 
-                 changeMinDistance = new Button(new MulButton(this, 1, $"M I N   D I S T A N C E : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance));
-                 changeMaxDistance = new Button(new MulButton(this, 2, $"M A X   D I S T A N C E : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance));
+                 changeMinDistance = new Button(new MulButton(this, 1, $"MIN DISTANCE : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance));
+                 changeMaxDistance = new Button(new MulButton(this, 2, $"MAX DISTANCE : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance));
                  changeTeamIndex = new Button(new MulButton(this, 3, $"T E A M : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex));
-                 toggleSpawnListMenu = new Button(new TogglableButton(this, 4, "S P A W N   L I S T : O F F", "S P A W N   L I S T : O N", ToggleSpawnListMenu, ToggleSpawnListMenu));
-                 killAll = new Button(new NormalButton(this, 5, "K I L L   A L L", KillAllMobs));
-                 destroyInteractables = new Button(new NormalButton(this, 6, "D E S T R O Y   I N T E R A C T A B L E S", DestroySpawnedInteractables));
+                 toggleSpawnListMenu = new Button(new TogglableButton(this, 4, "SPAWN LIST : OFF", "SPAWN LIST : ON", ToggleSpawnListMenu, ToggleSpawnListMenu));
+                 killAll = new Button(new NormalButton(this, 5, "KILL ALL", KillAllMobs));
+                 destroyInteractables = new Button(new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables));
 
                 AddButtons(new List<Button>()
                 {
@@ -150,8 +150,6 @@ namespace UmbraMenu.Menus
                     buttonText = cardName.Replace("bsc", "");
                 }
                 string path = $"SpawnCards/{category}/{cardName}";
-
-                // DrawMenu.DrawButton(buttonPlacement, buttonId, buttonText, buttonStyle);
                 buttonPlacement++;
             }
         }

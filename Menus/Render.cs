@@ -8,7 +8,7 @@ namespace UmbraMenu.Menus
 {
     public class Render : Menu
     {
-        private static readonly IMenu render = new NormalMenu(6, new Rect(10, 795, 20, 20), "R E N D E R   M E N U");
+        private static readonly IMenu render = new NormalMenu(6, new Rect(10, 795, 20, 20), "RENDER MENU");
 
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
@@ -27,14 +27,14 @@ namespace UmbraMenu.Menus
             {
                 if (UmbraMenu.lowResolutionMonitor)
                 {
-                    toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods));
+                    toggleActiveMods = new Button(new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods));
                 }
                 else
                 {
-                    toggleActiveMods = new Button(new TogglableButton(this, 1, "A C T I V E   M O D S : O F F", "A C T I V E   M O D S : O N", ToggleRenderMods, ToggleRenderMods, true));
+                    toggleActiveMods = new Button(new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods, true));
                 }
-                toggleInteractESP = new Button(new TogglableButton(this, 2, "I N T E R A C T A B L E S   E S P : O F F", "I N T E R A C T A B L E S   E S P : O N", ToggleRenderInteractables, ToggleRenderInteractables));
-                toggleMobESP = new Button(new TogglableButton(this, 3, "M O B   E S P : O F F", "M O B   E S P : O N", ToggleRenderMobs, ToggleRenderMobs));
+                toggleInteractESP = new Button(new TogglableButton(this, 2, "INTERACTABLES ESP : OFF", "INTERACTABLES ESP : ON", ToggleRenderInteractables, ToggleRenderInteractables));
+                toggleMobESP = new Button(new TogglableButton(this, 3, "MOB ESP : OFF", "MOB ESP : ON", ToggleRenderMobs, ToggleRenderMobs));
 
                 AddButtons(new List<Button>()
                 {

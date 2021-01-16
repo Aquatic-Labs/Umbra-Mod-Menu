@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class StatsMod : Menu
     {
-        private static readonly IMenu statsMod = new NormalMenu(8, new Rect(1503, 10, 20, 20), "S T A T S   M O D   M E N U");
+        private static readonly IMenu statsMod = new NormalMenu(8, new Rect(1503, 10, 20, 20), "STATS MOD MENU");
 
         public static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
         public int DamagePerLevel
@@ -24,14 +24,14 @@ namespace UmbraMenu.Menus
                 damagePerLvl = value;
                 if (changeDmgPerLevel.IsEnabled())
                 {
-                    changeDmgPerLevel.SetOffText($"D A M A G E / L V L ( O F F ) : {damagePerLvl}");
-                    changeDmgPerLevel.SetOnText($"D A M A G E / L V L ( O N ) : {damagePerLvl}");
+                    changeDmgPerLevel.SetOffText($"DAMAGE/LVL (OFF) : {damagePerLvl}");
+                    changeDmgPerLevel.SetOnText($"DAMAGE/LVL (ON) : {damagePerLvl}");
                     changeDmgPerLevel.SetText(changeDmgPerLevel.GetOnText());
                 }
                 else
                 {
-                    changeDmgPerLevel.SetOnText($"D A M A G E / L V L ( O N ) : {damagePerLvl}");
-                    changeDmgPerLevel.SetOffText($"D A M A G E / L V L ( O F F ) : {damagePerLvl}");
+                    changeDmgPerLevel.SetOnText($"DAMAGE/LVL (ON) : {damagePerLvl}");
+                    changeDmgPerLevel.SetOffText($"DAMAGE/LVL (OFF) : {damagePerLvl}");
                     changeDmgPerLevel.SetText(changeDmgPerLevel.GetOffText());
                 }
             }
@@ -47,14 +47,14 @@ namespace UmbraMenu.Menus
                 critPerLvl = value;
                 if (changeCritPerLevel.IsEnabled())
                 {
-                    changeCritPerLevel.SetOffText($"C R I T / L V L ( O F F ) : {critPerLvl}");
-                    changeCritPerLevel.SetOnText($"C R I T / L V L ( O N ) : {critPerLvl}");
+                    changeCritPerLevel.SetOffText($"CRIT/LVL (OFF) : {critPerLvl}");
+                    changeCritPerLevel.SetOnText($"CRIT/LVL (ON) : {critPerLvl}");
                     changeCritPerLevel.SetText(changeCritPerLevel.GetOnText());
                 }
                 else
                 {
-                    changeCritPerLevel.SetOnText($"C R I T / L V L ( O N ) : {critPerLvl}");
-                    changeCritPerLevel.SetOffText($"C R I T / L V L ( O F F ) : {critPerLvl}");
+                    changeCritPerLevel.SetOnText($"CRIT/LVL (ON) : {critPerLvl}");
+                    changeCritPerLevel.SetOffText($"CRIT/LVL (OFF) : {critPerLvl}");
                     changeCritPerLevel.SetText(changeCritPerLevel.GetOffText());
                 }
             }
@@ -68,7 +68,7 @@ namespace UmbraMenu.Menus
             set
             {
                 multiplier = value;
-                changeMultiplier.SetText($"M U L T I P L I E R : {multiplier}");
+                changeMultiplier.SetText($"MULTIPLIER : {multiplier}");
             }
         }
 
@@ -84,14 +84,14 @@ namespace UmbraMenu.Menus
                 attackSpeed = value;
                 if (changeAttackSpeed.IsEnabled())
                 {
-                    changeAttackSpeed.SetOffText($"A T T A C K   S P E E D ( O F F ) : {attackSpeed}");
-                    changeAttackSpeed.SetOnText($"A T T A C K   S P E E D ( O N ) : {attackSpeed}");
+                    changeAttackSpeed.SetOffText($"ATTACK SPEED (OFF) : {attackSpeed}");
+                    changeAttackSpeed.SetOnText($"ATTACK SPEED (ON) : {attackSpeed}");
                     changeAttackSpeed.SetText(changeAttackSpeed.GetOnText());
                 }
                 else
                 {
-                    changeAttackSpeed.SetOnText($"A T T A C K   S P E E D ( O N ) : {attackSpeed}");
-                    changeAttackSpeed.SetOffText($"A T T A C K   S P E E D ( O F F ) : {attackSpeed}");
+                    changeAttackSpeed.SetOnText($"ATTACK SPEED (ON) : {attackSpeed}");
+                    changeAttackSpeed.SetOffText($"ATTACK SPEED (OFF) : {attackSpeed}");
                     changeAttackSpeed.SetText(changeAttackSpeed.GetOffText());
                 }
             }
@@ -107,14 +107,14 @@ namespace UmbraMenu.Menus
                 armor = value;
                 if (changeArmor.IsEnabled())
                 {
-                    changeArmor.SetOffText($"A R M O R ( O F F ) : {armor}");
-                    changeArmor.SetOnText($"A R M O R ( O N ) : {armor}");
+                    changeArmor.SetOffText($"ARMOR (OFF) : {armor}");
+                    changeArmor.SetOnText($"ARMOR (ON) : {armor}");
                     changeArmor.SetText(changeArmor.GetOnText());
                 }
                 else
                 {
-                    changeArmor.SetOnText($"A R M O R ( O N ) : {armor}");
-                    changeArmor.SetOffText($"A R M O R ( O F F ) : {armor}");
+                    changeArmor.SetOnText($"ARMOR (ON) : {armor}");
+                    changeArmor.SetOffText($"ARMOR (OFF) : {armor}");
                     changeArmor.SetText(changeArmor.GetOffText());
                 }
             }
@@ -130,14 +130,14 @@ namespace UmbraMenu.Menus
                 moveSpeed = value;
                 if (changeMoveSpeed.IsEnabled())
                 {
-                    changeMoveSpeed.SetOffText($"M O V E   S P E E D ( O F F ) : {moveSpeed}");
-                    changeMoveSpeed.SetOnText($"M O V E   S P E E D ( O N ) : {moveSpeed}");
+                    changeMoveSpeed.SetOffText($"MOVE SPEED (OFF) : {moveSpeed}");
+                    changeMoveSpeed.SetOnText($"MOVE SPEED (ON) : {moveSpeed}");
                     changeMoveSpeed.SetText(changeMoveSpeed.GetOnText());
                 }
                 else
                 {
-                    changeMoveSpeed.SetOnText($"M O V E   S P E E D ( O N ) : {moveSpeed}");
-                    changeMoveSpeed.SetOffText($"M O V E   S P E E D ( O F F ) : {moveSpeed}");
+                    changeMoveSpeed.SetOnText($"MOVE SPEED (ON) : {moveSpeed}");
+                    changeMoveSpeed.SetOffText($"MOVE SPEED (OFF) : {moveSpeed}");
                     changeMoveSpeed.SetText(changeMoveSpeed.GetOffText());
                 }
             }
@@ -159,13 +159,13 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                changeDmgPerLevel = new Button(new TogglableMulButton(this, 1, $"D A M A G E / L V L ( O F F ) : {DamagePerLevel}", $"D A M A G E / L V L ( O N ) : {DamagePerLevel}", ToggleDmgPerLevel, ToggleDmgPerLevel, IncreaseDmgPerLevel, DecreaseDmgPerLevel));
-                changeCritPerLevel = new Button(new TogglableMulButton(this, 2, $"C R I T / L V L ( O F F ) : {CritPerLevel}", $"C R I T / L V L ( O N ) : {CritPerLevel}", ToggleCritPerLevel, ToggleCritPerLevel, IncreaseCritPerLevel, DecreaseCritPerLevel));
-                changeAttackSpeed = new Button(new TogglableMulButton(this, 3, $"A T T A C K   S P E E D ( O F F ) : {AttackSpeed}", $"A T T A C K   S P E E D ( O N ) : {AttackSpeed}", ToggleAttackSpeed, ToggleAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed));
-                changeArmor = new Button(new TogglableMulButton(this, 4, $"A R M O R ( O F F ) : {Armor}", $"A R M O R ( O N ) : {Armor}", ToggleArmor, ToggleArmor, IncreaseArmor, DecreaseArmor));
-                changeMoveSpeed = new Button(new TogglableMulButton(this, 5, $"M O V E   S P E E D ( O F F ) : {MoveSpeed}", $"M O V E   S P E E D ( O N ) : {MoveSpeed}", ToggleMoveSpeed, ToggleMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed));
-                changeMultiplier = new Button(new MulButton(this, 6, $"M U L T I P L I E R : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier));
-                toggleViewStatsMenu = new Button(new TogglableButton(this, 7, "S H O W   S T A T S : O F F", "S H O W   S T A T S : O N", ToggleViewStatsMenu, ToggleViewStatsMenu));
+                changeDmgPerLevel = new Button(new TogglableMulButton(this, 1, $"DAMAGE/LVL (OFF) : {DamagePerLevel}", $"DAMAGE/LVL (ON) : {DamagePerLevel}", ToggleDmgPerLevel, ToggleDmgPerLevel, IncreaseDmgPerLevel, DecreaseDmgPerLevel));
+                changeCritPerLevel = new Button(new TogglableMulButton(this, 2, $"CRIT/LVL (OFF) : {CritPerLevel}", $"CRIT/LVL (ON) : {CritPerLevel}", ToggleCritPerLevel, ToggleCritPerLevel, IncreaseCritPerLevel, DecreaseCritPerLevel));
+                changeAttackSpeed = new Button(new TogglableMulButton(this, 3, $"ATTACK SPEED (OFF) : {AttackSpeed}", $"ATTACK SPEED (ON) : {AttackSpeed}", ToggleAttackSpeed, ToggleAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed));
+                changeArmor = new Button(new TogglableMulButton(this, 4, $"ARMOR (OFF) : {Armor}", $"ARMOR (ON) : {Armor}", ToggleArmor, ToggleArmor, IncreaseArmor, DecreaseArmor));
+                changeMoveSpeed = new Button(new TogglableMulButton(this, 5, $"MOVE SPEED (OFF) : {MoveSpeed}", $"MOVE SPEED (ON) : {MoveSpeed}", ToggleMoveSpeed, ToggleMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed));
+                changeMultiplier = new Button(new MulButton(this, 6, $"MULTIPLIER : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier));
+                toggleViewStatsMenu = new Button(new TogglableButton(this, 7, "SHOW STATS : OFF", "SHOW STATS : ON", ToggleViewStatsMenu, ToggleViewStatsMenu));
 
                 AddButtons(new List<Button>()
                 {

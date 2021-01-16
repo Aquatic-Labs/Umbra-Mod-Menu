@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class EquipmentList : Menu
     {
-        private static readonly IMenu equipmentList = new ListMenu(13, new Rect(1503, 10, 20, 20), "E Q U I P M E N T   M E N U");
+        private static readonly IMenu equipmentList = new ListMenu(13, new Rect(1503, 10, 20, 20), "EQUIPMENT MENU");
         
         public EquipmentList() : base(equipmentList)
         {
