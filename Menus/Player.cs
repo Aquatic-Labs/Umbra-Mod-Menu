@@ -141,6 +141,10 @@ namespace UmbraMenu.Menus
         public void ToggleGodMode()
         {
             GodToggle = !GodToggle;
+            if (!GodToggle)
+            {
+                DisabledGodMode();
+            }
         }
 
         public static void ToggleSkillCD()
@@ -218,9 +222,123 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void GodMode()
+        public static void EnableGodMode()
         {
-            UmbraMenu.LocalHealth.godMode = true;
+            switch (UmbraMenu.GodVersion)
+            {
+                case 0:
+                    {
+                        // works
+                        // Normal
+                        UmbraMenu.LocalHealth.godMode = true;
+                        break;
+                    }
+
+                case 1:
+                    {
+                        // works
+                        // Buff
+                        UmbraMenu.LocalPlayerBody.AddBuff(BuffIndex.Intangible);
+                        break;
+                    }
+
+                case 2:
+                    {
+                        // works
+                        // Regen
+                        UmbraMenu.LocalHealth.Heal(float.MaxValue, new ProcChainMask(), false);
+                        break;
+                    }
+
+                case 3:
+                    {
+                        // works
+                        // Negative
+                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
+                        break;
+                    }
+
+                case 4:
+                    {
+                        // works
+                        // Revive
+                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
+                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
+                        int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
+                        if (UmbraMenu.LocalHealth.health < 1)
+                        {
+                            if (itemELCount == 0)
+                            {
+                                ItemList.GiveItem(ItemIndex.ExtraLife);
+                                UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                            }
+                        }
+                        if (itemELCCount > 0)
+                        {
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
+                        }
+                        if (itemELCount > 0)
+                        {
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
+                        }
+                        break;
+                    }
+
+
+                default:
+                    break;
+            }
+        }
+
+        public static void DisabledGodMode()
+        {
+            switch (UmbraMenu.GodVersion)
+            {
+                case 0:
+                    {
+                        UmbraMenu.LocalHealth.godMode = false;
+                        break;
+                    }
+
+                case 1:
+                    {
+                        UmbraMenu.LocalPlayerBody.RemoveBuff(BuffIndex.Intangible);
+                        break;
+                    }
+
+                case 3:
+                    {
+                        if (UmbraMenu.LocalHealth.health < 0)
+                        {
+                            UmbraMenu.LocalHealth.health = 1;
+                        }
+                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                        break;
+                    }
+
+                case 4:
+                    {
+                        if (UmbraMenu.LocalHealth.health < 0)
+                        {
+                            UmbraMenu.LocalHealth.health = 1;
+                        }
+                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
+                        int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
+                        if (itemELCCount > 0)
+                        {
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
+                        }
+                        if (itemELCount > 0)
+                        {
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
+                        }
+                        break;
+                    }
+
+                default:
+                    break;
+            }
         }
 
         public static void UnlockAll()

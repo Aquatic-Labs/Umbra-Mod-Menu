@@ -368,7 +368,7 @@ namespace UmbraMenu
             UmbraMenu.spawnMenu = new Menus.Spawn();
             UmbraMenu.teleporterMenu = new Menus.Teleporter();
             UmbraMenu.renderMenu = new Menus.Render();
-            UmbraMenu.settingsMenu = new Menus.Render();
+            UmbraMenu.settingsMenu = new Menus.Settings();
 
             UmbraMenu.statsModMenu = new Menus.StatsMod();
             UmbraMenu.viewStatsMenu = new Menus.ViewStats();

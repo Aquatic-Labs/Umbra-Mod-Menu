@@ -104,7 +104,7 @@ namespace UmbraMenu
         {
             Menu menu = Utility.FindMenuById(menuIndex);
             int menuLength = menu.GetNumberOfButtons();
-            bool listMenuHighlighted = Enumerable.Range(10, 16).Contains(menuIndex);
+            bool listMenuHighlighted = Enumerable.Range(10, 17).Contains(menuIndex);
 
             if (!UmbraMenu.scrolled && listMenuHighlighted)
             {

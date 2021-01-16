@@ -12,7 +12,6 @@ using UnityEngine;
 using RoR2;
 using UnityEngine.SceneManagement;
 using System.Linq;
-using System.IO;
 
 namespace UmbraMenu
 {
@@ -22,7 +21,7 @@ namespace UmbraMenu
             NAME = "U M B R A",
             VERSION = "2.0.0";
 
-        public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UmbraMenu/settings.ini");
+        public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), $"UmbraMenu/settings-{VERSION}.ini");
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
@@ -169,6 +168,7 @@ namespace UmbraMenu
                 }
                 #endregion
 
+                #region Draw Menus
                 mainMenu.Draw(); //0
                 playerMenu.Draw(); //1
                 movementMenu.Draw(); //2
@@ -176,6 +176,7 @@ namespace UmbraMenu
                 spawnMenu.Draw(); //4
                 teleporterMenu.Draw(); //5
                 renderMenu.Draw(); //6
+                settingsMenu.Draw(); //7
 
                 statsModMenu.Draw(); //8
                 viewStatsMenu.Draw(); //9
@@ -187,6 +188,7 @@ namespace UmbraMenu
                 chestItemListMenu.Draw(); //14
 
                 spawnListMenu.Draw(); //15
+                #endregion
 
                 ESPRoutine();
                 // UpdateMenusAndButtonsRoutine();
@@ -268,17 +270,24 @@ namespace UmbraMenu
 
         public void FixedUpdate()
         {
-            currentScene = SceneManager.GetActiveScene();
-            if (InGameCheck())
+            try
             {
-                if (Menus.Render.renderMobs)
+                currentScene = SceneManager.GetActiveScene();
+                if (InGameCheck())
                 {
-                    Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
+                    if (Menus.Render.renderMobs)
+                    {
+                        Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
+                    }
+                    if (Menus.Items.chestItemList)
+                    {
+                        Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
+                    }
                 }
-                if (Menus.Items.chestItemList)
-                {
-                    Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
-                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"FixedUpdate threw exception: {e}");
             }
         }
         #endregion
@@ -489,119 +498,7 @@ namespace UmbraMenu
             {
                 if (Menus.Player.GodToggle)
                 {
-                    switch (GodVersion)
-                    {
-                        case 0:
-                            {
-                                // works
-                                // Normal
-                                Menus.Player.GodMode();
-                                break;
-                            }
-
-                        case 1:
-                            {
-                                // works
-                                // Barrier
-                                LocalHealth.AddBarrier(float.MaxValue);
-                                break;
-                            }
-
-                        case 2:
-                            {
-                                // works
-                                // Regen
-                                LocalHealth.Heal(float.MaxValue, new ProcChainMask(), false);
-                                break;
-                            }
-
-                        case 3:
-                            {
-                                // works
-                                // Negative
-                                LocalHealth.SetField<bool>("wasAlive", false);
-                                break;
-                            }
-                        case 4:
-                            {
-                                // works
-                                // Revive
-                                LocalHealth.SetField<bool>("wasAlive", false);
-                                int itemELCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
-                                int itemELCCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
-                                if (LocalHealth.health < 1)
-                                {
-                                    if (itemELCount == 0)
-                                    {
-                                        Menus.ItemList.GiveItem(ItemIndex.ExtraLife);
-                                        LocalHealth.SetField<bool>("wasAlive", true);
-                                    }
-                                }
-                                if (itemELCCount > 0)
-                                {
-                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
-                                }
-                                if (itemELCount > 0)
-                                {
-                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
-                                }
-                                break;
-                            }
-
-
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (GodVersion)
-                    {
-                        case 0:
-                            {
-                                LocalHealth.godMode = false;
-                                break;
-                            }
-
-                        case 1:
-                            {
-                                LocalHealth.barrier = 0;
-                                break;
-                            }
-
-                        case 3:
-                            {
-                                if (LocalHealth.health < 0)
-                                {
-                                    LocalHealth.health = 1;
-                                }
-                                LocalHealth.SetField<bool>("wasAlive", true);
-                                break;
-                            }
-
-                        case 4:
-                            {
-                                if (LocalHealth.health < 0)
-                                {
-                                    LocalHealth.health = 1;
-                                }
-                                LocalHealth.SetField<bool>("wasAlive", true);
-                                int itemELCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
-                                int itemELCCount = LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
-                                if (itemELCCount > 0)
-                                {
-                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
-                                }
-                                if (itemELCount > 0)
-                                {
-                                    LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
-                                }
-                                break;
-                            }
-
-                        default:
-                            break;
-                    }
+                    Menus.Player.EnableGodMode();
                 }
             }
         }
