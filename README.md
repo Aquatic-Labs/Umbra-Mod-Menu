@@ -91,7 +91,7 @@ Note: Must use the CLI version of sharp mono injector. The GUI version doesn't w
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
-Namespace: UmbraRoR
+Namespace: UmbraMenu
 Class: Loader
 Method: Load
 ```
@@ -115,7 +115,7 @@ obviously replacing [path to folder with smi.exe in it] with the proper path (ke
 
 `smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load` 
 
-again replacing [Path to UmbraRoR.dll] with the proper path (keep the quotes)
+again replacing [Path to UmbraMenu.dll] with the proper path (keep the quotes)
 
 ### Batch file
 1. Once you have sharpmonoinjector downloaded from [here](https://github.com/warbler/SharpMonoInjector/releases/download/v2.2/SharpMonoInjector.Console.zip), extract the zip.
@@ -125,10 +125,10 @@ again replacing [Path to UmbraRoR.dll] with the proper path (keep the quotes)
 @echo off
 cd "[path to folder with smi.exe]"
 cls
-smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load
+smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraMenu.dll]" -n UmbraMenu -c Loader -m Load
 pause
 ```
-4. Replace [path to folder with smi.exe] and [Path to UmbraRoR.dll] with the proper paths (keep quotes if they are there)
+4. Replace [path to folder with smi.exe] and [Path to UmbraMenu.dll] with the proper paths (keep quotes if they are there)
 5. Press ctrl+shift+s and name it `start.bat` (make sure you replace .txt with .bat)
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
@@ -161,7 +161,7 @@ pause
 6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
 ### Build
-1. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
+1. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraMenu.dll
 
 
 # Changelog:
@@ -190,7 +190,7 @@ pause
   - Reload the Menu.
   - Reset Settings to Default.
 - [ ] Changed Text style (removed spaces between each letter).
-- [ ] Made button background darking so red item text is easier to read.
+- [ ] Made button background darker so red item text is easier to read.
   
   
 ### 8/29/2020 v1.3.1:
