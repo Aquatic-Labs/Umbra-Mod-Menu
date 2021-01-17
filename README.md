@@ -114,7 +114,7 @@ obviously replacing [path to folder with smi.exe in it] with the proper path (ke
 
 4. Once you are in the proper directory and Risk of Rain 2 is open, type 
 
-`smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load` 
+`smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraMenu.dll]" -n UmbraMenu -c Loader -m Load` 
 
 again replacing [Path to UmbraMenu.dll] with the proper path (keep the quotes)
 
