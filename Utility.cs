@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using RoR2;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
-using Octokit;
 
 namespace UmbraMenu
 {

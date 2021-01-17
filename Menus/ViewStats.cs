@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using RoR2;
 using UnityEngine;
 
 namespace UmbraMenu.Menus

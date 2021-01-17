@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using RoR2;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UmbraMenu.Menus
 {

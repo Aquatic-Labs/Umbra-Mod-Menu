@@ -1,12 +1,4 @@
-﻿// TODO:
-//     Update allowed hurtbox list to track new mobs
-//     charge purple w/ HoldOutZoneController
-//     remove unused code (including unused 'using's)
-//     Implement Settings Menu
-//     Implement enhancements and bug fixes from github issues.
-//     Add Comments :)
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
@@ -277,7 +269,6 @@ namespace UmbraMenu
         #region Misc Functions
         public void OnSceneLoaded(Scene s1, Scene s2)
         {
-            Utility.WriteToLog($"{s1.name} -> {s2.name}");
             if (s2 != null)
             {
                 bool inGame = s2.name != "title" && s2.name != "lobby" && s2.name != "" && s2.name != " ";

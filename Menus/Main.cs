@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using RoR2;
-using RoR2.UI.MainMenu;
-using System.IO;
 
 namespace UmbraMenu.Menus
 {
