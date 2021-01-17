@@ -221,6 +221,7 @@ namespace UmbraMenu.Menus
                         GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
+
             }
         }
 
@@ -229,7 +230,6 @@ namespace UmbraMenu.Menus
             for (int i = 0; i < hurtBoxes.Count; i++)
             {
                 var mob = HurtBox.FindEntityObject(hurtBoxes[i]);
-
                 if (mob)
                 {
                     Vector3 MobPosition = Camera.main.WorldToScreenPoint(mob.transform.position);
