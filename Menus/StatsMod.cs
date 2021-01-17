@@ -144,7 +144,7 @@ namespace UmbraMenu.Menus
         }
         public static bool armorToggle, attackSpeedToggle, critToggle, damageToggle, moveSpeedToggle, regenToggle;
 
-        private static void ToggleViewStatsMenu() => Utility.FindMenuById(9).ToggleMenu();
+        private static void ToggleViewStatsMenu() => UmbraMenu.menus[9].ToggleMenu();
         private static void DoNothing() => Utility.StubbedFunction();
 
         public Button changeDmgPerLevel;

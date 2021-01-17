@@ -62,14 +62,14 @@ namespace UmbraMenu
 
             if (!UmbraMenu.lowResolutionMonitor)
             {
-                Menu menu = Utility.FindMenuById(menuIndex);
+                Menu menu = UmbraMenu.menus[menuIndex];
                 menu.SetEnabled(false);
                 menuIndex = menu.GetPrevMenuId();
                 buttonIndex = prevButtonIndex;
             }
             else
             {
-                Menu menu = Utility.FindMenuById(menuIndex);
+                Menu menu = UmbraMenu.menus[menuIndex];
                 menu.SetEnabled(false);
                 bool mainMenusIndex = Enumerable.Range(1, 7).Contains(menuIndex);
                 if (mainMenusIndex)
@@ -78,7 +78,7 @@ namespace UmbraMenu
                 }
                 else
                 {
-                    Utility.FindMenuById(menu.GetPrevMenuId()).SetEnabled(true);
+                    UmbraMenu.menus[menu.GetPrevMenuId()].SetEnabled(true);
                 }
                 buttonIndex = prevButtonIndex;
             }
@@ -102,7 +102,7 @@ namespace UmbraMenu
 
         public static void UpdateIndexValues()
         {
-            Menu menu = Utility.FindMenuById(menuIndex);
+            Menu menu = UmbraMenu.menus[menuIndex];
             int menuLength = menu.GetNumberOfButtons();
             bool listMenuHighlighted = Enumerable.Range(10, 17).Contains(menuIndex);
 

@@ -9,7 +9,7 @@ namespace UmbraMenu
 {
     public class Button
     {
-        public IButton _button;
+        private IButton _button;
 
         public Button(IButton button)
         {

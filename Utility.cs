@@ -28,7 +28,7 @@ namespace UmbraMenu
 
         public static Button FindButtonById(int menuId, int buttonId)
         {
-            List<Button> menuButtons = FindMenuById(menuId).GetButtons();
+            List<Button> menuButtons = UmbraMenu.menus[menuId].GetButtons();
             for (int i = 0; i < menuButtons.Count; i++)
             {
                 Button currentButton = menuButtons[i];
@@ -100,16 +100,9 @@ namespace UmbraMenu
             {
                 int menuId = currentTuple.Item1;
                 int buttonPos = currentTuple.Item2;
-                try
+                if (menuId != -1 && buttonPos != -1)
                 {
-                    if (menuId != -1 && buttonPos != -1)
-                    {
-                        FindButtonById(menuId, buttonPos).SetEnabled(true);
-                    }
-                }
-                catch (Exception e)
-                {
-                    continue;
+                    FindButtonById(menuId, buttonPos).SetEnabled(true);
                 }
             }
         }
@@ -283,7 +276,7 @@ namespace UmbraMenu
 
         public static List<HurtBox> GetHurtBoxes()
         {
-            string[] allowedBoxes = { "Golem", "Jellyfish", "Wisp", "Beetle", "Lemurian", "Imp", "HermitCrab", "ClayBruiser", "Bell", "BeetleGuard", "MiniMushroom", "Bison", "GreaterWisp", "LemurianBruiser", "RoboBallMini", "Vulture",  /* BOSSES */ "BeetleQueen2", "ClayDunestrider", "Titan", "TitanGold", "TitanBlackBeach", "Grovetender", "Gravekeeper", "Mithrix", "Aurelionite", "Vagrant", "MagmaWorm", "ImpBoss", "ElectricWorm", "RoboBallBoss", "Nullifier", "Parent" };
+            string[] allowedBoxes = { "Golem", "Jellyfish", "Wisp", "Beetle", "Lemurian", "Imp", "HermitCrab", "ClayBruiser", "Bell", "BeetleGuard", "MiniMushroom", "Bison", "GreaterWisp", "LemurianBruiser", "RoboBallMini", "Vulture",  /* BOSSES */ "BeetleQueen2", "ClayDunestrider", "Titan", "TitanGold", "TitanBlackBeach", "Grovetender", "Gravekeeper", "Mithrix", "Aurelionite", "Vagrant", "MagmaWorm", "ImpBoss", "ElectricWorm", "RoboBallBoss", "Nullifier", "Parent", "Scav", "ScavLunar1", "ClayBoss", "LunarGolem", "LunarWisp", "Brother", "BrotherHurt" };
             var localUser = LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
             if (!controller)
@@ -342,6 +335,8 @@ namespace UmbraMenu
             SoftResetMenu(false);
             UmbraMenu.scrolled = false;
             UmbraMenu.navigationToggle = false;
+            Navigation.menuIndex = 0;
+            Navigation.buttonIndex = 0;
         }
 
         public static void CloseOpenMenus()
@@ -381,6 +376,8 @@ namespace UmbraMenu
 
             UmbraMenu.spawnListMenu = new Menus.SpawnList();
 
+            UmbraMenu.keybindListMenu = new Menus.KeybindList();
+
             UmbraMenu.menus = new List<Menu>()
             {
                 UmbraMenu.mainMenu, //0
@@ -398,7 +395,8 @@ namespace UmbraMenu
                 UmbraMenu.itemListMenu, //12
                 UmbraMenu.equipmentListMenu, //13
                 UmbraMenu.chestItemListMenu, //14
-                UmbraMenu.spawnListMenu //15
+                UmbraMenu.spawnListMenu, //15
+                UmbraMenu.keybindListMenu //16
             };
             if (preserveState)
             {
@@ -423,8 +421,51 @@ namespace UmbraMenu
                 UmbraMenu.itemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.equipmentListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                UmbraMenu.spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position*/
+                UmbraMenu.spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                UmbraMenu.keybindListMenu.SetRect(new Rect(374, 10, 20, 20));
             }
+        }
+        #endregion
+
+        #region Keybind Utility
+        public static Button GetEnabledKeybindButton()
+        {
+            Menu keybindMenu = UmbraMenu.menus[16];
+            for (int i = 0; i < keybindMenu.GetNumberOfButtons(); i++)
+            {
+                Button button = keybindMenu.GetButtons()[i];
+                if (button.IsEnabled())
+                {
+                    return button;
+                }
+            }
+            throw new NullReferenceException($"No buttons are enabled in the keybind menu");
+        }
+
+        public static bool KeyCodeInUse(KeyCode keyCode)
+        {
+            for (int i = 0; i < UmbraMenu.keybindDict.Count; i++)
+            {
+                Keybind keybind = UmbraMenu.keybindDict[UmbraMenu.keyBindNames[i]];
+                if (keybind.KeyCode == keyCode)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static Keybind FindKeybindByKeyCode(KeyCode keyCode)
+        {
+            for (int i = 0; i < UmbraMenu.keybindDict.Count; i++)
+            {
+                Keybind keybind = UmbraMenu.keybindDict[UmbraMenu.keyBindNames[i]];
+                if (keybind.KeyCode == keyCode)
+                {
+                    return keybind;
+                }
+            }
+            throw new NullReferenceException($"Keybind using keycode '{keyCode}' was not found.");
         }
         #endregion
 
@@ -446,131 +487,154 @@ namespace UmbraMenu
         {
             using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, false))
             {
-                outputFile.WriteLine($"{UmbraMenu.Width}");
-                outputFile.WriteLine($"{UmbraMenu.AllowNavigation}");
-                outputFile.WriteLine($"{UmbraMenu.GodVersion}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenMainMenuKeybind}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenPlayerMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.GiveMoneyKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.GiveCoinKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.GiveExpKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenStatsModKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenViewStatsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenChangeCharacterListKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenBuffListKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.RemoveAllBuffsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.AimbotKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.GodModeKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.InfiniteSkillsKeybind}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenMovementMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.AlwaysSprintKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.FlightKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.JumpPackKeybind}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenItemsMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.GiveAllKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.RollItemsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenItemsListMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenEquipmentListMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.DropItemsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.DropInvItemsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.InfiniteEquipmentKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.StackInvKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.ClearInvKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenChestItemListKeybind}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenSpawnMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.OpenSpawnListMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.KillAllKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.DestroyIntKeybind}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenTeleMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.SkipStageKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.InstantTeleKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.AddMtnKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.SpawnAllPortalsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.SpawnBlueKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.SpawnCelKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.SpawnGoldKeybind}");
-
-                outputFile.WriteLine($"{UmbraMenu.OpenRenderMenuKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.RenActiveModsKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.RenIntKeybind}");
-                outputFile.WriteLine($"{UmbraMenu.RenMobKeybind}");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine(@"#          _____                    _____                    _____                    _____                    _____                            _____                    _____                    _____                    _____          #");
+                outputFile.WriteLine(@"#         /\    \                  /\    \                  /\    \                  /\    \                  /\    \                          /\    \                  /\    \                  /\    \                  /\    \         #");
+                outputFile.WriteLine(@"#        /::\____\                /::\____\                /::\    \                /::\    \                /::\    \                        /::\____\                /::\    \                /::\____\                /::\____\        #");
+                outputFile.WriteLine(@"#       /:::/    /               /::::|   |               /::::\    \              /::::\    \              /::::\    \                      /::::|   |               /::::\    \              /::::|   |               /:::/    /        #");
+                outputFile.WriteLine(@"#      /:::/    /               /:::::|   |              /::::::\    \            /::::::\    \            /::::::\    \                    /:::::|   |              /::::::\    \            /:::::|   |              /:::/    /         #");
+                outputFile.WriteLine(@"#     /:::/    /               /::::::|   |             /:::/\:::\    \          /:::/\:::\    \          /:::/\:::\    \                  /::::::|   |             /:::/\:::\    \          /::::::|   |             /:::/    /          #");
+                outputFile.WriteLine(@"#    /:::/    /               /:::/|::|   |            /:::/__\:::\    \        /:::/__\:::\    \        /:::/__\:::\    \                /:::/|::|   |            /:::/__\:::\    \        /:::/|::|   |            /:::/    /           #");
+                outputFile.WriteLine(@"#   /:::/    /               /:::/ |::|   |           /::::\   \:::\    \      /::::\   \:::\    \      /::::\   \:::\    \              /:::/ |::|   |           /::::\   \:::\    \      /:::/ |::|   |           /:::/    /            #");
+                outputFile.WriteLine(@"#  /:::/    /      _____    /:::/  |::|___|______    /::::::\   \:::\    \    /::::::\   \:::\    \    /::::::\   \:::\    \            /:::/  |::|___|______    /::::::\   \:::\    \    /:::/  |::|   | _____    /:::/    /      _____  #");
+                outputFile.WriteLine(@"# /:::/____/      /\    \  /:::/   |::::::::\    \  /:::/\:::\   \:::\ ___\  /:::/\:::\   \:::\____\  /:::/\:::\   \:::\    \          /:::/   |::::::::\    \  /:::/\:::\   \:::\    \  /:::/   |::|   |/\    \  /:::/____/      /\    \ #");
+                outputFile.WriteLine(@"#|:::|    /      /::\____\/:::/    |:::::::::\____\/:::/__\:::\   \:::|    |/:::/  \:::\   \:::|    |/:::/  \:::\   \:::\____\        /:::/    |:::::::::\____\/:::/__\:::\   \:::\____\/:: /    |::|   /::\____\|:::|    /      /::\____\#");
+                outputFile.WriteLine(@"#|:::|____\     /:::/    /\::/    / ~~~~~/:::/    /\:::\   \:::\  /:::|____|\::/   |::::\  /:::|____|\::/    \:::\  /:::/    /        \::/    / ~~~~~/:::/    /\:::\   \:::\   \::/    /\::/    /|::|  /:::/    /|:::|____\     /:::/    /#");
+                outputFile.WriteLine(@"# \:::\    \   /:::/    /  \/____/      /:::/    /  \:::\   \:::\/:::/    /  \/____|:::::\/:::/    /  \/____/ \:::\/:::/    /          \/____/      /:::/    /  \:::\   \:::\   \/____/  \/____/ |::| /:::/    /  \:::\    \   /:::/    / #");
+                outputFile.WriteLine(@"#  \:::\    \ /:::/    /               /:::/    /    \:::\   \::::::/    /         |:::::::::/    /            \::::::/    /                       /:::/    /    \:::\   \:::\    \              |::|/:::/    /    \:::\    \ /:::/    /  #");
+                outputFile.WriteLine(@"#   \:::\    /:::/    /               /:::/    /      \:::\   \::::/    /          |::|\::::/    /              \::::/    /                       /:::/    /      \:::\   \:::\____\             |::::::/    /      \:::\    /:::/    /   #");
+                outputFile.WriteLine(@"#    \:::\__/:::/    /               /:::/    /        \:::\  /:::/    /           |::| \::/____/               /:::/    /                       /:::/    /        \:::\   \::/    /             |:::::/    /        \:::\__/:::/    /    #");
+                outputFile.WriteLine(@"#     \::::::::/    /               /:::/    /          \:::\/:::/    /            |::|  ~|                    /:::/    /                       /:::/    /          \:::\   \/____/              |::::/    /          \::::::::/    /     #");
+                outputFile.WriteLine(@"#      \::::::/    /               /:::/    /            \::::::/    /             |::|   |                   /:::/    /                       /:::/    /            \:::\    \                  /:::/    /            \::::::/    /      #");
+                outputFile.WriteLine(@"#       \::::/    /               /:::/    /              \::::/    /              \::|   |                  /:::/    /                       /:::/    /              \:::\____\                /:::/    /              \::::/    /       #");
+                outputFile.WriteLine(@"#        \::/____/                \::/    /                \::/____/                \:|   |                  \::/    /                        \::/    /                \::/    /                \::/    /                \::/____/        #");
+                outputFile.WriteLine(@"#         ~~                       \/____/                  ~~                       \|___|                   \/____/                          \/____/                  \/____/                  \/____/                  ~~              #");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine(@"# This is the settings file for the Risk Of Rain 2 Umbra Mod Menu.");
+                outputFile.WriteLine(@"# Created by https://www.github.com/Acher0ns");
+                outputFile.WriteLine(@"# If you need any help, add me on discord! Neonix#1337");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine($"Width: {UmbraMenu.Width}: # Menu Width Size (Any Number)");
+                outputFile.WriteLine($"Allow Navigation: {UmbraMenu.AllowNavigation}: # Enable or Disable Keyboard Navigation Feature (true/false)");
+                outputFile.WriteLine($"God Version: {UmbraMenu.GodVersion}: # Godmode Version (0-4)");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine(@"# Below are the keybind settings. Their value must be set to a valid Unity KeyCode");
+                outputFile.WriteLine($"# Unity KeyCodes can be found here under the 'Properties' section: https://docs.unity3d.com/ScriptReference/KeyCode.html");
+                for (int i = 0; i < UmbraMenu.keybindDict.Count; i++)
+                {
+                    outputFile.WriteLine($"{UmbraMenu.keyBindNames[i]}: {UmbraMenu.keybindDict[UmbraMenu.keyBindNames[i]].KeyCode}");
+                }
             }
         }
 
-        public static string[] ReadSettings()
+        public static List<string> ReadSettings()
         {
             if (!File.Exists(UmbraMenu.SETTINGSPATH))
             {
                 CreateDefaultSettingsFile();
             }
-            return File.ReadAllLines(UmbraMenu.SETTINGSPATH);
+            List<string> result = new List<string>();
+            var settings = File.ReadAllLines(UmbraMenu.SETTINGSPATH);
+            for (int i = 0; i < settings.Length; i++)
+            {
+                if (settings[i].StartsWith("#"))
+                {
+                    continue;
+                }
+                result.Add(settings[i].Split(new string[] { ": " }, StringSplitOptions.None)[1]);
+            }
+            return result;
         }
 
         public static void CreateDefaultSettingsFile()
         {
             Directory.CreateDirectory(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UmbraMenu"));
-            using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, true))
+            using (StreamWriter outputFile = new StreamWriter(UmbraMenu.SETTINGSPATH, false))
             {
-                outputFile.WriteLine($"{350}"); // Width
-                outputFile.WriteLine($"{true}"); // Allow Navigation
-                outputFile.WriteLine($"{0}"); // Godmode Version
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine(@"#          _____                    _____                    _____                    _____                    _____                            _____                    _____                    _____                    _____          #");
+                outputFile.WriteLine(@"#         /\    \                  /\    \                  /\    \                  /\    \                  /\    \                          /\    \                  /\    \                  /\    \                  /\    \         #");
+                outputFile.WriteLine(@"#        /::\____\                /::\____\                /::\    \                /::\    \                /::\    \                        /::\____\                /::\    \                /::\____\                /::\____\        #");
+                outputFile.WriteLine(@"#       /:::/    /               /::::|   |               /::::\    \              /::::\    \              /::::\    \                      /::::|   |               /::::\    \              /::::|   |               /:::/    /        #");
+                outputFile.WriteLine(@"#      /:::/    /               /:::::|   |              /::::::\    \            /::::::\    \            /::::::\    \                    /:::::|   |              /::::::\    \            /:::::|   |              /:::/    /         #");
+                outputFile.WriteLine(@"#     /:::/    /               /::::::|   |             /:::/\:::\    \          /:::/\:::\    \          /:::/\:::\    \                  /::::::|   |             /:::/\:::\    \          /::::::|   |             /:::/    /          #");
+                outputFile.WriteLine(@"#    /:::/    /               /:::/|::|   |            /:::/__\:::\    \        /:::/__\:::\    \        /:::/__\:::\    \                /:::/|::|   |            /:::/__\:::\    \        /:::/|::|   |            /:::/    /           #");
+                outputFile.WriteLine(@"#   /:::/    /               /:::/ |::|   |           /::::\   \:::\    \      /::::\   \:::\    \      /::::\   \:::\    \              /:::/ |::|   |           /::::\   \:::\    \      /:::/ |::|   |           /:::/    /            #");
+                outputFile.WriteLine(@"#  /:::/    /      _____    /:::/  |::|___|______    /::::::\   \:::\    \    /::::::\   \:::\    \    /::::::\   \:::\    \            /:::/  |::|___|______    /::::::\   \:::\    \    /:::/  |::|   | _____    /:::/    /      _____  #");
+                outputFile.WriteLine(@"# /:::/____/      /\    \  /:::/   |::::::::\    \  /:::/\:::\   \:::\ ___\  /:::/\:::\   \:::\____\  /:::/\:::\   \:::\    \          /:::/   |::::::::\    \  /:::/\:::\   \:::\    \  /:::/   |::|   |/\    \  /:::/____/      /\    \ #");
+                outputFile.WriteLine(@"#|:::|    /      /::\____\/:::/    |:::::::::\____\/:::/__\:::\   \:::|    |/:::/  \:::\   \:::|    |/:::/  \:::\   \:::\____\        /:::/    |:::::::::\____\/:::/__\:::\   \:::\____\/:: /    |::|   /::\____\|:::|    /      /::\____\#");
+                outputFile.WriteLine(@"#|:::|____\     /:::/    /\::/    / ~~~~~/:::/    /\:::\   \:::\  /:::|____|\::/   |::::\  /:::|____|\::/    \:::\  /:::/    /        \::/    / ~~~~~/:::/    /\:::\   \:::\   \::/    /\::/    /|::|  /:::/    /|:::|____\     /:::/    /#");
+                outputFile.WriteLine(@"# \:::\    \   /:::/    /  \/____/      /:::/    /  \:::\   \:::\/:::/    /  \/____|:::::\/:::/    /  \/____/ \:::\/:::/    /          \/____/      /:::/    /  \:::\   \:::\   \/____/  \/____/ |::| /:::/    /  \:::\    \   /:::/    / #");
+                outputFile.WriteLine(@"#  \:::\    \ /:::/    /               /:::/    /    \:::\   \::::::/    /         |:::::::::/    /            \::::::/    /                       /:::/    /    \:::\   \:::\    \              |::|/:::/    /    \:::\    \ /:::/    /  #");
+                outputFile.WriteLine(@"#   \:::\    /:::/    /               /:::/    /      \:::\   \::::/    /          |::|\::::/    /              \::::/    /                       /:::/    /      \:::\   \:::\____\             |::::::/    /      \:::\    /:::/    /   #");
+                outputFile.WriteLine(@"#    \:::\__/:::/    /               /:::/    /        \:::\  /:::/    /           |::| \::/____/               /:::/    /                       /:::/    /        \:::\   \::/    /             |:::::/    /        \:::\__/:::/    /    #");
+                outputFile.WriteLine(@"#     \::::::::/    /               /:::/    /          \:::\/:::/    /            |::|  ~|                    /:::/    /                       /:::/    /          \:::\   \/____/              |::::/    /          \::::::::/    /     #");
+                outputFile.WriteLine(@"#      \::::::/    /               /:::/    /            \::::::/    /             |::|   |                   /:::/    /                       /:::/    /            \:::\    \                  /:::/    /            \::::::/    /      #");
+                outputFile.WriteLine(@"#       \::::/    /               /:::/    /              \::::/    /              \::|   |                  /:::/    /                       /:::/    /              \:::\____\                /:::/    /              \::::/    /       #");
+                outputFile.WriteLine(@"#        \::/____/                \::/    /                \::/____/                \:|   |                  \::/    /                        \::/    /                \::/    /                \::/    /                \::/____/        #");
+                outputFile.WriteLine(@"#         ~~                       \/____/                  ~~                       \|___|                   \/____/                          \/____/                  \/____/                  \/____/                  ~~              #");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine(@"# This is the settings file for the Risk Of Rain 2 Umbra Mod Menu.");
+                outputFile.WriteLine(@"# Created by https://www.github.com/Acher0ns");
+                outputFile.WriteLine(@"# If you need any help, add me on discord! Neonix#1337");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine($"Width: {350}: # Menu Width Size (Any Number)");
+                outputFile.WriteLine($"Allow Navigation: {true}: # Enable or Disable the Keyboard Navigation feature (True/False)");
+                outputFile.WriteLine($"God Version: {0}: # Godmode Version (0-4)");
+                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
+                outputFile.WriteLine(@"# Below are the keybind settings. Their value must be set to a valid Unity KeyCode");
+                outputFile.WriteLine($"# Unity KeyCodes can be found here under the 'Properties' section: https://docs.unity3d.com/ScriptReference/KeyCode.html");
 
-                outputFile.WriteLine($"{KeyCode.Insert}"); // Open Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[0]}: {KeyCode.Insert}"); // Open Menu
 
-                outputFile.WriteLine($"{KeyCode.Z}"); // Open Player Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Give Money
-                outputFile.WriteLine($"{KeyCode.None}"); // Give Coin
-                outputFile.WriteLine($"{KeyCode.None}"); // Give Exp
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Stats Mod Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Open View Stats Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Change Character List Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Open BuffList
-                outputFile.WriteLine($"{KeyCode.None}"); // Remove all buffs
-                outputFile.WriteLine($"{KeyCode.None}"); // Aimbot
-                outputFile.WriteLine($"{KeyCode.None}"); // God
-                outputFile.WriteLine($"{KeyCode.None}"); // Infinite Skills
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[1]}: {KeyCode.Z}"); // Open Player Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[2]}: {KeyCode.None}"); // Give Money
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[3]}: {KeyCode.None}"); // Give Coin
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[4]}: {KeyCode.None}"); // Give Exp
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[5]}: {KeyCode.None}"); // Open Stats Mod Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[6]}: {KeyCode.None}"); // Open View Stats Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[7]}: {KeyCode.None}"); // Open Change Character List Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[8]}: {KeyCode.None}"); // Open BuffList
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[9]}: {KeyCode.None}"); // Remove all buffs
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[10]}: {KeyCode.None}"); // Aimbot
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[11]}: {KeyCode.None}"); // God
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[12]}: {KeyCode.None}"); // Infinite Skills
 
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Movement Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Always Sprint
-                outputFile.WriteLine($"{KeyCode.C}"); // Flight
-                outputFile.WriteLine($"{KeyCode.None}"); // Jump Pack
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[13]}: {KeyCode.None}"); // Open Movement Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[14]}: {KeyCode.None}"); // Always Sprint
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[15]}: {KeyCode.C}"); // Flight
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[16]}: {KeyCode.None}"); // Jump Pack
 
-                outputFile.WriteLine($"{KeyCode.I}"); // Open Items Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Give All Items
-                outputFile.WriteLine($"{KeyCode.None}"); // Roll Items
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Item List Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Equipment List Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Drop Items
-                outputFile.WriteLine($"{KeyCode.None}"); // Drop Invetory Items
-                outputFile.WriteLine($"{KeyCode.None}"); // Infinite Equipment
-                outputFile.WriteLine($"{KeyCode.None}"); // Stack Inventory
-                outputFile.WriteLine($"{KeyCode.None}"); // Clear Inventory
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Chest Item List Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[17]}: {KeyCode.I}"); // Open Items Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[18]}: {KeyCode.None}"); // Give All Items
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[19]}: {KeyCode.None}"); // Roll Items
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[20]}: {KeyCode.None}"); // Open Item List Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[21]}: {KeyCode.None}"); // Open Equipment List Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[22]}: {KeyCode.None}"); // Drop Items
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[23]}: {KeyCode.None}"); // Drop Invetory Items
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[24]}: {KeyCode.None}"); // Infinite Equipment
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[25]}: {KeyCode.None}"); // Stack Inventory
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[26]}: {KeyCode.None}"); // Clear Inventory
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[27]}: {KeyCode.None}"); // Open Chest Item List Menu
 
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Spawn Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Spawn List Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Kill All Mobs
-                outputFile.WriteLine($"{KeyCode.None}"); // Destroy Spawned Interactables
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[28]}: {KeyCode.None}"); // Open Spawn Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[29]}: {KeyCode.None}"); // Open Spawn List Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[30]}: {KeyCode.None}"); // Kill All Mobs
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[31]}: {KeyCode.None}"); // Destroy Spawned Interactables
 
-                outputFile.WriteLine($"{KeyCode.B}"); // Open Teleporter Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Skip Stage
-                outputFile.WriteLine($"{KeyCode.None}"); // Instant Teleporter
-                outputFile.WriteLine($"{KeyCode.None}"); // Add Mountain Stack
-                outputFile.WriteLine($"{KeyCode.None}"); // Spawn All Portals
-                outputFile.WriteLine($"{KeyCode.None}"); // Spawn Blue Portal
-                outputFile.WriteLine($"{KeyCode.None}"); // Spawn Celestial Portal
-                outputFile.WriteLine($"{KeyCode.None}"); // Spawn Gold Portal
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[32]}: {KeyCode.B}"); // Open Teleporter Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[33]}: {KeyCode.None}"); // Skip Stage
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[34]}: {KeyCode.None}"); // Instant Teleporter
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[35]}: {KeyCode.None}"); // Add Mountain Stack
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[36]}: {KeyCode.None}"); // Spawn All Portals
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[37]}: {KeyCode.None}"); // Spawn Blue Portal
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[38]}: {KeyCode.None}"); // Spawn Celestial Portal
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[39]}: {KeyCode.None}"); // Spawn Gold Portal
 
-                outputFile.WriteLine($"{KeyCode.None}"); // Open Render Menu
-                outputFile.WriteLine($"{KeyCode.None}"); // Active Mods
-                outputFile.WriteLine($"{KeyCode.None}"); // Interactables
-                outputFile.WriteLine($"{KeyCode.None}"); // Mob ESP
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[40]}: {KeyCode.None}"); // Open Render Menu
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[41]}: {KeyCode.None}"); // Active Mods
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[42]}: {KeyCode.None}"); // Interactables
+                outputFile.WriteLine($"{UmbraMenu.keyBindNames[43]}: {KeyCode.None}"); // Mob ESP
             }
         }
         #endregion

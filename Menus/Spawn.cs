@@ -114,7 +114,7 @@ namespace UmbraMenu.Menus
             {
                 SpawnList.EnableSpawnList();
             }
-            Utility.FindMenuById(15).ToggleMenu();
+            UmbraMenu.menus[15].ToggleMenu();
         }
 
         public static void SpawnMob(GUIStyle buttonStyle, string buttonId)

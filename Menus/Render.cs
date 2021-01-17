@@ -108,9 +108,8 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private static void DumpInteractables(SceneDirector obj)
+        public static void DumpInteractables(SceneDirector obj)
         {
-            Debug.Log("Dumping Interactables");
             barrelInteractions = MonoBehaviour.FindObjectsOfType<BarrelInteraction>().ToList();
             purchaseInteractions = MonoBehaviour.FindObjectsOfType<PurchaseInteraction>().ToList();
             secretButtons = MonoBehaviour.FindObjectsOfType<PressurePlateController>().ToList();

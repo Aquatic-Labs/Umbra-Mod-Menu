@@ -59,12 +59,14 @@
   <ItemGroup>
     <Compile Include="ButtonTypes\Button.cs" />
     <Compile Include="ButtonTypes\NormalButton.cs" />
+    <Compile Include="Keybinds.cs" />
     <Compile Include="ESPHelper.cs" />
     <Compile Include="Interfaces\IButton.cs" />
     <Compile Include="Interfaces\IMenu.cs" />
     <Compile Include="Menus\BuffList.cs" />
     <Compile Include="Menus\CharacterList.cs" />
     <Compile Include="Menus\ChestItemList.cs" />
+    <Compile Include="Menus\KeybindList.cs" />
     <Compile Include="Menus\EquipmentList.cs" />
     <Compile Include="Menus\ItemList.cs" />
     <Compile Include="Menus\Items.cs" />

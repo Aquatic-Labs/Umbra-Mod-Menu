@@ -39,6 +39,15 @@ namespace UmbraMenu
                 {
                     Navigation.menuIndex = Id;
                 }
+
+                if (enabled)
+                {
+                    ActivatingButton?.SetEnabled(true);
+                }
+                else
+                {
+                    ActivatingButton?.SetEnabled(false);
+                }
             }
         }
 
@@ -103,10 +112,6 @@ namespace UmbraMenu
                 if (!IfDragged)
                 {
                     Enabled = !Enabled;
-                    if (ActivatingButton != null)
-                    {
-                        ActivatingButton.ToggleButton();
-                    }
                     UmbraMenu.GetCharacter();
                 }
                 IfDragged = false;

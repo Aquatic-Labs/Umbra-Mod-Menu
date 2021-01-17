@@ -72,9 +72,9 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                void ToggleStatsMenu() => Utility.FindMenuById(8).ToggleMenu();
-                void ToggleCharacterListMenu() => Utility.FindMenuById(10).ToggleMenu();
-                void ToggleBuffListMenu() => Utility.FindMenuById(11).ToggleMenu();
+                void ToggleStatsMenu() => UmbraMenu.menus[8].ToggleMenu();
+                void ToggleCharacterListMenu() => UmbraMenu.menus[10].ToggleMenu();
+                void ToggleBuffListMenu() => UmbraMenu.menus[11].ToggleMenu();
                 void DoNothing() => Utility.StubbedFunction();
 
                 giveMoney = new Button(new MulButton(this, 1, $"GIVE MONEY : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney));

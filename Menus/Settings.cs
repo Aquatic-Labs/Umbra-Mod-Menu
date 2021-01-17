@@ -26,24 +26,30 @@ namespace UmbraMenu.Menus
         public Button allowNavigation;
         public Button changeGodModeVersion;
         public Button toggleKeybindMenu;
+        public Button reloadMenu;
+        public Button resetSettings;
 
         public Settings() : base(settings)
         {
             if (UmbraMenu.characterCollected)
             {
                 void DoNothing() => Utility.StubbedFunction();
-                void ToggleKeybindMenu() => Utility.FindMenuById(17).ToggleMenu();
+                void ToggleKeybindMenu() => UmbraMenu.menus[16].ToggleMenu();
                 changeWidth = new Button(new MulButton(this, 1, $"WIDTH : {UmbraMenu.Width}", DoNothing, IncreaseWidth, DecreaseWidth));
                 allowNavigation = new Button(new NormalButton(this, 2, $"ENABLE NAVIGATION : {EnableNavigationBtnText}", ToggleAllowNavigation));
                 changeGodModeVersion = new Button(new NormalButton(this, 3, $"GOD TYPE : {GodVerion[UmbraMenu.GodVersion]}", ChangeGodVersion));
                 toggleKeybindMenu = new Button(new TogglableButton(this, 4, "KEYBIND MENU : OFF", "KEYBIND MENU : ON", ToggleKeybindMenu, ToggleKeybindMenu));
+                reloadMenu = new Button(new NormalButton(this, 5, $"RELOAD MENU", ReloadMenus));
+                resetSettings = new Button(new NormalButton(this, 6, $"RESET SETTINGS", SetSettingsToDefaults));
 
-                AddButtons(new List<Button>() 
+                AddButtons(new List<Button>()
                 {
                     changeWidth,
                     allowNavigation,
                     changeGodModeVersion,
-                    toggleKeybindMenu
+                    toggleKeybindMenu,
+                    reloadMenu,
+                    resetSettings
                 });
                 SetActivatingButton(Utility.FindButtonById(0, 7));
                 SetPrevMenuId(0);
@@ -126,6 +132,23 @@ namespace UmbraMenu.Menus
             {
                 UmbraMenu.menus[i].SetWidthSize(UmbraMenu.Width);
             }
+        }
+
+        public void ReloadMenus()
+        {
+            Utility.ResetMenu();
+        }
+
+        public void SetSettingsToDefaults()
+        {
+            Utility.CreateDefaultSettingsFile();
+            UmbraMenu.Settings = Utility.ReadSettings();
+            UmbraMenu.Width = float.Parse(UmbraMenu.Settings[0]);
+            UmbraMenu.AllowNavigation = bool.Parse(UmbraMenu.Settings[1]);
+            UmbraMenu.GodVersion = int.Parse(UmbraMenu.Settings[2]);
+            UmbraMenu.keybindDict = UmbraMenu.BuildKeybinds();
+            UpdateMenuWidths();
+            Utility.SoftResetMenu(true);
         }
     }
 }

@@ -92,13 +92,13 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private static void PlayerButtonAction() => Utility.FindMenuById(1).ToggleMenu();
-        private static void MovementButtonAction() => Utility.FindMenuById(2).ToggleMenu();
-        private static void ItemsButtonAction() => Utility.FindMenuById(3).ToggleMenu();
-        private static void SpawnButtonAction() => Utility.FindMenuById(4).ToggleMenu();
-        private static void TeleporterButtonAction() => Utility.FindMenuById(5).ToggleMenu();
-        private static void RenderButtonAction() => Utility.FindMenuById(6).ToggleMenu();
-        private static void SettingsButtonAction() => Utility.FindMenuById(7).ToggleMenu();
+        private static void PlayerButtonAction() => UmbraMenu.menus[1].ToggleMenu();
+        private static void MovementButtonAction() => UmbraMenu.menus[2].ToggleMenu();
+        private static void ItemsButtonAction() => UmbraMenu.menus[3].ToggleMenu();
+        private static void SpawnButtonAction() => UmbraMenu.menus[4].ToggleMenu();
+        private static void TeleporterButtonAction() => UmbraMenu.menus[5].ToggleMenu();
+        private static void RenderButtonAction() => UmbraMenu.menus[6].ToggleMenu();
+        private static void SettingsButtonAction() => UmbraMenu.menus[7].ToggleMenu();
         private static void UnloadMenu() => Loader.Unload();
         private static void DoNothing() => Utility.StubbedFunction();
     }

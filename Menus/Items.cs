@@ -91,8 +91,8 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.characterCollected)
             {
-                void ToggleItemsListMenu() => Utility.FindMenuById(12).ToggleMenu();
-                void ToggleEquipmentListMenu() => Utility.FindMenuById(13).ToggleMenu();
+                void ToggleItemsListMenu() => UmbraMenu.menus[12].ToggleMenu();
+                void ToggleEquipmentListMenu() => UmbraMenu.menus[13].ToggleMenu();
 
                 giveAllItems = new Button(new MulButton(this, 1, $"GIVE ALL ITEMS : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity));
                 rollItems = new Button(new MulButton(this, 2, $"ROLL ITEMS : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll));
@@ -171,7 +171,7 @@ namespace UmbraMenu.Menus
                 ChestItemList.EnableChests();
                 chestItemList = true;
             }
-            Utility.FindMenuById(14).ToggleMenu();
+            UmbraMenu.menus[14].ToggleMenu();
         }
         #endregion
 

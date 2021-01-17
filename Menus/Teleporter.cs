@@ -29,7 +29,7 @@ namespace UmbraMenu.Menus
                 void SpawnCelestalPortal() => SpawnPortals("cele");
                 void SpawnGoldPortal() => SpawnPortals("gold");
                 skipStage = new Button(new NormalButton(this, 1, "SKIP STAGE", SkipStage));
-                instaTele = new Button(new NormalButton(this, 2, "INSTANT TELEPORTER", InstaTeleporter));
+                instaTele = new Button(new NormalButton(this, 2, "INSTA TELE/PURPLE CHARGE", InstaTeleporter));
                 addMountain = new Button(new NormalButton(this, 3, $"ADD MOUNTAIN-COUNT : {mountainStacks}", AddMountain));
                 spawnAll = new Button(new NormalButton(this, 4, "SPAWN ALL PORTALS", SpawnAllPortals));
                 spawnBlue = new Button(new NormalButton(this, 5, "SPAWN BLUE PORTAL", SpawnBluePortal));
@@ -71,6 +71,15 @@ namespace UmbraMenu.Menus
             if (TeleporterInteraction.instance)
             {
                 TeleporterInteraction.instance.holdoutZoneController.baseChargeDuration = 1;
+            }
+            else
+            {
+                var purchaseInteractions = UnityEngine.Object.FindObjectsOfType<PurchaseInteraction>().ToList();
+                foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)
+                {
+                    var holdoutZone = purchaseInteraction?.gameObject.GetComponent<HoldoutZoneController>();
+                    holdoutZone.baseChargeDuration = 1;
+                }
             }
         }
 

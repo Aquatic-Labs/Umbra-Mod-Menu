@@ -12,7 +12,7 @@ namespace UmbraMenu
 {
     public class Menu
     {
-        public IMenu _menu;
+        private IMenu _menu;
 
         public Menu(IMenu menu)
         {
