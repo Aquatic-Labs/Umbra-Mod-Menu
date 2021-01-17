@@ -18,7 +18,7 @@ namespace UmbraMenu
                 if (btnTexture == null)
                 {
                     btnTexture = NewTexture2D;
-                    btnTexture.SetPixel(0, 0, new Color32(105, 105, 105, 240));
+                    btnTexture.SetPixel(0, 0, new Color32(85, 85, 85, 240));
                     btnTexture.Apply();
                 }
                 return btnTexture;
@@ -46,7 +46,7 @@ namespace UmbraMenu
                 if (btnPressTexture == null)
                 {
                     btnPressTexture = NewTexture2D;
-                    btnPressTexture.SetPixel(0, 0, new Color32(99, 99, 99, 240));
+                    btnPressTexture.SetPixel(0, 0, new Color32(79, 79, 79, 240));
                     btnPressTexture.Apply();
                 }
                 return btnPressTexture;
@@ -60,7 +60,7 @@ namespace UmbraMenu
                 if (onPressTexture == null)
                 {
                     onPressTexture = NewTexture2D;
-                    onPressTexture.SetPixel(0, 0, new Color32(50, 50, 50, 240));
+                    onPressTexture.SetPixel(0, 0, new Color32(30, 30, 30, 240));
                     onPressTexture.Apply();
                 }
                 return onPressTexture;
@@ -74,7 +74,7 @@ namespace UmbraMenu
                 if (onTexture == null)
                 {
                     onTexture = NewTexture2D;
-                    onTexture.SetPixel(0, 0, new Color32(67, 67, 67, 240));
+                    onTexture.SetPixel(0, 0, new Color32(47, 47, 47, 240));
                     onTexture.Apply();
                 }
                 return onTexture;
@@ -88,7 +88,7 @@ namespace UmbraMenu
                 if (offPressTexture == null)
                 {
                     offPressTexture = NewTexture2D;
-                    offPressTexture.SetPixel(0, 0, new Color32(99, 99, 99, 240));
+                    offPressTexture.SetPixel(0, 0, new Color32(79, 79, 79, 240));
                     offPressTexture.Apply();
                 }
                 return offPressTexture;
@@ -102,7 +102,7 @@ namespace UmbraMenu
                 if (offTexture == null)
                 {
                     offTexture = NewTexture2D;
-                    offTexture.SetPixel(0, 0, new Color32(105, 105, 105, 240));
+                    offTexture.SetPixel(0, 0, new Color32(85, 85, 85, 240));
                     // byte[] FileData = File.ReadAllBytes(Directory.GetCurrentDirectory() + "/BepInEx/plugins/UmbraRoR/Resources/Images/OffStyle.png");
                     // offtexture.LoadImage(FileData);
                     offTexture.Apply();
