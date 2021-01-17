@@ -21,7 +21,7 @@ This menu is for testing/personal fun. I do not condone the use of this menu in 
 - [ ] Unlock All
 - [ ] Change Character
 - [ ] Spawn Mobs and Interactables
-- [ ] God Mode
+- [ ] God Mode (multiple types)
 - [ ] Flight
 - [ ] Play as mobs/unreleased characters
 - [ ] Stats Modification/View
@@ -36,9 +36,11 @@ This menu is for testing/personal fun. I do not condone the use of this menu in 
 - [ ] Always Sprint
 - [ ] Clear items in inventory
 - [ ] Stack inventory (does the same thing as the Shrine of Order)
-- [ ] Lobby Management - Kick players from your lobby
-- [ ] See mobs through walls - Needs work, laggy and may crash game
+- [ ] See mobs through walls
 - [ ] Teleporter Management - Spawn teleporters(newt, celestine, gold), add Mountain Shrine stack, skip stage, insta charge tp
+- [ ] Instantly Charge Purple Cells
+- [ ] Customizable settings
+- [ ] Custom Keybinds
 [![Preview](https://user-images.githubusercontent.com/12210881/87210926-51915600-c2e5-11ea-9b44-961f05be79ee.png)](https://www.youtube.com/watch?v=XakIkkCxtRA)
 
 Press the `Insert` key to open.
@@ -90,7 +92,7 @@ Note: Must use the CLI version of sharp mono injector. The GUI version doesn't w
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
-Namespace: UmbraRoR
+Namespace: UmbraMenu
 Class: Loader
 Method: Load
 ```
@@ -114,7 +116,7 @@ obviously replacing [path to folder with smi.exe in it] with the proper path (ke
 
 `smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load` 
 
-again replacing [Path to UmbraRoR.dll] with the proper path (keep the quotes)
+again replacing [Path to UmbraMenu.dll] with the proper path (keep the quotes)
 
 ### Batch file
 1. Once you have sharpmonoinjector downloaded from [here](https://github.com/warbler/SharpMonoInjector/releases/download/v2.2/SharpMonoInjector.Console.zip), extract the zip.
@@ -124,10 +126,10 @@ again replacing [Path to UmbraRoR.dll] with the proper path (keep the quotes)
 @echo off
 cd "[path to folder with smi.exe]"
 cls
-smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraRoR.dll]" -n UmbraRoR -c Loader -m Load
+smi.exe inject -p "Risk of Rain 2" -a "[Path to UmbraMenu.dll]" -n UmbraMenu -c Loader -m Load
 pause
 ```
-4. Replace [path to folder with smi.exe] and [Path to UmbraRoR.dll] with the proper paths (keep quotes if they are there)
+4. Replace [path to folder with smi.exe] and [Path to UmbraMenu.dll] with the proper paths (keep quotes if they are there)
 5. Press ctrl+shift+s and name it `start.bat` (make sure you replace .txt with .bat)
 6. If everything was done properly, while the game is open just run `start.bat` as administrator and the Menu should automatically be injected into the game
 
@@ -147,22 +149,51 @@ pause
 5. Click browse. The required resources are found in > `\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed`
 ```
 1) Assembly-CSharp.dll
-2) netstandard.dll
-3) Rewired_Core.dll
-4) System.dll
-5) UnityEngine.CoreModule.dll
-6) UnityEngine.dll
-7) UnityEngine.IMGUIModule.dll
-8) UnityEngine.Networking.dll
-9) UnityEngine.TextRenderingModule.dll
+2) HGCSharpUtils
+3) netstandard.dll
+4) Rewired_Core.dll
+5) System.dll
+6) UnityEngine.CoreModule.dll
+7) UnityEngine.dll
+8) UnityEngine.IMGUIModule.dll
+9) UnityEngine.Networking.dll
+10) UnityEngine.TextRenderingModule.dll
 ```
 6. You will also have to add ```Octokit.dll``` that is in the project's source folder. `Umbra-Mod-Menu-master\Octokit.dll`. This is used to check for updates.
 
 ### Build
-1. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraRoR.dll
+1. Press ctrl+b to build dll and it should be located where you found the .sln file -> bin -> Release (or Debug) -> UmbraMenu.dll
 
 
 # Changelog:
+### 1/17/2021 v2.0.0:
+- [ ] Complete rewrite of the mod menu. Functionality should be same as previous versions.
+- [ ] Keybinds no longer activate while chat is open.
+- [ ] Slightly improved Low resolution support.
+- [ ] Fixed Spawn Menu from missing things depending on when the menu was injected.
+- [ ] Fixed bug where Chest Item Menu and Item Menu were conflicting causing multiple features to stop working.
+- [ ] Sorted Item and Equipment lists by rarity.
+- [ ] Added a confirmation to Unlock All.
+- [ ] Added New Stage and Eclipse modes to Unlock All.
+- [ ] Updated Render Mobs to show new new mobs.
+- [ ] Added ability to charge purple zones instantly.
+- [ ] Added Variants to God Mode.
+  - Normal -> Dont take damage.
+  - Intangible -> Things pass through you.
+  - Regen -> Heal passed ALL the damage.
+  - Negative -> Allows youre health to go negative.
+  - Revive -> Revive whenever you die.
+-[ ] Replaced the Lobby Menu with the Settings Menu. Settings will be saved in between injections of Umbra Menu
+  - Change Width of all menus.
+  - Enable or Disable the keyboard navigation feature.
+  - Change the God Mode version.
+  - Keybinds Menu. Set Custom keybinds for mods.
+  - Reload the Menu.
+  - Reset Settings to Default.
+- [ ] Changed Text style (removed spaces between each letter).
+- [ ] Made button background darker so red item text is easier to read.
+  
+  
 ### 8/29/2020 v1.3.1:
 - [ ] Added Menu to change whats inside chests/equipment barrels.
 - [ ] Added Scrappers and Barrels to Interactables ESP.
@@ -181,7 +212,6 @@ pause
 - [ ] Improved how teleporters are spawned.
 - [ ] Fixed a bug allowing menu index to be set while Navigation was off.
 - [ ] Fixed a bug not allowing you to scroll on list menus while Navigation was on.
-
 
 ### 8/11/2020 v1.3.0:
 - [ ] Updated for Risk of Rain 2 1.0 Update.

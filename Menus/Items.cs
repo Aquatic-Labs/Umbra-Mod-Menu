@@ -1,18 +1,179 @@
-using System;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine.Experimental.Rendering;
 using RoR2;
+using UnityEngine;
 using UnityEngine.Networking;
 
-namespace UmbraRoR 
+
+namespace UmbraMenu.Menus
 {
-    public class ItemManager : MonoBehaviour
+    public class Items : Menu
     {
+        private static readonly IMenu items = new NormalMenu(3, new Rect(738, 10, 20, 20), "ITEMS MENU");
+        public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD, chestItemList;
+        public bool IsDropItemForAll
+        {
+            get
+            {
+                return isDropItemForAll;
+            }
+            set
+            {
+                isDropItemForAll = value;
+                if (isDropItemFromInventory && isDropItemForAll)
+                {
+                    isDropItemFromInventory = false;
+                    toggleDropInvItems.SetEnabled(false);
+                }
+            }
+        }
+        public bool IsDropItemFromInventory
+        {
+            get
+            {
+                return isDropItemFromInventory;
+            }
+            set
+            {
+                isDropItemFromInventory = value;
+                if (isDropItemFromInventory && isDropItemForAll)
+                {
+                    isDropItemForAll = false;
+                    toggleDropItems.SetEnabled(false);
+                }
+            }
+        }
+
+        private readonly WeightedSelection<List<ItemIndex>> weightedSelection = BuildRollItemsDropTable();
         public static int itemsToRoll = 5;
-        public static bool isDropItemForAll = false;
-        public static bool isDropItemFromInventory = false;
+        public int ItemsToRoll
+        {
+            get
+            {
+                return itemsToRoll;
+            }
+            set
+            {
+                itemsToRoll = value;
+                rollItems.SetText($"ROLL ITEMS : {itemsToRoll}");
+            }
+        }
         public static int allItemsQuantity = 1;
+        public int AllItemsQuantity
+        {
+            get
+            {
+                return allItemsQuantity;
+            }
+            set
+            {
+                allItemsQuantity = value;
+                giveAllItems.SetText($"GIVE ALL ITEMS : {allItemsQuantity}");
+            }
+        }
+
+        public Button giveAllItems;
+        public Button rollItems;
+        public Button toggleItemListMenu;
+        public Button toggleEquipmentListMenu;
+        public Button toggleDropItems;
+        public Button toggleDropInvItems;
+        public Button toggleEquipmentCD;
+        public Button stackInventory;
+        public Button clearInventory;
+        public Button toggleChestItemMenu;
+
+        public Items() : base(items)
+        {
+            if (UmbraMenu.characterCollected)
+            {
+                void ToggleItemsListMenu() => UmbraMenu.menus[12].ToggleMenu();
+                void ToggleEquipmentListMenu() => UmbraMenu.menus[13].ToggleMenu();
+
+                giveAllItems = new Button(new MulButton(this, 1, $"GIVE ALL ITEMS : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity));
+                rollItems = new Button(new MulButton(this, 2, $"ROLL ITEMS : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll));
+                toggleItemListMenu = new Button(new TogglableButton(this, 3, "ITEM SPAWN MENU : OFF", "ITEM SPAWN MENU : ON", ToggleItemsListMenu, ToggleItemsListMenu));
+                toggleEquipmentListMenu = new Button(new TogglableButton(this, 4, "EQUIPMENT SPAWN MENU : OFF", "EQUIPMENT SPAWN MENU : ON", ToggleEquipmentListMenu, ToggleEquipmentListMenu));
+                toggleDropItems = new Button(new TogglableButton(this, 5, "DROP ITEMS : OFF", "DROP ITEMS : ON", ToggleDrop, ToggleDrop));
+                toggleDropInvItems = new Button(new TogglableButton(this, 6, "DROP FROM INVENTORY : OFF", "DROP FROM INVENTORY : ON", ToggleDropFromInventory, ToggleDropFromInventory));
+                toggleEquipmentCD = new Button(new TogglableButton(this, 7, "INFINITE EQUIPMENT : OFF", "INFINITE EQUIPMENT : ON", ToggleEquipmentCD, ToggleEquipmentCD));
+                stackInventory = new Button(new NormalButton(this, 8, "STACK INVENTORY", StackInventory));
+                clearInventory = new Button(new NormalButton(this, 9, "CLEAR INVENTORY", ClearInventory));
+                toggleChestItemMenu = new Button(new TogglableButton(this, 10, "CHANGE CHEST ITEM : OFF", "CHANGE CHEST ITEM : ON", ToggleChestItemListMenu, ToggleChestItemListMenu));
+
+                AddButtons(new List<Button>()
+                {
+                    giveAllItems,
+                    rollItems,
+                    toggleItemListMenu,
+                    toggleEquipmentListMenu,
+                    toggleDropItems,
+                    toggleDropInvItems,
+                    toggleEquipmentCD,
+                    stackInventory,
+                    clearInventory,
+                    toggleChestItemMenu
+                });
+                SetActivatingButton(Utility.FindButtonById(0, 3));
+                SetPrevMenuId(0);
+            }
+        }
+
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        public override void Reset()
+        {
+            isDropItemForAll = false;
+            isDropItemFromInventory = false;
+            noEquipmentCD = false;
+            chestItemList = false;
+            itemsToRoll = 5;
+            allItemsQuantity = 1;
+            base.Reset();
+        }
+
+        #region Toggle cheat functions
+        private void ToggleDrop()
+        {
+            IsDropItemForAll = !IsDropItemForAll;
+        }
+
+        private void ToggleDropFromInventory()
+        {
+            IsDropItemFromInventory = !IsDropItemFromInventory;
+        }
+
+        private void ToggleEquipmentCD()
+        {
+            noEquipmentCD = !noEquipmentCD;
+        }
+
+        private void ToggleChestItemListMenu()
+        {
+            if (toggleChestItemMenu.IsEnabled())
+            {
+                ChestItemList.DisableChests();
+                chestItemList = false;
+            }
+            else
+            {
+                ChestItemList.EnableChests();
+                chestItemList = true;
+            }
+            UmbraMenu.menus[14].ToggleMenu();
+        }
+        #endregion
 
         #region Drop Item Handle
         const Int16 HandleItemId = 99;
@@ -114,19 +275,19 @@ namespace UmbraRoR
         #endregion
 
         // Clears inventory, duh.
-        public static void ClearInventory()
+        public void ClearInventory()
         {
-            if (Main.LocalPlayerInv)
+            if (UmbraMenu.LocalPlayerInv)
             {
                 // Loops through every item in ItemIndex enum
                 foreach (string itemName in CurrentInventory())
                 {
                     ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName); //Convert itemName string to and ItemIndex
                     // If an item exists, delete the whole stack of it
-                    Main.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
-                    Main.LocalPlayerInv.ResetItem(itemIndex);
-                    int itemCount = Main.LocalPlayerInv.GetItemCount(itemIndex);
-                    Main.LocalPlayerInv.RemoveItem(itemIndex, itemCount);
+                    UmbraMenu.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
+                    UmbraMenu.LocalPlayerInv.ResetItem(itemIndex);
+                    int itemCount = UmbraMenu.LocalPlayerInv.GetItemCount(itemIndex);
+                    UmbraMenu.LocalPlayerInv.RemoveItem(itemIndex, itemCount);
 
                     // Destroys BeetleGuardAllies on inventory clear, other wise they dont get removed until next stage.
                     var localUser = LocalUserManager.GetFirstLocalUser();
@@ -160,23 +321,23 @@ namespace UmbraRoR
                         }
                     }
                 }
-                Main.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
+                UmbraMenu.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
             }
-            PlayerMod.RemoveAllBuffs();
+            Player.RemoveAllBuffs();
         }
 
         // random items
-        public static void RollItems(string ammount)
+        public void RollItems()
         {
             try
             {
-                TextSerialization.TryParseInvariant(ammount, out int num);
+                int num = itemsToRoll;
                 if (num > 0)
                 {
                     for (int i = 0; i < num; i++)
                     {
-                        List<ItemIndex> list = Main.weightedSelection.Evaluate(UnityEngine.Random.value);
-                        Main.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)], 1);
+                        List<ItemIndex> list = weightedSelection.Evaluate(UnityEngine.Random.value);
+                        UmbraMenu.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)], 1);
                     }
                 }
             }
@@ -245,9 +406,9 @@ namespace UmbraRoR
         }
 
         //Gives all items
-        public static void GiveAllItems()
+        public void GiveAllItems()
         {
-            if (Main.LocalPlayerInv)
+            if (UmbraMenu.LocalPlayerInv)
             {
                 foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
                 {
@@ -255,25 +416,25 @@ namespace UmbraRoR
                     if (itemName == "PlantOnHit" || itemName == "HealthDecay" || itemName == "TonicAffliction" || itemName == "BurnNearby" || itemName == "CrippleWardOnLevel" || itemName == "Ghost" || itemName == "ExtraLifeConsumed")
                         continue;
                     ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
-                    Main.LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
+                    UmbraMenu.LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
                 }
             }
         }
 
         //Does the same thing as the shrine of order. Orders all your items into stacks of several random items.
-        public static void StackInventory()
+        public void StackInventory()
         {
-            Main.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
+            UmbraMenu.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
         }
 
         //Sets equipment cooldown to 0 if its on cooldown
         public static void NoEquipmentCooldown()
         {
-            EquipmentState equipment = Main.LocalPlayerInv.GetEquipment((uint)Main.LocalPlayerInv.activeEquipmentSlot);
+            EquipmentState equipment = UmbraMenu.LocalPlayerInv.GetEquipment((uint)UmbraMenu.LocalPlayerInv.activeEquipmentSlot);
 
             if (equipment.chargeFinishTime != Run.FixedTimeStamp.zero)
             {
-                Main.LocalPlayerInv.SetEquipment(new EquipmentState(equipment.equipmentIndex, Run.FixedTimeStamp.zero, equipment.charges), (uint)Main.LocalPlayerInv.activeEquipmentSlot);
+                UmbraMenu.LocalPlayerInv.SetEquipment(new EquipmentState(equipment.equipmentIndex, Run.FixedTimeStamp.zero, equipment.charges), (uint)UmbraMenu.LocalPlayerInv.activeEquipmentSlot);
             }
         }
 
@@ -289,7 +450,7 @@ namespace UmbraRoR
                 if (!unreleasednullItem)
                 {
                     ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName); //Convert itemName string to an ItemIndex
-                    int itemCount = Main.LocalPlayerInv.GetItemCount(itemIndex);
+                    int itemCount = UmbraMenu.LocalPlayerInv.GetItemCount(itemIndex);
                     if (itemCount > 0) // If item is in inventory
                     {
                         currentInventory.Add(itemName); // add to list
@@ -298,5 +459,31 @@ namespace UmbraRoR
             }
             return currentInventory;
         }
+
+        #region Increase/Decrease Value Actions
+        public void IncreaseItemsToRoll()
+        {
+            if (ItemsToRoll >= 5)
+                ItemsToRoll += 5;
+        }
+
+        public void IncreaseGiveAllQuantity()
+        {
+            if (AllItemsQuantity >= 1)
+                AllItemsQuantity += 1;
+        }
+
+        public void DecreaseItemsToRoll()
+        {
+            if (ItemsToRoll > 5)
+                ItemsToRoll -= 5;
+        }
+
+        public void DecreaseGiveAllQuantity()
+        {
+            if (AllItemsQuantity > 1)
+                AllItemsQuantity -= 1;
+        }
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UmbraRoR
+namespace UmbraMenu
 {
     public static class ESPHelper
     {

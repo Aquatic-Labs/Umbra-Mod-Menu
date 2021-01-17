@@ -1,54 +1,119 @@
-using System;
+﻿using System;
 using UnityEngine;
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
-using EntityStates.Scrapper;
 
-namespace UmbraRoR
+namespace UmbraMenu.Menus
 {
-    // Needs improvement. Causes a lot of lag
-    public class Render : MonoBehaviour
+    public class Render : Menu
     {
+        private static readonly IMenu render = new NormalMenu(6, new Rect(10, 795, 20, 20), "RENDER MENU");
+
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
         public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
         public static List<ScrapperController> scrappers = new List<ScrapperController>();
+        public static List<HurtBox> hurtBoxes;
+        public static bool onRenderIntEnable = true, renderMobs, renderInteractables, renderMods = true;
 
-        public static void EnableInteractables()
+        public Button toggleActiveMods;
+        public Button toggleInteractESP;
+        public Button toggleMobESP;
+
+        public Render() : base(render)
         {
-            if (Main.onRenderIntEnable)
+            if (UmbraMenu.characterCollected)
             {
-                DumpInteractables(null);
-                SceneDirector.onPostPopulateSceneServer += DumpInteractables;
-                Main.onRenderIntEnable = false;
+                if (UmbraMenu.lowResolutionMonitor)
+                {
+                    toggleActiveMods = new Button(new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods));
+                }
+                else
+                {
+                    toggleActiveMods = new Button(new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods, true));
+                }
+                toggleInteractESP = new Button(new TogglableButton(this, 2, "INTERACTABLES ESP : OFF", "INTERACTABLES ESP : ON", ToggleRenderInteractables, ToggleRenderInteractables));
+                toggleMobESP = new Button(new TogglableButton(this, 3, "MOB ESP : OFF", "MOB ESP : ON", ToggleRenderMobs, ToggleRenderMobs));
+
+                AddButtons(new List<Button>()
+                {
+                    toggleActiveMods,
+                    toggleInteractESP,
+                    toggleMobESP
+                });
+                SetActivatingButton(Utility.FindButtonById(0, 6));
+                SetPrevMenuId(0);
+            }
+        }
+
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        public override void Reset()
+        {
+            renderMobs = false;
+            renderInteractables = false;
+            // Add check here later for low resolution monitors
+            renderMods = true;
+            DisableInteractables();
+            base.Reset();
+        }
+
+        private void ToggleRenderInteractables()
+        {
+            if (renderInteractables)
+            {
+                DisableInteractables();
             }
             else
             {
-                return;
+                EnableInteractables();
+            }
+            renderInteractables = !renderInteractables;
+        }
+
+        private void ToggleRenderMods()
+        {
+            renderMods = !renderMods;
+        }
+
+        private void ToggleRenderMobs()
+        {
+            renderMobs = !renderMobs;
+        }
+
+        public static void EnableInteractables()
+        {
+            if (onRenderIntEnable)
+            {
+                DumpInteractables(null);
+                SceneDirector.onPostPopulateSceneServer += DumpInteractables;
+                onRenderIntEnable = false;
             }
         }
 
         public static void DisableInteractables()
         {
-            if (!Main.onRenderIntEnable)
+            if (!onRenderIntEnable)
             {
                 SceneDirector.onPostPopulateSceneServer -= DumpInteractables;
-                Main.onRenderIntEnable = true;
-            }
-            else
-            {
-                return;
+                onRenderIntEnable = true;
             }
         }
 
-        private static void DumpInteractables(SceneDirector obj)
+        public static void DumpInteractables(SceneDirector obj)
         {
-            Debug.Log("Dumping Interactables");
-            barrelInteractions = FindObjectsOfType<BarrelInteraction>().ToList();
-            purchaseInteractions = FindObjectsOfType<PurchaseInteraction>().ToList();
-            secretButtons = FindObjectsOfType<PressurePlateController>().ToList();
-            scrappers = FindObjectsOfType<ScrapperController>().ToList();
+            barrelInteractions = MonoBehaviour.FindObjectsOfType<BarrelInteraction>().ToList();
+            purchaseInteractions = MonoBehaviour.FindObjectsOfType<PurchaseInteraction>().ToList();
+            secretButtons = MonoBehaviour.FindObjectsOfType<PressurePlateController>().ToList();
+            scrappers = MonoBehaviour.FindObjectsOfType<ScrapperController>().ToList();
         }
 
         public static void Interactables()
@@ -61,7 +126,7 @@ namespace UmbraRoR
                 var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
                 if (BoundingVector.z > 0.01)
                 {
-                    Main.renderTeleporterStyle.normal.textColor =
+                    Styles.RenderTeleporterStyle.normal.textColor =
                         teleporterInteraction.isIdle ? Color.magenta :
                         teleporterInteraction.isIdleToCharging || teleporterInteraction.isCharging ? Color.yellow :
                         teleporterInteraction.isCharged ? Color.green : Color.yellow;
@@ -76,11 +141,10 @@ namespace UmbraRoR
                         teleporterInteraction.isInFinalSequence ? "Final-Sequence" :
                         "???");
                     string boxText = $"{friendlyName}\n{status}\n{distance}m";
-                    GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderTeleporterStyle);
+                    GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderTeleporterStyle);
                 }
             }
 
-            // FOR LOOP FROM FOREACH
             for (int i = 0; i < barrelInteractions.Count; i++)
             {
                 BarrelInteraction barrel = barrelInteractions[i];
@@ -94,7 +158,7 @@ namespace UmbraRoR
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, barrel.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
             }
@@ -111,11 +175,10 @@ namespace UmbraRoR
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, secretButton.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderSecretsStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderSecretsStyle);
                     }
                 }
             }
-
 
             for (int i = 0; i < scrappers.Count; i++)
             {
@@ -129,7 +192,7 @@ namespace UmbraRoR
                     {
                         float distance = (int)Vector3.Distance(Camera.main.transform.position, scrapper.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
             }
@@ -155,7 +218,7 @@ namespace UmbraRoR
                         String friendlyName = purchaseInteraction.GetDisplayName();
                         int cost = purchaseInteraction.cost;
                         string boxText = dropName != null ? $"{friendlyName}\n${cost}\n{distance}m\n{dropName}" : $"{friendlyName}\n${cost}\n{distance}m";
-                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Main.renderInteractablesStyle);
+                        GUI.Label(new Rect(BoundingVector.x - 50f, (float)Screen.height - BoundingVector.y, 100f, 50f), boxText, Styles.RenderInteractablesStyle);
                     }
                 }
 
@@ -164,10 +227,9 @@ namespace UmbraRoR
 
         public static void Mobs()
         {
-            for (int i = 0; i < Main.hurtBoxes.Count; i++)
+            for (int i = 0; i < hurtBoxes.Count; i++)
             {
-                var mob = HurtBox.FindEntityObject(Main.hurtBoxes[i]);
-
+                var mob = HurtBox.FindEntityObject(hurtBoxes[i]);
                 if (mob)
                 {
                     Vector3 MobPosition = Camera.main.WorldToScreenPoint(mob.transform.position);
@@ -188,7 +250,7 @@ namespace UmbraRoR
                         string mobName = mob.name.Replace("Body(Clone)", "");
                         int mobDistance = (int)distanceToMob;
                         string mobBoxText = $"{mobName}\n{mobDistance}m";
-                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 50f, 100f, 50f), mobBoxText, Main.renderMobsStyle);
+                        GUI.Label(new Rect(MobBoundingVector.x - 50f, (float)Screen.height - MobBoundingVector.y + 50f, 100f, 50f), mobBoxText, Styles.RenderMobsStyle);
                         ESPHelper.DrawBox(MobBoundingVector.x - width / 2, (float)Screen.height - MobBoundingVector.y - height / 2, width, height, new Color32(255, 0, 0, 255));
                     }
                 }
@@ -200,24 +262,24 @@ namespace UmbraRoR
             List<string> modsActive = new List<string>();
             Dictionary<string, bool> allMods = new Dictionary<string, bool>()
             {
-                { "Aimbot", Main.aimBot },
-                { "Always-Sprint", Main.alwaysSprint },
-                { "Drop-Items", ItemManager.isDropItemForAll },
-                { "Drop-Items-from-Inventory", ItemManager.isDropItemFromInventory },
-                { "Flight", Main.FlightToggle },
-                { "God-Mode", Main.godToggle },
-                { "Jump-Pack", Main.jumpPackToggle },
-                { "Keyboard-Navigation", Main.navigationToggle },
-                { "Modified-Armor", Main.armorToggle },
-                { "Modified-Attack Speed", Main.attackSpeedToggle },
-                { "Modified-Crit", Main.critToggle },
-                { "Modified-Damage", Main.damageToggle },
-                { "Modified-Move-Speed", Main.moveSpeedToggle },
-                { "Modified-Regen", Main.regenToggle },
-                { "No-Equipment-Cooldown", Main.noEquipmentCooldown },
-                { "No-Skill-Cooldowns", Main.skillToggle },
-                { "Render-Interactables", Main.renderInteractables },
-                { "Render-Mobs", Main.renderMobs }
+                { "Aimbot", Menus.Player.AimBotToggle },
+                { "Always-Sprint", Menus.Movement.alwaysSprintToggle },
+                { "Drop-Items", Items.isDropItemForAll },
+                { "Drop-Items-from-Inventory", Items.isDropItemFromInventory },
+                { "Flight", Menus.Movement.flightToggle },
+                { "God-Mode", Menus.Player.GodToggle },
+                { "Jump-Pack", Menus.Movement.jumpPackToggle },
+                { "Keyboard-Navigation", UmbraMenu.navigationToggle },
+                { "Modified-Armor", StatsMod.armorToggle },
+                { "Modified-Attack Speed", StatsMod.attackSpeedToggle },
+                { "Modified-Crit", StatsMod.critToggle },
+                { "Modified-Damage", StatsMod.damageToggle },
+                { "Modified-Move-Speed", StatsMod.moveSpeedToggle },
+                { "Modified-Regen", StatsMod.regenToggle },
+                { "No-Equipment-Cooldown", Items.noEquipmentCD },
+                { "No-Skill-Cooldowns", Menus.Player.SkillToggle },
+                { "Render-Interactables", renderInteractables },
+                { "Render-Mobs", renderMobs }
             };
 
             string modsBoxText = "";
@@ -246,8 +308,8 @@ namespace UmbraRoR
 
                 if (modsBoxText != "")
                 {
-                    GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Main.ActiveModsStyle);
-                    GUI.Label(new Rect((Screen.width / 16) + 124, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Main.ActiveModsStyle);
+                    GUI.Label(new Rect(Screen.width / 16, bottom.y - 55f, 200, 50f), "Active Mods: ", Styles.ActiveModsStyle);
+                    GUI.Label(new Rect((Screen.width / 16) + 124, bottom.y - 55f, Screen.width - (Screen.width / 6), 50f), modsBoxText, Styles.ActiveModsStyle);
                 }
             }
         }
