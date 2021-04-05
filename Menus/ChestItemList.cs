@@ -13,14 +13,14 @@ namespace UmbraMenu.Menus
         public static List<ChestBehavior> chests = new List<ChestBehavior>();
         public static bool onChestsEnable = true;
         private static bool isClosestChestEquip = false;
-        public static bool IsClosestChestEquip 
-        { 
+        public static bool IsClosestChestEquip
+        {
             get
-            { 
+            {
                 return isClosestChestEquip;
-            } 
-            
-            set 
+            }
+
+            set
             {
                 bool temp = isClosestChestEquip;
                 isClosestChestEquip = value;
@@ -28,7 +28,7 @@ namespace UmbraMenu.Menus
                 {
                     UpdateChestListMenu();
                 }
-            } 
+            }
         }
 
         public ChestItemList() : base(chestItemsList)
@@ -210,7 +210,7 @@ namespace UmbraMenu.Menus
                     if (equipmentIndex != EquipmentIndex.None)
                     {
                         void ButtonAction() => SetChestEquipment(equipmentIndex);
-                        if (equipmentIndex != EquipmentIndex.AffixYellow)
+                        if (equipmentIndex != EquipmentCatalog.FindEquipmentIndex("AffixYellow"))
                         {
                             Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
                             string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));

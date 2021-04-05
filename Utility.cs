@@ -168,41 +168,18 @@ namespace UmbraMenu
 
             List<EquipmentIndex> equip = new List<EquipmentIndex>();
             List<EquipmentIndex> lunar = new List<EquipmentIndex>();
-            List<EquipmentIndex> other = new List<EquipmentIndex>();
 
-            Color32 equipColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment);
-            Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
-
-            string[] unreleasedEquipment = { "Count", "None" };
-            var equipList = Enum.GetNames(typeof(EquipmentIndex)).ToList();
-            // string[] unreleasedEquipment = { "SoulJar", "AffixYellow", "AffixGold", "GhostGun", "OrbitalLaser", "Enigma", "LunarPotion", "SoulCorruptor", "Count" };
-            for (int i = 0; i < equipList.Count; i++)
+            foreach (EquipmentIndex equipmentIndex in EquipmentCatalog.equipmentList)
             {
-                string equipmentName = equipList[i];
-                bool unreleasednullEquipment = unreleasedEquipment.Any(equipmentName.Contains);
-                EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
-                if (!unreleasednullEquipment)
-                {
-                    Color32 currentEquipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
-                    if (currentEquipColor.Equals(equipColor)) // equipment
-                    {
-                        equip.Add(equipmentIndex);
-                    }
-                    else if (currentEquipColor.Equals(lunarColor)) // lunar equipment
-                    {
-                        lunar.Add(equipmentIndex);
-                    }
-                    else // other
-                    {
-                        other.Add(equipmentIndex);
-                    }
-                }
-                else if (equipmentName == "None")
-                {
-                    other.Add(equipmentIndex);
-                }
+                equip.Add(equipmentIndex);
             }
-            var result = equipment.Concat(lunar).Concat(equip).Concat(other).ToList();
+
+            foreach (EquipmentIndex equipmentIndex in EquipmentCatalog.enigmaEquipmentList)
+            {
+                lunar.Add(equipmentIndex);
+            }
+
+            var result = equipment.Concat(lunar).Concat(equip).ToList();
             return result;
         }
 
@@ -210,59 +187,38 @@ namespace UmbraMenu
         {
             List<ItemIndex> items = new List<ItemIndex>();
 
-            List<ItemIndex> boss = new List<ItemIndex>();
             List<ItemIndex> tier3 = new List<ItemIndex>();
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier1 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
             List<ItemIndex> other = new List<ItemIndex>();
 
-            Color32 bossColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.BossItem);
-            Color32 tier3Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier3Item);
-            Color32 tier2Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier2Item);
-            Color32 tier1Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier1Item);
-            Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
-
-            // List of null items that I remove from the item list. Will change if requested.
-            string[] unreleasedItems = { "Count", "None" };
-            var itemList = Enum.GetNames(typeof(ItemIndex)).ToList();
-            // string[] unreleasedItems = { "AACannon", "PlasmaCore", "LevelBonus", "CooldownOnCrit", "PlantOnHit", "MageAttunement", "BoostHp", "BoostDamage", "CritHeal", "BurnNearby", "CrippleWardOnLevel", "ExtraLifeConsumed", "Ghost", "HealthDecay", "DrizzlePlayerHelper", "MonsoonPlayerHelper", "TempestOnKill", "BoostAttackSpeed", "Count", "None" };
-            for (int i = 0; i < itemList.Count; i++)
+            foreach (ItemIndex itemIndex in ItemCatalog.tier1ItemList)
             {
-                string itemName = itemList[i];
-                bool unreleasednullItem = unreleasedItems.Any(itemName.Contains);
-                ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
-                if (!unreleasednullItem)
-                {
-                    Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
-                    if (itemColor.Equals(bossColor)) // boss
-                    {
-                        boss.Add(itemIndex);
-                    }
-                    else if (itemColor.Equals(tier3Color)) // tier 3
-                    {
-                        tier3.Add(itemIndex);
-                    }
-                    else if (itemColor.Equals(tier2Color)) // tier 2
-                    {
-                        tier2.Add(itemIndex);
-                    }
-                    else if (itemColor.Equals(tier1Color)) // tier 1
-                    {
-                        tier1.Add(itemIndex);
-                    }
-                    else if (itemColor.Equals(lunarColor)) // lunar
-                    {
-                        lunar.Add(itemIndex);
-                    }
-                    else // Other
-                    {
-                        other.Add(itemIndex);
-                    }
-                }
+                tier1.Add(itemIndex);
             }
-            var result = items.Concat(boss).Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(other).ToList();
-            return result;
+            foreach (ItemIndex itemIndex in ItemCatalog.tier2ItemList)
+            {
+                tier2.Add(itemIndex);
+            }
+            foreach (ItemIndex itemIndex in ItemCatalog.tier3ItemList)
+            {
+                tier3.Add(itemIndex);
+            }
+            foreach (ItemIndex itemIndex in ItemCatalog.lunarItemList)
+            {
+                lunar.Add(itemIndex);
+            }        
+            var result = items.Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).ToList();
+
+            foreach (ItemIndex itemIndex in ItemCatalog.allItems)
+            {
+                if (result.Contains(itemIndex)) continue;
+                other.Add(itemIndex);
+
+            }
+            result.Concat(other);
+            return result;                      
         }
 
         public static List<SpawnCard> GetSpawnCards()
@@ -271,7 +227,7 @@ namespace UmbraMenu
             return spawnCards;
         }
 
-        public static List<HurtBox> GetHurtBoxes()
+        public static List<HurtBox> GetHurtBoxes()                              
         {
             string[] allowedBoxes = { "Golem", "Jellyfish", "Wisp", "Beetle", "Lemurian", "Imp", "HermitCrab", "ClayBruiser", "Bell", "BeetleGuard", "MiniMushroom", "Bison", "GreaterWisp", "LemurianBruiser", "RoboBallMini", "Vulture",  /* BOSSES */ "BeetleQueen2", "ClayDunestrider", "Titan", "TitanGold", "TitanBlackBeach", "Grovetender", "Gravekeeper", "Mithrix", "Aurelionite", "Vagrant", "MagmaWorm", "ImpBoss", "ElectricWorm", "RoboBallBoss", "Nullifier", "Parent", "Scav", "ScavLunar1", "ClayBoss", "LunarGolem", "LunarWisp", "Brother", "BrotherHurt" };
             var localUser = LocalUserManager.GetFirstLocalUser();
@@ -339,7 +295,7 @@ namespace UmbraMenu
         public static void CloseOpenMenus()
         {
             List<Menu> openMenus = GetMenusOpen();
-            for(int i = 0; i < openMenus.Count; i++)
+            for (int i = 0; i < openMenus.Count; i++)
             {
                 openMenus[i].SetEnabled(false);
             }

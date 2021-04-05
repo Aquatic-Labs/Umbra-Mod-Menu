@@ -212,6 +212,7 @@ namespace UmbraMenu.Menus
             }
             catch (NullReferenceException)
             {
+                Debug.Log("Stats1");
             }
         }
 
@@ -223,6 +224,8 @@ namespace UmbraMenu.Menus
             }
             catch (NullReferenceException)
             {
+                Debug.Log("Stats2");
+
             }
         }
 
@@ -234,6 +237,8 @@ namespace UmbraMenu.Menus
             }
             catch (NullReferenceException)
             {
+                Debug.Log("Stats3");
+
             }
         }
 
@@ -245,6 +250,8 @@ namespace UmbraMenu.Menus
             }
             catch (NullReferenceException)
             {
+                Debug.Log("Stats4");
+
             }
         }
 
@@ -256,6 +263,9 @@ namespace UmbraMenu.Menus
             }
             catch (NullReferenceException)
             {
+                Debug.Log("Stats5");
+                Debug.Log("Stats5");
+
             }
         }
 

@@ -60,7 +60,7 @@ namespace UmbraMenu.Menus
                 }
                 else if (Items.isDropItemFromInventory)
                 {
-                    if (Items.CurrentInventory().Contains(itemIndex.ToString()))
+                    if (Items.CurrentInventory().Contains(itemIndex))
                     {
                         UmbraMenu.LocalPlayerInv.RemoveItem(itemIndex, 1);
                         Items.DropItemMethod(itemIndex);

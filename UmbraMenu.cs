@@ -12,7 +12,7 @@ namespace UmbraMenu
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "2.0.0";
+            VERSION = "2.0.1";
 
         public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), $"UmbraMenu/settings-{VERSION}.ini");
 
@@ -310,12 +310,19 @@ namespace UmbraMenu
         {
             try
             {
+
                 if (InGameCheck())
                 {
                     LocalNetworkUser = null;
 
                     for (int i = 0; i < NetworkUser.readOnlyInstancesList.Count; i++)
                     {
+
+                        if (!InGameCheck())
+                        {
+                            break;
+                            return;
+                        }
                         NetworkUser readOnlyInstance = NetworkUser.readOnlyInstancesList[i];
                         if (readOnlyInstance.isLocalPlayer)
                         {
@@ -325,6 +332,7 @@ namespace UmbraMenu
                             LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
                             LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
                             LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
+
                             if (LocalHealth.alive) characterCollected = true;
                             else characterCollected = false;
                             if (LocalPlayer.isActiveAndEnabled) characterCollected = true;
@@ -832,7 +840,7 @@ namespace UmbraMenu
             if (!chatOpen && InGameCheck())
             {
                 #region Player Menu Keybinds
-                if (Input.GetKeyDown(keybindDict["PLAYER MENU"].KeyCode ))
+                if (Input.GetKeyDown(keybindDict["PLAYER MENU"].KeyCode))
                 {
                     playerMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)

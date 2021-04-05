@@ -246,7 +246,7 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Buff
-                        UmbraMenu.LocalPlayerBody.AddBuff(BuffIndex.Intangible);
+                        UmbraMenu.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("Intangible"));
                         break;
                     }
 
@@ -271,23 +271,23 @@ namespace UmbraMenu.Menus
                         // works
                         // Revive
                         UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
-                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
-                        int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
+                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
+                        int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
                         if (UmbraMenu.LocalHealth.health < 1)
                         {
                             if (itemELCount == 0)
                             {
-                                ItemList.GiveItem(ItemIndex.ExtraLife);
+                                ItemList.GiveItem(ItemCatalog.FindItemIndex("ExtraLife"));
                                 UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
                             }
                         }
                         if (itemELCCount > 0)
                         {
-                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
                         }
                         if (itemELCount > 0)
                         {
-                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCount);
                         }
                         break;
                     }
@@ -331,15 +331,15 @@ namespace UmbraMenu.Menus
                             UmbraMenu.LocalHealth.health = 1;
                         }
                         UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
-                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLife);
-                        int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemIndex.ExtraLifeConsumed);
+                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
+                        int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
                         if (itemELCCount > 0)
                         {
-                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCCount);
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
                         }
                         if (itemELCount > 0)
                         {
-                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemIndex.ExtraLifeConsumed, itemELCount);
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCount);
                         }
                         break;
                     }
@@ -392,12 +392,12 @@ namespace UmbraMenu.Menus
             }
 
             //All Eclipse unlockables as well
-            StringBuilder stringBuilder = StringBuilderPool.RentStringBuilder();
+            StringBuilder stringBuilder = HG.StringBuilderPool.RentStringBuilder();
             foreach (SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs)
             {
                 for (int i = 2; i < 9; i++)
                 {
-                    stringBuilder.Clear().Append("Eclipse.").Append(survivorDef.name).Append(".").AppendInt(i, 0U, uint.MaxValue);
+                    stringBuilder.Clear().Append("Eclipse.").Append(survivorDef.cachedName).Append(".").AppendInt(i, 0U, uint.MaxValue);
                     UnlockableDef unlockableDef = UnlockableCatalog.GetUnlockableDef(stringBuilder.ToString());
                     NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMenu.LocalPlayerBody);
                     if (networkUser)

@@ -153,7 +153,10 @@ namespace UmbraMenu.Menus
                     UmbraMenu.LocalPlayerBody.characterMotor.velocity.y = downDirection * 100;
                 }
             }
-            catch (NullReferenceException) { }
+            catch (NullReferenceException) {
+
+                Debug.Log("Movement1");
+            }
         }
 
         public static void JumpPack()

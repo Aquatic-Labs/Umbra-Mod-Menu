@@ -22,6 +22,8 @@ namespace UmbraMenu.Menus
                 SetTitle($"UMBRA\n<color=yellow>DEV</color>");
             }
 
+
+
             if (UmbraMenu.characterCollected)
             {
 
@@ -64,7 +66,7 @@ namespace UmbraMenu.Menus
                 if (Loader.upToDate || Loader.devBuild)
                 {
                     Button text1 = new Button(new TextButton(this, 2, "<color=yellow>Buttons will be availble in game.</color>"));
-                    Button text2 = new Button(new TextButton(this, 3, "<color=#11ccee>Created By Neonix#1337.\n Feel Free to Message me on discord.</color>"));
+                    Button text2 = new Button(new TextButton(this, 3, "<color=#11ccee>Created By Neonix#1337 and Snow#8008.\n Feel Free to Message me on discord.</color>"));
                     Button text3 = new Button(new TextButton(this, 4, "<color=#11ccee>with bug Reports or suggestions.</color>"));
                     AddButtons(new List<Button>
                     {

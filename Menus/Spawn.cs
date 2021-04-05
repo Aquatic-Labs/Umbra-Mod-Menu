@@ -175,13 +175,22 @@ namespace UmbraMenu.Menus
                 maxAngleFilter = float.MaxValue
             };
 
+            List<string> survivor_names = new List<string>();
+            foreach (SurvivorDef def in SurvivorCatalog.allSurvivorDefs)
+            {
+                survivor_names.Add(def.cachedName);
+            }
+
+
             bullseyeSearch.RefreshCandidates();
             var hurtBoxList = bullseyeSearch.GetResults();
             foreach (var hurtbox in hurtBoxList)
             {
+
                 var mob = HurtBox.FindEntityObject(hurtbox);
                 string mobName = mob.name.Replace("Body(Clone)", "");
-                if (Enum.GetNames(typeof(SurvivorIndex)).Contains(mobName))
+  
+                if (survivor_names.Contains(mobName))
                 {
                     continue;
                 }

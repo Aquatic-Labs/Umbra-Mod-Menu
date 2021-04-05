@@ -7,7 +7,7 @@ namespace UmbraMenu.Menus
     public class EquipmentList : Menu
     {
         private static readonly IMenu equipmentList = new ListMenu(13, new Rect(1503, 10, 20, 20), "EQUIPMENT MENU");
-        
+
         public EquipmentList() : base(equipmentList)
         {
             if (UmbraMenu.characterCollected)
@@ -17,7 +17,7 @@ namespace UmbraMenu.Menus
                 for (int i = 0; i < UmbraMenu.equipment.Count; i++)
                 {
                     var equipmentIndex = UmbraMenu.equipment[i];
-                    if (equipmentIndex != EquipmentIndex.None && equipmentIndex != EquipmentIndex.AffixYellow)
+                    if (equipmentIndex != EquipmentIndex.None && equipmentIndex != EquipmentCatalog.FindEquipmentIndex("AffixYellow"))
                     {
                         void ButtonAction() => GiveEquipment(equipmentIndex);
                         Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);

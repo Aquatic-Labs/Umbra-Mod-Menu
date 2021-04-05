@@ -277,9 +277,8 @@ namespace UmbraMenu.Menus
             if (UmbraMenu.LocalPlayerInv)
             {
                 // Loops through every item in ItemIndex enum
-                foreach (string itemName in CurrentInventory())
+                foreach (ItemIndex itemIndex in CurrentInventory())
                 {
-                    ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName); //Convert itemName string to and ItemIndex
                     // If an item exists, delete the whole stack of it
                     UmbraMenu.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
                     UmbraMenu.LocalPlayerInv.ResetItem(itemIndex);
@@ -347,58 +346,33 @@ namespace UmbraMenu.Menus
         public static WeightedSelection<List<ItemIndex>> BuildRollItemsDropTable()
         {
             WeightedSelection<List<ItemIndex>> weightedSelection = new WeightedSelection<List<ItemIndex>>(8);
-            ItemIndex itemIndex = ItemIndex.Syringe;
-            ItemIndex itemCount = (ItemIndex)ItemCatalog.itemCount;
 
             List<ItemIndex> tier1 = new List<ItemIndex>();
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier3 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
-            List<ItemIndex> boss = new List<ItemIndex>();
 
-            while (itemIndex < itemCount)
+            foreach (ItemIndex itemIndex in ItemCatalog.tier1ItemList)
             {
-                ItemDef itemDef = ItemCatalog.GetItemDef(itemIndex);
-                switch (itemDef.tier)
-                {
-                    case ItemTier.Tier1:
-                        {
-                            tier1.Add(itemIndex);
-                            break;
-                        }
-
-                    case ItemTier.Tier2:
-                        {
-                            tier2.Add(itemIndex);
-                            break;
-                        }
-
-                    case ItemTier.Tier3:
-                        {
-                            tier3.Add(itemIndex);
-                            break;
-                        }
-
-                    case ItemTier.Lunar:
-                        {
-                            lunar.Add(itemIndex);
-                            break;
-                        }
-
-                    case ItemTier.Boss:
-                        {
-                            boss.Add(itemIndex);
-                            break;
-                        }
-                }
-                itemIndex++;
+                tier1.Add(itemIndex);
+            }
+            foreach (ItemIndex itemIndex in ItemCatalog.tier2ItemList)
+            {
+                tier2.Add(itemIndex);
+            }
+            foreach (ItemIndex itemIndex in ItemCatalog.tier3ItemList)
+            {
+                tier3.Add(itemIndex);
+            }
+            foreach (ItemIndex itemIndex in ItemCatalog.lunarItemList)
+            {
+                lunar.Add(itemIndex);
             }
 
             weightedSelection.AddChoice(tier1, 70f);
-            weightedSelection.AddChoice(tier2, 22f);
-            weightedSelection.AddChoice(tier3, 3f);
+            weightedSelection.AddChoice(tier2, 22.5f);
+            weightedSelection.AddChoice(tier3, 5f);
             weightedSelection.AddChoice(lunar, 2.5f);
-            weightedSelection.AddChoice(boss, 2.5f);
             return weightedSelection;
         }
 
@@ -407,12 +381,15 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.LocalPlayerInv)
             {
-                foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
+                foreach (ItemIndex itemIndex in ItemCatalog.allItems)
                 {
+                    ItemDef itemDef = ItemCatalog.GetItemDef(itemIndex);
+                    string itemName = itemDef.name;
+
+
                     //plantonhit kills you when you pick it up
                     if (itemName == "PlantOnHit" || itemName == "HealthDecay" || itemName == "TonicAffliction" || itemName == "BurnNearby" || itemName == "CrippleWardOnLevel" || itemName == "Ghost" || itemName == "ExtraLifeConsumed")
                         continue;
-                    ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
                     UmbraMenu.LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
                 }
             }
@@ -436,21 +413,22 @@ namespace UmbraMenu.Menus
         }
 
         //Gets players current items to make sure they can drop item from inventory if enabled
-        public static List<string> CurrentInventory()
+        public static List<ItemIndex> CurrentInventory()
         {
-            var currentInventory = new List<string>();
+            var currentInventory = new List<ItemIndex>();
 
             string[] unreleasedItems = { "Count", "None" };
-            foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
+
+            foreach (ItemIndex itemIndex in ItemCatalog.allItems)
             {
-                bool unreleasednullItem = unreleasedItems.Any(itemName.Contains);
+                ItemDef itemDef = ItemCatalog.GetItemDef(itemIndex);
+                bool unreleasednullItem = unreleasedItems.Any(itemDef.name.Contains);
                 if (!unreleasednullItem)
                 {
-                    ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName); //Convert itemName string to an ItemIndex
                     int itemCount = UmbraMenu.LocalPlayerInv.GetItemCount(itemIndex);
                     if (itemCount > 0) // If item is in inventory
                     {
-                        currentInventory.Add(itemName); // add to list
+                        currentInventory.Add(itemIndex); // add to list
                     }
                 }
             }
