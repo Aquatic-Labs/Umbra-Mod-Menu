@@ -369,6 +369,8 @@ namespace UmbraMenu.Menus
                 lunar.Add(itemIndex);
             }
 
+
+
             weightedSelection.AddChoice(tier1, 70f);
             weightedSelection.AddChoice(tier2, 22.5f);
             weightedSelection.AddChoice(tier3, 5f);

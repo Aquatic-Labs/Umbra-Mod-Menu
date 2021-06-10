@@ -191,7 +191,7 @@ namespace UmbraMenu
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier1 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
-            List<ItemIndex> other = new List<ItemIndex>();
+            List<BuffIndex> boss = new List<BuffIndex>();
 
             foreach (ItemIndex itemIndex in ItemCatalog.tier1ItemList)
             {
@@ -211,15 +211,31 @@ namespace UmbraMenu
             }        
             var result = items.Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).ToList();
 
-            foreach (ItemIndex itemIndex in ItemCatalog.allItems)
-            {
-                if (result.Contains(itemIndex)) continue;
-                other.Add(itemIndex);
 
-            }
-            result.Concat(other);
             return result;                      
         }
+           
+        public static List<BuffIndex> GetBossItems()
+        {
+            List<BuffIndex> items = new List<BuffIndex>();
+
+            List<BuffIndex> elite = new List<BuffIndex>();
+            List<BuffIndex> debuff = new List<BuffIndex>();
+
+            foreach (BuffIndex buffIndex in BuffCatalog.debuffBuffIndices)
+            {
+                debuff.Add(buffIndex);
+
+            }
+            foreach (BuffIndex buffIndex in BuffCatalog.eliteBuffIndices)
+            {
+                elite.Add(buffIndex);
+            }
+            var result = items.Concat(elite).Concat(debuff).ToList();
+            return result;                      
+        }
+
+
 
         public static List<SpawnCard> GetSpawnCards()
         {

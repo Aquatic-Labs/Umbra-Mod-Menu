@@ -264,7 +264,6 @@ namespace UmbraMenu.Menus
             catch (NullReferenceException)
             {
                 Debug.Log("Stats5");
-                Debug.Log("Stats5");
 
             }
         }
@@ -303,31 +302,26 @@ namespace UmbraMenu.Menus
         #region Increase/Decrease Value Actions
         public void IncreaseDmgPerLevel()
         {
-            if (DamagePerLevel >= 0)
                 DamagePerLevel += Multiplier;
         }
 
         public void IncreaseCritPerLevel()
         {
-            if (CritPerLevel >= 0)
                 CritPerLevel += Multiplier;
         }
 
         public void IncreaseAttackSpeed()
         {
-            if (AttackSpeed >= 0)
                 AttackSpeed += Multiplier;
         }
 
         public void IncreaseArmor()
         {
-            if (Armor >= 0)
                 Armor += Multiplier;
         }
 
         public void IncreaseMoveSpeed()
         {
-            if (MoveSpeed >= 7)
                 MoveSpeed += Multiplier;
         }
 
@@ -360,7 +354,7 @@ namespace UmbraMenu.Menus
         public void DecreaseArmor()
         {
             if (Armor > Multiplier)
-                Armor -= 10;
+                Armor -= Multiplier;
         }
 
         public void DecreaseMoveSpeed()

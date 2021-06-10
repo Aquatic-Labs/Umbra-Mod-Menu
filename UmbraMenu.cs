@@ -18,12 +18,12 @@ namespace UmbraMenu
 
         #region Player Variables
         public static CharacterMaster LocalPlayer;
-        public static CharacterBody LocalPlayerBody;
-        public static Inventory LocalPlayerInv;
+        public static CharacterBody   LocalPlayerBody;
+        public static Inventory       LocalPlayerInv;
         public static HealthComponent LocalHealth;
-        public static SkillLocator LocalSkills;
-        public static NetworkUser LocalNetworkUser;
-        public static CharacterMotor LocalMotor;
+        public static SkillLocator    LocalSkills;
+        public static NetworkUser     LocalNetworkUser;
+        public static CharacterMotor  LocalMotor;
         #endregion
 
         #region Init Lists
@@ -31,6 +31,7 @@ namespace UmbraMenu
         public static List<GameObject> bodyPrefabs = Utility.GetBodyPrefabs();
         public static List<EquipmentIndex> equipment = Utility.GetEquipment();
         public static List<ItemIndex> items = Utility.GetItems();
+        public static List<BuffIndex> bossItems = Utility.GetBossItems();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
         #endregion
 
@@ -315,40 +316,30 @@ namespace UmbraMenu
                 {
                     LocalNetworkUser = null;
 
-                    for (int i = 0; i < NetworkUser.readOnlyInstancesList.Count; i++)
+                    foreach (NetworkUser readOnlyInstance in NetworkUser.readOnlyInstancesList)   
                     {
-
-                        if (!InGameCheck())
-                        {
-                            break;
-                            return;
-                        }
-                        NetworkUser readOnlyInstance = NetworkUser.readOnlyInstancesList[i];
                         if (readOnlyInstance.isLocalPlayer)
                         {
                             LocalNetworkUser = readOnlyInstance;
                             LocalPlayer = LocalNetworkUser.master;
-                            LocalPlayerInv = LocalPlayer.GetComponent<Inventory>();
-                            LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>();
-                            LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>();
-                            LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>();
+                            LocalPlayerInv = LocalPlayer.GetComponent<Inventory>(); //gets player inventory
+                            LocalHealth = LocalPlayer.GetBody().GetComponent<HealthComponent>(); //gets players local health numbers
+                            LocalSkills = LocalPlayer.GetBody().GetComponent<SkillLocator>(); //gets current for local character skills
+                            LocalPlayerBody = LocalPlayer.GetBody().GetComponent<CharacterBody>(); //gets all stats for local character
+                            LocalMotor = LocalPlayer.GetBody().GetComponent<CharacterMotor>();
+                            bool flag = !LocalPlayer.IsDeadAndOutOfLivesServer();
 
-                            if (LocalHealth.alive) characterCollected = true;
-                            else characterCollected = false;
-                            if (LocalPlayer.isActiveAndEnabled) characterCollected = true;
-                            else characterCollected = false;
-                            if (LocalPlayerBody.isActiveAndEnabled) characterCollected = true;
-                            else characterCollected = false;
-                        }
-                        else
-                        {
-                            characterCollected = false;
+						    if (flag)
+						    {
+							    characterCollected = true;
+							    //Main.enableRespawnButton = true;
+						    }
+						    else
+						    {
+							    characterCollected = false;
+						    }
                         }
                     }
-                }
-                else
-                {
-                    characterCollected = false;
                 }
             }
             catch (Exception e)

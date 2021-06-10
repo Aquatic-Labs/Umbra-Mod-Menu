@@ -15,12 +15,14 @@ namespace UmbraMenu.Menus
             if (UmbraMenu.characterCollected)
             {
                 List<Button> buttons = new List<Button>();
-                for (int i = 0; i < Enum.GetNames(typeof(BuffIndex)).ToList().Count; i++)
+                int i = 0;
+                foreach (BuffIndex buffIndex in UmbraMenu.bossItems)
                 {  
-                    int buffIndexInt = i;
-                    void ButtonAction() => ApplyBuff(buffIndexInt);
-                    Button button = new Button(new NormalButton(this, i + 1, Enum.GetNames(typeof(BuffIndex)).ToList()[i], ButtonAction));
+                    BuffDef def = BuffCatalog.GetBuffDef(buffIndex);
+                    void ButtonAction() => ApplyBuff(buffIndex);
+                    Button button = new Button(new NormalButton(this, i + 1, def.name, ButtonAction));
                     buttons.Add(button);
+                    i++;
                 }
                 AddButtons(buttons);
                 SetActivatingButton(Utility.FindButtonById(1, 6));
@@ -37,9 +39,8 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private void ApplyBuff(int buffIndexInt)
+        private void ApplyBuff(BuffIndex buffIndex)
         {
-            BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), Enum.GetNames(typeof(BuffIndex))[buffIndexInt]);
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser.cachedMasterController && localUser.cachedMasterController.master)
             {
