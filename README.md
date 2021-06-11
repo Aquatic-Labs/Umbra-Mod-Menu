@@ -166,6 +166,10 @@ pause
 
 
 # Changelog:
+## 6/10/2021 v2.0.1:
+- [ ] Update for current version of Risk of Rain 2 mostly fixing features related to items.
+
+
 ### 1/17/2021 v2.0.0:
 - [ ] Complete rewrite of the mod menu. Functionality should be same as previous versions.
 - [ ] Keybinds no longer activate while chat is open.
