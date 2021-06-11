@@ -166,6 +166,18 @@ pause
 
 
 # Changelog:
+## 6/11/2021 v2.0.2:
+- [ ] Complete update fixing everything Anniversary Update Broke.
+- [ ] Fix Unlock All so that profile becomes 100% complete
+- [ ] Add unreleased items and equipment to lists.
+- [ ] Add boss items to item lists.
+- [ ] Fix Buff Removal not working
+- [ ] Fix typo in spawn menu
+- [ ] Dev Mode improvements
+- [ ] Update Buff List variable name (was bossList).
+- [ ] Remove obsolete internal resource and function relating to that resource
+
+
 ## 6/10/2021 v2.0.1:
 - [ ] Update for current version of Risk of Rain 2 mostly fixing features related to items.
 
