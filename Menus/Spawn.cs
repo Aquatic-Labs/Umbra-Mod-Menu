@@ -68,7 +68,7 @@ namespace UmbraMenu.Menus
 
                  changeMinDistance = new Button(new MulButton(this, 1, $"MIN DISTANCE : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance));
                  changeMaxDistance = new Button(new MulButton(this, 2, $"MAX DISTANCE : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance));
-                 changeTeamIndex = new Button(new MulButton(this, 3, $"T E A M : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex));
+                 changeTeamIndex = new Button(new MulButton(this, 3, $"TEAM : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex));
                  toggleSpawnListMenu = new Button(new TogglableButton(this, 4, "SPAWN LIST : OFF", "SPAWN LIST : ON", ToggleSpawnListMenu, ToggleSpawnListMenu));
                  killAll = new Button(new NormalButton(this, 5, "KILL ALL", KillAllMobs));
                  destroyInteractables = new Button(new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables));

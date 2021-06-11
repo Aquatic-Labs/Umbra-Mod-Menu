@@ -16,7 +16,7 @@ namespace UmbraMenu.Menus
             {
                 List<Button> buttons = new List<Button>();
                 int i = 0;
-                foreach (BuffIndex buffIndex in UmbraMenu.bossItems)
+                foreach (BuffIndex buffIndex in UmbraMenu.buffs)
                 {  
                     BuffDef def = BuffCatalog.GetBuffDef(buffIndex);
                     void ButtonAction() => ApplyBuff(buffIndex);
