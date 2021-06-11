@@ -158,11 +158,11 @@ namespace UmbraMenu
             #region Watermark
             if (Loader.updateAvailable)
             {
-                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+                GUI.Label(new Rect(Screen.width - 250, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
             }
             else if (Loader.upToDate)
             {
-                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
+                GUI.Label(new Rect(Screen.width - 140, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
             }
             else if (Loader.devBuild)
             {
