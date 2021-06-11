@@ -173,6 +173,7 @@ pause
 - [ ] Add boss items to item lists.
 - [ ] Fix Buff Removal not working
 - [ ] Fix typo in spawn menu
+- [ ] Fix watermark positioning
 - [ ] Dev Mode improvements
 - [ ] Update Buff List variable name (was bossList).
 - [ ] Remove obsolete internal resource and function relating to that resource
