@@ -8,6 +8,6 @@ namespace UmbraMenu.Interfaces
 {
     interface IButtonObserver
     {
-        void Update(Button button);
+        void Update<T>(T button) where T : Button;
     }
 }

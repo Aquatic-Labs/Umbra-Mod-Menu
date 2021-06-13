@@ -60,28 +60,26 @@ namespace UmbraMenu.Menus
 
         public Spawn() : base(4, 0, new Rect(738, 515, 20, 20), "SPAWN MENU")
         {
-            if (UmbraMenu.characterCollected)
+
+            void DoNothing() => Utility.StubbedFunction();
+
+            changeMinDistance = new MulButton(this, 1, $"MIN DISTANCE : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance);
+            changeMaxDistance = new MulButton(this, 2, $"MAX DISTANCE : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance);
+            changeTeamIndex = new MulButton(this, 3, $"TEAM : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex);
+            toggleSpawnListMenu = new TogglableButton(this, 4, "SPAWN LIST : OFF", "SPAWN LIST : ON", ToggleSpawnListMenu, ToggleSpawnListMenu);
+            killAll = new NormalButton(this, 5, "KILL ALL", KillAllMobs);
+            destroyInteractables = new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables);
+
+            AddButtons(new List<Button>()
             {
-                void DoNothing() => Utility.StubbedFunction();
-
-                 changeMinDistance = new MulButton(this, 1, $"MIN DISTANCE : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance);
-                 changeMaxDistance = new MulButton(this, 2, $"MAX DISTANCE : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance);
-                 changeTeamIndex = new MulButton(this, 3, $"TEAM : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex);
-                 toggleSpawnListMenu = new TogglableButton(this, 4, "SPAWN LIST : OFF", "SPAWN LIST : ON", ToggleSpawnListMenu, ToggleSpawnListMenu);
-                 killAll = new NormalButton(this, 5, "KILL ALL", KillAllMobs);
-                 destroyInteractables = new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables);
-
-                AddButtons(new List<Button>()
-                {
-                    changeMinDistance,
-                    changeMaxDistance,
-                    changeTeamIndex,
-                    toggleSpawnListMenu,
-                    killAll,
-                    destroyInteractables
-                });
-                //SetActivatingButton(Utility.FindButtonById(0, 4));
-            }
+                changeMinDistance,
+                changeMaxDistance,
+                changeTeamIndex,
+                toggleSpawnListMenu,
+                killAll,
+                destroyInteractables
+            });
+            //SetActivatingButton(Utility.FindButtonById(0, 4));
         }
 
         public override void Draw()

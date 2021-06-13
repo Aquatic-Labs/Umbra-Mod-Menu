@@ -8,33 +8,30 @@ namespace UmbraMenu.Menus
     {
         public ItemList() : base(12, 3, new Rect(1503, 10, 20, 20), "ITEMS MENU")
         {
-            if (UmbraMenu.characterCollected)
+            int buttonPlacement = 1;
+            List<Button> buttons = new List<Button>();
+            for (int i = 0; i < UmbraMenu.items.Count; i++)
             {
-                int buttonPlacement = 1;
-                List<Button> buttons = new List<Button>();
-                for (int i = 0; i < UmbraMenu.items.Count; i++)
+                ItemIndex itemIndex = UmbraMenu.items[i];
+                void ButtonAction() => GiveItem(itemIndex);
+                Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
                 {
-                    ItemIndex itemIndex = UmbraMenu.items[i];
-                    void ButtonAction() => GiveItem(itemIndex);
-                    Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
-                    if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
-                    {
-                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(255, 255, 255, 255));
-                        Button button = new NormalButton(this, buttonPlacement, itemName, ButtonAction);
-                        buttons.Add(button);
-                        buttonPlacement++;
-                    }
-                    else
-                    {
-                        string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
-                        Button button = new NormalButton(this, buttonPlacement, itemName, ButtonAction);
-                        buttons.Add(button);
-                        buttonPlacement++;
-                    }
+                    string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(255, 255, 255, 255));
+                    Button button = new NormalButton(this, buttonPlacement, itemName, ButtonAction);
+                    buttons.Add(button);
+                    buttonPlacement++;
                 }
-                AddButtons(buttons);
-                //SetActivatingButton(Utility.FindButtonById(3, 3));
+                else
+                {
+                    string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
+                    Button button = new NormalButton(this, buttonPlacement, itemName, ButtonAction);
+                    buttons.Add(button);
+                    buttonPlacement++;
+                }
             }
+            AddButtons(buttons);
+            //SetActivatingButton(Utility.FindButtonById(3, 3));
         }
 
         public override void Draw()

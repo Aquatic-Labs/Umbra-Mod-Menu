@@ -4,7 +4,7 @@ namespace UmbraMenu
 {
     public class NormalMenu : Menu
     {
-        public NormalMenu(int id, int prevMenuId, Rect rect, string title) : base (id, prevMenuId, rect, title) {}
+        public NormalMenu(int id, int prevMenuId, Rect rect, string title) : base(id, prevMenuId, rect, title) { }
 
         public override void Draw()
         {
@@ -18,9 +18,9 @@ namespace UmbraMenu
 
         private void DrawAllButtons()
         {
-            for (int i = 0; i < Buttons.Count; i++)
+            foreach (Button button in Buttons)
             {
-                Buttons[i].Draw();
+                button.Draw();
             }
         }
 

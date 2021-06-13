@@ -20,32 +20,29 @@ namespace UmbraMenu.Menus
 
         public ViewStats() : base(9, 8, new Rect(1626, 457, 20, 20), "VIEW STATS MENU")
         {
-            if (UmbraMenu.characterCollected)
-            {
-                damageStat = new TextButton(this, 1, $"DAMAGE : {playerDamage}");
-                critStat = new TextButton(this, 2, $"CRIT : {playerCrit}");
-                attackSpeedStat = new TextButton(this, 3, $"ATTACK SPEED : {playerAttackSpeed}");
-                armorStat = new TextButton(this, 4, $"ARMOR : {playerArmor}");
-                regenStat = new TextButton(this, 5, $"REGEN : {playerRegen}");
-                moveSpeedStat = new TextButton(this, 6, $"MOVE SPEED : {playerMoveSpeed}");
-                jumpCountStat = new TextButton(this, 7, $"JUMP COUNT : {playerMaxJumpCount}");
-                experienceStat = new TextButton(this, 8, $"EXPERIENCE : {playerExperience}");
-                killsStat = new TextButton(this, 9, $"KILLS: {playerKillCount}");
+            damageStat = new TextButton(this, 1, $"DAMAGE : {playerDamage}");
+            critStat = new TextButton(this, 2, $"CRIT : {playerCrit}");
+            attackSpeedStat = new TextButton(this, 3, $"ATTACK SPEED : {playerAttackSpeed}");
+            armorStat = new TextButton(this, 4, $"ARMOR : {playerArmor}");
+            regenStat = new TextButton(this, 5, $"REGEN : {playerRegen}");
+            moveSpeedStat = new TextButton(this, 6, $"MOVE SPEED : {playerMoveSpeed}");
+            jumpCountStat = new TextButton(this, 7, $"JUMP COUNT : {playerMaxJumpCount}");
+            experienceStat = new TextButton(this, 8, $"EXPERIENCE : {playerExperience}");
+            killsStat = new TextButton(this, 9, $"KILLS: {playerKillCount}");
 
-                AddButtons(new List<Button>()
-                {
-                    damageStat,
-                    critStat,
-                    attackSpeedStat,
-                    armorStat,
-                    regenStat,
-                    moveSpeedStat,
-                    jumpCountStat,
-                    experienceStat,
-                    killsStat
-                });
-                //SetActivatingButton(Utility.FindButtonById(8, 7));
-            }
+            AddButtons(new List<Button>()
+            {
+                damageStat,
+                critStat,
+                attackSpeedStat,
+                armorStat,
+                regenStat,
+                moveSpeedStat,
+                jumpCountStat,
+                experienceStat,
+                killsStat
+            });
+            //SetActivatingButton(Utility.FindButtonById(8, 7));
         }
 
         public override void Draw()
@@ -59,7 +56,7 @@ namespace UmbraMenu.Menus
 
         public static void UpdateViewStats()
         {
-            if (UmbraMenu.viewStatsMenu.IsEnabled())
+            if (false)//UmbraMenu.viewStatsMenu.IsEnabled())
             {
                 if (UmbraMenu.characterCollected)
                 {

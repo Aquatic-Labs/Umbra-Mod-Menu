@@ -24,28 +24,25 @@ namespace UmbraMenu.Menus
 
         public Settings() : base(7, 0, new Rect(374, 750, 20, 20), "SETTINGS MENU")
         {
-            if (UmbraMenu.characterCollected)
-            {
-                void DoNothing() => Utility.StubbedFunction();
-                void ToggleKeybindMenu() => UmbraMenu.menus[16].ToggleMenu();
-                changeWidth = new MulButton(this, 1, $"WIDTH : {UmbraMenu.Width}", DoNothing, IncreaseWidth, DecreaseWidth);
-                allowNavigation = new NormalButton(this, 2, $"ENABLE NAVIGATION : {EnableNavigationBtnText}", ToggleAllowNavigation);
-                changeGodModeVersion = new NormalButton(this, 3, $"GOD TYPE : {GodVerion[UmbraMenu.GodVersion]}", ChangeGodVersion);
-                toggleKeybindMenu = new TogglableButton(this, 4, "KEYBIND MENU : OFF", "KEYBIND MENU : ON", ToggleKeybindMenu, ToggleKeybindMenu);
-                reloadMenu = new NormalButton(this, 5, $"RELOAD MENU", ReloadMenus);
-                resetSettings = new NormalButton(this, 6, $"RESET SETTINGS", SetSettingsToDefaults);
+            void DoNothing() => Utility.StubbedFunction();
+            void ToggleKeybindMenu() => UmbraMenu.menus[16].ToggleMenu();
+            changeWidth = new MulButton(this, 1, $"WIDTH : {UmbraMenu.Width}", DoNothing, IncreaseWidth, DecreaseWidth);
+            allowNavigation = new NormalButton(this, 2, $"ENABLE NAVIGATION : {EnableNavigationBtnText}", ToggleAllowNavigation);
+            changeGodModeVersion = new NormalButton(this, 3, $"GOD TYPE : {GodVerion[UmbraMenu.GodVersion]}", ChangeGodVersion);
+            toggleKeybindMenu = new TogglableButton(this, 4, "KEYBIND MENU : OFF", "KEYBIND MENU : ON", ToggleKeybindMenu, ToggleKeybindMenu);
+            reloadMenu = new NormalButton(this, 5, $"RELOAD MENU", ReloadMenus);
+            resetSettings = new NormalButton(this, 6, $"RESET SETTINGS", SetSettingsToDefaults);
 
-                AddButtons(new List<Button>()
-                {
-                    changeWidth,
-                    allowNavigation,
-                    changeGodModeVersion,
-                    toggleKeybindMenu,
-                    reloadMenu,
-                    resetSettings
-                });
-                //SetActivatingButton(Utility.FindButtonById(0, 7));
-            }
+            AddButtons(new List<Button>()
+            {
+                changeWidth,
+                allowNavigation,
+                changeGodModeVersion,
+                toggleKeybindMenu,
+                reloadMenu,
+                resetSettings
+            });
+            //SetActivatingButton(Utility.FindButtonById(0, 7));
         }
 
         public override void Draw()

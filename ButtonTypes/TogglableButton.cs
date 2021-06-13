@@ -10,7 +10,7 @@ namespace UmbraMenu
 
         private bool Enabled;
 
-        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, bool defaultEnable = false) : base(parentMenu, position, offText, OffAction)
+        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, bool defaultEnable = false) : base(parentMenu, position, offText, OffAction, Styles.OffStyle)
         {
             this.OnAction = OnAction;
             this.OffAction = OffAction;
@@ -29,8 +29,7 @@ namespace UmbraMenu
 
         public override void Draw()
         {
-            ParentMenu.SetNumberOfButtons(Position);
-            int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
+            int btnY = 5 + 45 * Position;
             rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize(), 40);
 
             if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))

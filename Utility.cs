@@ -10,25 +10,12 @@ namespace UmbraMenu
 {
     public static class Utility
     {
-        public static Menu FindMenuById(int id)
-        {
-            for (int i = 0; i < UmbraMenu.menus.Count; i++)
-            {
-                Menu currentMenu = UmbraMenu.menus[i];
-                if (currentMenu.GetId() == id)
-                {
-                    return currentMenu;
-                }
-            }
-            throw new NullReferenceException($"Menu with id '{id}' was not found");
-        }
-
-        public static Button FindButtonById(int menuId, int buttonId)
+        public static T FindButtonById<T>(int menuId, int buttonId) where T : Button
         {
             List<Button> menuButtons = UmbraMenu.menus[menuId].GetButtons();
             for (int i = 0; i < menuButtons.Count; i++)
             {
-                Button currentButton = menuButtons[i];
+                T currentButton = (T)menuButtons[i];
                 if (currentButton.GetId() == buttonId)
                 {
                     return currentButton;
@@ -67,7 +54,7 @@ namespace UmbraMenu
                 {
                     for (int buttonPos = 1; buttonPos < UmbraMenu.menus[menuId].GetButtons().Count + 1; buttonPos++)
                     {
-                        Button currentButton = FindButtonById(menuId, buttonPos);
+                        TogglableButton currentButton = FindButtonById<TogglableButton>(menuId, buttonPos);
 
                         if (false)//currentButton.IsEnabled())
                         {
@@ -305,22 +292,24 @@ namespace UmbraMenu
 
         public static void CloseOpenMenus()
         {
-            List<Menu> openMenus = GetMenusOpen();
-            for (int i = 0; i < openMenus.Count; i++)
+            for (int i = 0; i < UmbraMenu.menus.Count; i++)
             {
-                openMenus[i].SetEnabled(false);
+                if (UmbraMenu.menus[i].GetId() != 9 && UmbraMenu.menus[i].GetId() != 0 && UmbraMenu.menus[i].IsEnabled())
+                {
+                    UmbraMenu.menus[i].SetEnabled(false);
+                }
             }
         }
 
         // Soft reset when moving to next stage to keep player stat mods and god mode between stages
         public static void SoftResetMenu(bool preserveState)
         {
-            HashSet<Tuple<int, int, bool>> savedMenuState = new HashSet<Tuple<int, int, bool>>();
+            /*HashSet<Tuple<int, int, bool>> savedMenuState = new HashSet<Tuple<int, int, bool>>();
             if (preserveState)
             {
                 savedMenuState = SaveMenuState();
             }
-            UmbraMenu.mainMenu = new Menus.Main();
+            UmbraMenu.mainMenu = new Menus.MainMenu();
             UmbraMenu.playerMenu = new Menus.Player();
             UmbraMenu.movementMenu = new Menus.Movement();
             UmbraMenu.itemsMenu = new Menus.Items();
@@ -342,26 +331,6 @@ namespace UmbraMenu
 
             UmbraMenu.keybindListMenu = new Menus.KeybindList();
 
-            UmbraMenu.menus = new List<Menu>()
-            {
-                UmbraMenu.mainMenu, //0
-                UmbraMenu.playerMenu, //1
-                UmbraMenu.movementMenu, //2
-                UmbraMenu.itemsMenu, //3
-                UmbraMenu.spawnMenu, //4
-                UmbraMenu.teleporterMenu, //5
-                UmbraMenu.renderMenu, //6
-                UmbraMenu.settingsMenu, //7
-                UmbraMenu.statsModMenu, //8
-                UmbraMenu.viewStatsMenu, //9
-                UmbraMenu.characterListMenu, //10
-                UmbraMenu.buffListMenu, //11
-                UmbraMenu.itemListMenu, //12
-                UmbraMenu.equipmentListMenu, //13
-                UmbraMenu.chestItemListMenu, //14
-                UmbraMenu.spawnListMenu, //15
-                UmbraMenu.keybindListMenu //16
-            };
             if (preserveState)
             {
                 ReadMenuState(savedMenuState);
@@ -387,7 +356,7 @@ namespace UmbraMenu
                 UmbraMenu.chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
                 UmbraMenu.keybindListMenu.SetRect(new Rect(374, 10, 20, 20));
-            }
+            }*/
         }
         #endregion
 

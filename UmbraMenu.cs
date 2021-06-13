@@ -12,7 +12,7 @@ namespace UmbraMenu
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "2.0.2";
+            VERSION = "2.0.3";
 
         public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), $"UmbraMenu/settings-{VERSION}.ini");
 
@@ -108,28 +108,30 @@ namespace UmbraMenu
         #endregion
 
         #region Menus
-        public static Menu mainMenu = new Menus.Main();
+        public static NormalMenu lobbyMenu = new Menus.LobbyMenu();
 
-        public static Menu playerMenu = new Menus.Player();
-        public static Menu movementMenu = new Menus.Movement();
-        public static Menu itemsMenu = new Menus.Items();
-        public static Menu spawnMenu = new Menus.Spawn();
-        public static Menu teleporterMenu = new Menus.Teleporter();
-        public static Menu renderMenu = new Menus.Render();
-        public static Menu settingsMenu = new Menus.Settings();
+        public static NormalMenu mainMenu;
 
-        public static Menu statsModMenu = new Menus.StatsMod();
-        public static Menu viewStatsMenu = new Menus.ViewStats();
-        public static Menu characterListMenu = new Menus.CharacterList();
-        public static Menu buffListMenu = new Menus.BuffList();
+        public static NormalMenu playerMenu;
+        public static NormalMenu movementMenu;
+        public static NormalMenu itemsMenu;
+        public static NormalMenu spawnMenu;
+        public static NormalMenu teleporterMenu;
+        public static NormalMenu renderMenu;
+        public static NormalMenu settingsMenu;
 
-        public static Menu itemListMenu = new Menus.ItemList();
-        public static Menu equipmentListMenu = new Menus.EquipmentList();
-        public static Menu chestItemListMenu = new Menus.ChestItemList();
+        public static NormalMenu statsModMenu;
+        public static NormalMenu viewStatsMenu;
+        public static ListMenu characterListMenu;
+        public static ListMenu buffListMenu;
 
-        public static Menu spawnListMenu = new Menus.SpawnList();
+        public static ListMenu itemListMenu;
+        public static ListMenu equipmentListMenu;
+        public static ListMenu chestItemListMenu;
 
-        public static Menu keybindListMenu = new Menus.KeybindList();
+        public static ListMenu spawnListMenu;
+
+        public static ListMenu keybindListMenu;
 
         public static List<Menu> menus = new List<Menu>()
         {
@@ -148,125 +150,164 @@ namespace UmbraMenu
             itemListMenu, //12
             equipmentListMenu, //13
             chestItemListMenu, //14
-            spawnListMenu //15
+            spawnListMenu, //15
         };
         #endregion
 
         #region Main Unity Functions
         private void OnGUI()
         {
-            #region Watermark
-            if (Loader.updateAvailable)
+            try
             {
-                GUI.Label(new Rect(Screen.width - 250, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+                #region Watermark
+                if (Loader.updateAvailable)
+                {
+                    GUI.Label(new Rect(Screen.width - 250, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+                }
+                else if (Loader.upToDate)
+                {
+                    GUI.Label(new Rect(Screen.width - 140, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
+                }
+                else if (Loader.devBuild)
+                {
+                    GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
+                }
+                #endregion
+
+                #region Draw Menus
+                if (characterCollected)
+                {
+                    mainMenu.Draw(); //0
+                    playerMenu.Draw(); //1
+                    movementMenu.Draw(); //2
+                    itemsMenu.Draw(); //3
+                    spawnMenu.Draw(); //4
+                    teleporterMenu.Draw(); //5
+                    renderMenu.Draw(); //6
+                    settingsMenu.Draw(); //7
+
+                    statsModMenu.Draw(); //8
+                    viewStatsMenu.Draw(); //9
+                    characterListMenu.Draw(); //10
+                    buffListMenu.Draw(); //11
+
+                    itemListMenu.Draw(); //12
+                    equipmentListMenu.Draw(); //13
+                    chestItemListMenu.Draw(); //14
+
+                    spawnListMenu.Draw(); //15
+
+                    keybindListMenu.Draw(); //16
+                }
+                else
+                {
+                    lobbyMenu.Draw();
+                }
+                #endregion
+
+                ESPRoutine();
             }
-            else if (Loader.upToDate)
+            catch (Exception e)
             {
-                GUI.Label(new Rect(Screen.width - 140, 1f, 100, 50f), $"Umbra Menu (v{VERSION})", Styles.WatermarkStyle);
+                Debug.Log(e);
+                Utility.WriteToLog("GUI ERROR - " + e.ToString());
             }
-            else if (Loader.devBuild)
-            {
-                GUI.Label(new Rect(Screen.width - 210, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Dev Build</color>", Styles.WatermarkStyle);
-            }
-            #endregion
-
-            #region Draw Menus
-            mainMenu.Draw(); //0
-            playerMenu.Draw(); //1
-            movementMenu.Draw(); //2
-            itemsMenu.Draw(); //3
-            spawnMenu.Draw(); //4
-            teleporterMenu.Draw(); //5
-            renderMenu.Draw(); //6
-            settingsMenu.Draw(); //7
-
-            statsModMenu.Draw(); //8
-            viewStatsMenu.Draw(); //9
-            characterListMenu.Draw(); //10
-            buffListMenu.Draw(); //11
-
-            itemListMenu.Draw(); //12
-            equipmentListMenu.Draw(); //13
-            chestItemListMenu.Draw(); //14
-
-            spawnListMenu.Draw(); //15
-
-            keybindListMenu.Draw(); //16
-            #endregion
-
-            ESPRoutine();
         }
 
         public void Start()
         {
-            SceneManager.activeSceneChanged += OnSceneLoaded;
-
-            #region Resolution Check
-            if (Screen.height < 1080)
+            try
             {
-                lowResolutionMonitor = true;
+                SceneManager.activeSceneChanged += OnSceneLoaded;
 
-                mainMenu.SetRect(new Rect(10, 10, 20, 20)); // Start Position
-                playerMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                movementMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                itemsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                spawnMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                teleporterMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                renderMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                settingsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                #region Resolution Check
+                if (Screen.height < 1080)
+                {
+                    lowResolutionMonitor = true;
 
-                statsModMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                viewStatsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                characterListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                buffListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                itemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                equipmentListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
-                spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position*/
+                    mainMenu.SetRect(new Rect(10, 10, 20, 20)); // Start Position
+                    playerMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    movementMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    itemsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    spawnMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    teleporterMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    renderMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    settingsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
 
-                Menus.Render.renderMods = false;
+                    statsModMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    viewStatsMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    characterListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    buffListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    itemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    equipmentListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    chestItemListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+                    spawnListMenu.SetRect(new Rect(374, 10, 20, 20)); // Start Position
+
+                    Menus.Render.renderMods = false;
+                }
+                #endregion
             }
-            #endregion
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                Utility.WriteToLog("START ERROR - " + e.ToString());
+            }
         }
 
         public void Update()
         {
-            LowResolutionRoutine();
-            DevBuildRoutine();
+            try
+            {
+                //LowResolutionRoutine();
+                //DevBuildRoutine();
 
-            CheckInputs();
-            CharacterRoutine();
+                CheckInputs();
+                CharacterRoutine();
 
-            SkillsRoutine();
-            AimBotRoutine();
-            GodRoutine();
-            EquipCooldownRoutine();
-            ModStatsRoutine();
-            FlightRoutine();
-            SprintRoutine();
-            JumpPackRoutine();
+                SkillsRoutine();
+                AimBotRoutine();
+                GodRoutine();
+                EquipCooldownRoutine();
+                ModStatsRoutine();
+                FlightRoutine();
+                SprintRoutine();
+                JumpPackRoutine();
 
-            UpdateNavIndexRoutine();
-            Menus.ViewStats.UpdateViewStats();
-            SetKeybindRoutine();
-            UpdateMainButtonsRoutine();
-            UpdateKeybindButtonRoutine();
-            ForceFullMenuRoutine();
+                UpdateNavIndexRoutine();
+                Menus.ViewStats.UpdateViewStats();
+                SetKeybindRoutine();
+                //UpdateMainButtonsRoutine();
+                //UpdateKeybindButtonRoutine();
+                ForceFullMenuRoutine();
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                Utility.WriteToLog("UPDATE ERROR" + e.ToString());
+            }
         }
 
         public void FixedUpdate()
         {
-            currentScene = SceneManager.GetActiveScene();
-            if (InGameCheck())
+            try
             {
-                if (Menus.Render.renderMobs)
+                currentScene = SceneManager.GetActiveScene();
+                if (InGameCheck())
                 {
-                    Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
+                    if (Menus.Render.renderMobs)
+                    {
+                        Menus.Render.hurtBoxes = Utility.GetHurtBoxes();
+                    }
+                    if (Menus.Items.chestItemList)
+                    {
+                        Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
+                    }
                 }
-                if (Menus.Items.chestItemList)
-                {
-                    Menus.ChestItemList.IsClosestChestEquip = Menus.ChestItemList.CheckClosestChestEquip();
-                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                Utility.WriteToLog("FIXED UPDATE ERROR - " + e.ToString());
             }
         }
         #endregion
@@ -315,7 +356,6 @@ namespace UmbraMenu
         {
             try
             {
-
                 if (InGameCheck())
                 {
                     LocalNetworkUser = null;
@@ -335,13 +375,65 @@ namespace UmbraMenu
 
 						    if (flag)
 						    {
-							    characterCollected = true;
-							    //Main.enableRespawnButton = true;
-						    }
+                                if (mainMenu == null)
+                                {
+                                    mainMenu = new Menus.MainMenu();
+
+                                    playerMenu = new Menus.Player();
+                                    movementMenu = new Menus.Movement();
+                                    itemsMenu = new Menus.Items();
+                                    spawnMenu = new Menus.Spawn();
+                                    teleporterMenu = new Menus.Teleporter();
+                                    renderMenu = new Menus.Render();
+                                    settingsMenu = new Menus.Settings();
+
+                                    statsModMenu = new Menus.StatsMod();
+                                    viewStatsMenu = new Menus.ViewStats();
+                                    characterListMenu = new Menus.CharacterList();
+                                    buffListMenu = new Menus.BuffList();
+
+                                    itemListMenu = new Menus.ItemList();
+                                    equipmentListMenu = new Menus.EquipmentList();
+                                    chestItemListMenu = new Menus.ChestItemList();
+
+                                    spawnListMenu = new Menus.SpawnList();
+
+                                    keybindListMenu = new Menus.KeybindList();
+
+                                    menus = new List<Menu>()
+                                    {
+                                        mainMenu, //0
+                                        playerMenu, //1
+                                        movementMenu, //2
+                                        itemsMenu, //3
+                                        spawnMenu, //4
+                                        teleporterMenu, //5
+                                        renderMenu, //6
+                                        settingsMenu, //7
+                                        statsModMenu, //8
+                                        viewStatsMenu, //9
+                                        characterListMenu, //10
+                                        buffListMenu, //11
+                                        itemListMenu, //12
+                                        equipmentListMenu, //13
+                                        chestItemListMenu, //14
+                                        spawnListMenu, //15
+                                    };
+                                }
+
+                                lobbyMenu = null;
+
+                                characterCollected = true;
+                            }
 						    else
 						    {
 							    characterCollected = false;
-						    }
+
+                                if (lobbyMenu == null && !InGameCheck())
+                                {
+                                    lobbyMenu = new Menus.LobbyMenu();
+                                }
+                            }
                         }
                     }
                 }
@@ -392,13 +484,13 @@ namespace UmbraMenu
                     if (devDoOnce && devMode)
                     {
                         Menus.Player.GodToggle = true;
-                        //Utility.FindButtonById(1, 9).SetEnabled(true);
+                        Utility.FindButtonById<TogglableButton>(1, 9).SetEnabled(true);
 
                         Menus.Movement.flightToggle = true;
-                        //Utility.FindButtonById(2, 2).SetEnabled(true);
+                        Utility.FindButtonById<TogglableButton>(2, 2).SetEnabled(true);
 
                         Menus.Movement.alwaysSprintToggle = true;
-                        //Utility.FindButtonById(2, 1).SetEnabled(true);
+                        Utility.FindButtonById<TogglableButton>(2, 1).SetEnabled(true);
 
                         LocalPlayer.GiveMoney(10000);
                         devDoOnce = false;
@@ -541,7 +633,7 @@ namespace UmbraMenu
 
         private void UpdateMainButtonsRoutine()
         {
-            if (InGameCheck() && mainMenu.IsEnabled())
+            if (InGameCheck())// && mainMenu.IsEnabled())
             {
                 for (int i = 1; i < menus.Count; i++)
                 {
@@ -557,15 +649,15 @@ namespace UmbraMenu
             }
         }
 
-        private void UpdateKeybindButtonRoutine()
+        /*private void UpdateKeybindButtonRoutine()
         {
             if (InGameCheck() && keybindListMenu.IsEnabled())
             {
                 int buttonsEnabled = 0;
                 for (int i = 1; i < keybindListMenu.GetButtons().Count + 1; i++)
                 {
-                    Button button = keybindListMenu.GetButtons()[i];
-                    if (false) //button.IsEnabled())
+                    TogglableButton button = (TogglableButton)keybindListMenu.GetButtons()[i];
+                    if (button.IsEnabled())
                     {
                         buttonsEnabled++;
                     }
@@ -573,13 +665,14 @@ namespace UmbraMenu
                     {
                         for (int j = 1; i < keybindListMenu.GetButtons().Count + 1; j++)
                         {
-                            //keybindListMenu.GetButtons()[j].SetEnabled(false);
+                            TogglableButton btn = (TogglableButton)keybindListMenu.GetButtons()[j];
+                            btn.SetEnabled(false);
                         }
                         listenForKeybind = false;
                     }
                 }
             }
-        }
+        }*/
 
         private void UpdateNavIndexRoutine()
         {
@@ -608,7 +701,7 @@ namespace UmbraMenu
                 };
                 Regex rgAlpha = new Regex(@"^[A-Z]$");
                 Regex rgNum = new Regex(@"^[0-9]$");
-                Button button = Utility.GetEnabledKeybindButton();
+                TogglableButton button = (TogglableButton)Utility.GetEnabledKeybindButton();
                 string newKeybind = Input.inputString;
                 if (newKeybind.Length > 1)
                 {
@@ -625,10 +718,10 @@ namespace UmbraMenu
                     KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
                     if (!Utility.KeyCodeInUse(keyCode))
                     {
-                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        //keybindDict[keybindName].KeyCode = keyCode;
+                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        keybindDict[keybindName].KeyCode = keyCode;
                         listenForKeybind = false;
-                        //button.SetEnabled(false);
+                        button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
@@ -637,10 +730,10 @@ namespace UmbraMenu
                         Keybind keybind = Utility.FindKeybindByKeyCode(keyCode);
                         keybind.KeyCode = KeyCode.None;
 
-                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        //keybindDict[keybindName].KeyCode = keyCode;
+                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        keybindDict[keybindName].KeyCode = keyCode;
                         listenForKeybind = false;
-                        //button.SetEnabled(false);
+                        button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
@@ -650,19 +743,19 @@ namespace UmbraMenu
                     newKeybind = numKeys[newKeybind];
                     if (newKeybind != "Alpha0")
                     {
-                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        //keybindDict[keybindName].KeyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
+                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        keybindDict[keybindName].KeyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
                         listenForKeybind = false;
-                        //button.SetEnabled(false);
+                        button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
                     else
                     {
-                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        //keybindDict[keybindName].KeyCode = KeyCode.None;
+                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        keybindDict[keybindName].KeyCode = KeyCode.None;
                         listenForKeybind = false;
-                        // button.SetEnabled(false);
+                        button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
@@ -704,117 +797,120 @@ namespace UmbraMenu
                 }
             }
 
-            if (mainMenu.IsEnabled())
+            if (characterCollected)
             {
-                Cursor.visible = true;
-                if (characterCollected)
+                if (mainMenu.IsEnabled())
                 {
-                    if (AllowNavigation)
+                    Cursor.visible = true;
+                    if (characterCollected)
                     {
-                        if (Input.GetKeyDown(KeyCode.DownArrow))
+                        if (AllowNavigation)
                         {
-                            if (!navigationToggle)
+                            if (Input.GetKeyDown(KeyCode.DownArrow))
                             {
-                                Utility.CloseOpenMenus();
-                            }
+                                if (!navigationToggle)
+                                {
+                                    Utility.CloseOpenMenus();
+                                }
 
-                            navigationToggle = true;
-                            Navigation.buttonIndex++;
-                        }
-                        if (Input.GetKeyDown(KeyCode.UpArrow))
-                        {
-                            if (!navigationToggle)
+                                navigationToggle = true;
+                                Navigation.buttonIndex++;
+                            }
+                            if (Input.GetKeyDown(KeyCode.UpArrow))
                             {
-                                Utility.CloseOpenMenus();
-                            }
+                                if (!navigationToggle)
+                                {
+                                    Utility.CloseOpenMenus();
+                                }
 
-                            navigationToggle = true;
-                            Navigation.buttonIndex--;
+                                navigationToggle = true;
+                                Navigation.buttonIndex--;
+                            }
                         }
                     }
-                }
-                if (navigationToggle && AllowNavigation)
-                {
-                    if (Input.GetKeyDown(KeyCode.V))
+                    if (navigationToggle && AllowNavigation)
                     {
-                        int oldMenuIndex = Navigation.menuIndex;
-                        Navigation.PressBtn(Navigation.menuIndex, Navigation.buttonIndex);
-                        int newMenuIndex = Navigation.menuIndex;
-
-                        if (oldMenuIndex != newMenuIndex)
+                        if (Input.GetKeyDown(KeyCode.V))
                         {
-                            Navigation.buttonIndex = 1;
-                        }
-                    }
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
-                    {
-                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                        bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
-                        bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
-                        bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                        bool settingsPlusMinusBtn = Navigation.menuIndex == 7 && Navigation.buttonIndex == 1;
-                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn || settingsPlusMinusBtn)
-                        {
-                            Navigation.IncreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
-                        }
-                        else
-                        {
-                            float oldMenuIndex = Navigation.menuIndex;
+                            int oldMenuIndex = Navigation.menuIndex;
                             Navigation.PressBtn(Navigation.menuIndex, Navigation.buttonIndex);
-                            float newMenuIndex = Navigation.menuIndex;
+                            int newMenuIndex = Navigation.menuIndex;
 
                             if (oldMenuIndex != newMenuIndex)
                             {
                                 Navigation.buttonIndex = 1;
                             }
                         }
-                    }
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    {
-                        bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                        bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
-                        bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
-                        bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                        bool settingsPlusMinusBtn = Navigation.menuIndex == 7 && Navigation.buttonIndex == 1;
-                        if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn || settingsPlusMinusBtn)
+                        if (Input.GetKeyDown(KeyCode.RightArrow))
                         {
-                            Navigation.DecreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
+                            bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                            bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
+                            bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
+                            bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                            bool settingsPlusMinusBtn = Navigation.menuIndex == 7 && Navigation.buttonIndex == 1;
+                            if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn || settingsPlusMinusBtn)
+                            {
+                                Navigation.IncreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
+                            }
+                            else
+                            {
+                                float oldMenuIndex = Navigation.menuIndex;
+                                Navigation.PressBtn(Navigation.menuIndex, Navigation.buttonIndex);
+                                float newMenuIndex = Navigation.menuIndex;
+
+                                if (oldMenuIndex != newMenuIndex)
+                                {
+                                    Navigation.buttonIndex = 1;
+                                }
+                            }
                         }
-                        else
+                        if (Input.GetKeyDown(KeyCode.LeftArrow))
+                        {
+                            bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                            bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
+                            bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
+                            bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
+                            bool settingsPlusMinusBtn = Navigation.menuIndex == 7 && Navigation.buttonIndex == 1;
+                            if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn || settingsPlusMinusBtn)
+                            {
+                                Navigation.DecreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
+                            }
+                            else
+                            {
+                                Navigation.GoBackAMenu();
+                            }
+                        }
+                        if (Input.GetKeyDown(KeyCode.Backspace))
                         {
                             Navigation.GoBackAMenu();
                         }
-                    }
-                    if (Input.GetKeyDown(KeyCode.Backspace))
-                    {
-                        Navigation.GoBackAMenu();
-                    }
 
-                    if (buffListMenu.IsEnabled() || characterListMenu.IsEnabled() || chestItemListMenu.IsEnabled() || equipmentListMenu.IsEnabled() || itemListMenu.IsEnabled() || spawnListMenu.IsEnabled() || keybindListMenu.IsEnabled())
-                    {
-                        if (!scrolled)
+                        if (buffListMenu.IsEnabled() || characterListMenu.IsEnabled() || chestItemListMenu.IsEnabled() || equipmentListMenu.IsEnabled() || itemListMenu.IsEnabled() || spawnListMenu.IsEnabled() || keybindListMenu.IsEnabled())
                         {
-                            if (Input.GetAxis("Mouse ScrollWheel") != 0f) // Scrolled
+                            if (!scrolled)
                             {
-                                scrolled = true;
+                                if (Input.GetAxis("Mouse ScrollWheel") != 0f) // Scrolled
+                                {
+                                    scrolled = true;
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+                            else
                             {
-                                scrolled = false;
+                                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
+                                {
+                                    scrolled = false;
+                                }
                             }
                         }
                     }
                 }
-            }
-            else if (!mainMenu.IsEnabled())
-            {
-                navigationToggle = false;
-                Navigation.buttonIndex = 0;
-                Navigation.menuIndex = 0;
-                Cursor.visible = false;
+                else if (!mainMenu.IsEnabled())
+                {
+                    navigationToggle = false;
+                    Navigation.buttonIndex = 0;
+                    Navigation.menuIndex = 0;
+                    Cursor.visible = false;
+                }
             }
 
             Keybinds();
@@ -837,12 +933,18 @@ namespace UmbraMenu
             #region Main Menu Keybind
             if (Input.GetKeyDown(keybindDict["MAIN MENU"].KeyCode))
             {
-                if (InGameCheck())
+                if (characterCollected)
                 {
-                    Utility.CloseOpenMenus();
+                    if (InGameCheck())
+                    {
+                        Utility.CloseOpenMenus();
+                    }
+                    mainMenu.ToggleMenu();
                 }
-                mainMenu.ToggleMenu();
-                GetCharacter();
+                else
+                {
+                    lobbyMenu.ToggleMenu();
+                }
             }
             #endregion
 
@@ -851,7 +953,7 @@ namespace UmbraMenu
                 #region Player Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["PLAYER MENU"].KeyCode))
                 {
-                    playerMenu.ToggleMenu();
+                    //playerMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 1;
@@ -875,7 +977,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["STATS MENU"].KeyCode))
                 {
-                    statsModMenu.ToggleMenu();
+                    //statsModMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 8;
@@ -884,12 +986,12 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["VIEW STATS MENU"].KeyCode))
                 {
-                    viewStatsMenu.ToggleMenu();
+                    //viewStatsMenu.ToggleMenu();
                 }
 
                 if (Input.GetKeyDown(keybindDict["CHANGE CHARACTER MENU"].KeyCode))
                 {
-                    characterListMenu.ToggleMenu();
+                    //characterListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 10;
@@ -898,7 +1000,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["BUFF MENU"].KeyCode))
                 {
-                    buffListMenu.ToggleMenu();
+                    //buffListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 11;
@@ -907,32 +1009,32 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["REMOVE BUFFS"].KeyCode))
                 {
-                    Utility.FindButtonById(1, 7).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(1, 7).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["AIMBOT"].KeyCode))
                 {
                     Menus.Player.AimBotToggle = !Menus.Player.AimBotToggle;
-                    //Utility.FindButtonById(1, 8).SetEnabled(Menus.Player.AimBotToggle);
+                    Utility.FindButtonById<TogglableButton>(1, 8).SetEnabled(Menus.Player.AimBotToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["GODMODE"].KeyCode))
                 {
                     Menus.Player.GodToggle = !Menus.Player.GodToggle;
-                    //Utility.FindButtonById(1, 9).SetEnabled(Menus.Player.GodToggle);
+                    Utility.FindButtonById<TogglableButton>(1, 9).SetEnabled(Menus.Player.GodToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["INFINITE SKILLS"].KeyCode))
                 {
                     Menus.Player.SkillToggle = !Menus.Player.SkillToggle;
-                    //Utility.FindButtonById(1, 10).SetEnabled(Menus.Player.SkillToggle);
+                    Utility.FindButtonById<TogglableButton>(1, 10).SetEnabled(Menus.Player.SkillToggle);
                 }
                 #endregion
 
                 #region Movement Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["MOVEMENT MENU"].KeyCode))
                 {
-                    movementMenu.ToggleMenu();
+                    //movementMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 2;
@@ -942,26 +1044,26 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["ALWAYS SPRINT"].KeyCode))
                 {
                     Menus.Movement.alwaysSprintToggle = !Menus.Movement.alwaysSprintToggle;
-                    //Utility.FindButtonById(2, 1).SetEnabled(Menus.Movement.alwaysSprintToggle);
+                    Utility.FindButtonById<TogglableButton>(2, 1).SetEnabled(Menus.Movement.alwaysSprintToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["FLIGHT"].KeyCode))
                 {
                     Menus.Movement.flightToggle = !Menus.Movement.flightToggle;
-                    //Utility.FindButtonById(2, 2).SetEnabled(Menus.Movement.flightToggle);
+                    Utility.FindButtonById<TogglableButton>(2, 2).SetEnabled(Menus.Movement.flightToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["JUMP PACK"].KeyCode))
                 {
                     Menus.Movement.jumpPackToggle = !Menus.Movement.jumpPackToggle;
-                    //Utility.FindButtonById(2, 3).SetEnabled(Menus.Movement.jumpPackToggle);
+                    Utility.FindButtonById<TogglableButton>(2, 3).SetEnabled(Menus.Movement.jumpPackToggle);
                 }
                 #endregion
 
                 #region Item Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["ITEMS MENU"].KeyCode))
                 {
-                    itemsMenu.ToggleMenu();
+                    //itemsMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 3;
@@ -970,17 +1072,17 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["GIVE ALL"].KeyCode))
                 {
-                    Utility.FindButtonById(3, 1).GetAction().Invoke();
+                    Utility.FindButtonById<MulButton>(3, 1).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["ROLL ITEMS"].KeyCode))
                 {
-                    Utility.FindButtonById(3, 2).GetAction().Invoke();
+                    Utility.FindButtonById<MulButton>(3, 2).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["ITEMS LIST MENU"].KeyCode))
                 {
-                    itemListMenu.ToggleMenu();
+                    //itemListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 12;
@@ -989,7 +1091,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["EQUIPMENT LIST MENU"].KeyCode))
                 {
-                    equipmentListMenu.ToggleMenu();
+                    //equipmentListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 13;
@@ -999,34 +1101,34 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["DROP ITEMS"].KeyCode))
                 {
                     Menus.Items.isDropItemForAll = !Menus.Items.isDropItemForAll;
-                    //Utility.FindButtonById(3, 5).SetEnabled(Menus.Items.isDropItemForAll);
+                    Utility.FindButtonById<TogglableButton>(3, 5).SetEnabled(Menus.Items.isDropItemForAll);
                 }
 
                 if (Input.GetKeyDown(keybindDict["DROP INVENTORY ITEMS"].KeyCode))
                 {
                     Menus.Items.isDropItemFromInventory = !Menus.Items.isDropItemFromInventory;
-                    //Utility.FindButtonById(3, 6).SetEnabled(Menus.Items.isDropItemFromInventory);
+                    Utility.FindButtonById<TogglableButton>(3, 6).SetEnabled(Menus.Items.isDropItemFromInventory);
                 }
 
                 if (Input.GetKeyDown(keybindDict["INFINITE EQUIPMENT"].KeyCode))
                 {
                     Menus.Items.noEquipmentCD = !Menus.Items.noEquipmentCD;
-                    //Utility.FindButtonById(3, 7).SetEnabled(Menus.Items.noEquipmentCD);
+                    Utility.FindButtonById<TogglableButton>(3, 7).SetEnabled(Menus.Items.noEquipmentCD);
                 }
 
                 if (Input.GetKeyDown(keybindDict["STACK INVENTORY"].KeyCode))
                 {
-                    Utility.FindButtonById(3, 8).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(3, 8).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["CLEAR INVENTORY"].KeyCode))
                 {
-                    Utility.FindButtonById(3, 9).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(3, 9).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["CHANGE CHEST ITEM MENU"].KeyCode))
                 {
-                    chestItemListMenu.ToggleMenu();
+                    //chestItemListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 14;
@@ -1037,7 +1139,7 @@ namespace UmbraMenu
                 #region Spawn Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["SPAWN MENU"].KeyCode))
                 {
-                    spawnMenu.ToggleMenu();
+                    //spawnMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 4;
@@ -1046,7 +1148,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["SPAWN LIST MENU"].KeyCode))
                 {
-                    spawnListMenu.ToggleMenu();
+                    //spawnListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 15;
@@ -1055,19 +1157,19 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["KILL ALL"].KeyCode))
                 {
-                    Utility.FindButtonById(4, 5).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(4, 5).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["DESTROY INTERACTABLES"].KeyCode))
                 {
-                    Utility.FindButtonById(4, 6).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(4, 6).GetAction().Invoke();
                 }
                 #endregion
 
                 #region Teleport Menu Keybinds 
                 if (Input.GetKeyDown(keybindDict["TELEPORTER MENU"].KeyCode))
                 {
-                    teleporterMenu.ToggleMenu();
+                    //teleporterMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 5;
@@ -1076,44 +1178,44 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["SKIP STAGE"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 1).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 1).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["INSTANT TELE CHARGE"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 2).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 2).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["ADD MOUNTAIN STACK"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 3).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 3).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["SPAWN ALL PORTALS"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 4).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 4).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["SPAWN BLUE PORTAL"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 5).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 5).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["SPAWN CELE PORTAL"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 6).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 6).GetAction().Invoke();
                 }
 
                 if (Input.GetKeyDown(keybindDict["SPAWN GOLD PORTAL"].KeyCode))
                 {
-                    Utility.FindButtonById(5, 7).GetAction().Invoke();
+                    Utility.FindButtonById<NormalButton>(5, 7).GetAction().Invoke();
                 }
                 #endregion
 
                 #region Render Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["RENDER MENU"].KeyCode))
                 {
-                    renderMenu.ToggleMenu();
+                    //renderMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 6;
@@ -1123,19 +1225,19 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["RENDER ACTIVE MODS"].KeyCode))
                 {
                     Menus.Render.renderMods = !Menus.Render.renderMods;
-                    //Utility.FindButtonById(6, 1).SetEnabled(Menus.Render.renderMods);
+                    Utility.FindButtonById<TogglableButton>(6, 1).SetEnabled(Menus.Render.renderMods);
                 }
 
                 if (Input.GetKeyDown(keybindDict["RENDER INTERACTABLES"].KeyCode))
                 {
                     Menus.Render.renderInteractables = !Menus.Render.renderInteractables;
-                    //Utility.FindButtonById(6, 2).SetEnabled(Menus.Render.renderInteractables);
+                    Utility.FindButtonById<TogglableButton>(6, 2).SetEnabled(Menus.Render.renderInteractables);
                 }
 
                 if (Input.GetKeyDown(keybindDict["RENDER MOB ESP"].KeyCode))
                 {
                     Menus.Render.renderMobs = !Menus.Render.renderMobs;
-                    //Utility.FindButtonById(6, 3).SetEnabled(Menus.Render.renderMobs);
+                    Utility.FindButtonById<TogglableButton>(6, 3).SetEnabled(Menus.Render.renderMobs);
                 }
                 #endregion
             }

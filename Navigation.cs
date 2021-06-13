@@ -12,7 +12,7 @@ namespace UmbraMenu
         public static void PressBtn(int menuId, int btnId)
         {
 
-            Button button = Utility.FindButtonById(menuId, btnId);
+            Button button = Utility.FindButtonById<Button>(menuId, btnId);
             button?.GetAction()?.Invoke();
             //button.ToggleButton();
             if (menuIndex != 9)

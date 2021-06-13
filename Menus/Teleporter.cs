@@ -20,32 +20,29 @@ namespace UmbraMenu.Menus
 
         public Teleporter() : base(5, 0, new Rect(10, 425, 20, 20), "TELEPORTER MENU")
         {
-            if (UmbraMenu.characterCollected)
-            {
-                void SpawnAllPortals() => SpawnPortals("all");
-                void SpawnBluePortal() => SpawnPortals("blue");
-                void SpawnCelestalPortal() => SpawnPortals("cele");
-                void SpawnGoldPortal() => SpawnPortals("gold");
-                skipStage = new NormalButton(this, 1, "SKIP STAGE", SkipStage);
-                instaTele = new NormalButton(this, 2, "INSTA TELE/PURPLE CHARGE", InstaTeleporter);
-                addMountain = new NormalButton(this, 3, $"ADD MOUNTAIN-COUNT : {mountainStacks}", AddMountain);
-                spawnAll = new NormalButton(this, 4, "SPAWN ALL PORTALS", SpawnAllPortals);
-                spawnBlue = new NormalButton(this, 5, "SPAWN BLUE PORTAL", SpawnBluePortal);
-                spawnCele = new NormalButton(this, 6, "SPAWN CELESTAL PORTAL", SpawnCelestalPortal);
-                spawnGold = new NormalButton(this, 7, "SPAWN GOLD PORTAL", SpawnGoldPortal);
+            void SpawnAllPortals() => SpawnPortals("all");
+            void SpawnBluePortal() => SpawnPortals("blue");
+            void SpawnCelestalPortal() => SpawnPortals("cele");
+            void SpawnGoldPortal() => SpawnPortals("gold");
+            skipStage = new NormalButton(this, 1, "SKIP STAGE", SkipStage);
+            instaTele = new NormalButton(this, 2, "INSTA TELE/PURPLE CHARGE", InstaTeleporter);
+            addMountain = new NormalButton(this, 3, $"ADD MOUNTAIN-COUNT : {mountainStacks}", AddMountain);
+            spawnAll = new NormalButton(this, 4, "SPAWN ALL PORTALS", SpawnAllPortals);
+            spawnBlue = new NormalButton(this, 5, "SPAWN BLUE PORTAL", SpawnBluePortal);
+            spawnCele = new NormalButton(this, 6, "SPAWN CELESTAL PORTAL", SpawnCelestalPortal);
+            spawnGold = new NormalButton(this, 7, "SPAWN GOLD PORTAL", SpawnGoldPortal);
 
-                AddButtons(new List<Button>()
-                {
-                    skipStage,
-                    instaTele,
-                    addMountain,
-                    spawnAll,
-                    spawnBlue,
-                    spawnCele,
-                    spawnGold
-                });
-                //SetActivatingButton(Utility.FindButtonById(0, 5));
-            }
+            AddButtons(new List<Button>()
+            {
+                skipStage,
+                instaTele,
+                addMountain,
+                spawnAll,
+                spawnBlue,
+                spawnCele,
+                spawnGold
+            });
+            //SetActivatingButton(Utility.FindButtonById(0, 5));
         }
 
         public override void Draw()

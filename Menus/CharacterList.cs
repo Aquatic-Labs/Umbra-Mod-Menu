@@ -8,19 +8,16 @@ namespace UmbraMenu.Menus
     {
         public CharacterList() : base(10, 1, new Rect(1503, 10, 20, 20), "CHARACTERS MENU")
         {
-            if (UmbraMenu.characterCollected)
+            List<Button> buttons = new List<Button>();
+            for (int i = 0; i < UmbraMenu.bodyPrefabs.Count; i++)
             {
-                List<Button> buttons = new List<Button>();
-                for (int i = 0; i < UmbraMenu.bodyPrefabs.Count; i++)
-                {
-                    int prefabIndex = i;
-                    void ButtonAction() => ChangeCharacter(prefabIndex);
-                    Button button = new NormalButton(this, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction);
-                    buttons.Add(button);
-                }
-                AddButtons(buttons);
-                //SetActivatingButton(Utility.FindButtonById(1, 5));
+                int prefabIndex = i;
+                void ButtonAction() => ChangeCharacter(prefabIndex);
+                Button button = new NormalButton(this, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction);
+                buttons.Add(button);
             }
+            AddButtons(buttons);
+            //SetActivatingButton(Utility.FindButtonById(1, 5));
         }
 
         public override void Draw()

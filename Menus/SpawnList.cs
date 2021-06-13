@@ -8,50 +8,47 @@ namespace UmbraMenu.Menus
     {
         public SpawnList() : base(15, 4, new Rect(1503, 10, 20, 20), "SPAWN CARDS MENU")
         {
-            if (UmbraMenu.characterCollected)
+            EnableSpawnList();
+
+            List<Button> buttons = new List<Button>();
+            for (int i = 0; i < UmbraMenu.spawnCards.Count; i++)
             {
-                EnableSpawnList();
-
-                List<Button> buttons = new List<Button>();
-                for (int i = 0; i < UmbraMenu.spawnCards.Count; i++)
+                var spawnCard = UmbraMenu.spawnCards[i];
+                string cardName = spawnCard.ToString();
+                string category = "";
+                string buttonText = "";
+                if (cardName.Contains("MultiCharacterSpawnCard"))
                 {
-                    var spawnCard = UmbraMenu.spawnCards[i];
-                    string cardName = spawnCard.ToString();
-                    string category = "";
-                    string buttonText = "";
-                    if (cardName.Contains("MultiCharacterSpawnCard"))
-                    {
-                        cardName = cardName.Replace(" (RoR2.MultiCharacterSpawnCard)", "");
-                        category = "CharacterSpawnCard";
-                        buttonText = cardName.Replace("csc", "");
-                    }
-                    else if (cardName.Contains("CharacterSpawnCard"))
-                    {
-                        cardName = cardName.Replace(" (RoR2.CharacterSpawnCard)", "");
-                        category = "CharacterSpawnCard";
-                        buttonText = cardName.Replace("csc", "");
-                    }
-                    else if (cardName.Contains("InteractableSpawnCard"))
-                    {
-                        cardName = cardName.Replace(" (RoR2.InteractableSpawnCard)", "");
-                        category = "InteractableSpawnCard";
-                        buttonText = cardName.Replace("isc", "");
-                    }
-                    else if (cardName.Contains("BodySpawnCard"))
-                    {
-                        cardName = cardName.Replace(" (RoR2.BodySpawnCard)", "");
-                        category = "BodySpawnCard";
-                        buttonText = cardName.Replace("bsc", "");
-                    }
-                    string path = $"SpawnCards/{category}/{cardName}";
-
-                    void ButtonAction() => SpawnSpawnCard(spawnCard);
-                    NormalButton button = new NormalButton(this, i + 1, buttonText, ButtonAction);
-                    buttons.Add(button);
+                    cardName = cardName.Replace(" (RoR2.MultiCharacterSpawnCard)", "");
+                    category = "CharacterSpawnCard";
+                    buttonText = cardName.Replace("csc", "");
                 }
-                AddButtons(buttons);
-                //SetActivatingButton(Utility.FindButtonById(4, 4));
+                else if (cardName.Contains("CharacterSpawnCard"))
+                {
+                    cardName = cardName.Replace(" (RoR2.CharacterSpawnCard)", "");
+                    category = "CharacterSpawnCard";
+                    buttonText = cardName.Replace("csc", "");
+                }
+                else if (cardName.Contains("InteractableSpawnCard"))
+                {
+                    cardName = cardName.Replace(" (RoR2.InteractableSpawnCard)", "");
+                    category = "InteractableSpawnCard";
+                    buttonText = cardName.Replace("isc", "");
+                }
+                else if (cardName.Contains("BodySpawnCard"))
+                {
+                    cardName = cardName.Replace(" (RoR2.BodySpawnCard)", "");
+                    category = "BodySpawnCard";
+                    buttonText = cardName.Replace("bsc", "");
+                }
+                string path = $"SpawnCards/{category}/{cardName}";
+
+                void ButtonAction() => SpawnSpawnCard(spawnCard);
+                NormalButton button = new NormalButton(this, i + 1, buttonText, ButtonAction);
+                buttons.Add(button);
             }
+            AddButtons(buttons);
+            //SetActivatingButton(Utility.FindButtonById(4, 4));
         }
 
         public override void Draw()

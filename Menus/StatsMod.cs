@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class StatsMod : ListMenu
+    public class StatsMod : NormalMenu
     {
         public static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
         public int DamagePerLevel
@@ -96,28 +96,25 @@ namespace UmbraMenu.Menus
 
         public StatsMod() : base(8, 1, new Rect(1503, 10, 20, 20), "STATS MOD MENU")
         {
-            if (UmbraMenu.characterCollected)
-            {
-                changeDmgPerLevel = new MulButton(this, 1, $"DAMAGE/LVL : {DamagePerLevel}", ToggleDmgPerLevel, IncreaseDmgPerLevel, DecreaseDmgPerLevel);
-                changeCritPerLevel = new MulButton(this, 2, $"CRIT/LVL : {CritPerLevel}", ToggleCritPerLevel, IncreaseCritPerLevel, DecreaseCritPerLevel);
-                changeAttackSpeed = new MulButton(this, 3, $"ATTACK SPEED : {AttackSpeed}", ToggleAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed);
-                changeArmor = new MulButton(this, 4, $"ARMOR : {Armor}", ToggleArmor, IncreaseArmor, DecreaseArmor);
-                changeMoveSpeed = new MulButton(this, 5, $"MOVE SPEED : {MoveSpeed}", ToggleMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed);
-                changeMultiplier = new MulButton(this, 6, $"MULTIPLIER : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier);
-                toggleViewStatsMenu = new TogglableButton(this, 7, "SHOW STATS : OFF", "SHOW STATS : ON", ToggleViewStatsMenu, ToggleViewStatsMenu);
+            changeDmgPerLevel = new MulButton(this, 1, $"DAMAGE/LVL : {DamagePerLevel}", ToggleDmgPerLevel, IncreaseDmgPerLevel, DecreaseDmgPerLevel);
+            changeCritPerLevel = new MulButton(this, 2, $"CRIT/LVL : {CritPerLevel}", ToggleCritPerLevel, IncreaseCritPerLevel, DecreaseCritPerLevel);
+            changeAttackSpeed = new MulButton(this, 3, $"ATTACK SPEED : {AttackSpeed}", ToggleAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed);
+            changeArmor = new MulButton(this, 4, $"ARMOR : {Armor}", ToggleArmor, IncreaseArmor, DecreaseArmor);
+            changeMoveSpeed = new MulButton(this, 5, $"MOVE SPEED : {MoveSpeed}", ToggleMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed);
+            changeMultiplier = new MulButton(this, 6, $"MULTIPLIER : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier);
+            toggleViewStatsMenu = new TogglableButton(this, 7, "SHOW STATS : OFF", "SHOW STATS : ON", ToggleViewStatsMenu, ToggleViewStatsMenu);
 
-                AddButtons(new List<Button>()
-                {
-                    changeDmgPerLevel,
-                    changeCritPerLevel,
-                    changeAttackSpeed,
-                    changeArmor,
-                    changeMoveSpeed,
-                    changeMultiplier,
-                    toggleViewStatsMenu
-                });
-                //SetActivatingButton(Utility.FindButtonById(1, 4));
-            }
+            AddButtons(new List<Button>()
+            {
+                changeDmgPerLevel,
+                changeCritPerLevel,
+                changeAttackSpeed,
+                changeArmor,
+                changeMoveSpeed,
+                changeMultiplier,
+                toggleViewStatsMenu
+            });
+            //SetActivatingButton(Utility.FindButtonById(1, 4));
         }
 
         public override void Draw()

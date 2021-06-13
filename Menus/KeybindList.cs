@@ -7,18 +7,15 @@ namespace UmbraMenu.Menus
     {
         public KeybindList() : base(16, 7, new Rect(1503, 10, 20, 20), "KEYBINDS MENU")
         {
-            if (UmbraMenu.characterCollected)
+            List<Button> buttons = new List<Button>();
+            for (int i = 1; i < UmbraMenu.keybindDict.Count; i++)
             {
-                List<Button> buttons = new List<Button>();
-                for (int i = 1; i < UmbraMenu.keybindDict.Count; i++)
-                {
-                    Keybind keyBind = UmbraMenu.keybindDict[UmbraMenu.keyBindNames[i]];
-                    Button setKeybind = new TogglableButton(this, i, $"{keyBind.Name} : {keyBind.KeyCode}" , $"{keyBind.Name} : {keyBind.KeyCode}", ChangeKeybind, ChangeKeybind);
-                    buttons.Add(setKeybind);
-                }
-                AddButtons(buttons);
-                //SetActivatingButton(Utility.FindButtonById(7, 4));
+                Keybind keyBind = UmbraMenu.keybindDict[UmbraMenu.keyBindNames[i]];
+                Button setKeybind = new TogglableButton(this, i, $"{keyBind.Name} : {keyBind.KeyCode}" , $"{keyBind.Name} : {keyBind.KeyCode}", ChangeKeybind, ChangeKeybind);
+                buttons.Add(setKeybind);
             }
+            AddButtons(buttons);
+            //SetActivatingButton(Utility.FindButtonById(7, 4));
         }
 
         public override void Draw()

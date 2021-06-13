@@ -8,34 +8,31 @@ namespace UmbraMenu.Menus
     {
         public EquipmentList() : base(13, 3, new Rect(1503, 10, 20, 20), "EQUIPMENT MENU")
         {
-            if (UmbraMenu.characterCollected)
+            int buttonPlacement = 1;
+            List<Button> buttons = new List<Button>();
+            for (int i = 0; i < UmbraMenu.equipment.Count; i++)
             {
-                int buttonPlacement = 1;
-                List<Button> buttons = new List<Button>();
-                for (int i = 0; i < UmbraMenu.equipment.Count; i++)
+                var equipmentIndex = UmbraMenu.equipment[i];
+                if (equipmentIndex != EquipmentIndex.None && equipmentIndex != EquipmentCatalog.FindEquipmentIndex("AffixYellow"))
                 {
-                    var equipmentIndex = UmbraMenu.equipment[i];
-                    if (equipmentIndex != EquipmentIndex.None && equipmentIndex != EquipmentCatalog.FindEquipmentIndex("AffixYellow"))
-                    {
-                        void ButtonAction() => GiveEquipment(equipmentIndex);
-                        Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
-                        string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                        Button button = new NormalButton(this, buttonPlacement, equipmentName, ButtonAction);
-                        buttons.Add(button);
-                        buttonPlacement++;
-                    }
-                    else
-                    {
-                        void ButtonAction() => GiveEquipment(equipmentIndex);
-                        string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
-                        Button button = new NormalButton(this, buttonPlacement, equipmentName, ButtonAction);
-                        buttons.Add(button);
-                        buttonPlacement++;
-                    }
+                    void ButtonAction() => GiveEquipment(equipmentIndex);
+                    Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                    string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
+                    Button button = new NormalButton(this, buttonPlacement, equipmentName, ButtonAction);
+                    buttons.Add(button);
+                    buttonPlacement++;
                 }
-                AddButtons(buttons);
-                //SetActivatingButton(Utility.FindButtonById(3, 4));
+                else
+                {
+                    void ButtonAction() => GiveEquipment(equipmentIndex);
+                    string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
+                    Button button = new NormalButton(this, buttonPlacement, equipmentName, ButtonAction);
+                    buttons.Add(button);
+                    buttonPlacement++;
+                }
             }
+            AddButtons(buttons);
+            //SetActivatingButton(Utility.FindButtonById(3, 4));
         }
 
         public override void Draw()

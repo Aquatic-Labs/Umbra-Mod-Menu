@@ -9,18 +9,18 @@ namespace UmbraMenu
         protected int Position;
         protected string Text;
         protected Action Action;
-        protected Rect rect; // Should be set in Draw method
-        protected GUIStyle style; // default Should be set in constructor
+        protected Rect rect;
+        protected GUIStyle style;
 
         public abstract void Draw();
 
-        public Button(Menu parentMenu, int position, string text, Action Action)
+        public Button(Menu parentMenu, int position, string text, Action Action, GUIStyle defualtStyle)
         {
             this.ParentMenu = parentMenu;
             this.Position = position;
             this.Text = text;
             this.Action = Action;
-            this.style = Styles.BtnStyle;
+            this.style = defualtStyle;
         }
 
         public int GetId()

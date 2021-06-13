@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UmbraMenu
 {
@@ -30,9 +29,9 @@ namespace UmbraMenu
         private void DrawAllButtons()
         {
             CurrentScrollPosition = GUI.BeginScrollView(new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * heightMulY), CurrentScrollPosition, new Rect(Rect.x, Rect.y, WidthSize + 10, 50f + 45 * NumberOfButtons), false, true);
-            for (int i = 0; i < Buttons.Count; i++)
+            foreach (Button button in Buttons)
             {
-                Buttons[i].Draw();
+                button.Draw();
             }
             GUI.EndScrollView();
         }

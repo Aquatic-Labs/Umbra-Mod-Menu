@@ -70,8 +70,9 @@
     <Compile Include="Menus\EquipmentList.cs" />
     <Compile Include="Menus\ItemList.cs" />
     <Compile Include="Menus\Items.cs" />
+    <Compile Include="Menus\LobbyMenu.cs" />
     <Compile Include="Menus\Settings.cs" />
-    <Compile Include="Menus\Main.cs" />
+    <Compile Include="Menus\MainMenu.cs" />
     <Compile Include="ButtonTypes\MulButton.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menus\SpawnList.cs" />

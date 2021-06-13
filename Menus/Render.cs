@@ -21,27 +21,24 @@ namespace UmbraMenu.Menus
 
         public Render() : base(6, 0, new Rect(10, 795, 20, 20), "RENDER MENU")
         {
-            if (UmbraMenu.characterCollected)
+            if (UmbraMenu.lowResolutionMonitor)
             {
-                if (UmbraMenu.lowResolutionMonitor)
-                {
-                    toggleActiveMods = new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods);
-                }
-                else
-                {
-                    toggleActiveMods = new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods, true);
-                }
-                toggleInteractESP = new TogglableButton(this, 2, "INTERACTABLES ESP : OFF", "INTERACTABLES ESP : ON", ToggleRenderInteractables, ToggleRenderInteractables);
-                toggleMobESP = new TogglableButton(this, 3, "MOB ESP : OFF", "MOB ESP : ON", ToggleRenderMobs, ToggleRenderMobs);
-
-                AddButtons(new List<Button>()
-                {
-                    toggleActiveMods,
-                    toggleInteractESP,
-                    toggleMobESP
-                });
-                //SetActivatingButton(Utility.FindButtonById(0, 6));
+                toggleActiveMods = new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods);
             }
+            else
+            {
+                toggleActiveMods = new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods, true);
+            }
+            toggleInteractESP = new TogglableButton(this, 2, "INTERACTABLES ESP : OFF", "INTERACTABLES ESP : ON", ToggleRenderInteractables, ToggleRenderInteractables);
+            toggleMobESP = new TogglableButton(this, 3, "MOB ESP : OFF", "MOB ESP : ON", ToggleRenderMobs, ToggleRenderMobs);
+
+            AddButtons(new List<Button>()
+            {
+                toggleActiveMods,
+                toggleInteractESP,
+                toggleMobESP
+            });
+            //SetActivatingButton(Utility.FindButtonById(0, 6));
         }
 
         public override void Draw()

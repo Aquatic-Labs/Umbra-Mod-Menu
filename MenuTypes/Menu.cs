@@ -23,6 +23,7 @@ namespace UmbraMenu
             Title = title;
             NumberOfButtons = 0;
             WidthSize = UmbraMenu.Width;
+            Buttons = new List<Button>();
         }
 
         public void SetWindow()
@@ -47,7 +48,6 @@ namespace UmbraMenu
                 if (!IfDragged)
                 {
                     Enabled = !Enabled;
-                    UmbraMenu.GetCharacter();
                 }
                 IfDragged = false;
             }
@@ -57,7 +57,17 @@ namespace UmbraMenu
         public void AddButtons(List<Button> buttonList)
         {
             Buttons = buttonList;
-            NumberOfButtons = buttonList.Count;
+
+            int high = 0;
+            foreach (Button button in Buttons)
+            {
+                if (button.GetId() > high)
+                {
+                    high = button.GetId();
+                }
+            }
+            NumberOfButtons = high;
+
         }
 
         public void ToggleMenu()
@@ -133,6 +143,11 @@ namespace UmbraMenu
         public void SetWidthSize(float value)
         {
             WidthSize = value;
+        }
+
+        public void SetButtons(List<Button> buttons)
+        {
+            Buttons = buttons;
         }
     }
 }

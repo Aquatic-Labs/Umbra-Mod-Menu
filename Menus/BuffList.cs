@@ -10,21 +10,18 @@ namespace UmbraMenu.Menus
     {
         public BuffList() : base(11, 1, new Rect(1503, 10, 20, 20), "BUFFS MENU")
         {
-            if (UmbraMenu.characterCollected)
-            {
-                List<Button> buttons = new List<Button>();
-                int i = 0;
-                foreach (BuffIndex buffIndex in UmbraMenu.buffs)
-                {  
-                    BuffDef def = BuffCatalog.GetBuffDef(buffIndex);
-                    void ButtonAction() => ApplyBuff(buffIndex);
-                    Button button = new NormalButton(this, i + 1, def.name, ButtonAction);
-                    buttons.Add(button);
-                    i++;
-                }
-                AddButtons(buttons);
-                //SetActivatingButton(Utility.FindButtonById(1, 6));
+            List<Button> buttons = new List<Button>();
+            int i = 0;
+            foreach (BuffIndex buffIndex in UmbraMenu.buffs)
+            {  
+                BuffDef def = BuffCatalog.GetBuffDef(buffIndex);
+                void ButtonAction() => ApplyBuff(buffIndex);
+                Button button = new NormalButton(this, i + 1, def.name, ButtonAction);
+                buttons.Add(button);
+                i++;
             }
+            AddButtons(buttons);
+            //SetActivatingButton(Utility.FindButtonById(1, 6));
         }
 
         public override void Draw()

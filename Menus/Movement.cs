@@ -11,26 +11,23 @@ namespace UmbraMenu.Menus
         public static bool jumpPackToggle, flightToggle, alwaysSprintToggle;
         public static int jumpPackMul = 1;
 
-        public Button toggleAlwaysSprint;
-        public Button toggleFlight;
-        public Button toggleJumpPack;
+        public TogglableButton toggleAlwaysSprint;
+        public TogglableButton toggleFlight;
+        public TogglableButton toggleJumpPack;
 
         public Movement() : base(2, 0, new Rect(374, 560, 20, 20), "MOVEMENT MENU")
         {
-            if (UmbraMenu.characterCollected)
-            {
-                toggleAlwaysSprint = new TogglableButton(this, 1, "ALWAYS SPRINT : OFF", "ALWAYS SPRINT : ON", ToggleSprint, ToggleSprint);
-                toggleFlight = new TogglableButton(this, 2, "FLIGHT : OFF", "FLIGHT : ON", ToggleFlight, ToggleFlight);
-                toggleJumpPack = new TogglableButton(this, 3, "JUMP PACK : OFF", "JUMP PACK : ON", ToggleJump, ToggleJump);
+            toggleAlwaysSprint = new TogglableButton(this, 1, "ALWAYS SPRINT : OFF", "ALWAYS SPRINT : ON", ToggleSprint, ToggleSprint);
+            toggleFlight = new TogglableButton(this, 2, "FLIGHT : OFF", "FLIGHT : ON", ToggleFlight, ToggleFlight);
+            toggleJumpPack = new TogglableButton(this, 3, "JUMP PACK : OFF", "JUMP PACK : ON", ToggleJump, ToggleJump);
 
-                AddButtons(new List<Button>()
-                {
-                    toggleAlwaysSprint,
-                    toggleFlight,
-                    toggleJumpPack
-                });
-                //SetActivatingButton(Utility.FindButtonById(0, 2));
-            }
+            AddButtons(new List<Button>()
+            {
+                toggleAlwaysSprint,
+                toggleFlight,
+                toggleJumpPack
+            });
+            //SetActivatingButton(Utility.FindButtonById(0, 2));
         }
 
         public override void Draw()

@@ -7,7 +7,7 @@ namespace UmbraMenu
     {
         private readonly Action IncreaseAction, DecreaseAction;
 
-        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction) : base(parentMenu, position, text, Action)
+        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction) : base(parentMenu, position, text, Action, Styles.BtnStyle)
         {
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
@@ -15,8 +15,7 @@ namespace UmbraMenu
 
         public override void Draw()
         {
-            ParentMenu.SetNumberOfButtons(Position);
-            int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
+            int btnY = 5 + 45 * Position;
             rect = new Rect(ParentMenu.GetRect().x + 5, ParentMenu.GetRect().y + btnY, ParentMenu.GetWidthSize() - 90, 40);
 
             if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))
