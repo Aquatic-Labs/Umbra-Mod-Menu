@@ -5,10 +5,8 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class ChestItemList : Menu
+    public class ChestItemList : ListMenu
     {
-        private static readonly IMenu chestItemsList = new ListMenu(14, new Rect(1503, 10, 20, 20), "CHEST ITEMS MENU");
-
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<ChestBehavior> chests = new List<ChestBehavior>();
         public static bool onChestsEnable = true;
@@ -31,7 +29,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public ChestItemList() : base(chestItemsList)
+        public ChestItemList() : base(14, 3, new Rect(1503, 10, 20, 20), "CHEST ITEMS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -46,19 +44,18 @@ namespace UmbraMenu.Menus
                     if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
                     {
                         string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(0, 0, 0, 255));
-                        Button button = new Button(new NormalButton(this, i + 1, itemName, ButtonAction));
+                        Button button = new NormalButton(this, i + 1, itemName, ButtonAction);
                         buttons.Add(button);
                     }
                     else
                     {
                         string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
-                        Button button = new Button(new NormalButton(this, i + 1, itemName, ButtonAction));
+                        Button button = new NormalButton(this, i + 1, itemName, ButtonAction);
                         buttons.Add(button);
                     }
                 }
                 AddButtons(buttons);
-                SetActivatingButton(Utility.FindButtonById(3, 10));
-                SetPrevMenuId(3);
+                //SetActivatingButton(Utility.FindButtonById(3, 10));
             }
         }
 
@@ -214,13 +211,13 @@ namespace UmbraMenu.Menus
                         {
                             Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
                             string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                            Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, equipmentName, ButtonAction));
+                            Button button = new NormalButton(UmbraMenu.chestItemListMenu, i + 1, equipmentName, ButtonAction);
                             buttons.Add(button);
                         }
                         else
                         {
                             string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
-                            Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, equipmentName, ButtonAction));
+                            Button button = new NormalButton(UmbraMenu.chestItemListMenu, i + 1, equipmentName, ButtonAction);
                             buttons.Add(button);
                         }
                     }
@@ -236,13 +233,13 @@ namespace UmbraMenu.Menus
                     if (itemColor.r <= 105 && itemColor.g <= 105 && itemColor.b <= 105)
                     {
                         string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), new Color32(0, 0, 0, 255));
-                        Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, itemName, ButtonAction));
+                        Button button = new NormalButton(UmbraMenu.chestItemListMenu, i + 1, itemName, ButtonAction);
                         buttons.Add(button);
                     }
                     else
                     {
                         string itemName = Util.GenerateColoredString(Language.GetString(ItemCatalog.GetItemDef(itemIndex).nameToken), itemColor);
-                        Button button = new Button(new NormalButton(UmbraMenu.chestItemListMenu, i + 1, itemName, ButtonAction));
+                        Button button = new NormalButton(UmbraMenu.chestItemListMenu, i + 1, itemName, ButtonAction);
                         buttons.Add(button);
                     }
                 }

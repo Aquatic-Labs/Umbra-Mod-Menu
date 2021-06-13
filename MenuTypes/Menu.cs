@@ -3,129 +3,136 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class Menu
+    public abstract class Menu
     {
-        private IMenu _menu;
+        protected float WidthSize, Delay = 0;
+        protected int Id, PrevMenuId, NumberOfButtons;
+        protected bool Enabled, IfDragged;
+        protected string Title;
+        protected Rect Rect;
+        protected List<Button> Buttons;
 
-        public Menu(IMenu menu)
+        public abstract void Draw();
+        public abstract void Reset();
+
+        public Menu(int id, int prevMenuId, Rect rect, string title)
         {
-            _menu = menu;
+            Id = id;
+            PrevMenuId = prevMenuId;
+            Rect = rect;
+            Title = title;
+            NumberOfButtons = 0;
+            WidthSize = UmbraMenu.Width;
         }
 
         public void SetWindow()
         {
-            _menu.SetWindow();
+            Rect = GUI.Window(Id, Rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
         }
 
-        public virtual void Draw()
+        private void SetBackground(int windowID)
         {
-            _menu.Draw();
+            GUI.Box(new Rect(0f, 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                Delay += Time.deltaTime;
+                if (Delay > 0.3f)
+                {
+                    IfDragged = true;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp)
+            {
+                Delay = 0;
+                if (!IfDragged)
+                {
+                    Enabled = !Enabled;
+                    UmbraMenu.GetCharacter();
+                }
+                IfDragged = false;
+            }
+            GUI.DragWindow();
         }
 
         public void AddButtons(List<Button> buttonList)
         {
-            _menu.Buttons = buttonList;
-            _menu.NumberOfButtons = buttonList.Count;
-        }
-
-        public int GetId()
-        {
-            return _menu.Id;
-        }
-        public bool IsEnabled()
-        {
-            return _menu.Enabled;
-        }
-        
-        public Rect GetRect()
-        {
-            return _menu.Rect;
-        }
-        
-        public string GetTitle()
-        {
-            return _menu.Title;
-        }
-
-        public void SetTitle(string newTitle)
-        {
-            _menu.Title = newTitle;
-        }
-
-        public List<Button> GetButtons()
-        {
-            return _menu.Buttons;
+            Buttons = buttonList;
+            NumberOfButtons = buttonList.Count;
         }
 
         public void ToggleMenu()
         {
-            _menu.Enabled = !_menu.Enabled;
+            Enabled = !Enabled;
         }
 
-        public void SetEnabled(bool value)
+        public bool IsEnabled()
         {
-            _menu.ActivatingButton.SetEnabled(false);
-            _menu.Enabled = value;
+            return Enabled;
         }
 
-        public void SetIfDragged(bool value)
+        public int GetId()
         {
-            _menu.IfDragged = value;
+            return Id;
+        }
+        
+        public Rect GetRect()
+        {
+            return Rect;
+        }
+        
+        public string GetTitle()
+        {
+            return Title;
         }
 
-        public void SetRect(Rect rect)
+        public List<Button> GetButtons()
         {
-            _menu.Rect = rect;
-        }
-
-        public int GetNumberOfButtons()
-        {
-            return _menu.NumberOfButtons;
-        }
-
-        public void SetNumberOfButtons(int value)
-        {
-            _menu.NumberOfButtons = value;
-        }
-
-        public float GetWidthSize()
-        {
-            return _menu.WidthSize;
-        }
-
-        public void SetActivatingButton(Button button)
-        {
-            _menu.ActivatingButton = button;
-        }
-
-        public Button GetActivatingButton()
-        {
-            return _menu.ActivatingButton;
-        }
-
-        public virtual void Reset()
-        {
-            _menu.Reset();
+            return Buttons;
         }
 
         public int GetPrevMenuId()
         {
-            return _menu.PrevMenuId;
+            return PrevMenuId;
         }
 
-        public void SetPrevMenuId(int value)
+        public int GetNumberOfButtons()
         {
-            _menu.PrevMenuId = value;
+            return NumberOfButtons;
         }
 
-        public void SetScrollPosition(Vector2 value) 
+        public float GetWidthSize()
         {
-            _menu.CurrentScrollPosition = value;
+            return WidthSize;
+        }
+
+        public void SetTitle(string newTitle)
+        {
+            Title = newTitle;
+        }
+
+        public void SetEnabled(bool value)
+        {
+            Enabled = value;
+        }
+
+        public void SetIfDragged(bool value)
+        {
+            IfDragged = value;
+        }
+
+        public void SetRect(Rect rect)
+        {
+            Rect = rect;
+        }
+
+        public void SetNumberOfButtons(int value)
+        {
+            NumberOfButtons = value;
         }
 
         public void SetWidthSize(float value)
         {
-            _menu.WidthSize = value;
+            WidthSize = value;
         }
     }
 }

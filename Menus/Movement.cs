@@ -6,10 +6,8 @@ using RoR2;
 
 namespace UmbraMenu.Menus
 {
-    public sealed class Movement : Menu
+    public sealed class Movement : NormalMenu
     {
-        private static readonly IMenu movement = new NormalMenu(2, new Rect(374, 560, 20, 20), "MOVEMENT MENU");
-
         public static bool jumpPackToggle, flightToggle, alwaysSprintToggle;
         public static int jumpPackMul = 1;
 
@@ -17,13 +15,13 @@ namespace UmbraMenu.Menus
         public Button toggleFlight;
         public Button toggleJumpPack;
 
-        public Movement() : base(movement)
+        public Movement() : base(2, 0, new Rect(374, 560, 20, 20), "MOVEMENT MENU")
         {
             if (UmbraMenu.characterCollected)
             {
-                toggleAlwaysSprint = new Button(new TogglableButton(this, 1, "ALWAYS SPRINT : OFF", "ALWAYS SPRINT : ON", ToggleSprint, ToggleSprint));
-                toggleFlight = new Button(new TogglableButton(this, 2, "FLIGHT : OFF", "FLIGHT : ON", ToggleFlight, ToggleFlight));
-                toggleJumpPack = new Button(new TogglableButton(this, 3, "JUMP PACK : OFF", "JUMP PACK : ON", ToggleJump, ToggleJump));
+                toggleAlwaysSprint = new TogglableButton(this, 1, "ALWAYS SPRINT : OFF", "ALWAYS SPRINT : ON", ToggleSprint, ToggleSprint);
+                toggleFlight = new TogglableButton(this, 2, "FLIGHT : OFF", "FLIGHT : ON", ToggleFlight, ToggleFlight);
+                toggleJumpPack = new TogglableButton(this, 3, "JUMP PACK : OFF", "JUMP PACK : ON", ToggleJump, ToggleJump);
 
                 AddButtons(new List<Button>()
                 {
@@ -31,8 +29,7 @@ namespace UmbraMenu.Menus
                     toggleFlight,
                     toggleJumpPack
                 });
-                SetActivatingButton(Utility.FindButtonById(0, 2));
-                SetPrevMenuId(0);
+                //SetActivatingButton(Utility.FindButtonById(0, 2));
             }
         }
 

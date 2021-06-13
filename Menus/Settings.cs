@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class Settings : Menu
+    public class Settings : NormalMenu
     {
-        private static readonly IMenu settings = new NormalMenu(7, new Rect(374, 750, 20, 20), "SETTINGS MENU");
-
         public static string[] GodVerion = { "NORMAL", "INTANGIBLE", "REGEN", "NEGATIVE", "REVIVE" };
         public static string enableNavigationBtnText = UmbraMenu.AllowNavigation ? "TRUE" : "FALSE";
         public string EnableNavigationBtnText
@@ -17,25 +15,25 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public Button changeWidth;
-        public Button allowNavigation;
-        public Button changeGodModeVersion;
-        public Button toggleKeybindMenu;
-        public Button reloadMenu;
-        public Button resetSettings;
+        public MulButton changeWidth;
+        public NormalButton allowNavigation;
+        public NormalButton changeGodModeVersion;
+        public TogglableButton toggleKeybindMenu;
+        public NormalButton reloadMenu;
+        public NormalButton resetSettings;
 
-        public Settings() : base(settings)
+        public Settings() : base(7, 0, new Rect(374, 750, 20, 20), "SETTINGS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
                 void DoNothing() => Utility.StubbedFunction();
                 void ToggleKeybindMenu() => UmbraMenu.menus[16].ToggleMenu();
-                changeWidth = new Button(new MulButton(this, 1, $"WIDTH : {UmbraMenu.Width}", DoNothing, IncreaseWidth, DecreaseWidth));
-                allowNavigation = new Button(new NormalButton(this, 2, $"ENABLE NAVIGATION : {EnableNavigationBtnText}", ToggleAllowNavigation));
-                changeGodModeVersion = new Button(new NormalButton(this, 3, $"GOD TYPE : {GodVerion[UmbraMenu.GodVersion]}", ChangeGodVersion));
-                toggleKeybindMenu = new Button(new TogglableButton(this, 4, "KEYBIND MENU : OFF", "KEYBIND MENU : ON", ToggleKeybindMenu, ToggleKeybindMenu));
-                reloadMenu = new Button(new NormalButton(this, 5, $"RELOAD MENU", ReloadMenus));
-                resetSettings = new Button(new NormalButton(this, 6, $"RESET SETTINGS", SetSettingsToDefaults));
+                changeWidth = new MulButton(this, 1, $"WIDTH : {UmbraMenu.Width}", DoNothing, IncreaseWidth, DecreaseWidth);
+                allowNavigation = new NormalButton(this, 2, $"ENABLE NAVIGATION : {EnableNavigationBtnText}", ToggleAllowNavigation);
+                changeGodModeVersion = new NormalButton(this, 3, $"GOD TYPE : {GodVerion[UmbraMenu.GodVersion]}", ChangeGodVersion);
+                toggleKeybindMenu = new TogglableButton(this, 4, "KEYBIND MENU : OFF", "KEYBIND MENU : ON", ToggleKeybindMenu, ToggleKeybindMenu);
+                reloadMenu = new NormalButton(this, 5, $"RELOAD MENU", ReloadMenus);
+                resetSettings = new NormalButton(this, 6, $"RESET SETTINGS", SetSettingsToDefaults);
 
                 AddButtons(new List<Button>()
                 {
@@ -46,8 +44,7 @@ namespace UmbraMenu.Menus
                     reloadMenu,
                     resetSettings
                 });
-                SetActivatingButton(Utility.FindButtonById(0, 7));
-                SetPrevMenuId(0);
+                //SetActivatingButton(Utility.FindButtonById(0, 7));
             }
         }
 
@@ -101,11 +98,11 @@ namespace UmbraMenu.Menus
             if (Player.GodToggle)
             {
                 Player.GodToggle = false;
-                Utility.FindButtonById(1, 9).SetEnabled(false);
+                //Utility.FindButtonById(1, 9).SetEnabled(false);
                 Player.DisabledGodMode();
                 UmbraMenu.GodVersion++;
                 Player.GodToggle = true;
-                Utility.FindButtonById(1, 9).SetEnabled(true);
+                //Utility.FindButtonById(1, 9).SetEnabled(true);
             }
             else
             {

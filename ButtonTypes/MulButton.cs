@@ -3,32 +3,17 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class MulButton : IButton
+    public class MulButton : Button
     {
-        public Menu ParentMenu { get; set; }
-        public int Position { get; set; }
-        public Rect rect;
-        public string Text { get; set; }
-        public bool Enabled { get; set; }
-        public GUIStyle style = Styles.BtnStyle;
-        public Action Action { get; set; }
-        public Action IncreaseAction { get; set; }
-        public Action DecreaseAction{ get; set; }
+        private readonly Action IncreaseAction, DecreaseAction;
 
-        public string OnText { get; set; }
-        public string OffText { get; set; }
-
-        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction)
+        public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction) : base(parentMenu, position, text, Action)
         {
-            this.ParentMenu = parentMenu;
-            this.Position = position;
-            this.Text = text;
-            this.Action = Action;
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
         }
 
-        public void Draw()
+        public override void Draw()
         {
             ParentMenu.SetNumberOfButtons(Position);
             int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
@@ -56,6 +41,16 @@ namespace UmbraMenu
                 IncreaseAction?.Invoke();
                 Draw();
             }
+        }
+
+        public Action GetIncreaseAction()
+        {
+            return IncreaseAction;
+        }
+
+        public Action GetDecreaseAction()
+        {
+            return DecreaseAction;
         }
     }
 }

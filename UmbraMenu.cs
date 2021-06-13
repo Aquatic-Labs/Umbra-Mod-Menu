@@ -392,13 +392,13 @@ namespace UmbraMenu
                     if (devDoOnce && devMode)
                     {
                         Menus.Player.GodToggle = true;
-                        Utility.FindButtonById(1, 9).SetEnabled(true);
+                        //Utility.FindButtonById(1, 9).SetEnabled(true);
 
                         Menus.Movement.flightToggle = true;
-                        Utility.FindButtonById(2, 2).SetEnabled(true);
+                        //Utility.FindButtonById(2, 2).SetEnabled(true);
 
                         Menus.Movement.alwaysSprintToggle = true;
-                        Utility.FindButtonById(2, 1).SetEnabled(true);
+                        //Utility.FindButtonById(2, 1).SetEnabled(true);
 
                         LocalPlayer.GiveMoney(10000);
                         devDoOnce = false;
@@ -547,12 +547,11 @@ namespace UmbraMenu
                 {
                     if (menus[i].IsEnabled())
                     {
-                        menus[i].GetActivatingButton().SetEnabled(true);
+                        //menus[i].GetActivatingButton().SetEnabled(true);
                     }
                     else
                     {
-                        menus[i].GetActivatingButton().SetEnabled(false);
-
+                        //menus[i].GetActivatingButton().SetEnabled(false);
                     }
                 }
             }
@@ -566,7 +565,7 @@ namespace UmbraMenu
                 for (int i = 1; i < keybindListMenu.GetButtons().Count + 1; i++)
                 {
                     Button button = keybindListMenu.GetButtons()[i];
-                    if (button.IsEnabled())
+                    if (false) //button.IsEnabled())
                     {
                         buttonsEnabled++;
                     }
@@ -574,7 +573,7 @@ namespace UmbraMenu
                     {
                         for (int j = 1; i < keybindListMenu.GetButtons().Count + 1; j++)
                         {
-                            keybindListMenu.GetButtons()[j].SetEnabled(false);
+                            //keybindListMenu.GetButtons()[j].SetEnabled(false);
                         }
                         listenForKeybind = false;
                     }
@@ -626,10 +625,10 @@ namespace UmbraMenu
                     KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
                     if (!Utility.KeyCodeInUse(keyCode))
                     {
-                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        keybindDict[keybindName].KeyCode = keyCode;
+                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        //keybindDict[keybindName].KeyCode = keyCode;
                         listenForKeybind = false;
-                        button.SetEnabled(false);
+                        //button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
@@ -638,10 +637,10 @@ namespace UmbraMenu
                         Keybind keybind = Utility.FindKeybindByKeyCode(keyCode);
                         keybind.KeyCode = KeyCode.None;
 
-                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        keybindDict[keybindName].KeyCode = keyCode;
+                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        //keybindDict[keybindName].KeyCode = keyCode;
                         listenForKeybind = false;
-                        button.SetEnabled(false);
+                        //button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
@@ -651,19 +650,19 @@ namespace UmbraMenu
                     newKeybind = numKeys[newKeybind];
                     if (newKeybind != "Alpha0")
                     {
-                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        keybindDict[keybindName].KeyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
+                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        //keybindDict[keybindName].KeyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
                         listenForKeybind = false;
-                        button.SetEnabled(false);
+                        //button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
                     else
                     {
-                        string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
-                        keybindDict[keybindName].KeyCode = KeyCode.None;
+                        //string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
+                        //keybindDict[keybindName].KeyCode = KeyCode.None;
                         listenForKeybind = false;
-                        button.SetEnabled(false);
+                        // button.SetEnabled(false);
                         Utility.SaveSettings();
                         Utility.SoftResetMenu(true);
                     }
@@ -914,19 +913,19 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["AIMBOT"].KeyCode))
                 {
                     Menus.Player.AimBotToggle = !Menus.Player.AimBotToggle;
-                    Utility.FindButtonById(1, 8).SetEnabled(Menus.Player.AimBotToggle);
+                    //Utility.FindButtonById(1, 8).SetEnabled(Menus.Player.AimBotToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["GODMODE"].KeyCode))
                 {
                     Menus.Player.GodToggle = !Menus.Player.GodToggle;
-                    Utility.FindButtonById(1, 9).SetEnabled(Menus.Player.GodToggle);
+                    //Utility.FindButtonById(1, 9).SetEnabled(Menus.Player.GodToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["INFINITE SKILLS"].KeyCode))
                 {
                     Menus.Player.SkillToggle = !Menus.Player.SkillToggle;
-                    Utility.FindButtonById(1, 10).SetEnabled(Menus.Player.SkillToggle);
+                    //Utility.FindButtonById(1, 10).SetEnabled(Menus.Player.SkillToggle);
                 }
                 #endregion
 
@@ -943,19 +942,19 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["ALWAYS SPRINT"].KeyCode))
                 {
                     Menus.Movement.alwaysSprintToggle = !Menus.Movement.alwaysSprintToggle;
-                    Utility.FindButtonById(2, 1).SetEnabled(Menus.Movement.alwaysSprintToggle);
+                    //Utility.FindButtonById(2, 1).SetEnabled(Menus.Movement.alwaysSprintToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["FLIGHT"].KeyCode))
                 {
                     Menus.Movement.flightToggle = !Menus.Movement.flightToggle;
-                    Utility.FindButtonById(2, 2).SetEnabled(Menus.Movement.flightToggle);
+                    //Utility.FindButtonById(2, 2).SetEnabled(Menus.Movement.flightToggle);
                 }
 
                 if (Input.GetKeyDown(keybindDict["JUMP PACK"].KeyCode))
                 {
                     Menus.Movement.jumpPackToggle = !Menus.Movement.jumpPackToggle;
-                    Utility.FindButtonById(2, 3).SetEnabled(Menus.Movement.jumpPackToggle);
+                    //Utility.FindButtonById(2, 3).SetEnabled(Menus.Movement.jumpPackToggle);
                 }
                 #endregion
 
@@ -1000,19 +999,19 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["DROP ITEMS"].KeyCode))
                 {
                     Menus.Items.isDropItemForAll = !Menus.Items.isDropItemForAll;
-                    Utility.FindButtonById(3, 5).SetEnabled(Menus.Items.isDropItemForAll);
+                    //Utility.FindButtonById(3, 5).SetEnabled(Menus.Items.isDropItemForAll);
                 }
 
                 if (Input.GetKeyDown(keybindDict["DROP INVENTORY ITEMS"].KeyCode))
                 {
                     Menus.Items.isDropItemFromInventory = !Menus.Items.isDropItemFromInventory;
-                    Utility.FindButtonById(3, 6).SetEnabled(Menus.Items.isDropItemFromInventory);
+                    //Utility.FindButtonById(3, 6).SetEnabled(Menus.Items.isDropItemFromInventory);
                 }
 
                 if (Input.GetKeyDown(keybindDict["INFINITE EQUIPMENT"].KeyCode))
                 {
                     Menus.Items.noEquipmentCD = !Menus.Items.noEquipmentCD;
-                    Utility.FindButtonById(3, 7).SetEnabled(Menus.Items.noEquipmentCD);
+                    //Utility.FindButtonById(3, 7).SetEnabled(Menus.Items.noEquipmentCD);
                 }
 
                 if (Input.GetKeyDown(keybindDict["STACK INVENTORY"].KeyCode))
@@ -1124,19 +1123,19 @@ namespace UmbraMenu
                 if (Input.GetKeyDown(keybindDict["RENDER ACTIVE MODS"].KeyCode))
                 {
                     Menus.Render.renderMods = !Menus.Render.renderMods;
-                    Utility.FindButtonById(6, 1).SetEnabled(Menus.Render.renderMods);
+                    //Utility.FindButtonById(6, 1).SetEnabled(Menus.Render.renderMods);
                 }
 
                 if (Input.GetKeyDown(keybindDict["RENDER INTERACTABLES"].KeyCode))
                 {
                     Menus.Render.renderInteractables = !Menus.Render.renderInteractables;
-                    Utility.FindButtonById(6, 2).SetEnabled(Menus.Render.renderInteractables);
+                    //Utility.FindButtonById(6, 2).SetEnabled(Menus.Render.renderInteractables);
                 }
 
                 if (Input.GetKeyDown(keybindDict["RENDER MOB ESP"].KeyCode))
                 {
                     Menus.Render.renderMobs = !Menus.Render.renderMobs;
-                    Utility.FindButtonById(6, 3).SetEnabled(Menus.Render.renderMobs);
+                    //Utility.FindButtonById(6, 3).SetEnabled(Menus.Render.renderMobs);
                 }
                 #endregion
             }

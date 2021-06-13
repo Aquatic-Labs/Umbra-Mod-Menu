@@ -1,84 +1,46 @@
 ﻿using System;
+using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class Button
+    public abstract class Button
     {
-        private IButton _button;
+        protected Menu ParentMenu;
+        protected int Position;
+        protected string Text;
+        protected Action Action;
+        protected Rect rect; // Should be set in Draw method
+        protected GUIStyle style; // default Should be set in constructor
 
-        public Button(IButton button)
-        {
-            _button = button;
-        }
+        public abstract void Draw();
 
-        public void Draw()
+        public Button(Menu parentMenu, int position, string text, Action Action)
         {
-            _button.Draw();
-        }
-
-        public void SetText(string newText)
-        {
-            _button.Text = newText;
-        }
-
-        public void SetOnText(string newText)
-        {
-            _button.OnText = newText;
-        }
-
-        public void SetOffText(string newText)
-        {
-            _button.OffText = newText;
-        }
-
-        public string GetOnText()
-        {
-            return _button.OnText;
-        }
-
-        public string GetOffText()
-        {
-            return _button.OffText;
-        }
-
-        public bool IsEnabled()
-        {
-            return _button.Enabled;
-        }
-
-        public void SetEnabled(bool value)
-        {
-            _button.Enabled = value;
-        }
-
-        public void ToggleButton()
-        {
-            _button.Enabled = !_button.Enabled;
+            this.ParentMenu = parentMenu;
+            this.Position = position;
+            this.Text = text;
+            this.Action = Action;
+            this.style = Styles.BtnStyle;
         }
 
         public int GetId()
         {
-            return _button.Position;
+            return Position;
         }
 
         public Menu GetParentMenu()
         {
-            return _button.ParentMenu;
+            return ParentMenu;
         }
 
         public Action GetAction()
         {
-            return _button.Action;
+            return Action;
         }
 
-        public Action GetIncreaseAction()
+        public void SetText(string newText)
         {
-            return _button.IncreaseAction;
-        }
-
-        public Action GetDecreaseAction()
-        {
-            return _button.DecreaseAction;
+            Text = newText;
         }
     }
 }

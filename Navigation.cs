@@ -14,7 +14,7 @@ namespace UmbraMenu
 
             Button button = Utility.FindButtonById(menuId, btnId);
             button?.GetAction()?.Invoke();
-            button.ToggleButton();
+            //button.ToggleButton();
             if (menuIndex != 9)
             {
                 prevButtonIndex = buttonIndex;
@@ -27,19 +27,19 @@ namespace UmbraMenu
 
         public static void IncreaseValue(int menuId, int btnId)
         {
-            Utility.FindButtonById(menuId, btnId)?.GetIncreaseAction()?.Invoke();
+            //Utility.FindButtonById(menuId, btnId)?.GetIncreaseAction()?.Invoke();
         }
 
         public static void DecreaseValue(int menuId, int btnId)
         {
-            Utility.FindButtonById(menuId, btnId)?.GetDecreaseAction()?.Invoke();
+            //Utility.FindButtonById(menuId, btnId)?.GetDecreaseAction()?.Invoke();
         }
 
         public static void GoBackAMenu()
         {
             if (menuIndex == 0 && buttonIndex == 8)
             {
-                Utility.FindButtonById(0, 8).SetEnabled(false);
+                //Utility.FindButtonById(0, 8).SetEnabled(false);
                 return;
             }
             else if (menuIndex == 0)
@@ -51,7 +51,7 @@ namespace UmbraMenu
             }
             else if (menuIndex == 1 && buttonIndex == 11)
             {
-                Utility.FindButtonById(1, 11).SetEnabled(false);
+                //Utility.FindButtonById(1, 11).SetEnabled(false);
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace UmbraMenu
 
             if (!UmbraMenu.scrolled && listMenuHighlighted)
             {
-                menu.SetScrollPosition(new Vector2(0, 40 * (buttonIndex - 1)));
+                //menu.SetScrollPosition(new Vector2(0, 40 * (buttonIndex - 1)));
             }
 
             if (buttonIndex > menuLength)
@@ -112,7 +112,7 @@ namespace UmbraMenu
                 buttonIndex = 1;
                 if (!UmbraMenu.scrolled && listMenuHighlighted)
                 {
-                    menu.SetScrollPosition(Vector2.zero);
+                    //menu.SetScrollPosition(Vector2.zero);
                 }
 
             }
@@ -121,7 +121,7 @@ namespace UmbraMenu
                 buttonIndex = menuLength;
                 if (!UmbraMenu.scrolled && listMenuHighlighted)
                 {
-                    menu.SetScrollPosition(new Vector2(0, menu.GetNumberOfButtons() * 40));
+                    //menu.SetScrollPosition(new Vector2(0, menu.GetNumberOfButtons() * 40));
                 }
             }
         }

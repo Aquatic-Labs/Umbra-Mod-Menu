@@ -6,10 +6,8 @@ using System.Linq;
 
 namespace UmbraMenu.Menus
 {
-    public class Spawn : Menu
+    public class Spawn : NormalMenu
     {
-        private static readonly IMenu spawn = new NormalMenu(4, new Rect(738, 515, 20, 20), "SPAWN MENU");
-
         public static TeamIndex[] team = { TeamIndex.Monster, TeamIndex.Neutral, TeamIndex.Player, TeamIndex.None };
         public static int teamIndex = 0;
         public static float minDistance = 3f;
@@ -53,25 +51,25 @@ namespace UmbraMenu.Menus
 
         public static List<GameObject> spawnedObjects = new List<GameObject>();
 
-        public Button changeMinDistance;
-        public Button changeMaxDistance;
-        public Button changeTeamIndex;
-        public Button toggleSpawnListMenu;
-        public Button killAll;
-        public Button destroyInteractables;
+        public MulButton changeMinDistance;
+        public MulButton changeMaxDistance;
+        public MulButton changeTeamIndex;
+        public TogglableButton toggleSpawnListMenu;
+        public NormalButton killAll;
+        public NormalButton destroyInteractables;
 
-        public Spawn() : base(spawn)
+        public Spawn() : base(4, 0, new Rect(738, 515, 20, 20), "SPAWN MENU")
         {
             if (UmbraMenu.characterCollected)
             {
                 void DoNothing() => Utility.StubbedFunction();
 
-                 changeMinDistance = new Button(new MulButton(this, 1, $"MIN DISTANCE : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance));
-                 changeMaxDistance = new Button(new MulButton(this, 2, $"MAX DISTANCE : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance));
-                 changeTeamIndex = new Button(new MulButton(this, 3, $"TEAM : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex));
-                 toggleSpawnListMenu = new Button(new TogglableButton(this, 4, "SPAWN LIST : OFF", "SPAWN LIST : ON", ToggleSpawnListMenu, ToggleSpawnListMenu));
-                 killAll = new Button(new NormalButton(this, 5, "KILL ALL", KillAllMobs));
-                 destroyInteractables = new Button(new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables));
+                 changeMinDistance = new MulButton(this, 1, $"MIN DISTANCE : {MinDistance}", DoNothing, IncreaseMinDistance, DecreaseMinDistance);
+                 changeMaxDistance = new MulButton(this, 2, $"MAX DISTANCE : {MaxDistance}", DoNothing, IncreaseMaxDistance, DecreaseMaxDistance);
+                 changeTeamIndex = new MulButton(this, 3, $"TEAM : {team[TeamIndexInt]}", DoNothing, IncreaseTeamIndex, DecreaseTeamIndex);
+                 toggleSpawnListMenu = new TogglableButton(this, 4, "SPAWN LIST : OFF", "SPAWN LIST : ON", ToggleSpawnListMenu, ToggleSpawnListMenu);
+                 killAll = new NormalButton(this, 5, "KILL ALL", KillAllMobs);
+                 destroyInteractables = new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables);
 
                 AddButtons(new List<Button>()
                 {
@@ -82,8 +80,7 @@ namespace UmbraMenu.Menus
                     killAll,
                     destroyInteractables
                 });
-                SetActivatingButton(Utility.FindButtonById(0, 4));
-                SetPrevMenuId(0);
+                //SetActivatingButton(Utility.FindButtonById(0, 4));
             }
         }
 

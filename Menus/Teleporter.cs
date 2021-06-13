@@ -6,20 +6,19 @@ using System.Linq;
 
 namespace UmbraMenu.Menus
 {
-    public class Teleporter : Menu
+    public class Teleporter : NormalMenu
     {
-        private static readonly IMenu teleporter = new NormalMenu(5, new Rect(10, 425, 20, 20), "TELEPORTER MENU");
         private static int mountainStacks = 0;
 
-        public Button skipStage;
-        public Button instaTele;
-        public Button addMountain;
-        public Button spawnAll;
-        public Button spawnBlue;
-        public Button spawnCele;
-        public Button spawnGold;
+        public NormalButton skipStage;
+        public NormalButton instaTele;
+        public NormalButton addMountain;
+        public NormalButton spawnAll;
+        public NormalButton spawnBlue;
+        public NormalButton spawnCele;
+        public NormalButton spawnGold;
 
-        public Teleporter() : base(teleporter)
+        public Teleporter() : base(5, 0, new Rect(10, 425, 20, 20), "TELEPORTER MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -27,13 +26,13 @@ namespace UmbraMenu.Menus
                 void SpawnBluePortal() => SpawnPortals("blue");
                 void SpawnCelestalPortal() => SpawnPortals("cele");
                 void SpawnGoldPortal() => SpawnPortals("gold");
-                skipStage = new Button(new NormalButton(this, 1, "SKIP STAGE", SkipStage));
-                instaTele = new Button(new NormalButton(this, 2, "INSTA TELE/PURPLE CHARGE", InstaTeleporter));
-                addMountain = new Button(new NormalButton(this, 3, $"ADD MOUNTAIN-COUNT : {mountainStacks}", AddMountain));
-                spawnAll = new Button(new NormalButton(this, 4, "SPAWN ALL PORTALS", SpawnAllPortals));
-                spawnBlue = new Button(new NormalButton(this, 5, "SPAWN BLUE PORTAL", SpawnBluePortal));
-                spawnCele = new Button(new NormalButton(this, 6, "SPAWN CELESTAL PORTAL", SpawnCelestalPortal));
-                spawnGold = new Button(new NormalButton(this, 7, "SPAWN GOLD PORTAL", SpawnGoldPortal));
+                skipStage = new NormalButton(this, 1, "SKIP STAGE", SkipStage);
+                instaTele = new NormalButton(this, 2, "INSTA TELE/PURPLE CHARGE", InstaTeleporter);
+                addMountain = new NormalButton(this, 3, $"ADD MOUNTAIN-COUNT : {mountainStacks}", AddMountain);
+                spawnAll = new NormalButton(this, 4, "SPAWN ALL PORTALS", SpawnAllPortals);
+                spawnBlue = new NormalButton(this, 5, "SPAWN BLUE PORTAL", SpawnBluePortal);
+                spawnCele = new NormalButton(this, 6, "SPAWN CELESTAL PORTAL", SpawnCelestalPortal);
+                spawnGold = new NormalButton(this, 7, "SPAWN GOLD PORTAL", SpawnGoldPortal);
 
                 AddButtons(new List<Button>()
                 {
@@ -45,8 +44,7 @@ namespace UmbraMenu.Menus
                     spawnCele,
                     spawnGold
                 });
-                SetActivatingButton(Utility.FindButtonById(0, 5));
-                SetPrevMenuId(0);
+                //SetActivatingButton(Utility.FindButtonById(0, 5));
             }
         }
 

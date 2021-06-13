@@ -3,67 +3,21 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class ListMenu : IMenu
+    public class ListMenu : Menu
     {
-        public float delay = 0, heightMulY = 15;
-        public float WidthSize { get; set; }
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public bool enabled { get; set; }
-        public Rect Rect { get; set; }
-        public bool IfDragged { get; set; }
-        public int NumberOfButtons { get; set; }
-        public Button ActivatingButton { get; set; }
-        public int PrevMenuId { get; set; }
-        public List<Button> Buttons { get; set; }
-        public bool Enabled
+        public float heightMulY;
+        public Vector2 CurrentScrollPosition;
+
+        public ListMenu(int id, int prevMenuId, Rect rect, string title) : base(id, prevMenuId, rect, title)
         {
-            get
-            {
-                return enabled;
-            }
-            set
-            {
-                enabled = value;
-                UmbraMenu.previousMenuOpen = Id;
-                if (UmbraMenu.navigationToggle && value)
-                {
-                    Navigation.menuIndex = Id;
-                }
-
-                if (enabled)
-                {
-                    ActivatingButton?.SetEnabled(true);
-                }
-                else
-                {
-                    ActivatingButton?.SetEnabled(false);
-                }
-            }
-        }
-
-        public Vector2 CurrentScrollPosition { get; set; }
-
-        public ListMenu(int id, Rect rect, string title)
-        {
-            Id = id;
-            Rect = rect;
-            Title = title;
-            NumberOfButtons = 0;
-            WidthSize = UmbraMenu.Width;
-
+            heightMulY = 15;
             if (UmbraMenu.lowResolutionMonitor)
             {
                 heightMulY = 10;
             }
         }
 
-        public void SetWindow()
-        {
-            Rect = GUI.Window(Id, Rect, new GUI.WindowFunction(SetBackground), "", new GUIStyle());
-        }
-
-        public virtual void Draw()
+        public override void Draw()
         {
             if (Enabled)
             {
@@ -71,12 +25,6 @@ namespace UmbraMenu
                 GUI.Label(new Rect(Rect.x + 5f, Rect.y + 5f, WidthSize + 5, 85f), Title, Styles.TitleStyle);
                 DrawAllButtons();
             }
-        }
-
-        public virtual void Reset()
-        {
-            Enabled = false;
-            IfDragged = false;
         }
 
         private void DrawAllButtons()
@@ -88,29 +36,10 @@ namespace UmbraMenu
             }
             GUI.EndScrollView();
         }
-
-        private void SetBackground(int windowID)
+        public override void Reset()
         {
-            GUI.Box(new Rect(0f, 0f, WidthSize + 10, 50f + 45 * NumberOfButtons), "", Styles.CornerStyle);
-            if (Event.current.type == EventType.MouseDrag)
-            {
-                delay += Time.deltaTime;
-                if (delay > 0.3f)
-                {
-                    IfDragged = true;
-                }
-            }
-            else if (Event.current.type == EventType.MouseUp)
-            {
-                delay = 0;
-                if (!IfDragged)
-                {
-                    Enabled = !Enabled;
-                    UmbraMenu.GetCharacter();
-                }
-                IfDragged = false;
-            }
-            GUI.DragWindow();
+            Enabled = false;
+            IfDragged = false;
         }
     }
 }

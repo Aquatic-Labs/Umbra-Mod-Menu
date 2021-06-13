@@ -3,66 +3,31 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class TogglableButton : IButton
+    public class TogglableButton : Button
     {
-        public Menu ParentMenu { get; set; }
-        public int Position { get; set; }
-        public Rect rect;
-        public string Text { get; set; }
-        public GUIStyle style = Styles.OffStyle;
-        public Action Action { get; set; }
         public Action OnAction, OffAction;
-        public Action IncreaseAction { get; set; }
-        public Action DecreaseAction { get; set; }
-        private bool enabled = false;
-        public string OnText { get; set; }
-        public string OffText { get; set; }
+        public string OnText, OffText;
 
+        private bool Enabled;
 
-        public bool Enabled
+        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, bool defaultEnable = false) : base(parentMenu, position, offText, OffAction)
         {
-            get
-            {
-                return enabled;
-            }
-            set
-            {
-                enabled = value;
-                if (enabled)
-                {
-                    Text = OnText;
-                    Action = OnAction;
-                    style = Styles.OnStyle;
-                }
-                else
-                {
-                    Text = OffText;
-                    Action = OffAction;
-                    style = Styles.OffStyle;
-                }
-            }
-        }
-
-        public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, bool defaultEnable = false)
-        {
-            Enabled = defaultEnable;
-            this.ParentMenu = parentMenu;
-            this.Position = position;
-            Text = offText;
-            this.OffText = offText;
-            this.OnText = onText;
-            Action = OffAction;
-            this.OffAction = OffAction;
             this.OnAction = OnAction;
+            this.OffAction = OffAction;
+            this.OnText = onText;
+            this.OffText = offText;
+            style = Styles.OffStyle;
 
+            Enabled = defaultEnable;
             if (defaultEnable)
             {
                 Text = onText;
                 Action = OnAction;
+                style = Styles.OnStyle;
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             ParentMenu.SetNumberOfButtons(Position);
             int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();
@@ -74,6 +39,26 @@ namespace UmbraMenu
                 Action?.Invoke();
                 Draw();
             }
+        }
+
+        public bool IsEnabled()
+        {
+            return Enabled;
+        }
+
+        public string GetOffText()
+        {
+            return OffText;
+        }
+
+        public string GetOnText()
+        {
+            return OnText;
+        }
+
+        public void SetEnabled(bool value)
+        {
+            Enabled = value;
         }
     }
 }

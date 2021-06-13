@@ -3,29 +3,16 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class TextButton : IButton
+    public class TextButton : Button
     {
-        public Menu ParentMenu { get; set; }
-        public int Position { get; set; }
-        public Rect rect;
-        public string Text { get; set; }
-        public Action Action { get; set; }
-        public bool Enabled { get; set; }
-        public GUIStyle style = Styles.LabelStyle;
-
-        public string OnText { get; set; }
-        public string OffText { get; set; }
-        public Action IncreaseAction { get; set; }
-        public Action DecreaseAction { get; set; }
-
-        public TextButton(Menu parentMenu, int position, string text)
+        public TextButton(Menu parentMenu, int position, string text) : base(parentMenu, position, text, Utility.StubbedFunction)
         {
             this.ParentMenu = parentMenu;
             this.Position = position;
             this.Text = text;
         }
 
-        public void Draw()
+        public override void Draw()
         {
             ParentMenu.SetNumberOfButtons(Position);
             int btnY = 5 + 45 * ParentMenu.GetNumberOfButtons();

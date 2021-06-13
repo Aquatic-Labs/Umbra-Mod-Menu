@@ -6,10 +6,8 @@ using System.Linq;
 
 namespace UmbraMenu.Menus
 {
-    public class Render : Menu
+    public class Render : NormalMenu
     {
-        private static readonly IMenu render = new NormalMenu(6, new Rect(10, 795, 20, 20), "RENDER MENU");
-
         public static List<PurchaseInteraction> purchaseInteractions = new List<PurchaseInteraction>();
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
         public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
@@ -17,24 +15,24 @@ namespace UmbraMenu.Menus
         public static List<HurtBox> hurtBoxes;
         public static bool onRenderIntEnable = true, renderMobs, renderInteractables, renderMods = true;
 
-        public Button toggleActiveMods;
-        public Button toggleInteractESP;
-        public Button toggleMobESP;
+        public TogglableButton toggleActiveMods;
+        public TogglableButton toggleInteractESP;
+        public TogglableButton toggleMobESP;
 
-        public Render() : base(render)
+        public Render() : base(6, 0, new Rect(10, 795, 20, 20), "RENDER MENU")
         {
             if (UmbraMenu.characterCollected)
             {
                 if (UmbraMenu.lowResolutionMonitor)
                 {
-                    toggleActiveMods = new Button(new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods));
+                    toggleActiveMods = new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods);
                 }
                 else
                 {
-                    toggleActiveMods = new Button(new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods, true));
+                    toggleActiveMods = new TogglableButton(this, 1, "ACTIVE MODS : OFF", "ACTIVE MODS : ON", ToggleRenderMods, ToggleRenderMods, true);
                 }
-                toggleInteractESP = new Button(new TogglableButton(this, 2, "INTERACTABLES ESP : OFF", "INTERACTABLES ESP : ON", ToggleRenderInteractables, ToggleRenderInteractables));
-                toggleMobESP = new Button(new TogglableButton(this, 3, "MOB ESP : OFF", "MOB ESP : ON", ToggleRenderMobs, ToggleRenderMobs));
+                toggleInteractESP = new TogglableButton(this, 2, "INTERACTABLES ESP : OFF", "INTERACTABLES ESP : ON", ToggleRenderInteractables, ToggleRenderInteractables);
+                toggleMobESP = new TogglableButton(this, 3, "MOB ESP : OFF", "MOB ESP : ON", ToggleRenderMobs, ToggleRenderMobs);
 
                 AddButtons(new List<Button>()
                 {
@@ -42,8 +40,7 @@ namespace UmbraMenu.Menus
                     toggleInteractESP,
                     toggleMobESP
                 });
-                SetActivatingButton(Utility.FindButtonById(0, 6));
-                SetPrevMenuId(0);
+                //SetActivatingButton(Utility.FindButtonById(0, 6));
             }
         }
 

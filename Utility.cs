@@ -69,7 +69,7 @@ namespace UmbraMenu
                     {
                         Button currentButton = FindButtonById(menuId, buttonPos);
 
-                        if (currentButton.IsEnabled())
+                        if (false)//currentButton.IsEnabled())
                         {
                             menuButtonsEnabled = new Tuple<int, int, bool>(menuId, buttonPos, UmbraMenu.menus[menuId].IsEnabled());
                         }
@@ -100,7 +100,7 @@ namespace UmbraMenu
                 int buttonPos = currentTuple.Item2;
                 if (menuId != -1 && buttonPos != -1)
                 {
-                    FindButtonById(menuId, buttonPos).SetEnabled(true);
+                    //FindButtonById(menuId, buttonPos).SetEnabled(true);
                 }
             }
         }
@@ -398,7 +398,7 @@ namespace UmbraMenu
             for (int i = 0; i < keybindMenu.GetNumberOfButtons(); i++)
             {
                 Button button = keybindMenu.GetButtons()[i];
-                if (button.IsEnabled())
+                if (true)//button.IsEnabled())
                 {
                     return button;
                 }

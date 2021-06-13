@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class CharacterList : Menu
+    public class CharacterList : ListMenu
     {
-        private static readonly IMenu characterList = new ListMenu(10, new Rect(1503, 10, 20, 20), "CHARACTERS MENU");
-
-        public CharacterList() : base(characterList)
+        public CharacterList() : base(10, 1, new Rect(1503, 10, 20, 20), "CHARACTERS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -17,12 +15,11 @@ namespace UmbraMenu.Menus
                 {
                     int prefabIndex = i;
                     void ButtonAction() => ChangeCharacter(prefabIndex);
-                    Button button = new Button(new NormalButton(this, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction));
+                    Button button = new NormalButton(this, i + 1, UmbraMenu.bodyPrefabs[i].name.Replace("Body", ""), ButtonAction);
                     buttons.Add(button);
                 }
                 AddButtons(buttons);
-                SetActivatingButton(Utility.FindButtonById(1, 5));
-                SetPrevMenuId(1);
+                //SetActivatingButton(Utility.FindButtonById(1, 5));
             }
         }
 

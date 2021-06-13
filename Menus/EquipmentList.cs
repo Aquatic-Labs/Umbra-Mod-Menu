@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class EquipmentList : Menu
+    public class EquipmentList : ListMenu
     {
-        private static readonly IMenu equipmentList = new ListMenu(13, new Rect(1503, 10, 20, 20), "EQUIPMENT MENU");
-
-        public EquipmentList() : base(equipmentList)
+        public EquipmentList() : base(13, 3, new Rect(1503, 10, 20, 20), "EQUIPMENT MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -22,7 +20,7 @@ namespace UmbraMenu.Menus
                         void ButtonAction() => GiveEquipment(equipmentIndex);
                         Color32 equipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
                         string equipmentName = Util.GenerateColoredString(Language.GetString(EquipmentCatalog.GetEquipmentDef(equipmentIndex).nameToken), ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex));
-                        Button button = new Button(new NormalButton(this, buttonPlacement, equipmentName, ButtonAction));
+                        Button button = new NormalButton(this, buttonPlacement, equipmentName, ButtonAction);
                         buttons.Add(button);
                         buttonPlacement++;
                     }
@@ -30,14 +28,13 @@ namespace UmbraMenu.Menus
                     {
                         void ButtonAction() => GiveEquipment(equipmentIndex);
                         string equipmentName = Util.GenerateColoredString(equipmentIndex.ToString(), ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment));
-                        Button button = new Button(new NormalButton(this, buttonPlacement, equipmentName, ButtonAction));
+                        Button button = new NormalButton(this, buttonPlacement, equipmentName, ButtonAction);
                         buttons.Add(button);
                         buttonPlacement++;
                     }
                 }
                 AddButtons(buttons);
-                SetActivatingButton(Utility.FindButtonById(3, 4));
-                SetPrevMenuId(3);
+                //SetActivatingButton(Utility.FindButtonById(3, 4));
             }
         }
 

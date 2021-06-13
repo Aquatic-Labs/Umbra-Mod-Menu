@@ -3,11 +3,9 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public sealed class Main : Menu
+    public sealed class Main : NormalMenu
     {
-        private static readonly IMenu main = new NormalMenu(0, new Rect(10, 10, 20, 20), "UMBRA MENU");
-
-        public Main() : base(main)
+        public Main() : base(0, 0, new Rect(10, 10, 20, 20), "UMBRA MENU")
         {
             if (Loader.updateAvailable)
             {
@@ -24,14 +22,14 @@ namespace UmbraMenu.Menus
 
             if (UmbraMenu.characterCollected || UmbraMenu.forceFullModMenu)
             {
-                Button togglePlayer = new Button(new TogglableButton(this, 1, "PLAYER : OFF", "PLAYER : ON", PlayerButtonAction, PlayerButtonAction));
-                Button toggleMovement = new Button(new TogglableButton(this, 2, "MOVEMENT : OFF", "MOVEMENT : ON", MovementButtonAction, MovementButtonAction));
-                Button toggleItems = new Button(new TogglableButton(this, 3, "ITEMS : OFF", "ITEMS : ON", ItemsButtonAction, ItemsButtonAction));
-                Button toggleSpawn = new Button(new TogglableButton(this, 4, "SPAWN : OFF", "SPAWN : ON", SpawnButtonAction, SpawnButtonAction));
-                Button toggleTeleporter = new Button(new TogglableButton(this, 5, "TELEPORTER : OFF", "TELEPORTER : ON", TeleporterButtonAction, TeleporterButtonAction));
-                Button toggleRender = new Button(new TogglableButton(this, 6, "RENDER : OFF", "RENDER: ON", RenderButtonAction, RenderButtonAction));
-                Button toggleSettings = new Button(new TogglableButton(this, 7, "SETTINGS : OFF", "SETTINGS : ON", SettingsButtonAction, SettingsButtonAction));
-                Button unloadMenu = new Button(new TogglableButton(this, 8, "UNLOAD MENU", "CONFIRM?", DoNothing, UnloadMenu));
+                TogglableButton togglePlayer = new TogglableButton(this, 1, "PLAYER : OFF", "PLAYER : ON", PlayerButtonAction, PlayerButtonAction);
+                TogglableButton toggleMovement = new TogglableButton(this, 2, "MOVEMENT : OFF", "MOVEMENT : ON", MovementButtonAction, MovementButtonAction);
+                TogglableButton toggleItems = new TogglableButton(this, 3, "ITEMS : OFF", "ITEMS : ON", ItemsButtonAction, ItemsButtonAction);
+                TogglableButton toggleSpawn = new TogglableButton(this, 4, "SPAWN : OFF", "SPAWN : ON", SpawnButtonAction, SpawnButtonAction);
+                TogglableButton toggleTeleporter = new TogglableButton(this, 5, "TELEPORTER : OFF", "TELEPORTER : ON", TeleporterButtonAction, TeleporterButtonAction);
+                TogglableButton toggleRender = new TogglableButton(this, 6, "RENDER : OFF", "RENDER: ON", RenderButtonAction, RenderButtonAction);
+                TogglableButton toggleSettings = new TogglableButton(this, 7, "SETTINGS : OFF", "SETTINGS : ON", SettingsButtonAction, SettingsButtonAction);
+                TogglableButton unloadMenu = new TogglableButton(this, 8, "UNLOAD MENU", "CONFIRM?", DoNothing, UnloadMenu);
 
                 AddButtons(new List<Button>
                 {
@@ -49,9 +47,9 @@ namespace UmbraMenu.Menus
             {
                 if (Loader.updateAvailable)
                 {
-                    Button text1 = new Button(new TextButton(this, 2, "<color=yellow>Buttons will be availble in game.</color>"));
-                    Button text2 = new Button(new TextButton(this, 3, "<color=#11ccee>Created By Neonix#1337 and Snow#8008.\n Feel Free to Message me on discord.</color>"));
-                    Button text3 = new Button(new TextButton(this, 4, "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>"));
+                    TextButton text1 = new TextButton(this, 2, "<color=yellow>Buttons will be availble in game.</color>");
+                    TextButton text2 = new TextButton(this, 3, "<color=#11ccee>Created By Neonix#1337 and Snow#8008.\n Feel Free to Message me on discord.</color>");
+                    TextButton text3 = new TextButton(this, 4, "<color=#11ccee>Download the latest version on my github.\nAcher0ns/Umbra-Mod-Menu</color>");
                     AddButtons(new List<Button>
                     {
                         text1,
@@ -62,9 +60,9 @@ namespace UmbraMenu.Menus
 
                 if (Loader.upToDate || Loader.devBuild)
                 {
-                    Button text1 = new Button(new TextButton(this, 2, "<color=yellow>Buttons will be availble in game.</color>"));
-                    Button text2 = new Button(new TextButton(this, 3, "<color=#11ccee>Created By Neonix#1337 and Snow#8008.\n Feel Free to Message me on discord.</color>"));
-                    Button text3 = new Button(new TextButton(this, 4, "<color=#11ccee>with bug Reports or suggestions.</color>"));
+                    TextButton text1 = new TextButton(this, 2, "<color=yellow>Buttons will be availble in game.</color>");
+                    TextButton text2 = new TextButton(this, 3, "<color=#11ccee>Created By Neonix#1337 and Snow#8008.\n Feel Free to Message me on discord.</color>");
+                    TextButton text3 = new TextButton(this, 4, "<color=#11ccee>with bug Reports or suggestions.</color>");
                     AddButtons(new List<Button>
                     {
                         text1,

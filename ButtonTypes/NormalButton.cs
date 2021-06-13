@@ -3,30 +3,11 @@ using UnityEngine;
 
 namespace UmbraMenu
 {
-    public class NormalButton : IButton
+    public class NormalButton : Button
     {
-        public Menu ParentMenu { get; set; }
-        public int Position { get; set; }
-        public Rect rect;
-        public string Text { get; set; }
-        public bool Enabled { get; set; }
-        public GUIStyle style = Styles.BtnStyle;
-        public Action Action { get; set; }
+        public NormalButton(Menu parentMenu, int position, string text, Action Action) : base(parentMenu, position, text, Action) {}
 
-        public string OnText { get; set; }
-        public string OffText { get; set; }
-        public Action IncreaseAction { get; set; }
-        public Action DecreaseAction { get; set; }
-
-        public NormalButton(Menu parentMenu, int position, string text, Action Action) 
-        {
-            this.ParentMenu = parentMenu;
-            this.Position = position;
-            this.Text = text;
-            this.Action = Action;
-        }
-
-        public void Draw()
+        public override void Draw()
         {
             if (ParentMenu != null)
             {

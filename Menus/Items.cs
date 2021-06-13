@@ -8,9 +8,8 @@ using UnityEngine.Networking;
 
 namespace UmbraMenu.Menus
 {
-    public class Items : Menu
+    public class Items : NormalMenu
     {
-        private static readonly IMenu items = new NormalMenu(3, new Rect(738, 10, 20, 20), "ITEMS MENU");
         public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD, chestItemList;
         public bool IsDropItemForAll
         {
@@ -24,7 +23,7 @@ namespace UmbraMenu.Menus
                 if (isDropItemFromInventory && isDropItemForAll)
                 {
                     isDropItemFromInventory = false;
-                    toggleDropInvItems.SetEnabled(false);
+                    //toggleDropInvItems.SetEnabled(false);
                 }
             }
         }
@@ -40,7 +39,7 @@ namespace UmbraMenu.Menus
                 if (isDropItemFromInventory && isDropItemForAll)
                 {
                     isDropItemForAll = false;
-                    toggleDropItems.SetEnabled(false);
+                    //toggleDropItems.SetEnabled(false);
                 }
             }
         }
@@ -73,34 +72,34 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public Button giveAllItems;
-        public Button rollItems;
-        public Button toggleItemListMenu;
-        public Button toggleEquipmentListMenu;
-        public Button toggleDropItems;
-        public Button toggleDropInvItems;
-        public Button toggleEquipmentCD;
-        public Button stackInventory;
-        public Button clearInventory;
-        public Button toggleChestItemMenu;
+        public MulButton giveAllItems;
+        public MulButton rollItems;
+        public TogglableButton toggleItemListMenu;
+        public TogglableButton toggleEquipmentListMenu;
+        public TogglableButton toggleDropItems;
+        public TogglableButton toggleDropInvItems;
+        public TogglableButton toggleEquipmentCD;
+        public NormalButton stackInventory;
+        public NormalButton clearInventory;
+        public TogglableButton toggleChestItemMenu;
 
-        public Items() : base(items)
+        public Items() : base(3, 0, new Rect(738, 10, 20, 20), "ITEMS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
                 void ToggleItemsListMenu() => UmbraMenu.menus[12].ToggleMenu();
                 void ToggleEquipmentListMenu() => UmbraMenu.menus[13].ToggleMenu();
 
-                giveAllItems = new Button(new MulButton(this, 1, $"GIVE ALL ITEMS : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity));
-                rollItems = new Button(new MulButton(this, 2, $"ROLL ITEMS : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll));
-                toggleItemListMenu = new Button(new TogglableButton(this, 3, "ITEM SPAWN MENU : OFF", "ITEM SPAWN MENU : ON", ToggleItemsListMenu, ToggleItemsListMenu));
-                toggleEquipmentListMenu = new Button(new TogglableButton(this, 4, "EQUIPMENT SPAWN MENU : OFF", "EQUIPMENT SPAWN MENU : ON", ToggleEquipmentListMenu, ToggleEquipmentListMenu));
-                toggleDropItems = new Button(new TogglableButton(this, 5, "DROP ITEMS : OFF", "DROP ITEMS : ON", ToggleDrop, ToggleDrop));
-                toggleDropInvItems = new Button(new TogglableButton(this, 6, "DROP FROM INVENTORY : OFF", "DROP FROM INVENTORY : ON", ToggleDropFromInventory, ToggleDropFromInventory));
-                toggleEquipmentCD = new Button(new TogglableButton(this, 7, "INFINITE EQUIPMENT : OFF", "INFINITE EQUIPMENT : ON", ToggleEquipmentCD, ToggleEquipmentCD));
-                stackInventory = new Button(new NormalButton(this, 8, "STACK INVENTORY", StackInventory));
-                clearInventory = new Button(new NormalButton(this, 9, "CLEAR INVENTORY", ClearInventory));
-                toggleChestItemMenu = new Button(new TogglableButton(this, 10, "CHANGE CHEST ITEM : OFF", "CHANGE CHEST ITEM : ON", ToggleChestItemListMenu, ToggleChestItemListMenu));
+                giveAllItems = new MulButton(this, 1, $"GIVE ALL ITEMS : {AllItemsQuantity}", GiveAllItems, IncreaseGiveAllQuantity, DecreaseGiveAllQuantity);
+                rollItems = new MulButton(this, 2, $"ROLL ITEMS : {ItemsToRoll}", RollItems, IncreaseItemsToRoll, DecreaseItemsToRoll);
+                toggleItemListMenu = new TogglableButton(this, 3, "ITEM SPAWN MENU : OFF", "ITEM SPAWN MENU : ON", ToggleItemsListMenu, ToggleItemsListMenu);
+                toggleEquipmentListMenu = new TogglableButton(this, 4, "EQUIPMENT SPAWN MENU : OFF", "EQUIPMENT SPAWN MENU : ON", ToggleEquipmentListMenu, ToggleEquipmentListMenu);
+                toggleDropItems = new TogglableButton(this, 5, "DROP ITEMS : OFF", "DROP ITEMS : ON", ToggleDrop, ToggleDrop);
+                toggleDropInvItems = new TogglableButton(this, 6, "DROP FROM INVENTORY : OFF", "DROP FROM INVENTORY : ON", ToggleDropFromInventory, ToggleDropFromInventory);
+                toggleEquipmentCD = new TogglableButton(this, 7, "INFINITE EQUIPMENT : OFF", "INFINITE EQUIPMENT : ON", ToggleEquipmentCD, ToggleEquipmentCD);
+                stackInventory = new NormalButton(this, 8, "STACK INVENTORY", StackInventory);
+                clearInventory = new NormalButton(this, 9, "CLEAR INVENTORY", ClearInventory);
+                toggleChestItemMenu = new TogglableButton(this, 10, "CHANGE CHEST ITEM : OFF", "CHANGE CHEST ITEM : ON", ToggleChestItemListMenu, ToggleChestItemListMenu);
 
                 AddButtons(new List<Button>()
                 {
@@ -115,8 +114,7 @@ namespace UmbraMenu.Menus
                     clearInventory,
                     toggleChestItemMenu
                 });
-                SetActivatingButton(Utility.FindButtonById(0, 3));
-                SetPrevMenuId(0);
+                //SetActivatingButton(Utility.FindButtonById(0, 3));
             }
         }
 

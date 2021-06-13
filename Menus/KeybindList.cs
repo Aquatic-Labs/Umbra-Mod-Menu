@@ -3,11 +3,9 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    class KeybindList : Menu
+    class KeybindList : ListMenu
     {
-        private static readonly IMenu keybindList = new ListMenu(16, new Rect(1503, 10, 20, 20), "KEYBINDS MENU");
-
-        public KeybindList() : base(keybindList)
+        public KeybindList() : base(16, 7, new Rect(1503, 10, 20, 20), "KEYBINDS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -15,12 +13,11 @@ namespace UmbraMenu.Menus
                 for (int i = 1; i < UmbraMenu.keybindDict.Count; i++)
                 {
                     Keybind keyBind = UmbraMenu.keybindDict[UmbraMenu.keyBindNames[i]];
-                    Button setKeybind = new Button(new TogglableButton(this, i, $"{keyBind.Name} : {keyBind.KeyCode}" , $"{keyBind.Name} : {keyBind.KeyCode}", ChangeKeybind, ChangeKeybind));
+                    Button setKeybind = new TogglableButton(this, i, $"{keyBind.Name} : {keyBind.KeyCode}" , $"{keyBind.Name} : {keyBind.KeyCode}", ChangeKeybind, ChangeKeybind);
                     buttons.Add(setKeybind);
                 }
                 AddButtons(buttons);
-                SetActivatingButton(Utility.FindButtonById(7, 4));
-                SetPrevMenuId(7);
+                //SetActivatingButton(Utility.FindButtonById(7, 4));
             }
         }
 

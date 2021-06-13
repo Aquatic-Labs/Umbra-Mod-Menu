@@ -6,11 +6,9 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    public class BuffList : Menu
+    public class BuffList : ListMenu
     {
-        private static readonly IMenu buffList = new ListMenu(11, new Rect(1503, 10, 20, 20), "BUFFS MENU");
-
-        public BuffList() : base(buffList)
+        public BuffList() : base(11, 1, new Rect(1503, 10, 20, 20), "BUFFS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -20,13 +18,12 @@ namespace UmbraMenu.Menus
                 {  
                     BuffDef def = BuffCatalog.GetBuffDef(buffIndex);
                     void ButtonAction() => ApplyBuff(buffIndex);
-                    Button button = new Button(new NormalButton(this, i + 1, def.name, ButtonAction));
+                    Button button = new NormalButton(this, i + 1, def.name, ButtonAction);
                     buttons.Add(button);
                     i++;
                 }
                 AddButtons(buttons);
-                SetActivatingButton(Utility.FindButtonById(1, 6));
-                SetPrevMenuId(1);
+                //SetActivatingButton(Utility.FindButtonById(1, 6));
             }
         }
 

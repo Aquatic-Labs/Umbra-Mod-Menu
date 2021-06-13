@@ -4,11 +4,9 @@ using RoR2;
 
 namespace UmbraMenu.Menus
 {
-    public class SpawnList : Menu
+    public class SpawnList : ListMenu
     {
-        private static readonly IMenu spawnList = new ListMenu(15, new Rect(1503, 10, 20, 20), "SPAWN CARDS MENU");
-
-        public SpawnList() : base(spawnList)
+        public SpawnList() : base(15, 4, new Rect(1503, 10, 20, 20), "SPAWN CARDS MENU")
         {
             if (UmbraMenu.characterCollected)
             {
@@ -48,12 +46,11 @@ namespace UmbraMenu.Menus
                     string path = $"SpawnCards/{category}/{cardName}";
 
                     void ButtonAction() => SpawnSpawnCard(spawnCard);
-                    Button button = new Button(new NormalButton(this, i + 1, buttonText, ButtonAction));
+                    NormalButton button = new NormalButton(this, i + 1, buttonText, ButtonAction);
                     buttons.Add(button);
                 }
                 AddButtons(buttons);
-                SetActivatingButton(Utility.FindButtonById(4, 4));
-                SetPrevMenuId(4);
+                //SetActivatingButton(Utility.FindButtonById(4, 4));
             }
         }
 
