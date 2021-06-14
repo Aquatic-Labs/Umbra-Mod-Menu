@@ -38,7 +38,7 @@ namespace UmbraMenu.Menus
                 toggleInteractESP,
                 toggleMobESP
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 6));
+            ActivatingButton = UmbraMenu.mainMenu.toggleRender;
         }
 
         public override void Draw()
@@ -264,12 +264,6 @@ namespace UmbraMenu.Menus
                 { "God-Mode", Menus.Player.GodToggle },
                 { "Jump-Pack", Menus.Movement.jumpPackToggle },
                 { "Keyboard-Navigation", UmbraMenu.navigationToggle },
-                { "Modified-Armor", StatsMod.armorToggle },
-                { "Modified-Attack Speed", StatsMod.attackSpeedToggle },
-                { "Modified-Crit", StatsMod.critToggle },
-                { "Modified-Damage", StatsMod.damageToggle },
-                { "Modified-Move-Speed", StatsMod.moveSpeedToggle },
-                { "Modified-Regen", StatsMod.regenToggle },
                 { "No-Equipment-Cooldown", Items.noEquipmentCD },
                 { "No-Skill-Cooldowns", Menus.Player.SkillToggle },
                 { "Render-Interactables", renderInteractables },

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UmbraMenu.Menus
 {
-    class KeybindList : ListMenu
+    public sealed class KeybindList : ListMenu
     {
         public KeybindList() : base(16, 7, new Rect(1503, 10, 20, 20), "KEYBINDS MENU")
         {
@@ -15,7 +15,7 @@ namespace UmbraMenu.Menus
                 buttons.Add(setKeybind);
             }
             AddButtons(buttons);
-            //SetActivatingButton(Utility.FindButtonById(7, 4));
+            ActivatingButton = UmbraMenu.settingsMenu.toggleKeybindMenu;
         }
 
         public override void Draw()

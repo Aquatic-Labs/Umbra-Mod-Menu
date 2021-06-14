@@ -27,7 +27,7 @@ namespace UmbraMenu.Menus
                 toggleFlight,
                 toggleJumpPack
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 2));
+            ActivatingButton = UmbraMenu.mainMenu.toggleMovement;
         }
 
         public override void Draw()

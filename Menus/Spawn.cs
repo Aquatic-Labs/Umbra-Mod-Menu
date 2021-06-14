@@ -9,45 +9,9 @@ namespace UmbraMenu.Menus
     public class Spawn : NormalMenu
     {
         public static TeamIndex[] team = { TeamIndex.Monster, TeamIndex.Neutral, TeamIndex.Player, TeamIndex.None };
-        public static int teamIndex = 0;
-        public static float minDistance = 3f;
-        public static float maxDistance = 40f;
-        public int TeamIndexInt
-        {
-            get
-            {
-                return teamIndex;
-            }
-            set
-            {
-                teamIndex = value;
-                changeTeamIndex.SetText($"TEAM : {team[teamIndex]}");
-            }
-        }
-        public float MinDistance
-        {
-            get
-            {
-                return minDistance;
-            }
-            set 
-            {
-                minDistance = value;
-                changeMinDistance.SetText($"MIN DISTANCE : {minDistance}");
-            } 
-        }
-        public float MaxDistance
-        {
-            get
-            {
-                return maxDistance;
-            }
-            set 
-            {
-                maxDistance = value;
-                changeMaxDistance.SetText($"MAX DISTANCE : {maxDistance}");
-            }
-        }
+        public static int TeamIndexInt = 0;
+        public static float MinDistance = 3f;
+        public static float MaxDistance = 40f;
 
         public static List<GameObject> spawnedObjects = new List<GameObject>();
 
@@ -70,6 +34,10 @@ namespace UmbraMenu.Menus
             killAll = new NormalButton(this, 5, "KILL ALL", KillAllMobs);
             destroyInteractables = new NormalButton(this, 6, "DESTROY INTERACTABLES", DestroySpawnedInteractables);
 
+            changeMinDistance.MulChange += UpdateMinDist;
+            changeMaxDistance.MulChange += UpdateMaxDist;
+            changeTeamIndex.MulChange += UpdateTeamIndex;
+
             AddButtons(new List<Button>()
             {
                 changeMinDistance,
@@ -79,7 +47,7 @@ namespace UmbraMenu.Menus
                 killAll,
                 destroyInteractables
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 4));
+            ActivatingButton = UmbraMenu.mainMenu.toggleSpawn;
         }
 
         public override void Draw()
@@ -93,22 +61,29 @@ namespace UmbraMenu.Menus
 
         public override void Reset()
         {
-            teamIndex = 0;
-            minDistance = 3f;
-            maxDistance = 40f;
+            TeamIndexInt = 0;
+            MinDistance = 3f;
+            MaxDistance = 40f;
             base.Reset();
+        }
+
+        public void UpdateMinDist(object sender, EventArgs e)
+        {
+            changeMinDistance.SetText($"MIN DISTANCE : {MinDistance}");
+        }
+
+        public void UpdateMaxDist(object sender, EventArgs e)
+        {
+            changeMaxDistance.SetText($"MAX DISTANCE : {MaxDistance}");
+        }
+
+        public void UpdateTeamIndex(object sender, EventArgs e)
+        {
+            changeTeamIndex.SetText($"TEAM : {team[TeamIndexInt]}");
         }
 
         private void ToggleSpawnListMenu()
         {
-            if (toggleSpawnListMenu.IsEnabled())
-            {
-                SpawnList.DisableSpawnList();
-            }
-            else
-            {
-                SpawnList.EnableSpawnList();
-            }
             UmbraMenu.menus[15].ToggleMenu();
         }
 

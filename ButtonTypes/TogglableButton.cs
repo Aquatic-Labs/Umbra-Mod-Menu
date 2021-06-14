@@ -8,7 +8,21 @@ namespace UmbraMenu
         public Action OnAction, OffAction;
         public string OnText, OffText;
 
-        private bool Enabled;
+        private bool enabled;
+        private bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+                Text = IsEnabled() ? OnText : OffText;
+                style = IsEnabled() ? Styles.OnStyle : Styles.OffStyle;
+                Action = IsEnabled() ? OnAction : OffAction;
+            }
+        }
 
         public TogglableButton(Menu parentMenu, int position, string offText, string onText, Action OffAction, Action OnAction, bool defaultEnable = false) : base(parentMenu, position, offText, OffAction, Styles.OffStyle)
         {
@@ -34,10 +48,26 @@ namespace UmbraMenu
 
             if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))
             {
-                Enabled = !Enabled;
+                enabled = !enabled; // if toggle button opens a menu, needs to change enable state before opening the menu
                 Action?.Invoke();
-                Draw();
+                OnClick();
             }
+        }
+
+        protected override void OnClick()
+        {
+            base.OnClick();
+            Text = IsEnabled() ? OnText : OffText;
+            style = IsEnabled() ? Styles.OnStyle : Styles.OffStyle;
+            Action = IsEnabled() ? OnAction : OffAction;
+            Draw();
+        }
+
+        public override void NavUpdate()
+        {
+            enabled = !enabled;
+            Action?.Invoke();
+            OnClick();
         }
 
         public bool IsEnabled()

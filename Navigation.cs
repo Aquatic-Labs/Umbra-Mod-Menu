@@ -11,35 +11,43 @@ namespace UmbraMenu
 
         public static void PressBtn(int menuId, int btnId)
         {
-
-            Button button = Utility.FindButtonById<Button>(menuId, btnId);
-            button?.GetAction()?.Invoke();
-            //button.ToggleButton();
-            if (menuIndex != 9)
+            if (UmbraMenu.menus[menuId].GetButtons()[btnId - 1] is TogglableButton button)
             {
-                prevButtonIndex = buttonIndex;
-            }
-            if (menuIndex == 9)
+                button.NavUpdate();
+            } 
+            else
             {
-                menuIndex = 8;
+                UmbraMenu.menus[menuId].GetButtons()[btnId - 1]?.GetAction()?.Invoke();
+                UmbraMenu.menus[menuId].GetButtons()[btnId - 1]?.NavUpdate();
             }
         }
 
         public static void IncreaseValue(int menuId, int btnId)
         {
-            //Utility.FindButtonById(menuId, btnId)?.GetIncreaseAction()?.Invoke();
+            if (UmbraMenu.menus[menuId].GetButtons()[btnId - 1] is MulButton button)
+            {
+                button.GetIncreaseAction().Invoke();
+                button.NavMulUpdate();
+            }
         }
 
         public static void DecreaseValue(int menuId, int btnId)
         {
-            //Utility.FindButtonById(menuId, btnId)?.GetDecreaseAction()?.Invoke();
+            if (UmbraMenu.menus[menuId].GetButtons()[btnId - 1] is MulButton button)
+            {
+                button.GetDecreaseAction().Invoke();
+                button.NavMulUpdate();
+            }
         }
 
         public static void GoBackAMenu()
         {
             if (menuIndex == 0 && buttonIndex == 8)
             {
-                //Utility.FindButtonById(0, 8).SetEnabled(false);
+                if (UmbraMenu.menus[menuIndex].GetButtons()[buttonIndex] is TogglableButton button)
+                {
+                    button.SetEnabled(false);
+                }
                 return;
             }
             else if (menuIndex == 0)
@@ -51,17 +59,18 @@ namespace UmbraMenu
             }
             else if (menuIndex == 1 && buttonIndex == 11)
             {
-                //Utility.FindButtonById(1, 11).SetEnabled(false);
+                if (UmbraMenu.menus[menuIndex].GetButtons()[buttonIndex] is TogglableButton button)
+                {
+                    button.SetEnabled(false);
+                }
                 return;
             }
-
 
             if (!UmbraMenu.lowResolutionMonitor)
             {
                 Menu menu = UmbraMenu.menus[menuIndex];
                 menu.SetEnabled(false);
                 menuIndex = menu.GetPrevMenuId();
-                buttonIndex = prevButtonIndex;
             }
             else
             {
@@ -76,7 +85,6 @@ namespace UmbraMenu
                 {
                     UmbraMenu.menus[menu.GetPrevMenuId()].SetEnabled(true);
                 }
-                buttonIndex = prevButtonIndex;
             }
         }
 
@@ -98,31 +106,46 @@ namespace UmbraMenu
 
         public static void UpdateIndexValues()
         {
-            Menu menu = UmbraMenu.menus[menuIndex];
-            int menuLength = menu.GetNumberOfButtons();
-            bool listMenuHighlighted = Enumerable.Range(10, 17).Contains(menuIndex);
-
-            if (!UmbraMenu.scrolled && listMenuHighlighted)
+            Debug.Log($"MenuIndex: {menuIndex} \n ButtonIndex: {buttonIndex} \n PrevButtonIndex: {prevButtonIndex} \n");
+            int menuLength = UmbraMenu.menus[menuIndex].GetButtons().Count;
+            if (UmbraMenu.menus[menuIndex] is ListMenu listMenu)
             {
-                //menu.SetScrollPosition(new Vector2(0, 40 * (buttonIndex - 1)));
+                if (!UmbraMenu.scrolled)
+                {
+                    listMenu.SetScrollPosition(new Vector2(0, 40 * (buttonIndex - 1)));
+                }
+
+                if (buttonIndex > menuLength)
+                {
+                    if (!UmbraMenu.scrolled)
+                    {
+                        listMenu.SetScrollPosition(Vector2.zero);
+                    }
+                }
+
+                if (buttonIndex < 1)
+                {
+                    if (!UmbraMenu.scrolled)
+                    {
+                        listMenu.SetScrollPosition(new Vector2(0, listMenu.GetNumberOfButtons() * 40));
+                    }
+                }
             }
 
             if (buttonIndex > menuLength)
             {
                 buttonIndex = 1;
-                if (!UmbraMenu.scrolled && listMenuHighlighted)
-                {
-                    //menu.SetScrollPosition(Vector2.zero);
-                }
-
             }
+
             if (buttonIndex < 1)
             {
                 buttonIndex = menuLength;
-                if (!UmbraMenu.scrolled && listMenuHighlighted)
-                {
-                    //menu.SetScrollPosition(new Vector2(0, menu.GetNumberOfButtons() * 40));
-                }
+            }
+
+            if (menuIndex == 9)
+            {
+                menuIndex = 8;
+                buttonIndex = 7;
             }
         }
     }

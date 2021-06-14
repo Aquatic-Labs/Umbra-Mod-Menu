@@ -42,7 +42,7 @@ namespace UmbraMenu.Menus
                 experienceStat,
                 killsStat
             });
-            //SetActivatingButton(Utility.FindButtonById(8, 7));
+            ActivatingButton = UmbraMenu.statsModMenu.toggleViewStatsMenu;
         }
 
         public override void Draw()
@@ -56,9 +56,9 @@ namespace UmbraMenu.Menus
 
         public static void UpdateViewStats()
         {
-            if (false)//UmbraMenu.viewStatsMenu.IsEnabled())
+            if (UmbraMenu.characterCollected)
             {
-                if (UmbraMenu.characterCollected)
+                if (UmbraMenu.viewStatsMenu.IsEnabled())
                 {
                     playerDamage = UmbraMenu.LocalPlayerBody.damage;
                     playerCrit = UmbraMenu.LocalPlayerBody.crit;

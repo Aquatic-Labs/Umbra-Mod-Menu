@@ -31,6 +31,7 @@ namespace UmbraMenu.Menus
                 }
             }
             AddButtons(buttons);
+            ActivatingButton = UmbraMenu.itemsMenu.toggleItemListMenu;
             //SetActivatingButton(Utility.FindButtonById(3, 3));
         }
 

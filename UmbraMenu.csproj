@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="ButtonTypes\Button.cs" />
     <Compile Include="ButtonTypes\NormalButton.cs" />
-    <Compile Include="Interfaces\IButtonObserver.cs" />
     <Compile Include="Keybinds.cs" />
     <Compile Include="ESPHelper.cs" />
     <Compile Include="Menus\BuffList.cs" />

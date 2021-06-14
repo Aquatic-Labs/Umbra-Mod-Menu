@@ -2,6 +2,7 @@
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 
 namespace UmbraMenu.Menus
@@ -32,6 +33,8 @@ namespace UmbraMenu.Menus
             spawnCele = new NormalButton(this, 6, "SPAWN CELESTAL PORTAL", SpawnCelestalPortal);
             spawnGold = new NormalButton(this, 7, "SPAWN GOLD PORTAL", SpawnGoldPortal);
 
+            addMountain.Click += UpdateMountainStackButton;
+
             AddButtons(new List<Button>()
             {
                 skipStage,
@@ -42,7 +45,7 @@ namespace UmbraMenu.Menus
                 spawnCele,
                 spawnGold
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 5));
+            ActivatingButton = UmbraMenu.mainMenu.toggleTeleporter;
         }
 
         public override void Draw()
@@ -82,11 +85,15 @@ namespace UmbraMenu.Menus
             Run.instance.AdvanceStage(Run.instance.nextStageScene);
         }
 
+        private void UpdateMountainStackButton(object sender, EventArgs e)
+        {
+            addMountain.SetText($"ADD MOUNTAIN-COUNT : {mountainStacks}");
+        }
+
         public void AddMountain()
         {
             TeleporterInteraction.instance.AddShrineStack();
             mountainStacks = TeleporterInteraction.instance.shrineBonusStacks;
-            addMountain.SetText($"ADD MOUNTAIN-COUNT : {mountainStacks}");
         }
 
         public void SpawnPortals(string portal)

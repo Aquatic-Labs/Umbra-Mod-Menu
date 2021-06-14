@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace UmbraMenu.Menus
 {
@@ -33,6 +34,10 @@ namespace UmbraMenu.Menus
             reloadMenu = new NormalButton(this, 5, $"RELOAD MENU", ReloadMenus);
             resetSettings = new NormalButton(this, 6, $"RESET SETTINGS", SetSettingsToDefaults);
 
+            changeWidth.MulChange += UpdateWidthButton;
+            allowNavigation.Click += UpdateNavButton;
+            changeGodModeVersion.Click += UpdateGodButton;
+
             AddButtons(new List<Button>()
             {
                 changeWidth,
@@ -42,7 +47,7 @@ namespace UmbraMenu.Menus
                 reloadMenu,
                 resetSettings
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 7));
+            ActivatingButton = UmbraMenu.mainMenu.toggleSettings;
         }
 
         public override void Draw()
@@ -59,12 +64,26 @@ namespace UmbraMenu.Menus
             base.Reset();
         }
 
+        private void UpdateWidthButton(object sender, EventArgs e)
+        {
+            changeWidth.SetText($"WIDTH : {UmbraMenu.Width}");
+        }
+
+        private void UpdateNavButton(object sender, EventArgs e)
+        {
+            allowNavigation.SetText($"ENABLE NAVIGATION : {EnableNavigationBtnText}");
+        }
+
+        private void UpdateGodButton(object sender, EventArgs e)
+        {
+            changeGodModeVersion.SetText($"GOD TYPE : {GodVerion[UmbraMenu.GodVersion]}");
+        }
+
         public void IncreaseWidth()
         {
             UmbraMenu.Width++;
             UpdateMenuWidths();
             Utility.SaveSettings();
-            Utility.SoftResetMenu(true);
         }
 
         public void DecreaseWidth()
@@ -72,7 +91,6 @@ namespace UmbraMenu.Menus
             UmbraMenu.Width--;
             UpdateMenuWidths();
             Utility.SaveSettings();
-            Utility.SoftResetMenu(true);
         }
 
         public void ToggleAllowNavigation()
@@ -87,7 +105,6 @@ namespace UmbraMenu.Menus
 
             Utility.SaveSettings();
             allowNavigation.SetText($"ENABLE NAVIGATION : {EnableNavigationBtnText}");
-            Utility.SoftResetMenu(true);
         }
 
         public void ChangeGodVersion()
@@ -95,11 +112,9 @@ namespace UmbraMenu.Menus
             if (Player.GodToggle)
             {
                 Player.GodToggle = false;
-                //Utility.FindButtonById(1, 9).SetEnabled(false);
                 Player.DisabledGodMode();
                 UmbraMenu.GodVersion++;
                 Player.GodToggle = true;
-                //Utility.FindButtonById(1, 9).SetEnabled(true);
             }
             else
             {
@@ -112,7 +127,6 @@ namespace UmbraMenu.Menus
             }
 
             Utility.SaveSettings();
-            Utility.SoftResetMenu(true);
         }
 
         public void UpdateMenuWidths()
@@ -137,7 +151,6 @@ namespace UmbraMenu.Menus
             UmbraMenu.GodVersion = int.Parse(UmbraMenu.Settings[2]);
             UmbraMenu.keybindDict = UmbraMenu.BuildKeybinds();
             UpdateMenuWidths();
-            Utility.SoftResetMenu(true);
         }
     }
 }

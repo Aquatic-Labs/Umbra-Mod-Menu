@@ -32,7 +32,7 @@ namespace UmbraMenu.Menus
                 }
             }
             AddButtons(buttons);
-            //SetActivatingButton(Utility.FindButtonById(3, 4));
+            ActivatingButton = UmbraMenu.itemsMenu.toggleEquipmentListMenu;
         }
 
         public override void Draw()

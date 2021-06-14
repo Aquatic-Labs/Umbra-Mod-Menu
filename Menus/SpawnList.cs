@@ -8,8 +8,27 @@ namespace UmbraMenu.Menus
     {
         public SpawnList() : base(15, 4, new Rect(1503, 10, 20, 20), "SPAWN CARDS MENU")
         {
-            EnableSpawnList();
+            ActivatingButton = UmbraMenu.spawnMenu.toggleSpawnListMenu;
+        }
 
+        public override void Draw()
+        {
+            if (IsEnabled())
+            {
+                SetWindow();
+                base.Draw();
+            }
+        }
+
+        public override void Reset()
+        {
+            DisableSpawnList();
+            base.Reset();
+        }
+
+        protected override void OnEnable()
+        {
+            EnableSpawnList();
             List<Button> buttons = new List<Button>();
             for (int i = 0; i < UmbraMenu.spawnCards.Count; i++)
             {
@@ -48,23 +67,15 @@ namespace UmbraMenu.Menus
                 buttons.Add(button);
             }
             AddButtons(buttons);
-            //SetActivatingButton(Utility.FindButtonById(4, 4));
+            base.OnEnable();
         }
 
-        public override void Draw()
-        {
-            if (IsEnabled())
-            {
-                SetWindow();
-                base.Draw();
-            }
-        }
-
-        public override void Reset()
+        protected override void OnDisable()
         {
             DisableSpawnList();
-            base.Reset();
+            base.OnDisable();
         }
+
         private static void SpawnSpawnCard(SpawnCard spawnCard)
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
@@ -74,13 +85,13 @@ namespace UmbraMenu.Menus
                 var directorSpawnRequest = new DirectorSpawnRequest(spawnCard, new DirectorPlacementRule
                 {
                     placementMode = DirectorPlacementRule.PlacementMode.Approximate,
-                    minDistance = Spawn.minDistance,
-                    maxDistance = Spawn.maxDistance,
+                    minDistance = Spawn.MinDistance,
+                    maxDistance = Spawn.MaxDistance,
                     position = UmbraMenu.LocalPlayerBody.footPosition
                 }, RoR2Application.rng)
                 {
                     ignoreTeamMemberLimit = true,
-                    teamIndexOverride = Spawn.team[Spawn.teamIndex]
+                    teamIndexOverride = Spawn.team[Spawn.TeamIndexInt]
                 };
 
                 directorSpawnRequest.spawnCard.sendOverNetwork = true;
@@ -116,20 +127,20 @@ namespace UmbraMenu.Menus
 
                 if (cardName.Contains("isc"))
                 {
-                    var interactable = Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.minDistance), body.rotation, directorSpawnRequest).spawnedInstance.gameObject;
+                    var interactable = Resources.Load<SpawnCard>(path).DoSpawn(body.position + (Vector3.forward * Spawn.MinDistance), body.rotation, directorSpawnRequest).spawnedInstance.gameObject;
                     Spawn.spawnedObjects.Add(interactable);
                     Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\"</color>");
                 }
                 else
                 {
                     DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-                    Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.teamIndex]}\" </color>");
+                    Chat.AddMessage($"<color=yellow>Spawned \"{buttonText}\" on team \"{Spawn.team[Spawn.TeamIndexInt]}\" </color>");
                 }
             }
         }
 
-        public static bool onSpawnListEnable = true;
-        public static void EnableSpawnList()
+        public bool onSpawnListEnable = true;
+        public void EnableSpawnList()
         {
             if (onSpawnListEnable)
             {
@@ -143,7 +154,7 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void DisableSpawnList()
+        public void DisableSpawnList()
         {
             if (!onSpawnListEnable)
             {

@@ -7,10 +7,16 @@ namespace UmbraMenu
     {
         private readonly Action IncreaseAction, DecreaseAction;
 
+        public delegate void MulChangeEventHandler(object sender, EventArgs e);
+        public event MulChangeEventHandler MulChange;
+
         public MulButton(Menu parentMenu, int position, string text, Action Action, Action IncreaseAction, Action DecreaseAction) : base(parentMenu, position, text, Action, Styles.BtnStyle)
         {
             this.IncreaseAction = IncreaseAction;
             this.DecreaseAction = DecreaseAction;
+
+            void clickEvent(object sender, EventArgs e) => Action?.Invoke();
+            Click += clickEvent;
         }
 
         public override void Draw()
@@ -20,8 +26,7 @@ namespace UmbraMenu
 
             if (GUI.Button(rect, Text, Navigation.HighlighedCheck(style, ParentMenu.GetId(), Position)))
             {
-                Action?.Invoke();
-                Draw();
+                OnClick();
             }
             DrawMulButtons();
         }
@@ -33,13 +38,30 @@ namespace UmbraMenu
             if (GUI.Button(new Rect(menuBg.x + ParentMenu.GetWidthSize() - 80, menuBg.y + btnY, 40, 40), "-", Styles.OffStyle))
             {
                 DecreaseAction?.Invoke();
-                Draw();
+                OnMulChange();
             }
             if (GUI.Button(new Rect(menuBg.x + ParentMenu.GetWidthSize() - 35, menuBg.y + btnY, 40, 40), "+", Styles.OffStyle))
             {
                 IncreaseAction?.Invoke();
-                Draw();
+                OnMulChange();
             }
+        }
+
+        protected override void OnClick()
+        {
+            base.OnClick();
+            Draw();
+        }
+
+        protected virtual void OnMulChange()
+        {
+            MulChange?.Invoke(this, EventArgs.Empty);
+            Draw();
+        }
+
+        public void NavMulUpdate()
+        {
+            MulChange?.Invoke(this, EventArgs.Empty);
         }
 
         public Action GetIncreaseAction()

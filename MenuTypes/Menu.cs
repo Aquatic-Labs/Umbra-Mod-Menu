@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UmbraMenu
@@ -7,10 +8,31 @@ namespace UmbraMenu
     {
         protected float WidthSize, Delay = 0;
         protected int Id, PrevMenuId, NumberOfButtons;
-        protected bool Enabled, IfDragged;
+
+        private bool enabled;
+        protected bool Enabled 
+        {
+            get { return enabled; }
+            set 
+            {
+                enabled = value;
+                if (enabled) OnEnable(); else OnDisable();
+            }
+
+        }
+
+        protected bool IfDragged;
         protected string Title;
         protected Rect Rect;
         protected List<Button> Buttons;
+
+        protected TogglableButton ActivatingButton;
+
+        public delegate void EnableEventHandler(object sender, EventArgs e);
+        public event EnableEventHandler Opened;
+
+        public delegate void DisabledEventHandler(object sender, EventArgs e);
+        public event DisabledEventHandler Closed;
 
         public abstract void Draw();
         public abstract void Reset();
@@ -24,6 +46,30 @@ namespace UmbraMenu
             NumberOfButtons = 0;
             WidthSize = UmbraMenu.Width;
             Buttons = new List<Button>();
+        }
+
+        protected virtual void OnEnable()
+        {
+            UmbraMenu.previousMenuOpen = Id;
+            if (UmbraMenu.navigationToggle)
+            {
+                Navigation.menuIndex = Id;
+                Navigation.prevButtonIndex = Navigation.buttonIndex;
+                Navigation.buttonIndex = 1;
+            }
+
+            if (ActivatingButton != null && ActivatingButton.IsEnabled() != Enabled) ActivatingButton.SetEnabled(true);
+            Opened?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnDisable()
+        {
+            int temp = Navigation.buttonIndex;
+            Navigation.buttonIndex = Navigation.prevButtonIndex;
+            Navigation.prevButtonIndex = temp;
+
+            if (ActivatingButton != null && ActivatingButton.IsEnabled() != Enabled) ActivatingButton.SetEnabled(false);
+            Closed?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetWindow()

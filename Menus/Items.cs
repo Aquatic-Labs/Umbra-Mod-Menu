@@ -10,7 +10,7 @@ namespace UmbraMenu.Menus
 {
     public class Items : NormalMenu
     {
-        public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD, chestItemList;
+        public static bool isDropItemForAll, isDropItemFromInventory, noEquipmentCD;
         public bool IsDropItemForAll
         {
             get
@@ -23,7 +23,7 @@ namespace UmbraMenu.Menus
                 if (isDropItemFromInventory && isDropItemForAll)
                 {
                     isDropItemFromInventory = false;
-                    //toggleDropInvItems.SetEnabled(false);
+                    toggleDropInvItems.SetEnabled(false);
                 }
             }
         }
@@ -39,38 +39,14 @@ namespace UmbraMenu.Menus
                 if (isDropItemFromInventory && isDropItemForAll)
                 {
                     isDropItemForAll = false;
-                    //toggleDropItems.SetEnabled(false);
+                    toggleDropItems.SetEnabled(false);
                 }
             }
         }
 
         private readonly WeightedSelection<List<ItemIndex>> weightedSelection = BuildRollItemsDropTable();
-        public static int itemsToRoll = 5;
-        public int ItemsToRoll
-        {
-            get
-            {
-                return itemsToRoll;
-            }
-            set
-            {
-                itemsToRoll = value;
-                rollItems.SetText($"ROLL ITEMS : {itemsToRoll}");
-            }
-        }
-        public static int allItemsQuantity = 1;
-        public int AllItemsQuantity
-        {
-            get
-            {
-                return allItemsQuantity;
-            }
-            set
-            {
-                allItemsQuantity = value;
-                giveAllItems.SetText($"GIVE ALL ITEMS : {allItemsQuantity}");
-            }
-        }
+        public static int ItemsToRoll = 5;
+        public static int AllItemsQuantity = 1;
 
         public MulButton giveAllItems;
         public MulButton rollItems;
@@ -99,6 +75,9 @@ namespace UmbraMenu.Menus
             clearInventory = new NormalButton(this, 9, "CLEAR INVENTORY", ClearInventory);
             toggleChestItemMenu = new TogglableButton(this, 10, "CHANGE CHEST ITEM : OFF", "CHANGE CHEST ITEM : ON", ToggleChestItemListMenu, ToggleChestItemListMenu);
 
+            giveAllItems.Click += UpdateGiveAll;
+            rollItems.Click += UpdateRollItems;
+
             AddButtons(new List<Button>()
             {
                 giveAllItems,
@@ -112,7 +91,7 @@ namespace UmbraMenu.Menus
                 clearInventory,
                 toggleChestItemMenu
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 3));
+            ActivatingButton = UmbraMenu.mainMenu.toggleItems;
         }
 
         public override void Draw()
@@ -129,10 +108,19 @@ namespace UmbraMenu.Menus
             isDropItemForAll = false;
             isDropItemFromInventory = false;
             noEquipmentCD = false;
-            chestItemList = false;
-            itemsToRoll = 5;
-            allItemsQuantity = 1;
+            ItemsToRoll = 5;
+            AllItemsQuantity = 1;
             base.Reset();
+        }
+
+        public void UpdateGiveAll(object sender, EventArgs e)
+        {
+            giveAllItems.SetText($"GIVE ALL ITEMS : {AllItemsQuantity}");
+        }
+
+        public void UpdateRollItems(object sender, EventArgs e)
+        {
+            rollItems.SetText($"ROLL ITEMS : {ItemsToRoll}");
         }
 
         #region Toggle cheat functions
@@ -153,7 +141,7 @@ namespace UmbraMenu.Menus
 
         private void ToggleChestItemListMenu()
         {
-            if (toggleChestItemMenu.IsEnabled())
+            /*if (toggleChestItemMenu.IsEnabled())
             {
                 ChestItemList.DisableChests();
                 chestItemList = false;
@@ -162,7 +150,7 @@ namespace UmbraMenu.Menus
             {
                 ChestItemList.EnableChests();
                 chestItemList = true;
-            }
+            }*/
             UmbraMenu.menus[14].ToggleMenu();
         }
         #endregion
@@ -322,7 +310,7 @@ namespace UmbraMenu.Menus
         {
             try
             {
-                int num = itemsToRoll;
+                int num = ItemsToRoll;
                 if (num > 0)
                 {
                     for (int i = 0; i < num; i++)
@@ -389,7 +377,7 @@ namespace UmbraMenu.Menus
                     //plantonhit kills you when you pick it up
                     if (itemName == "PlantOnHit" || itemName == "HealthDecay" || itemName == "TonicAffliction" || itemName == "BurnNearby" || itemName == "CrippleWardOnLevel" || itemName == "Ghost" || itemName == "ExtraLifeConsumed")
                         continue;
-                    UmbraMenu.LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
+                    UmbraMenu.LocalPlayerInv.GiveItem(itemIndex, AllItemsQuantity);
                 }
             }
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using RoR2;
 using System.Text;
+using System.Threading;
 
 
 namespace UmbraMenu.Menus
@@ -11,48 +12,10 @@ namespace UmbraMenu.Menus
     public sealed class Player : NormalMenu
     {
         public static bool SkillToggle, AimBotToggle, GodToggle;
-        public static ulong xpToGive = 50;
-        public static uint moneyToGive = 50, coinsToGive = 50;
+        public static ulong XPToGive = 50;
+        public static uint MoneyToGive = 50, CoinsToGive = 50;
 
-        public ulong XPToGive
-        {
-            get
-            {
-                return xpToGive;
-            }
-
-            set
-            {
-                xpToGive = value;
-                giveExperience.SetText($"GIVE EXPERIENCE : {xpToGive}");
-            }
-        }
-        public uint MoneyToGive
-        {
-            get
-            {
-                return moneyToGive;
-            }
-
-            set
-            {
-                moneyToGive = value;
-                giveMoney.SetText($"GIVE MONEY : {moneyToGive}");
-            }
-        }
-        public uint CoinsToGive
-        {
-            get
-            {
-                return coinsToGive;
-            }
-
-            set
-            {
-                coinsToGive = value;
-                giveCoins.SetText($"GIVE LUNAR COINS : {coinsToGive}");
-            }
-        }
+        private static bool reviveDoOnce = true;
 
         public MulButton giveMoney;
         public MulButton giveCoins;
@@ -73,9 +36,9 @@ namespace UmbraMenu.Menus
             void ToggleBuffListMenu() => UmbraMenu.menus[11].ToggleMenu();
             void DoNothing() => Utility.StubbedFunction();
 
-            giveMoney = new MulButton(this, 1, $"GIVE MONEY : {moneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
-            giveCoins = new MulButton(this, 2, $"GIVE LUNAR COINS : {coinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
-            giveExperience = new MulButton(this, 3, $"GIVE EXPERIENCE : {xpToGive}", GiveXP, IncreaseXP, DecreaseXP);
+            giveMoney = new MulButton(this, 1, $"GIVE MONEY : {MoneyToGive}", GiveMoney, IncreaseMoney, DecreaseMoney);
+            giveCoins = new MulButton(this, 2, $"GIVE LUNAR COINS : {CoinsToGive}", GiveLunarCoins, IncreaseCoins, DecreaseCoins);
+            giveExperience = new MulButton(this, 3, $"GIVE EXPERIENCE : {XPToGive}", GiveXP, IncreaseXP, DecreaseXP);
             toggleStatsMod = new TogglableButton(this, 4, "STATS MENU : OFF", "STATS MENU : ON", ToggleStatsMenu, ToggleStatsMenu);
             toggleChangeCharacter = new TogglableButton(this, 5, "CHANGE CHARACTER : OFF", "CHANGE CHARACTER : ON", ToggleCharacterListMenu, ToggleCharacterListMenu);
             toggleBuff = new TogglableButton(this, 6, "GIVE BUFF MENU : OFF", "GIVE BUFF MENU : ON", ToggleBuffListMenu, ToggleBuffListMenu);
@@ -84,6 +47,10 @@ namespace UmbraMenu.Menus
             toggleGod = new TogglableButton(this, 9, "GOD MODE : OFF", "GOD MODE : ON", ToggleGodMode, ToggleGodMode);
             toggleSkillCD = new TogglableButton(this, 10, "INFINITE SKILLS : OFF", "INFINITE SKILLS : ON", ToggleSkillCD, ToggleSkillCD);
             unlockAll = new TogglableButton(this, 11, "UNLOCK ALL", "CONFIRM?", DoNothing, UnlockAll);
+
+            giveMoney.MulChange += UpdateGiveMoney;
+            giveCoins.MulChange += UpdateGiveCoins;
+            giveExperience.MulChange += UpdateGiveXP;
 
             AddButtons(new List<Button>()
             {
@@ -99,7 +66,7 @@ namespace UmbraMenu.Menus
                 toggleSkillCD,
                 unlockAll
             });
-            //SetActivatingButton(Utility.FindButtonById(0, 1));
+            ActivatingButton = UmbraMenu.mainMenu.togglePlayer;
         }
 
         public override void Draw()
@@ -116,15 +83,10 @@ namespace UmbraMenu.Menus
             SkillToggle = false;
             AimBotToggle = false;
             GodToggle = false;
-            xpToGive = 50;
-            moneyToGive = 50;
-            coinsToGive = 50;
+            XPToGive = 50;
+            MoneyToGive = 50;
+            CoinsToGive = 50;
             base.Reset();
-        }
-
-        public void ToggleMenu(Menu menu)
-        {
-            menu.ToggleMenu();
         }
 
         public void ToggleAimbot()
@@ -146,40 +108,38 @@ namespace UmbraMenu.Menus
             SkillToggle = !SkillToggle;
         }
 
+        #region Player Hack Functions
         public static void RemoveAllBuffs()
         {
-            foreach (BuffIndex buffIndex in UmbraMenu.buffs)
+            foreach (BuffDef buffDef in UmbraMenu.buffs)
             {
                 try
                 {
-                    while (UmbraMenu.LocalPlayerBody.HasBuff(buffIndex))
+                    while (UmbraMenu.LocalPlayerBody.HasBuff(buffDef))
                     {
-                        UmbraMenu.LocalPlayerBody.RemoveBuff(buffIndex);
+                        UmbraMenu.LocalPlayerBody.RemoveBuff(buffDef);
                     }
                 }
-                catch (Exception e)
+                catch
                 {
-                    Debug.Log(e);
                     continue;
                 }
             }
         }
 
-        // self explanatory
         public static void GiveXP()
         {
-            UmbraMenu.LocalPlayer.GiveExperience(xpToGive);
+            UmbraMenu.LocalPlayer.GiveExperience(XPToGive);
         }
 
         public static void GiveMoney()
         {
-            UmbraMenu.LocalPlayer.GiveMoney(moneyToGive);
+            UmbraMenu.LocalPlayer.GiveMoney(MoneyToGive);
         }
 
-        //uh, duh.
         public static void GiveLunarCoins()
         {
-            UmbraMenu.LocalNetworkUser.AwardLunarCoins(coinsToGive);
+            UmbraMenu.LocalNetworkUser.AwardLunarCoins(CoinsToGive);
         }
 
         public static void AimBot()
@@ -263,24 +223,37 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Revive
-                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
-                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
                         int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
-                        if (UmbraMenu.LocalHealth.health < 1)
+                        int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
+
+                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
+                        if (UmbraMenu.LocalHealth.health < 1 && reviveDoOnce)
                         {
+                            reviveDoOnce = false;
                             if (itemELCount == 0)
                             {
                                 ItemList.GiveItem(ItemCatalog.FindItemIndex("ExtraLife"));
-                                UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
                             }
+                            UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+
+                        } 
+                        else if (UmbraMenu.LocalHealth.health > 0)
+                        {
+                            reviveDoOnce = true;
                         }
+
+                        if (itemELCount > 0 && UmbraMenu.LocalHealth.health < 1)
+                        {
+                            UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                        }
+                        else if (itemELCount > 0)
+                        {
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLife"), itemELCCount);
+                        }
+
                         if (itemELCCount > 0)
                         {
                             UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
-                        }
-                        if (itemELCount > 0)
-                        {
-                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCount);
                         }
                         break;
                     }
@@ -303,6 +276,7 @@ namespace UmbraMenu.Menus
 
                 case 1:
                     {
+
                         RemoveAllBuffs();
                         break;
                     }
@@ -324,16 +298,18 @@ namespace UmbraMenu.Menus
                             UmbraMenu.LocalHealth.health = 1;
                         }
                         UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+
                         int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
                         int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
+                        if (itemELCount > 0)
+                        {
+                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLife"), itemELCount);
+                        }
                         if (itemELCCount > 0)
                         {
                             UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
                         }
-                        if (itemELCount > 0)
-                        {
-                            UmbraMenu.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCount);
-                        }
+                        reviveDoOnce = true;
                         break;
                     }
 
@@ -401,6 +377,7 @@ namespace UmbraMenu.Menus
                 }
             }
         }
+        #endregion
 
         #region Increase/Decrease Value Actions
         public void IncreaseMoney()
@@ -437,6 +414,23 @@ namespace UmbraMenu.Menus
         {
             if (XPToGive > 50)
                 XPToGive -= 50;
+        }
+        #endregion
+
+        #region Mul Button Event Update Methods
+        public void UpdateGiveMoney(object sender, EventArgs e)
+        {
+            giveMoney.SetText($"GIVE MONEY : {MoneyToGive}");
+        }
+
+        public void UpdateGiveCoins(object sender, EventArgs e)
+        {
+            giveCoins.SetText($"GIVE LUNAR COINS : {CoinsToGive}");
+        }
+
+        public void UpdateGiveXP(object sender, EventArgs e)
+        {
+            giveExperience.SetText($"GIVE EXPERIENCE : {XPToGive}");
         }
         #endregion
     }

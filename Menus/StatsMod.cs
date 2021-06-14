@@ -6,82 +6,9 @@ namespace UmbraMenu.Menus
 {
     public class StatsMod : NormalMenu
     {
-        public static int damagePerLvl = 10, critPerLvl = 1, multiplier = 10;
-        public int DamagePerLevel
-        {
-            get
-            {
-                return damagePerLvl;
-            }
-            set
-            {
-                damagePerLvl = value;
-                changeDmgPerLevel.SetText($"DAMAGE/LVL : {damagePerLvl}");
-            }
-        }
-        public int CritPerLevel
-        {
-            get
-            {
-                return critPerLvl;
-            }
-            set
-            {
-                critPerLvl = value;
-                changeCritPerLevel.SetText($"CRIT/LVL : {critPerLvl}");
-            }
-        }
-        public int Multiplier
-        {
-            get
-            {
-                return multiplier;
-            }
-            set
-            {
-                multiplier = value;
-                changeMultiplier.SetText($"MULTIPLIER : {multiplier}");
-            }
-        }
+        public int DamagePerLevel = 10, CritPerLevel = 1, AttackSpeed = 1, Armor = 0, MoveSpeed = 7, Multiplier = 10;
+        public bool changedFromDefault;
 
-        public static float attackSpeed = 1, armor = 0, moveSpeed = 7;
-        public float AttackSpeed
-        {
-            get
-            {
-                return attackSpeed;
-            }
-            set
-            {
-                attackSpeed = value;
-                changeAttackSpeed.SetText($"ATTACK SPEED : {attackSpeed}");
-            }
-        }
-        public float Armor
-        {
-            get
-            {
-                return armor;
-            }
-            set
-            {
-                armor = value;
-                changeArmor.SetText($"ARMOR : {armor}");
-            }
-        }
-        public float MoveSpeed
-        {
-            get
-            {
-                return moveSpeed;
-            }
-            set
-            {
-                moveSpeed = value;
-                changeMoveSpeed.SetText($"MOVE SPEED : {moveSpeed}");
-            }
-        }
-        public static bool armorToggle, attackSpeedToggle, critToggle, damageToggle, moveSpeedToggle, regenToggle;
 
         private static void ToggleViewStatsMenu() => UmbraMenu.menus[9].ToggleMenu();
         private static void DoNothing() => Utility.StubbedFunction();
@@ -96,13 +23,20 @@ namespace UmbraMenu.Menus
 
         public StatsMod() : base(8, 1, new Rect(1503, 10, 20, 20), "STATS MOD MENU")
         {
-            changeDmgPerLevel = new MulButton(this, 1, $"DAMAGE/LVL : {DamagePerLevel}", ToggleDmgPerLevel, IncreaseDmgPerLevel, DecreaseDmgPerLevel);
-            changeCritPerLevel = new MulButton(this, 2, $"CRIT/LVL : {CritPerLevel}", ToggleCritPerLevel, IncreaseCritPerLevel, DecreaseCritPerLevel);
-            changeAttackSpeed = new MulButton(this, 3, $"ATTACK SPEED : {AttackSpeed}", ToggleAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed);
-            changeArmor = new MulButton(this, 4, $"ARMOR : {Armor}", ToggleArmor, IncreaseArmor, DecreaseArmor);
-            changeMoveSpeed = new MulButton(this, 5, $"MOVE SPEED : {MoveSpeed}", ToggleMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed);
+            changeDmgPerLevel = new MulButton(this, 1, $"DAMAGE/LVL : {DamagePerLevel}", LevelPlayersDamage, IncreaseDmgPerLevel, DecreaseDmgPerLevel);
+            changeCritPerLevel = new MulButton(this, 2, $"CRIT/LVL : {CritPerLevel}", LevelPlayersCrit, IncreaseCritPerLevel, DecreaseCritPerLevel);
+            changeAttackSpeed = new MulButton(this, 3, $"ATTACK SPEED : {AttackSpeed}", SetPlayersAttackSpeed, IncreaseAttackSpeed, DecreaseAttackSpeed);
+            changeArmor = new MulButton(this, 4, $"ARMOR : {Armor}", SetPlayersArmor, IncreaseArmor, DecreaseArmor);
+            changeMoveSpeed = new MulButton(this, 5, $"MOVE SPEED : {MoveSpeed}", SetPlayersMoveSpeed, IncreaseMoveSpeed, DecreaseMoveSpeed);
             changeMultiplier = new MulButton(this, 6, $"MULTIPLIER : {Multiplier}", DoNothing, IncreaseMultiplier, DecreaseMultiplier);
             toggleViewStatsMenu = new TogglableButton(this, 7, "SHOW STATS : OFF", "SHOW STATS : ON", ToggleViewStatsMenu, ToggleViewStatsMenu);
+
+            changeDmgPerLevel.MulChange += UpdateDamageButton;
+            changeCritPerLevel.MulChange += UpdateCritButton;
+            changeAttackSpeed.MulChange += UpdateAtkSpeedButton;
+            changeArmor.MulChange += UpdateArmorButton;
+            changeMoveSpeed.MulChange += UpdateMoveSpeedButton;
+            changeMultiplier.MulChange += UpdateMultiplierButton;
 
             AddButtons(new List<Button>()
             {
@@ -114,7 +48,7 @@ namespace UmbraMenu.Menus
                 changeMultiplier,
                 toggleViewStatsMenu
             });
-            //SetActivatingButton(Utility.FindButtonById(1, 4));
+            ActivatingButton = UmbraMenu.playerMenu.toggleStatsMod;
         }
 
         public override void Draw()
@@ -134,32 +68,51 @@ namespace UmbraMenu.Menus
             Armor = 0;
             MoveSpeed = 7;
             Multiplier = 10;
-            armorToggle = false;
-            attackSpeedToggle = false;
-            critToggle = false;
-            damageToggle = false;
-            moveSpeedToggle = false;
-            regenToggle = false;
             base.Reset();
         }
 
-        public static void LevelPlayersCrit()
+        private void UpdateDamageButton(object Sender, EventArgs e)
         {
-            try
-            {
-                UmbraMenu.LocalPlayerBody.levelCrit = (float)critPerLvl;
-            }
-            catch (NullReferenceException)
-            {
-                Debug.Log("Stats1");
-            }
+            LevelPlayersDamage();
+            changeDmgPerLevel.SetText($"DAMAGE/LVL : {DamagePerLevel}");
         }
 
-        public static void LevelPlayersDamage()
+        private void UpdateCritButton(object Sender, EventArgs e)
+        {
+            LevelPlayersCrit();
+            changeCritPerLevel.SetText($"CRIT/LVL : {CritPerLevel}");
+        }
+
+        private void UpdateAtkSpeedButton(object Sender, EventArgs e)
+        {
+            SetPlayersAttackSpeed();
+            changeAttackSpeed.SetText($"ATTACK SPEED : {AttackSpeed}");
+        }
+
+        private void UpdateArmorButton(object Sender, EventArgs e)
+        {
+            SetPlayersArmor();
+            changeArmor.SetText($"ARMOR : {Armor}");
+        }
+
+        private void UpdateMoveSpeedButton(object Sender, EventArgs e)
+        {
+            SetPlayersMoveSpeed();
+            changeMoveSpeed.SetText($"MOVE SPEED : {MoveSpeed}");
+        }
+
+        private void UpdateMultiplierButton(object Sender, EventArgs e)
+        {
+            changeMultiplier.SetText($"MULTIPLIER : {Multiplier}");
+        }
+
+        private void LevelPlayersDamage()
         {
             try
             {
-                UmbraMenu.LocalPlayerBody.levelDamage = (float)damagePerLvl;
+                changedFromDefault = true;
+                UmbraMenu.LocalPlayerBody.levelDamage = (float)DamagePerLevel;
+                UmbraMenu.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -168,11 +121,27 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void SetplayersAttackSpeed()
+        private void LevelPlayersCrit()
         {
             try
             {
-                UmbraMenu.LocalPlayerBody.baseAttackSpeed = attackSpeed;
+                changedFromDefault = true;
+                UmbraMenu.LocalPlayerBody.levelCrit = (float)CritPerLevel;
+                UmbraMenu.LocalPlayerBody.RecalculateStats();
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("Stats1");
+            }
+        }
+
+        private void SetPlayersAttackSpeed()
+        {
+            try
+            {
+                changedFromDefault = true;
+                UmbraMenu.LocalPlayerBody.baseAttackSpeed = AttackSpeed;
+                UmbraMenu.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -181,11 +150,13 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void SetplayersArmor()
+        private void SetPlayersArmor()
         {
             try
             {
-                UmbraMenu.LocalPlayerBody.baseArmor = armor;
+                changedFromDefault = true;
+                UmbraMenu.LocalPlayerBody.baseArmor = Armor;
+                UmbraMenu.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -194,11 +165,13 @@ namespace UmbraMenu.Menus
             }
         }
 
-        public static void SetplayersMoveSpeed()
+        private void SetPlayersMoveSpeed()
         {
             try
             {
-                UmbraMenu.LocalPlayerBody.baseMoveSpeed = moveSpeed;
+                changedFromDefault = true;
+                UmbraMenu.LocalPlayerBody.baseMoveSpeed = MoveSpeed;
+                UmbraMenu.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -207,61 +180,30 @@ namespace UmbraMenu.Menus
             }
         }
 
-        #region Toggle Cheat Functions
-        public void ToggleDmgPerLevel()
-        {
-            damageToggle = !damageToggle;
-        }
-
-        public void ToggleCritPerLevel()
-        {
-            critToggle = !critToggle;
-        }
-
-        public void ToggleAttackSpeed()
-        {
-            attackSpeedToggle = !attackSpeedToggle;
-        }
-        public void ToggleArmor()
-        {
-            armorToggle = !armorToggle;
-        }
-
-        public void ToggleMoveSpeed()
-        {
-            moveSpeedToggle = !moveSpeedToggle;
-        }
-
-        public void ToggleRegen()
-        {
-            regenToggle = !regenToggle;
-        }
-        #endregion
-
         #region Increase/Decrease Value Actions
         public void IncreaseDmgPerLevel()
         {
-                DamagePerLevel += Multiplier;
+            DamagePerLevel += Multiplier;
         }
 
         public void IncreaseCritPerLevel()
         {
-                CritPerLevel += Multiplier;
+            CritPerLevel += Multiplier;
         }
 
         public void IncreaseAttackSpeed()
         {
-                AttackSpeed += Multiplier;
+            AttackSpeed += Multiplier;
         }
 
         public void IncreaseArmor()
         {
-                Armor += Multiplier;
+            Armor += Multiplier;
         }
 
         public void IncreaseMoveSpeed()
         {
-                MoveSpeed += Multiplier;
+            MoveSpeed += Multiplier;
         }
 
         public void IncreaseMultiplier()

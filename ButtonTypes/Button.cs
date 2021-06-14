@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UmbraMenu
@@ -12,6 +13,9 @@ namespace UmbraMenu
         protected Rect rect;
         protected GUIStyle style;
 
+        public delegate void ClickEventHandler(object sender, EventArgs e);
+        public event ClickEventHandler Click;
+
         public abstract void Draw();
 
         public Button(Menu parentMenu, int position, string text, Action Action, GUIStyle defualtStyle)
@@ -21,6 +25,16 @@ namespace UmbraMenu
             this.Text = text;
             this.Action = Action;
             this.style = defualtStyle;
+        }
+
+        protected virtual void OnClick()
+        {
+            Click?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void NavUpdate()
+        {
+            Click?.Invoke(this, EventArgs.Empty);
         }
 
         public int GetId()

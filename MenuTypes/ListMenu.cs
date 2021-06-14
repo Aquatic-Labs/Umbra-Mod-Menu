@@ -40,5 +40,10 @@ namespace UmbraMenu
             Enabled = false;
             IfDragged = false;
         }
+
+        public void SetScrollPosition(Vector2 newPos)
+        {
+            CurrentScrollPosition = newPos;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace UmbraMenu.Menus
                 buttons.Add(button);
             }
             AddButtons(buttons);
-            //SetActivatingButton(Utility.FindButtonById(1, 5));
+            ActivatingButton = UmbraMenu.playerMenu.toggleChangeCharacter;
         }
 
         public override void Draw()
@@ -40,7 +40,21 @@ namespace UmbraMenu.Menus
             master.bodyPrefab = newBody;
             master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
             UmbraMenu.GetCharacter();
-            Utility.SoftResetMenu(true);
+            if (Player.GodToggle)
+            {
+                Player.GodToggle = false;
+                Player.DisabledGodMode();
+                Player.GodToggle = true;
+            }
+
+            if (UmbraMenu.statsModMenu.changedFromDefault)
+            {
+                UmbraMenu.LocalPlayerBody.levelDamage = (float)UmbraMenu.statsModMenu.DamagePerLevel;
+                UmbraMenu.LocalPlayerBody.levelCrit = (float)UmbraMenu.statsModMenu.CritPerLevel;
+                UmbraMenu.LocalPlayerBody.baseAttackSpeed = UmbraMenu.statsModMenu.AttackSpeed;
+                UmbraMenu.LocalPlayerBody.baseArmor = UmbraMenu.statsModMenu.Armor;
+                UmbraMenu.LocalPlayerBody.baseMoveSpeed = UmbraMenu.statsModMenu.MoveSpeed;
+            }
         }
     }
 }
