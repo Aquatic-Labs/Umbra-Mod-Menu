@@ -23,7 +23,7 @@ namespace UmbraMenu.Model.Cheats
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser.cachedMasterController && localUser.cachedMasterController.master)
             {
-                UmbraMod.Instance.LocalPlayerBody.AddBuff(buffDef);
+                UmbraMod.LocalPlayerBody.AddBuff(buffDef);
             }
         }
 
@@ -33,9 +33,9 @@ namespace UmbraMenu.Model.Cheats
             {
                 try
                 {
-                    while (UmbraMod.Instance.LocalPlayerBody.HasBuff(buffDef))
+                    while (UmbraMod.LocalPlayerBody.HasBuff(buffDef))
                     {
-                        UmbraMod.Instance.LocalPlayerBody.RemoveBuff(buffDef);
+                        UmbraMod.LocalPlayerBody.RemoveBuff(buffDef);
                     }
                 }
                 catch
@@ -47,17 +47,17 @@ namespace UmbraMenu.Model.Cheats
 
         public static void GiveXP()
         {
-            UmbraMod.Instance.LocalPlayer.GiveExperience(XPToGive);
+            UmbraMod.LocalPlayer.GiveExperience(XPToGive);
         }
 
         public static void GiveMoney()
         {
-            UmbraMod.Instance.LocalPlayer.GiveMoney(moneyToGive);
+            UmbraMod.LocalPlayer.GiveMoney(moneyToGive);
         }
 
         public static void GiveLunarCoins()
         {
-            UmbraMod.Instance.LocalNetworkUser.AwardLunarCoins(coinsToGive);
+            UmbraMod.LocalNetworkUser.AwardLunarCoins(coinsToGive);
         }
 
         public static void AimBot()
@@ -109,7 +109,7 @@ namespace UmbraMenu.Model.Cheats
                     {
                         // works
                         // Normal
-                        UmbraMod.Instance.LocalHealth.godMode = true;
+                        UmbraMod.LocalHealth.godMode = true;
                         break;
                     }
 
@@ -117,7 +117,7 @@ namespace UmbraMenu.Model.Cheats
                     {
                         // works
                         // Buff
-                        UmbraMod.Instance.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("Intangible"));
+                        UmbraMod.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("Intangible"));
                         break;
                     }
 
@@ -125,7 +125,7 @@ namespace UmbraMenu.Model.Cheats
                     {
                         // works
                         // Regen
-                        UmbraMod.Instance.LocalHealth.Heal(float.MaxValue, new ProcChainMask(), false);
+                        UmbraMod.LocalHealth.Heal(float.MaxValue, new ProcChainMask(), false);
                         break;
                     }
 
@@ -133,7 +133,7 @@ namespace UmbraMenu.Model.Cheats
                     {
                         // works
                         // Negative
-                        UmbraMod.Instance.LocalHealth.SetField<bool>("wasAlive", false);
+                        UmbraMod.LocalHealth.SetField<bool>("wasAlive", false);
                         break;
                     }
 
@@ -141,37 +141,37 @@ namespace UmbraMenu.Model.Cheats
                     {
                         // works
                         // Revive
-                        int itemELCCount = UmbraMod.Instance.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
-                        int itemELCount = UmbraMod.Instance.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
+                        int itemELCCount = UmbraMod.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
+                        int itemELCount = UmbraMod.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
 
-                        UmbraMod.Instance.LocalHealth.SetField<bool>("wasAlive", false);
-                        if (UmbraMod.Instance.LocalHealth.health < 1 && reviveDoOnce)
+                        UmbraMod.LocalHealth.SetField<bool>("wasAlive", false);
+                        if (UmbraMod.LocalHealth.health < 1 && reviveDoOnce)
                         {
                             reviveDoOnce = false;
                             if (itemELCount == 0)
                             {
                                 Items.GiveItem(ItemCatalog.FindItemIndex("ExtraLife"));
                             }
-                            UmbraMod.Instance.LocalHealth.SetField<bool>("wasAlive", true);
+                            UmbraMod.LocalHealth.SetField<bool>("wasAlive", true);
 
                         }
-                        else if (UmbraMod.Instance.LocalHealth.health > 0)
+                        else if (UmbraMod.LocalHealth.health > 0)
                         {
                             reviveDoOnce = true;
                         }
 
-                        if (itemELCount > 0 && UmbraMod.Instance.LocalHealth.health < 1)
+                        if (itemELCount > 0 && UmbraMod.LocalHealth.health < 1)
                         {
-                            UmbraMod.Instance.LocalHealth.SetField<bool>("wasAlive", true);
+                            UmbraMod.LocalHealth.SetField<bool>("wasAlive", true);
                         }
                         else if (itemELCount > 0)
                         {
-                            UmbraMod.Instance.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLife"), itemELCCount);
+                            UmbraMod.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLife"), itemELCCount);
                         }
 
                         if (itemELCCount > 0)
                         {
-                            UmbraMod.Instance.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
+                            UmbraMod.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
                         }
                         break;
                     }
@@ -188,7 +188,7 @@ namespace UmbraMenu.Model.Cheats
             {
                 case 0:
                     {
-                        UmbraMod.Instance.LocalHealth.godMode = false;
+                        UmbraMod.LocalHealth.godMode = false;
                         break;
                     }
 
@@ -201,31 +201,31 @@ namespace UmbraMenu.Model.Cheats
 
                 case 3:
                     {
-                        if (UmbraMod.Instance.LocalHealth.health < 0)
+                        if (UmbraMod.LocalHealth.health < 0)
                         {
-                            UmbraMod.Instance.LocalHealth.health = 1;
+                            UmbraMod.LocalHealth.health = 1;
                         }
-                        UmbraMod.Instance.LocalHealth.SetField<bool>("wasAlive", true);
+                        UmbraMod.LocalHealth.SetField<bool>("wasAlive", true);
                         break;
                     }
 
                 case 4:
                     {
-                        if (UmbraMod.Instance.LocalHealth.health < 0)
+                        if (UmbraMod.LocalHealth.health < 0)
                         {
-                            UmbraMod.Instance.LocalHealth.health = 1;
+                            UmbraMod.LocalHealth.health = 1;
                         }
-                        UmbraMod.Instance.LocalHealth.SetField<bool>("wasAlive", true);
+                        UmbraMod.LocalHealth.SetField<bool>("wasAlive", true);
 
-                        int itemELCount = UmbraMod.Instance.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
-                        int itemELCCount = UmbraMod.Instance.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
+                        int itemELCount = UmbraMod.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
+                        int itemELCCount = UmbraMod.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
                         if (itemELCount > 0)
                         {
-                            UmbraMod.Instance.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLife"), itemELCount);
+                            UmbraMod.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLife"), itemELCount);
                         }
                         if (itemELCCount > 0)
                         {
-                            UmbraMod.Instance.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
+                            UmbraMod.LocalPlayerInv.RemoveItem(ItemCatalog.FindItemIndex("ExtraLifeConsumed"), itemELCCount);
                         }
                         reviveDoOnce = true;
                         break;
@@ -242,7 +242,7 @@ namespace UmbraMenu.Model.Cheats
             var unlockables = UmbraMod.Instance.unlockables;
             foreach (var unlockable in unlockables)
             {
-                NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMod.Instance.LocalPlayerBody);
+                NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMod.LocalPlayerBody);
                 if (networkUser)
                 {
                     networkUser.ServerHandleUnlock(unlockable.Value);
@@ -287,7 +287,7 @@ namespace UmbraMenu.Model.Cheats
                 {
                     stringBuilder.Clear().Append("Eclipse.").Append(survivorDef.cachedName).Append(".").AppendInt(i, 0U, uint.MaxValue);
                     UnlockableDef unlockableDef = UnlockableCatalog.GetUnlockableDef(stringBuilder.ToString());
-                    NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMod.Instance.LocalPlayerBody);
+                    NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMod.LocalPlayerBody);
                     if (networkUser)
                     {
                         networkUser.ServerHandleUnlock(unlockableDef);
@@ -301,8 +301,8 @@ namespace UmbraMenu.Model.Cheats
             try
             {
                 changedFromDefault = true;
-                UmbraMod.Instance.LocalPlayerBody.levelDamage = (float)DamagePerLevel;
-                UmbraMod.Instance.LocalPlayerBody.RecalculateStats();
+                UmbraMod.LocalPlayerBody.levelDamage = (float)DamagePerLevel;
+                UmbraMod.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -316,8 +316,8 @@ namespace UmbraMenu.Model.Cheats
             try
             {
                 changedFromDefault = true;
-                UmbraMod.Instance.LocalPlayerBody.levelCrit = (float)CritPerLevel;
-                UmbraMod.Instance.LocalPlayerBody.RecalculateStats();
+                UmbraMod.LocalPlayerBody.levelCrit = (float)CritPerLevel;
+                UmbraMod.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -330,8 +330,8 @@ namespace UmbraMenu.Model.Cheats
             try
             {
                 changedFromDefault = true;
-                UmbraMod.Instance.LocalPlayerBody.baseAttackSpeed = AttackSpeed;
-                UmbraMod.Instance.LocalPlayerBody.RecalculateStats();
+                UmbraMod.LocalPlayerBody.baseAttackSpeed = AttackSpeed;
+                UmbraMod.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -345,8 +345,8 @@ namespace UmbraMenu.Model.Cheats
             try
             {
                 changedFromDefault = true;
-                UmbraMod.Instance.LocalPlayerBody.baseArmor = Armor;
-                UmbraMod.Instance.LocalPlayerBody.RecalculateStats();
+                UmbraMod.LocalPlayerBody.baseArmor = Armor;
+                UmbraMod.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -360,8 +360,8 @@ namespace UmbraMenu.Model.Cheats
             try
             {
                 changedFromDefault = true;
-                UmbraMod.Instance.LocalPlayerBody.baseMoveSpeed = MoveSpeed;
-                UmbraMod.Instance.LocalPlayerBody.RecalculateStats();
+                UmbraMod.LocalPlayerBody.baseMoveSpeed = MoveSpeed;
+                UmbraMod.LocalPlayerBody.RecalculateStats();
             }
             catch (NullReferenceException)
             {
@@ -390,11 +390,11 @@ namespace UmbraMenu.Model.Cheats
 
             if (Player.changedFromDefault)
             {
-                UmbraMod.Instance.LocalPlayerBody.levelDamage = (float)DamagePerLevel;
-                UmbraMod.Instance.LocalPlayerBody.levelCrit = (float)CritPerLevel;
-                UmbraMod.Instance.LocalPlayerBody.baseAttackSpeed = AttackSpeed;
-                UmbraMod.Instance.LocalPlayerBody.baseArmor = Armor;
-                UmbraMod.Instance.LocalPlayerBody.baseMoveSpeed = MoveSpeed;
+                UmbraMod.LocalPlayerBody.levelDamage = (float)DamagePerLevel;
+                UmbraMod.LocalPlayerBody.levelCrit = (float)CritPerLevel;
+                UmbraMod.LocalPlayerBody.baseAttackSpeed = AttackSpeed;
+                UmbraMod.LocalPlayerBody.baseArmor = Armor;
+                UmbraMod.LocalPlayerBody.baseMoveSpeed = MoveSpeed;
             }
         }
     }

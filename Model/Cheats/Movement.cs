@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RoR2;
-using Umbra = UmbraMenu.Model.UmbraMod;
 
 namespace UmbraMenu.Model.Cheats
 {
@@ -13,7 +12,7 @@ namespace UmbraMenu.Model.Cheats
 
         public static void AlwaysSprint()
         {
-            var isMoving = Umbra.Instance.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f || Umbra.Instance.LocalNetworkUser.inputPlayer.GetAxis("MoveHorizontal") != 0f;
+            var isMoving = UmbraMod.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f || UmbraMod.LocalNetworkUser.inputPlayer.GetAxis("MoveHorizontal") != 0f;
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
 
@@ -34,65 +33,65 @@ namespace UmbraMenu.Model.Cheats
             {
                 if (Utility.GetCurrentCharacter().ToString() != "Loader")
                 {
-                    Umbra.Instance.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                    UmbraMod.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                 }
 
-                var forwardDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
-                var aimDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
-                var upDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
-                var downDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
+                var forwardDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
+                var aimDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
+                var upDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
+                var downDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
                 var isForward = Vector3.Dot(forwardDirection, aimDirection) > 0f;
 
-                var isSprinting = alwaysSprintToggle ? Umbra.Instance.LocalPlayerBody.isSprinting : Umbra.Instance.LocalNetworkUser.inputPlayer.GetButton("Sprint");
-                var isJumping = Umbra.Instance.LocalNetworkUser.inputPlayer.GetButton("Jump");
+                var isSprinting = alwaysSprintToggle ? UmbraMod.LocalPlayerBody.isSprinting : UmbraMod.LocalNetworkUser.inputPlayer.GetButton("Sprint");
+                var isJumping = UmbraMod.LocalNetworkUser.inputPlayer.GetButton("Jump");
                 var isGoingDown = Input.GetKey(KeyCode.X);
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
-                var isStrafing = Umbra.Instance.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f;
+                var isStrafing = UmbraMod.LocalNetworkUser.inputPlayer.GetAxis("MoveVertical") != 0f;
 
                 if (isSprinting)
                 {
-                    if (!alwaysSprintToggle && !Umbra.Instance.LocalNetworkUser.inputPlayer.GetButton("Sprint"))
+                    if (!alwaysSprintToggle && !UmbraMod.LocalNetworkUser.inputPlayer.GetButton("Sprint"))
                     {
-                        Umbra.Instance.LocalPlayerBody.isSprinting = false;
+                        UmbraMod.LocalPlayerBody.isSprinting = false;
                     }
 
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity = forwardDirection * 100f;
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity = forwardDirection * 100f;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
                     if (isStrafing)
                     {
                         if (isForward)
                         {
-                            Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * 100f;
+                            UmbraMod.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * 100f;
                         }
                         else
                         {
-                            Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -100f;
+                            UmbraMod.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -100f;
                         }
                     }
                 }
                 else
                 {
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity = forwardDirection * 50;
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity = forwardDirection * 50;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity.y = upDirection * 0.510005f;
                     if (isStrafing)
                     {
                         if (isForward)
                         {
-                            Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * 50;
+                            UmbraMod.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * 50;
                         }
                         else
                         {
-                            Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -50;
+                            UmbraMod.LocalPlayerBody.characterMotor.velocity.y = aimDirection.y * -50;
                         }
                     }
                 }
                 if (isJumping)
                 {
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity.y = upDirection * 100;
                 }
                 if (isGoingDown)
                 {
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = downDirection * 100;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity.y = downDirection * 100;
                 }
             }
             catch { }
@@ -104,21 +103,21 @@ namespace UmbraMenu.Model.Cheats
             {
                 if (Utility.GetCurrentCharacter().ToString() != "Loader")
                 {
-                    Umbra.Instance.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                    UmbraMod.LocalPlayerBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                 }
 
-                var forwardDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
-                var aimDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
-                var upDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
-                var downDirection = Umbra.Instance.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
+                var forwardDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.normalized;
+                var aimDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().aimDirection.normalized;
+                var upDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y + 1;
+                var downDirection = UmbraMod.LocalPlayerBody.GetComponent<InputBankTest>().moveVector.y - 1;
                 var isForward = Vector3.Dot(forwardDirection, aimDirection) > 0f;
 
-                var isJumping = Umbra.Instance.LocalNetworkUser.inputPlayer.GetButton("Jump");
+                var isJumping = UmbraMod.LocalNetworkUser.inputPlayer.GetButton("Jump");
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
 
                 if (isJumping)
                 {
-                    Umbra.Instance.LocalPlayerBody.characterMotor.velocity.y = upDirection += 0.75f * jumpPackMul;
+                    UmbraMod.LocalPlayerBody.characterMotor.velocity.y = upDirection += 0.75f * jumpPackMul;
                     jumpPackMul++;
 
                     if (jumpPackMul > 200)

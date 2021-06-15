@@ -12,7 +12,7 @@ namespace UmbraMenu.Model
     {
         public static SurvivorIndex GetCurrentCharacter()
         {
-            var bodyIndex = BodyCatalog.FindBodyIndex(UmbraMod.Instance.LocalPlayerBody);
+            var bodyIndex = BodyCatalog.FindBodyIndex(UmbraMod.LocalPlayerBody);
             var survivorIndex = SurvivorCatalog.GetSurvivorIndexFromBodyIndex(bodyIndex);
             return survivorIndex;
         }

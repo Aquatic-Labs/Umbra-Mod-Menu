@@ -62,15 +62,15 @@ namespace UmbraMenu.View
             {
                 if (UmbraModGUI.Instance.viewStatsMenu.IsEnabled())
                 {
-                    playerDamage = Umbra.Instance.LocalPlayerBody.damage;
-                    playerCrit = Umbra.Instance.LocalPlayerBody.crit;
-                    playerAttackSpeed = Umbra.Instance.LocalPlayerBody.attackSpeed;
-                    playerArmor = Umbra.Instance.LocalPlayerBody.armor;
-                    playerRegen = Umbra.Instance.LocalPlayerBody.regen;
-                    playerMoveSpeed = Umbra.Instance.LocalPlayerBody.moveSpeed;
-                    playerExperience = Umbra.Instance.LocalPlayerBody.experience;
-                    playerMaxJumpCount = Umbra.Instance.LocalPlayerBody.maxJumpCount;
-                    playerKillCount = Umbra.Instance.LocalPlayerBody.killCountServer;
+                    playerDamage = Umbra.LocalPlayerBody.damage;
+                    playerCrit = Umbra.LocalPlayerBody.crit;
+                    playerAttackSpeed = Umbra.LocalPlayerBody.attackSpeed;
+                    playerArmor = Umbra.LocalPlayerBody.armor;
+                    playerRegen = Umbra.LocalPlayerBody.regen;
+                    playerMoveSpeed = Umbra.LocalPlayerBody.moveSpeed;
+                    playerExperience = Umbra.LocalPlayerBody.experience;
+                    playerMaxJumpCount = Umbra.LocalPlayerBody.maxJumpCount;
+                    playerKillCount = Umbra.LocalPlayerBody.killCountServer;
                 }
 
                 damageStat.SetText($"DAMAGE : {playerDamage}");

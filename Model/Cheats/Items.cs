@@ -117,16 +117,16 @@ namespace UmbraMenu.Model.Cheats
         // Clears inventory, duh.
         public static void ClearInventory()
         {
-            if (UmbraMod.Instance.LocalPlayerInv)
+            if (UmbraMod.LocalPlayerInv)
             {
                 // Loops through every item in ItemIndex enum
                 foreach (ItemIndex itemIndex in CurrentInventory())
                 {
                     // If an item exists, delete the whole stack of it
-                    UmbraMod.Instance.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
-                    UmbraMod.Instance.LocalPlayerInv.ResetItem(itemIndex);
-                    int itemCount = UmbraMod.Instance.LocalPlayerInv.GetItemCount(itemIndex);
-                    UmbraMod.Instance.LocalPlayerInv.RemoveItem(itemIndex, itemCount);
+                    UmbraMod.LocalPlayerInv.itemAcquisitionOrder.Remove(itemIndex);
+                    UmbraMod.LocalPlayerInv.ResetItem(itemIndex);
+                    int itemCount = UmbraMod.LocalPlayerInv.GetItemCount(itemIndex);
+                    UmbraMod.LocalPlayerInv.RemoveItem(itemIndex, itemCount);
 
                     // Destroys BeetleGuardAllies on inventory clear, other wise they dont get removed until next stage.
                     var localUser = LocalUserManager.GetFirstLocalUser();
@@ -160,7 +160,7 @@ namespace UmbraMenu.Model.Cheats
                         }
                     }
                 }
-                UmbraMod.Instance.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
+                UmbraMod.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
             }
             Player.RemoveAllBuffs();
         }
@@ -176,7 +176,7 @@ namespace UmbraMenu.Model.Cheats
                     for (int i = 0; i < num; i++)
                     {
                         List<ItemIndex> list = weightedSelection.Evaluate(UnityEngine.Random.value);
-                        UmbraMod.Instance.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)], 1);
+                        UmbraMod.LocalPlayerInv.GiveItem(list[UnityEngine.Random.Range(0, list.Count)], 1);
                     }
                 }
             }
@@ -226,7 +226,7 @@ namespace UmbraMenu.Model.Cheats
         //Gives all items
         public static void GiveAllItems()
         {
-            if (UmbraMod.Instance.LocalPlayerInv)
+            if (UmbraMod.LocalPlayerInv)
             {
                 foreach (ItemIndex itemIndex in UmbraMod.Instance.items)
                 {
@@ -237,7 +237,7 @@ namespace UmbraMenu.Model.Cheats
                     //plantonhit kills you when you pick it up
                     if (itemName == "PlantOnHit" || itemName == "HealthDecay" || itemName == "TonicAffliction" || itemName == "BurnNearby" || itemName == "CrippleWardOnLevel" || itemName == "Ghost" || itemName == "ExtraLifeConsumed")
                         continue;
-                    UmbraMod.Instance.LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
+                    UmbraMod.LocalPlayerInv.GiveItem(itemIndex, allItemsQuantity);
                 }
             }
         }
@@ -245,17 +245,17 @@ namespace UmbraMenu.Model.Cheats
         //Does the same thing as the shrine of order. Orders all your items into stacks of several random items.
         public static void StackInventory()
         {
-            UmbraMod.Instance.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
+            UmbraMod.LocalPlayerInv.ShrineRestackInventory(Run.instance.runRNG);
         }
 
         //Sets equipment cooldown to 0 if its on cooldown
         public static void NoEquipmentCooldown()
         {
-            EquipmentState equipment = UmbraMod.Instance.LocalPlayerInv.GetEquipment((uint)UmbraMod.Instance.LocalPlayerInv.activeEquipmentSlot);
+            EquipmentState equipment = UmbraMod.LocalPlayerInv.GetEquipment((uint)UmbraMod.LocalPlayerInv.activeEquipmentSlot);
 
             if (equipment.chargeFinishTime != Run.FixedTimeStamp.zero)
             {
-                UmbraMod.Instance.LocalPlayerInv.SetEquipment(new EquipmentState(equipment.equipmentIndex, Run.FixedTimeStamp.zero, equipment.charges), (uint)UmbraMod.Instance.LocalPlayerInv.activeEquipmentSlot);
+                UmbraMod.LocalPlayerInv.SetEquipment(new EquipmentState(equipment.equipmentIndex, Run.FixedTimeStamp.zero, equipment.charges), (uint)UmbraMod.LocalPlayerInv.activeEquipmentSlot);
             }
         }
 
@@ -272,7 +272,7 @@ namespace UmbraMenu.Model.Cheats
                 bool unreleasednullItem = unreleasedItems.Any(itemDef.name.Contains);
                 if (!unreleasednullItem)
                 {
-                    int itemCount = UmbraMod.Instance.LocalPlayerInv.GetItemCount(itemIndex);
+                    int itemCount = UmbraMod.LocalPlayerInv.GetItemCount(itemIndex);
                     if (itemCount > 0) // If item is in inventory
                     {
                         currentInventory.Add(itemIndex); // add to list
@@ -295,7 +295,7 @@ namespace UmbraMenu.Model.Cheats
                 {
                     if (CurrentInventory().Contains(itemIndex))
                     {
-                        UmbraMod.Instance.LocalPlayerInv.RemoveItem(itemIndex, 1);
+                        UmbraMod.LocalPlayerInv.RemoveItem(itemIndex, 1);
                         DropItemMethod(itemIndex);
                     }
                     else
@@ -306,7 +306,7 @@ namespace UmbraMenu.Model.Cheats
                 }
                 else
                 {
-                    UmbraMod.Instance.LocalPlayerInv.GiveItem(itemIndex, 1);
+                    UmbraMod.LocalPlayerInv.GiveItem(itemIndex, 1);
                 }
             }
         }
@@ -322,9 +322,9 @@ namespace UmbraMenu.Model.Cheats
                 }
                 else if (isDropItemFromInventory)
                 {
-                    if (UmbraMod.Instance.LocalPlayerInv.currentEquipmentIndex == equipIndex)
+                    if (UmbraMod.LocalPlayerInv.currentEquipmentIndex == equipIndex)
                     {
-                        UmbraMod.Instance.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
+                        UmbraMod.LocalPlayerInv.SetEquipmentIndex(EquipmentIndex.None);
                         DropEquipmentMethod(equipIndex);
                     }
                     else
@@ -335,7 +335,7 @@ namespace UmbraMenu.Model.Cheats
                 }
                 else
                 {
-                    UmbraMod.Instance.LocalPlayerInv.SetEquipmentIndex(equipIndex);
+                    UmbraMod.LocalPlayerInv.SetEquipmentIndex(equipIndex);
                 }
             }
         }

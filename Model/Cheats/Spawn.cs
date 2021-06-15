@@ -26,7 +26,7 @@ namespace UmbraMenu.Model.Cheats
                     placementMode = DirectorPlacementRule.PlacementMode.Approximate,
                     minDistance = minDistance,
                     maxDistance = maxDistance,
-                    position = UmbraMod.Instance.LocalPlayerBody.footPosition
+                    position = UmbraMod.LocalPlayerBody.footPosition
                 }, RoR2Application.rng)
                 {
                     ignoreTeamMemberLimit = true,

@@ -24,13 +24,14 @@ namespace UmbraMenu.Model
         public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), $"UmbraMenu/settings-{VERSION}.ini");
 
         #region Player Variables
-        public CharacterMaster LocalPlayer;
-        public CharacterBody LocalPlayerBody;
-        public Inventory LocalPlayerInv;
-        public HealthComponent LocalHealth;
-        public SkillLocator LocalSkills;
-        public NetworkUser LocalNetworkUser;
-        public CharacterMotor LocalMotor;
+        // Note: These have to be static
+        public static CharacterMaster LocalPlayer;
+        public static CharacterBody LocalPlayerBody;
+        public static Inventory LocalPlayerInv;
+        public static HealthComponent LocalHealth;
+        public static SkillLocator LocalSkills;
+        public static NetworkUser LocalNetworkUser;
+        public static CharacterMotor LocalMotor;
         #endregion
 
         #region Game Element Lists
@@ -195,22 +196,22 @@ namespace UmbraMenu.Model
         #region Main Unity Functions
         public void OnGUI()
         {
-            try { OnGUIUpdate?.Invoke(this, EventArgs.Empty); } catch { }
+            try { OnGUIUpdate?.Invoke(this, EventArgs.Empty); } catch (Exception e) { Debug.Log("OnGUI ERROR"); Utility.WriteToLog(e.ToString()); }
         }
 
         public void Start()
         {
-            try { OnStart?.Invoke(this, EventArgs.Empty); } catch { }
+            try { OnStart?.Invoke(this, EventArgs.Empty); } catch (Exception e) { Debug.Log("Start ERROR"); Utility.WriteToLog(e.ToString()); }
         }
 
         public void Update()
         {
-            try { OnUpdate?.Invoke(this, EventArgs.Empty); } catch { }
+            try { OnUpdate?.Invoke(this, EventArgs.Empty); } catch (Exception e) { Debug.Log("Update ERROR"); Utility.WriteToLog(e.ToString()); }
         }
 
         public void FixedUpdate()
         {
-            try { OnFixedUpdate?.Invoke(this, EventArgs.Empty); } catch { }
+            try { OnFixedUpdate?.Invoke(this, EventArgs.Empty); } catch (Exception e) { Debug.Log("FixedUpdate ERROR"); Utility.WriteToLog(e.ToString()); }
         }
         #endregion
 
@@ -543,9 +544,17 @@ namespace UmbraMenu.Model
 
         private void UpdateNearestChestRoutine(object sender, EventArgs e)
         {
-            if (InGameCheck())
+            try
             {
-                Chests.isClosestChestEquip = Chests.CheckClosestChestEquip();
+                if (InGameCheck() && !Chests.onChestsEnable)
+                {
+                    Chests.isClosestChestEquip = Chests.CheckClosestChestEquip();
+                }
+            }
+            catch (Exception exc)
+            {
+                Debug.Log($"UpdateNearestChestRoutine ERROR: {exc}");
+                Utility.WriteToLog(exc.ToString());
             }
         }
         #endregion
