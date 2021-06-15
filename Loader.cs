@@ -3,37 +3,44 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using Octokit;
+using UmbraMod = UmbraMenu.Model.UmbraMod;
+using UmbraModGUI = UmbraMenu.View.UmbraModGUI;
 
 namespace UmbraMenu
 {
     public class Loader
     {
-        public static GameObject gameObject;
+        public static GameObject umbraMod;
+        public static GameObject umbraModGUI;
 
         public static void Load()
         {
             //RoR2.RoR2Application.isModded = true;
-            while (gameObject = GameObject.Find("Umbra Menu"))
-                UnityEngine.Object.Destroy(gameObject);
-            gameObject = new GameObject("Umbra Menu");
-            UnityEngine.Object.DontDestroyOnLoad(gameObject);
-            gameObject.SetActive(false);
-            var types = Assembly.GetExecutingAssembly().GetTypes().ToList().Where(t => t.BaseType == typeof(MonoBehaviour) && !t.IsNested);
-            foreach (var type in types)
-            {
-                var component = (MonoBehaviour)gameObject.AddComponent(type);
-                component.enabled = false;
-            }
+            while (umbraMod = GameObject.Find("Umbra Mod"))
+                UnityEngine.Object.Destroy(umbraMod);
+            while (umbraMod = GameObject.Find("Umbra Mod GUI"))
+                UnityEngine.Object.Destroy(umbraMod);
+
+            umbraMod = new GameObject("Umbra Mod");
+            umbraModGUI = new GameObject("Umbra Mod GUI");
+            umbraMod.AddComponent<UmbraMod>();
+            umbraModGUI.AddComponent<UmbraModGUI>();
+
+            UnityEngine.Object.DontDestroyOnLoad(umbraMod);
+            UnityEngine.Object.DontDestroyOnLoad(umbraModGUI);
+
             LoadAssembly();
             CheckForUpdate();
-            gameObject.GetComponent<UmbraMenu>().enabled = true;
-            gameObject.SetActive(true);
+            //gameObject.GetComponent<UmbraMod>().enabled = true;
+            //gameObject.GetComponent<UmbraModGUI>().enabled = true;
+            //gameObject.SetActive(true);
         }
 
         public static void Unload()
         {
-            Utility.SaveSettings();
-            UnityEngine.Object.Destroy(gameObject);
+            Model.Utility.SaveSettings();
+            UnityEngine.Object.Destroy(umbraMod);
+            UnityEngine.Object.Destroy(umbraModGUI);
         }
 
         private static void LoadAssembly()
@@ -63,7 +70,7 @@ namespace UmbraMenu
                 var latest = releases[0];
                 latestVersion = latest.TagName;
 
-                string[] versionSplit = UmbraMenu.VERSION.Split('.');
+                string[] versionSplit = Model.UmbraMod.VERSION.Split('.');
                 string[] latestVersionSplit = latestVersion.Split('.');
 
                 for (int i = 0; i < versionSplit.Length; i++)

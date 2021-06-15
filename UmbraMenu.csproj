@@ -58,47 +58,56 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ButtonTypes\Button.cs" />
-    <Compile Include="ButtonTypes\NormalButton.cs" />
-    <Compile Include="Keybinds.cs" />
-    <Compile Include="ESPHelper.cs" />
-    <Compile Include="Menus\BuffList.cs" />
-    <Compile Include="Menus\CharacterList.cs" />
-    <Compile Include="Menus\ChestItemList.cs" />
-    <Compile Include="Menus\KeybindList.cs" />
-    <Compile Include="Menus\EquipmentList.cs" />
-    <Compile Include="Menus\ItemList.cs" />
-    <Compile Include="Menus\Items.cs" />
-    <Compile Include="Menus\LobbyMenu.cs" />
-    <Compile Include="Menus\Settings.cs" />
-    <Compile Include="Menus\MainMenu.cs" />
-    <Compile Include="ButtonTypes\MulButton.cs" />
+    <Compile Include="Model\Cheats\Chests.cs" />
+    <Compile Include="Model\Cheats\Items.cs" />
+    <Compile Include="Model\Cheats\Movement.cs" />
+    <Compile Include="Model\Cheats\Player.cs" />
+    <Compile Include="Model\Cheats\Render.cs" />
+    <Compile Include="Model\Cheats\Spawn.cs" />
+    <Compile Include="Model\Cheats\Teleporter.cs" />
+    <Compile Include="View\ButtonTypes\Button.cs" />
+    <Compile Include="View\ButtonTypes\NormalButton.cs" />
+    <Compile Include="Model\Keybind.cs" />
+    <Compile Include="Model\ESPHelper.cs" />
+    <Compile Include="View\GUIUtility.cs" />
+    <Compile Include="View\UmbraModGUI.cs" />
+    <Compile Include="View\Menus\BuffListMenu.cs" />
+    <Compile Include="View\Menus\CharacterListMenu.cs" />
+    <Compile Include="View\Menus\ChestItemListMenu.cs" />
+    <Compile Include="View\Menus\KeybindListMenu.cs" />
+    <Compile Include="View\Menus\EquipmentListMenu.cs" />
+    <Compile Include="View\Menus\ItemListMenu.cs" />
+    <Compile Include="View\Menus\ItemsMenu.cs" />
+    <Compile Include="View\Menus\LobbyMenu.cs" />
+    <Compile Include="View\Menus\SettingsMenu.cs" />
+    <Compile Include="View\Menus\MainMenu.cs" />
+    <Compile Include="View\ButtonTypes\MulButton.cs" />
     <Compile Include="Loader.cs" />
-    <Compile Include="Menus\SpawnList.cs" />
-    <Compile Include="Menus\StatsMod.cs" />
-    <Compile Include="Menus\ViewStats.cs" />
-    <Compile Include="MenuTypes\ListMenu.cs" />
-    <Compile Include="MenuTypes\Menu.cs" />
-    <Compile Include="MenuTypes\NormalMenu.cs" />
-    <Compile Include="Menus\Movement.cs" />
-    <Compile Include="Menus\Player.cs" />
-    <Compile Include="Menus\Render.cs" />
-    <Compile Include="Menus\Spawn.cs" />
-    <Compile Include="Menus\Teleporter.cs" />
-    <Compile Include="Navigation.cs" />
+    <Compile Include="View\Menus\SpawnListMenu.cs" />
+    <Compile Include="View\Menus\StatsModMenu.cs" />
+    <Compile Include="View\Menus\ViewStatsMenu.cs" />
+    <Compile Include="View\MenuTypes\ListMenu.cs" />
+    <Compile Include="View\MenuTypes\Menu.cs" />
+    <Compile Include="View\MenuTypes\NormalMenu.cs" />
+    <Compile Include="View\Menus\MovementMenu.cs" />
+    <Compile Include="View\Menus\PlayerMenu.cs" />
+    <Compile Include="View\Menus\RenderMenu.cs" />
+    <Compile Include="View\Menus\SpawnMenu.cs" />
+    <Compile Include="View\Menus\TeleporterMenu.cs" />
+    <Compile Include="View\Navigation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reflections.cs" />
-    <Compile Include="Styles.cs" />
-    <Compile Include="ButtonTypes\Text.cs" />
-    <Compile Include="Textures.cs" />
-    <Compile Include="ButtonTypes\TogglableButton.cs" />
-    <Compile Include="UmbraMenu.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="Model\Reflections.cs" />
+    <Compile Include="View\Styles.cs" />
+    <Compile Include="View\ButtonTypes\Text.cs" />
+    <Compile Include="View\Textures.cs" />
+    <Compile Include="View\ButtonTypes\TogglableButton.cs" />
+    <Compile Include="Model\UmbraMod.cs" />
+    <Compile Include="Model\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
