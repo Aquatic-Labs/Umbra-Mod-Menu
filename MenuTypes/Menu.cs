@@ -35,7 +35,6 @@ namespace UmbraMenu
         public event DisabledEventHandler Closed;
 
         public abstract void Draw();
-        public abstract void Reset();
 
         public Menu(int id, int prevMenuId, Rect rect, string title)
         {
@@ -113,7 +112,20 @@ namespace UmbraMenu
                 }
             }
             NumberOfButtons = high;
+        }
 
+        public virtual void Reset()
+        {
+            Enabled = false;
+            IfDragged = false;
+
+            foreach (Button button in Buttons)
+            {
+                if (button is TogglableButton togglable)
+                {
+                    togglable.SetEnabled(false);
+                }
+            }
         }
 
         public void ToggleMenu()

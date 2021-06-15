@@ -4,7 +4,6 @@ namespace UmbraMenu
 {
     public sealed class Keybind
     {
-        public static Keybind OpenMainMenu;
         public KeyCode KeyCode;
         public string Name;
 

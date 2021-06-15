@@ -292,10 +292,6 @@ namespace UmbraMenu
                 {
                     updatedHurtboxes.Add(hurtBox);
                 }
-                /*else
-                {
-                    WriteToLog($"Blocked: {mobName}");
-                }*/
             }
             return updatedHurtboxes;
         }
@@ -331,11 +327,10 @@ namespace UmbraMenu
         #region Keybind Utility
         public static Button GetEnabledKeybindButton()
         {
-            Menu keybindMenu = UmbraMenu.menus[16];
+            ListMenu keybindMenu = UmbraMenu.keybindListMenu;
             for (int i = 0; i < keybindMenu.GetNumberOfButtons(); i++)
             {
-                Button button = keybindMenu.GetButtons()[i];
-                if (true)//button.IsEnabled())
+                if (keybindMenu.GetButtons()[i] is TogglableButton button && button.IsEnabled())
                 {
                     return button;
                 }

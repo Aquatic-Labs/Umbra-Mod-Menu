@@ -201,7 +201,8 @@ namespace UmbraMenu.Menus
                     var chest = purchaseInteraction?.gameObject.GetComponent<ChestBehavior>();
                     if (chest)
                     {
-                        dropName = Util.GenerateColoredString(Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken()), chest.GetField<PickupIndex>("dropPickup").GetPickupColor());
+                        PickupDef pickupDef = PickupCatalog.GetPickupDef(chest.GetField<PickupIndex>("dropPickup"));
+                        dropName = Util.GenerateColoredString(Language.GetString(pickupDef.nameToken), pickupDef.baseColor);
                     }
                     float distanceToObject = Vector3.Distance(Camera.main.transform.position, purchaseInteraction.transform.position);
                     Vector3 Position = Camera.main.WorldToScreenPoint(purchaseInteraction.transform.position);

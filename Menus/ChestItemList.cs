@@ -162,7 +162,8 @@ namespace UmbraMenu.Menus
             Dictionary<float, ChestBehavior> chestsWithDistance = new Dictionary<float, ChestBehavior>();
             foreach (var chest in chests)
             {
-                string dropName = Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken());
+                PickupDef pickupDef = PickupCatalog.GetPickupDef(chest.GetField<PickupIndex>("dropPickup"));
+                string dropName = Language.GetString(pickupDef.nameToken);
                 if (dropName != null && dropName != "???")
                 {
                     float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
@@ -183,7 +184,8 @@ namespace UmbraMenu.Menus
             var chestBoundingVector = new Vector3(chestPosition.x, chestPosition.y, chestPosition.z);
             if (chestBoundingVector.z > 0.01)
             {
-                string dropNameColored = Util.GenerateColoredString(Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken()), chest.GetField<PickupIndex>("dropPickup").GetPickupColor());
+                PickupDef pickupDef = PickupCatalog.GetPickupDef(chest.GetField<PickupIndex>("dropPickup"));
+                string dropNameColored = Util.GenerateColoredString(Language.GetString(pickupDef.nameToken), pickupDef.baseColor);
                 float distanceToChest = Vector3.Distance(Camera.main.transform.position, FindClosestChest().transform.position);
                 float width = 100f * (distanceToChest / 100);
                 if (width > 125)
@@ -223,7 +225,8 @@ namespace UmbraMenu.Menus
         public static bool CheckClosestChestEquip()
         {
             var chest = FindClosestChest();
-            var equipmentDrop = chest.GetField<PickupIndex>("dropPickup").equipmentIndex;
+            PickupDef pickupDef = PickupCatalog.GetPickupDef(chest.GetField<PickupIndex>("dropPickup"));
+            var equipmentDrop = pickupDef.equipmentIndex;
             if (UmbraMenu.equipment.Contains(equipmentDrop) && equipmentDrop != EquipmentIndex.None)
             {
                 return true;

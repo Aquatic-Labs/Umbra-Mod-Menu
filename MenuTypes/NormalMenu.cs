@@ -23,11 +23,5 @@ namespace UmbraMenu
                 button.Draw();
             }
         }
-
-        public override void Reset()
-        {
-            Enabled = false;
-            IfDragged = false;
-        }
     }
 }

@@ -151,6 +151,7 @@ namespace UmbraMenu
             equipmentListMenu, //13
             chestItemListMenu, //14
             spawnListMenu, //15
+            keybindListMenu //16
         };
         #endregion
 
@@ -273,7 +274,7 @@ namespace UmbraMenu
                 UpdateNavIndexRoutine();
                 Menus.ViewStats.UpdateViewStats();
                 SetKeybindRoutine();
-                //UpdateKeybindButtonRoutine();
+                UpdateKeybindButtonRoutine();
                 ForceFullMenuRoutine();
             }
             catch //(Exception e)
@@ -412,21 +413,14 @@ namespace UmbraMenu
                                         equipmentListMenu, //13
                                         chestItemListMenu, //14
                                         spawnListMenu, //15
+                                        keybindListMenu //16
                                     };
                                 }
-
-                                lobbyMenu = null;
-
                                 characterCollected = true;
                             }
 						    else
 						    {
 							    characterCollected = false;
-
-                                if (lobbyMenu == null && !InGameCheck())
-                                {
-                                    lobbyMenu = new Menus.LobbyMenu();
-                                }
                             }
                         }
                     }
@@ -663,19 +657,39 @@ namespace UmbraMenu
                         string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
                         keybindDict[keybindName].KeyCode = keyCode;
                         listenForKeybind = false;
-                        button.SetEnabled(false);
                         Utility.SaveSettings();
+                        button.SetText($"{keybindName} : {keybindDict[keybindName].KeyCode}");
+                        button.OffText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.OnText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.SetEnabled(false);
                     }
                     else
                     {
+                        // Find and update previous button and keybind that used the same keycode
                         Keybind keybind = Utility.FindKeybindByKeyCode(keyCode);
+                        foreach (TogglableButton keybindButton in keybindListMenu.GetButtons())
+                        {
+                            string[] buttonTextArray = keybindButton.GetOffText().Split(new string[] { " : " }, StringSplitOptions.None);
+                            if (buttonTextArray[1] == keyCode.ToString())
+                            {
+                                keybindButton.SetText($"{buttonTextArray[0]} : {KeyCode.None}");
+                                keybindButton.OffText = $"{buttonTextArray[0]} : {KeyCode.None}";
+                                keybindButton.OnText = $"{buttonTextArray[0]} : {KeyCode.None}";
+                                keybindButton.SetEnabled(false);
+                                break;
+                            }
+                        }
                         keybind.KeyCode = KeyCode.None;
+
 
                         string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
                         keybindDict[keybindName].KeyCode = keyCode;
                         listenForKeybind = false;
-                        button.SetEnabled(false);
                         Utility.SaveSettings();
+                        button.SetText($"{keybindName} : {keybindDict[keybindName].KeyCode}");
+                        button.OffText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.OnText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.SetEnabled(false);
                     }
                 }
                 else if (!validKeybind && rgNum.IsMatch(newKeybind))
@@ -686,16 +700,22 @@ namespace UmbraMenu
                         string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
                         keybindDict[keybindName].KeyCode = (KeyCode)Enum.Parse(typeof(KeyCode), newKeybind);
                         listenForKeybind = false;
-                        button.SetEnabled(false);
                         Utility.SaveSettings();
+                        button.SetText($"{keybindName} : {keybindDict[keybindName].KeyCode}");
+                        button.OffText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.OnText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.SetEnabled(false);
                     }
                     else
                     {
                         string keybindName = button.GetOffText().Split(new string[] { " :" }, StringSplitOptions.None)[0];
                         keybindDict[keybindName].KeyCode = KeyCode.None;
                         listenForKeybind = false;
-                        button.SetEnabled(false);
                         Utility.SaveSettings();
+                        button.SetText($"{keybindName} : {keybindDict[keybindName].KeyCode}");
+                        button.OffText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.OnText = $"{keybindName} : {keybindDict[keybindName].KeyCode}";
+                        button.SetEnabled(false);
                     }
                 }
             }
@@ -774,12 +794,8 @@ namespace UmbraMenu
                         }
                         if (Input.GetKeyDown(KeyCode.RightArrow))
                         {
-                            bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                            bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
-                            bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
-                            bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                            bool settingsPlusMinusBtn = Navigation.menuIndex == 7 && Navigation.buttonIndex == 1;
-                            if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn || settingsPlusMinusBtn)
+
+                            if (menus[Navigation.menuIndex].GetButtons()[Navigation.buttonIndex  - 1] is MulButton)
                             {
                                 Navigation.IncreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
                             }
@@ -790,12 +806,7 @@ namespace UmbraMenu
                         }
                         if (Input.GetKeyDown(KeyCode.LeftArrow))
                         {
-                            bool playerPlusMinusBtn = Navigation.menuIndex == 1 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                            bool statsPlusMinusBtn = Navigation.menuIndex == 8 && Enumerable.Range(1, 6).Contains(Navigation.buttonIndex);
-                            bool itemPlusMinusBtn = Navigation.menuIndex == 3 && Enumerable.Range(1, 2).Contains(Navigation.buttonIndex);
-                            bool spawnPlusMinusBtn = Navigation.menuIndex == 4 && Enumerable.Range(1, 3).Contains(Navigation.buttonIndex);
-                            bool settingsPlusMinusBtn = Navigation.menuIndex == 7 && Navigation.buttonIndex == 1;
-                            if (playerPlusMinusBtn || itemPlusMinusBtn || statsPlusMinusBtn || spawnPlusMinusBtn || settingsPlusMinusBtn)
+                            if (menus[Navigation.menuIndex].GetButtons()[Navigation.buttonIndex - 1] is MulButton)
                             {
                                 Navigation.DecreaseValue(Navigation.menuIndex, Navigation.buttonIndex);
                             }
@@ -855,7 +866,7 @@ namespace UmbraMenu
             #endregion
 
             #region Main Menu Keybind
-            if (Input.GetKeyDown(keybindDict["MAIN MENU"].KeyCode))
+            if (Input.GetKeyDown(keybindDict["MAIN MENU"].KeyCode) && !listenForKeybind)
             {
                 if (characterCollected)
                 {
@@ -872,12 +883,12 @@ namespace UmbraMenu
             }
             #endregion
 
-            if (!chatOpen && InGameCheck())
+            if (!chatOpen && InGameCheck() && !listenForKeybind)
             {
                 #region Player Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["PLAYER MENU"].KeyCode))
                 {
-                    //playerMenu.ToggleMenu();
+                    playerMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 1;
@@ -901,7 +912,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["STATS MENU"].KeyCode))
                 {
-                    //statsModMenu.ToggleMenu();
+                    statsModMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 8;
@@ -910,12 +921,12 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["VIEW STATS MENU"].KeyCode))
                 {
-                    //viewStatsMenu.ToggleMenu();
+                    viewStatsMenu.ToggleMenu();
                 }
 
                 if (Input.GetKeyDown(keybindDict["CHANGE CHARACTER MENU"].KeyCode))
                 {
-                    //characterListMenu.ToggleMenu();
+                    characterListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 10;
@@ -924,7 +935,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["BUFF MENU"].KeyCode))
                 {
-                    //buffListMenu.ToggleMenu();
+                    buffListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 11;
@@ -958,7 +969,7 @@ namespace UmbraMenu
                 #region Movement Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["MOVEMENT MENU"].KeyCode))
                 {
-                    //movementMenu.ToggleMenu();
+                    movementMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 2;
@@ -987,7 +998,7 @@ namespace UmbraMenu
                 #region Item Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["ITEMS MENU"].KeyCode))
                 {
-                    //itemsMenu.ToggleMenu();
+                    itemsMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 3;
@@ -1006,7 +1017,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["ITEMS LIST MENU"].KeyCode))
                 {
-                    //itemListMenu.ToggleMenu();
+                    itemListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 12;
@@ -1015,7 +1026,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["EQUIPMENT LIST MENU"].KeyCode))
                 {
-                    //equipmentListMenu.ToggleMenu();
+                    equipmentListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 13;
@@ -1052,7 +1063,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["CHANGE CHEST ITEM MENU"].KeyCode))
                 {
-                    //chestItemListMenu.ToggleMenu();
+                    chestItemListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 14;
@@ -1063,7 +1074,7 @@ namespace UmbraMenu
                 #region Spawn Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["SPAWN MENU"].KeyCode))
                 {
-                    //spawnMenu.ToggleMenu();
+                    spawnMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 4;
@@ -1072,7 +1083,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["SPAWN LIST MENU"].KeyCode))
                 {
-                    //spawnListMenu.ToggleMenu();
+                    spawnListMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 15;
@@ -1093,7 +1104,7 @@ namespace UmbraMenu
                 #region Teleport Menu Keybinds 
                 if (Input.GetKeyDown(keybindDict["TELEPORTER MENU"].KeyCode))
                 {
-                    //teleporterMenu.ToggleMenu();
+                    teleporterMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 5;
@@ -1139,7 +1150,7 @@ namespace UmbraMenu
                 #region Render Menu Keybinds
                 if (Input.GetKeyDown(keybindDict["RENDER MENU"].KeyCode))
                 {
-                    //renderMenu.ToggleMenu();
+                    renderMenu.ToggleMenu();
                     if (navigationToggle && AllowNavigation)
                     {
                         Navigation.menuIndex = 6;

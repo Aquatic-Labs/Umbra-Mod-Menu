@@ -106,7 +106,6 @@ namespace UmbraMenu
 
         public static void UpdateIndexValues()
         {
-            Debug.Log($"MenuIndex: {menuIndex} \n ButtonIndex: {buttonIndex} \n PrevButtonIndex: {prevButtonIndex} \n");
             int menuLength = UmbraMenu.menus[menuIndex].GetButtons().Count;
             if (UmbraMenu.menus[menuIndex] is ListMenu listMenu)
             {

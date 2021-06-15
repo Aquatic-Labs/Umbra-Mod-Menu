@@ -35,11 +35,6 @@ namespace UmbraMenu
             }
             GUI.EndScrollView();
         }
-        public override void Reset()
-        {
-            Enabled = false;
-            IfDragged = false;
-        }
 
         public void SetScrollPosition(Vector2 newPos)
         {
