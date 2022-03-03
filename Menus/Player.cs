@@ -246,7 +246,7 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Buff
-                        UmbraMenu.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("Intangible"));
+                        //UmbraMenu.LocalPlayerBody.AddBuff(BuffDef..FindBuffIndex("Intangible"));
                         break;
                     }
 

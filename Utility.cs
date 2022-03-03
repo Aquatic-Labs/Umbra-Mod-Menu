@@ -191,7 +191,7 @@ namespace UmbraMenu
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier1 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
-            List<BuffIndex> boss = new List<BuffIndex>();
+            List<ItemIndex> voidt = new List<ItemIndex>();
 
             foreach (ItemIndex itemIndex in ItemCatalog.tier1ItemList)
             {
@@ -208,8 +208,16 @@ namespace UmbraMenu
             foreach (ItemIndex itemIndex in ItemCatalog.lunarItemList)
             {
                 lunar.Add(itemIndex);
-            }        
-            var result = items.Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).ToList();
+            }
+            foreach (ItemDef def in ItemCatalog.allItemDefs)
+            {
+                if (def.tier == ItemTier.VoidTier1 || def.tier == ItemTier.VoidTier2 || def.tier == ItemTier.VoidTier3)
+                {
+                    voidt.Add(def.itemIndex);
+                }
+            }
+
+            var result = items.Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(voidt).ToList();
 
 
             return result;                      
