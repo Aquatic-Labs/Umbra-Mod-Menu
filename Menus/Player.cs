@@ -154,11 +154,10 @@ namespace UmbraMenu.Menus
 
         public static void RemoveAllBuffs()
         {
-            foreach (string buffName in Enum.GetNames(typeof(BuffIndex)))
+            foreach (BuffIndex buffIndex in UmbraMenu.buffs)
             {
                 try
                 {
-                    BuffIndex buffIndex = (BuffIndex)Enum.Parse(typeof(BuffIndex), buffName);
                     while (UmbraMenu.LocalPlayerBody.HasBuff(buffIndex))
                     {
                         UmbraMenu.LocalPlayerBody.RemoveBuff(buffIndex);
@@ -351,15 +350,14 @@ namespace UmbraMenu.Menus
 
         public static void UnlockAll()
         {
-            //Goes through resource file containing all unlockables... Easily updatable, just paste "RoR2.UnlockCatalog" and GetAllUnlockable does the rest.
             //This is needed to unlock logs
-            foreach (var unlockableName in UmbraMenu.unlockableNames)
+            var unlockables = UmbraMenu.unlockables;
+            foreach (var unlockable in unlockables)
             {
-                var unlockableDef = UnlockableCatalog.GetUnlockableDef(unlockableName);
                 NetworkUser networkUser = Util.LookUpBodyNetworkUser(UmbraMenu.LocalPlayerBody);
                 if (networkUser)
                 {
-                    networkUser.ServerHandleUnlock(unlockableDef);
+                    networkUser.ServerHandleUnlock(unlockable.Value);
                 }
             }
 
@@ -376,18 +374,20 @@ namespace UmbraMenu.Menus
             {
                 if (profile.statSheet.GetStatValueDouble(RoR2.Stats.PerBodyStatDef.totalTimeAlive, survivor.bodyPrefab.name) == 0.0)
                     profile.statSheet.SetStatValueFromString(RoR2.Stats.PerBodyStatDef.totalTimeAlive.FindStatDef(survivor.bodyPrefab.name), "0.1");
+                if (profile.statSheet.GetStatValueULong(RoR2.Stats.PerBodyStatDef.totalWins, survivor.bodyPrefab.name) == 0L)
+                    profile.statSheet.SetStatValueFromString(RoR2.Stats.PerBodyStatDef.totalWins.FindStatDef(survivor.bodyPrefab.name), "1");
+                if (profile.statSheet.GetStatValueULong(RoR2.Stats.PerBodyStatDef.timesPicked, survivor.bodyPrefab.name) == 0L)
+                    profile.statSheet.SetStatValueFromString(RoR2.Stats.PerBodyStatDef.timesPicked.FindStatDef(survivor.bodyPrefab.name), "1");
             }
 
             //All items and equipments
-            foreach (string itemName in Enum.GetNames(typeof(ItemIndex)))
+            foreach (ItemIndex itemIndex in ItemCatalog.allItems)
             {
-                ItemIndex itemIndex = (ItemIndex)Enum.Parse(typeof(ItemIndex), itemName);
                 profile.DiscoverPickup(PickupCatalog.FindPickupIndex(itemIndex));
             }
 
-            foreach (string equipmentName in Enum.GetNames(typeof(EquipmentIndex)))
+            foreach (EquipmentIndex equipmentIndex in EquipmentCatalog.allEquipment)
             {
-                EquipmentIndex equipmentIndex = (EquipmentIndex)Enum.Parse(typeof(EquipmentIndex), equipmentName);
                 profile.DiscoverPickup(PickupCatalog.FindPickupIndex(equipmentIndex));
             }
 
@@ -405,7 +405,6 @@ namespace UmbraMenu.Menus
                         networkUser.ServerHandleUnlock(unlockableDef);
                     }
                 }
-
             }
         }
 

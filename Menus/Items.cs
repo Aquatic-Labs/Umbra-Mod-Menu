@@ -351,7 +351,7 @@ namespace UmbraMenu.Menus
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier3 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
-            List<ItemIndex> voidT = new List<ItemIndex>();
+            List<ItemIndex> boss = UmbraMenu.bossItems;
 
             foreach (ItemIndex itemIndex in ItemCatalog.tier1ItemList)
             {
@@ -377,9 +377,10 @@ namespace UmbraMenu.Menus
 
 
 
-            weightedSelection.AddChoice(tier1, 70f);
-            weightedSelection.AddChoice(tier2, 22.5f);
-            weightedSelection.AddChoice(tier3, 5f);
+            weightedSelection.AddChoice(tier1, 63.5f);
+            weightedSelection.AddChoice(tier2, 27f);
+            weightedSelection.AddChoice(tier3, 3.5f);
+            weightedSelection.AddChoice(boss, 3.5f);
             weightedSelection.AddChoice(lunar, 2.5f);
             weightedSelection.AddChoice(voidT, 0.5f);
             return weightedSelection;
@@ -390,7 +391,7 @@ namespace UmbraMenu.Menus
         {
             if (UmbraMenu.LocalPlayerInv)
             {
-                foreach (ItemIndex itemIndex in ItemCatalog.allItems)
+                foreach (ItemIndex itemIndex in UmbraMenu.items)
                 {
                     ItemDef itemDef = ItemCatalog.GetItemDef(itemIndex);
                     string itemName = itemDef.name;

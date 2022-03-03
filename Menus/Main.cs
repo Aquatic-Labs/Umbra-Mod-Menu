@@ -22,11 +22,8 @@ namespace UmbraMenu.Menus
                 SetTitle($"UMBRA\n<color=yellow>DEV</color>");
             }
 
-
-
-            if (UmbraMenu.characterCollected)
+            if (UmbraMenu.characterCollected || UmbraMenu.forceFullModMenu)
             {
-
                 Button togglePlayer = new Button(new TogglableButton(this, 1, "PLAYER : OFF", "PLAYER : ON", PlayerButtonAction, PlayerButtonAction));
                 Button toggleMovement = new Button(new TogglableButton(this, 2, "MOVEMENT : OFF", "MOVEMENT : ON", MovementButtonAction, MovementButtonAction));
                 Button toggleItems = new Button(new TogglableButton(this, 3, "ITEMS : OFF", "ITEMS : ON", ItemsButtonAction, ItemsButtonAction));

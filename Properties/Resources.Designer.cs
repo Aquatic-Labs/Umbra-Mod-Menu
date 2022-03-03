@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UmbraRoR.Properties {
+namespace UmbraMenu.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace UmbraRoR.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UmbraRoR.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UmbraMenu.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,30 +57,6 @@ namespace UmbraRoR.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to using System;
-        ///using System.Collections.Generic;
-        ///using System.Linq;
-        ///
-        ///namespace RoR2
-        ///{
-        ///	// Token: 0x020004E0 RID: 1248
-        ///	public static class UnlockableCatalog
-        ///	{
-        ///		// Token: 0x06001EA1 RID: 7841 RVA: 0x0007D942 File Offset: 0x0007BB42
-        ///		private static void RegisterUnlockable(string name, UnlockableDef unlockableDef)
-        ///		{
-        ///			unlockableDef.name = name;
-        ///			unlockableDef.index = new UnlockableIndex(UnlockableCatalog.nameToDefTable.Count);
-        ///			UnlockableCatalog.nameToDefTable.Add(name, unlockableDef);
-        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Unlockables {
-            get {
-                return ResourceManager.GetString("Unlockables", resourceCulture);
             }
         }
     }

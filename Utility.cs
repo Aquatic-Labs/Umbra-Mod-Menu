@@ -85,6 +85,7 @@ namespace UmbraMenu
                 }
                 catch (NullReferenceException e)
                 {
+                    System.Console.WriteLine(e);
                     continue;
                 }
             }
@@ -110,43 +111,6 @@ namespace UmbraMenu
         }
 
         #region Get Lists
-        public static List<string> GetAllUnlockables()
-        {
-            var unlockableName = new List<string>();
-
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "UmbraMenu.Resources.Unlockables.txt";
-
-            Stream stream = assembly.GetManifestResourceStream(resourceName);
-            StreamReader reader = new StreamReader(stream);
-            while (!reader.EndOfStream)
-            {
-                string line1 = reader.ReadLine();
-                line1 = line1.Replace("UnlockableCatalog.RegisterUnlockable(\"", "");
-                line1 = line1.Replace("\", new UnlockableDef", "");
-                line1 = line1.Replace("true", "");
-                line1 = line1.Replace("});", "");
-                line1 = line1.Replace("=", "");
-                line1 = line1.Replace("\"", "");
-                line1 = line1.Replace("false", "");
-                line1 = line1.Replace(",", "");
-                line1 = line1.Replace("hidden", "");
-                line1 = line1.Replace("{", "");
-                line1 = line1.Replace("nameToken", "");
-                line1 = line1.Replace(" ", "");
-                string[] lineArray = line1.Split(null);
-                foreach (var line in lineArray)
-                {
-                    // TODO: Simplify later
-                    if (line.StartsWith("Logs.") || line.StartsWith("Characters.") || line.StartsWith("Items.") || line.StartsWith("Skills.") || line.StartsWith("Skins.") || line.StartsWith("Shop.") || line.StartsWith("Artifacts.") || line.StartsWith("NewtStatue."))
-                    {
-                        unlockableName.Add(line);
-                    }
-                }
-            }
-            return unlockableName;
-        }
-
         public static List<GameObject> GetBodyPrefabs()
         {
             List<GameObject> bodyPrefabs = new List<GameObject>();
@@ -168,18 +132,29 @@ namespace UmbraMenu
 
             List<EquipmentIndex> equip = new List<EquipmentIndex>();
             List<EquipmentIndex> lunar = new List<EquipmentIndex>();
+            List<EquipmentIndex> other = new List<EquipmentIndex>();
 
-            foreach (EquipmentIndex equipmentIndex in EquipmentCatalog.equipmentList)
+            Color32 equipColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment);
+            Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
+
+            foreach (EquipmentIndex equipmentIndex in EquipmentCatalog.allEquipment)
             {
-                equip.Add(equipmentIndex);
+                Color32 currentEquipColor = ColorCatalog.GetColor(EquipmentCatalog.GetEquipmentDef(equipmentIndex).colorIndex);
+                if (currentEquipColor.Equals(equipColor)) // equipment
+                {
+                    equip.Add(equipmentIndex);
+                }
+                else if (currentEquipColor.Equals(lunarColor)) // lunar equipment
+                {
+                    lunar.Add(equipmentIndex);
+                }
+                else // other
+                {
+                    other.Add(equipmentIndex);
+                }
             }
-
-            foreach (EquipmentIndex equipmentIndex in EquipmentCatalog.enigmaEquipmentList)
-            {
-                lunar.Add(equipmentIndex);
-            }
-
-            var result = equipment.Concat(lunar).Concat(equip).ToList();
+            UmbraMenu.unreleasedEquipment = other;
+            var result = equipment.Concat(lunar).Concat(equip).Concat(other).ToList();
             return result;
         }
 
@@ -187,45 +162,63 @@ namespace UmbraMenu
         {
             List<ItemIndex> items = new List<ItemIndex>();
 
+            List<ItemIndex> boss = new List<ItemIndex>();
             List<ItemIndex> tier3 = new List<ItemIndex>();
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier1 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
             List<ItemIndex> voidt = new List<ItemIndex>();
+            List<ItemIndex> other = new List<ItemIndex>();
 
-            foreach (ItemIndex itemIndex in ItemCatalog.tier1ItemList)
+            Color32 bossColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.BossItem);
+            Color32 tier3Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier3Item);
+            Color32 tier2Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier2Item);
+            Color32 tier1Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier1Item);
+            Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
+            Color32 voidColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.VoidItem);
+
+            foreach (ItemIndex itemIndex in ItemCatalog.allItems)
             {
-                tier1.Add(itemIndex);
-            }
-            foreach (ItemIndex itemIndex in ItemCatalog.tier2ItemList)
-            {
-                tier2.Add(itemIndex);
-            }
-            foreach (ItemIndex itemIndex in ItemCatalog.tier3ItemList)
-            {
-                tier3.Add(itemIndex);
-            }
-            foreach (ItemIndex itemIndex in ItemCatalog.lunarItemList)
-            {
-                lunar.Add(itemIndex);
-            }
-            foreach (ItemDef def in ItemCatalog.allItemDefs)
-            {
-                if (def.tier == ItemTier.VoidTier1 || def.tier == ItemTier.VoidTier2 || def.tier == ItemTier.VoidTier3)
+                Color32 itemColor = ColorCatalog.GetColor(ItemCatalog.GetItemDef(itemIndex).colorIndex);
+                if (itemColor.Equals(bossColor)) // boss
                 {
-                    voidt.Add(def.itemIndex);
+                    boss.Add(itemIndex);
+                }
+                else if (itemColor.Equals(tier3Color)) // tier 3
+                {
+                    tier3.Add(itemIndex);
+                }
+                else if (itemColor.Equals(tier2Color)) // tier 2
+                {
+                    tier2.Add(itemIndex);
+                }
+                else if (itemColor.Equals(tier1Color)) // tier 1
+                {
+                    tier1.Add(itemIndex);
+                }
+                else if (itemColor.Equals(lunarColor)) // lunar
+                {
+                    lunar.Add(itemIndex);
+                }                
+                else if (itemColor.Equals(voidColor)) // Void
+                {
+                    voidt.Add(itemIndex);
+                }
+                else // Other
+                {
+                    other.Add(itemIndex);
                 }
             }
 
-            var result = items.Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(voidt).ToList();
-
-
-            return result;                      
+            UmbraMenu.bossItems = boss;
+            UmbraMenu.unreleasedItems = other;
+            var result = items.Concat(boss).Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(voidt).Concat(other).ToList();
+            return result;
         }
            
-        public static List<BuffIndex> GetBossItems()
+        public static List<BuffIndex> GetBuffs()
         {
-            List<BuffIndex> items = new List<BuffIndex>();
+            List<BuffIndex> buffs = new List<BuffIndex>();
 
             List<BuffIndex> elite = new List<BuffIndex>();
             List<BuffIndex> debuff = new List<BuffIndex>();
@@ -239,7 +232,7 @@ namespace UmbraMenu
             {
                 elite.Add(buffIndex);
             }
-            var result = items.Concat(elite).Concat(debuff).ToList();
+            var result = buffs.Concat(elite).Concat(debuff).ToList();
             return result;                      
         }
 
