@@ -12,7 +12,9 @@ namespace UmbraMenu
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "2.0.1";
+            VERSION = "2.0.3";
+
+
 
         public static string SETTINGSPATH = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), $"UmbraMenu/settings-{VERSION}.ini");
 

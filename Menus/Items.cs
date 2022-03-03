@@ -370,10 +370,6 @@ namespace UmbraMenu.Menus
                 lunar.Add(itemIndex);
             }
 
-            foreach (ItemIndex itemIndex in ItemCatalog.tier3ItemList)
-            {
-                lunar.Add(itemIndex);
-            }
 
 
 
@@ -382,7 +378,6 @@ namespace UmbraMenu.Menus
             weightedSelection.AddChoice(tier3, 3.5f);
             weightedSelection.AddChoice(boss, 3.5f);
             weightedSelection.AddChoice(lunar, 2.5f);
-            weightedSelection.AddChoice(voidT, 0.5f);
             return weightedSelection;
         }
 
