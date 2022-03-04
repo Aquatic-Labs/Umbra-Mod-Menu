@@ -15,7 +15,8 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 This menu is for testing/personal fun. I do not condone the use of this menu in competitive modes such as the Prismatic Trials nor do I condone the use of this menu if it harms the experience of other players in any way. Thank you.
 
 
-# Just released Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Acher0ns/Umbra-Menu-Injector)
+### Check out Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Acher0ns/Umbra-Menu-Injector)
+# Updated for Survivors of the Void!
 # Features
 
 - [ ] Unlock All
@@ -168,9 +169,10 @@ pause
 # Changelog:
 ## 3/4/2022 v2.0.3:
 - [ ] Fixed to the extent where the game won't crash anymore after injecting.
-- [ ] Added all new Void Items to the ItemList Pool
-- [ ] Fixed the chest ESP not applying properly
-- [ ] Temporarily Removed Intangible Godmode
+- [ ] Added all new Void Items to the ItemList Pool.
+- [ ] Fixed the chest ESP not applying properly.
+- [ ] Temporarily Removed Intangible Godmode.
+- [ ] Added player respawn button.
 
 
 ## 6/11/2021 v2.0.2:
