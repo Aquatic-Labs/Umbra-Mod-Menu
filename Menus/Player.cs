@@ -66,6 +66,7 @@ namespace UmbraMenu.Menus
         public Button toggleAimbot;
         public Button toggleGod;
         public Button toggleSkillCD;
+        public Button respawn;
         public Button unlockAll;
 
         public Player() : base(player)
@@ -87,7 +88,8 @@ namespace UmbraMenu.Menus
                 toggleAimbot = new Button(new TogglableButton(this, 8, "AIMBOT : OFF", "AIMBOT : ON", ToggleAimbot, ToggleAimbot));
                 toggleGod = new Button(new TogglableButton(this, 9, "GOD MODE : OFF", "GOD MODE : ON", ToggleGodMode, ToggleGodMode));
                 toggleSkillCD = new Button(new TogglableButton(this, 10, "INFINITE SKILLS : OFF", "INFINITE SKILLS : ON", ToggleSkillCD, ToggleSkillCD));
-                unlockAll = new Button(new TogglableButton(this, 11, "UNLOCK ALL", "CONFIRM?", DoNothing, UnlockAll));
+                respawn = new Button(new NormalButton(this, 11, "RESPAWN", respawnPlayer));
+                unlockAll = new Button(new TogglableButton(this, 12, "UNLOCK ALL", "CONFIRM?", DoNothing, UnlockAll));
 
                 AddButtons(new List<Button>()
                 {
@@ -101,6 +103,7 @@ namespace UmbraMenu.Menus
                     toggleAimbot,
                     toggleGod,
                     toggleSkillCD,
+                    respawn,
                     unlockAll
                 });
                 SetActivatingButton(Utility.FindButtonById(0, 1));
@@ -150,6 +153,11 @@ namespace UmbraMenu.Menus
         public static void ToggleSkillCD()
         {
             SkillToggle = !SkillToggle;
+        }
+
+        public static void respawnPlayer()
+        {
+            UmbraMenu.LocalPlayer.GetComponent<CharacterMaster>().RespawnExtraLife();
         }
 
         public static void RemoveAllBuffs()
