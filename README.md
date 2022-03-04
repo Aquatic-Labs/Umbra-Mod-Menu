@@ -166,6 +166,13 @@ pause
 
 
 # Changelog:
+## 3/4/2022 v2.0.3:
+- [ ] Fixed to the extent where the game won't crash anymore after injecting.
+- [ ] Added all new Void Items to the ItemList Pool
+- [ ] Fixed the chest ESP not applying properly
+- [ ] Temporarily Removed Intangible Godmode
+
+
 ## 6/11/2021 v2.0.2:
 - [ ] Complete update fixing everything Anniversary Update Broke.
 - [ ] Fix Unlock All so that profile becomes 100% complete
