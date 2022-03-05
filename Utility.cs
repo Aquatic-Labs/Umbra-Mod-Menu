@@ -167,6 +167,7 @@ namespace UmbraMenu
             List<ItemIndex> tier2 = new List<ItemIndex>();
             List<ItemIndex> tier1 = new List<ItemIndex>();
             List<ItemIndex> lunar = new List<ItemIndex>();
+            List<ItemIndex> voidt = new List<ItemIndex>();
             List<ItemIndex> other = new List<ItemIndex>();
 
             Color32 bossColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.BossItem);
@@ -174,6 +175,7 @@ namespace UmbraMenu
             Color32 tier2Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier2Item);
             Color32 tier1Color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier1Item);
             Color32 lunarColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem);
+            Color32 voidColor = ColorCatalog.GetColor(ColorCatalog.ColorIndex.VoidItem);
 
             foreach (ItemIndex itemIndex in ItemCatalog.allItems)
             {
@@ -197,6 +199,10 @@ namespace UmbraMenu
                 else if (itemColor.Equals(lunarColor)) // lunar
                 {
                     lunar.Add(itemIndex);
+                }                
+                else if (itemColor.Equals(voidColor)) // Void
+                {
+                    voidt.Add(itemIndex);
                 }
                 else // Other
                 {
@@ -206,7 +212,7 @@ namespace UmbraMenu
 
             UmbraMenu.bossItems = boss;
             UmbraMenu.unreleasedItems = other;
-            var result = items.Concat(boss).Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(other).ToList();
+            var result = items.Concat(boss).Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(voidt).Concat(other).ToList();
             return result;
         }
            
