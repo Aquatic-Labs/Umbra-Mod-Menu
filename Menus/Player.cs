@@ -231,27 +231,20 @@ namespace UmbraMenu.Menus
             var hurtBox = bullseyeSearch.GetResults().FirstOrDefault();
             if (hurtBox)
             {
-                //todo check if the player is the railgunner
-
-                HurtBox selectedBox = null;
-                foreach (HurtBox box in hurtBox.hurtBoxGroup.hurtBoxes)
+                HurtBox selectedBox = hurtBox;
+                if (Utility.GetCurrentCharacter() == SurvivorCatalog.FindSurvivorIndex("Railgunner"))
                 {
-                    if (box.isSniperTarget)
+                    foreach (HurtBox box in hurtBox.hurtBoxGroup.hurtBoxes)
                     {
-                        selectedBox = box;
-                        break;
+                        if (box.isSniperTarget)
+                        {
+                            selectedBox = box;
+                            break;
+                        }
                     }
                 }
-                if (selectedBox != null)
-                {
-                    Vector3 dir = selectedBox.transform.position - aimRay.origin;
-                    inputBank.aimDirection = dir;
-                }
-                else
-                {
-                    Vector3 direction = hurtBox.transform.position - aimRay.origin;
-                    inputBank.aimDirection = direction;
-                }
+                Vector3 direction = selectedBox.transform.position - aimRay.origin;
+                inputBank.aimDirection = direction;
             }
         }
 

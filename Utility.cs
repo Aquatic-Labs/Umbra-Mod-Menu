@@ -111,6 +111,12 @@ namespace UmbraMenu
         }
 
         #region Get Lists
+        public static List<SurvivorDef> GetSurvivorDefs()
+        {
+            List<SurvivorDef> result = SurvivorCatalog.allSurvivorDefs.ToList();
+            return result;
+        }
+
         public static List<GameObject> GetBodyPrefabs()
         {
             List<GameObject> bodyPrefabs = new List<GameObject>();

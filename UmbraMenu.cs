@@ -30,6 +30,7 @@ namespace UmbraMenu
 
         #region Init Lists
         public static Dictionary<String, UnlockableDef> unlockables = typeof(UnlockableCatalog).GetField<Dictionary<String, UnlockableDef>>("nameToDefTable");
+        public static List<SurvivorDef> survivorDefs = Utility.GetSurvivorDefs();
         public static List<GameObject> bodyPrefabs = Utility.GetBodyPrefabs();
         public static List<EquipmentIndex> equipment = Utility.GetEquipment();
         public static List<ItemIndex> items = Utility.GetItems();
