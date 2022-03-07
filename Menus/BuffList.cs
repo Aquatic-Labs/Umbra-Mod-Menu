@@ -16,11 +16,10 @@ namespace UmbraMenu.Menus
             {
                 List<Button> buttons = new List<Button>();
                 int i = 0;
-                foreach (BuffIndex buffIndex in UmbraMenu.buffs)
+                foreach (BuffDef buffDef in UmbraMenu.buffs)
                 {  
-                    BuffDef def = BuffCatalog.GetBuffDef(buffIndex);
-                    void ButtonAction() => ApplyBuff(buffIndex);
-                    Button button = new Button(new NormalButton(this, i + 1, def.name, ButtonAction));
+                    void ButtonAction() => ApplyBuff(buffDef);
+                    Button button = new Button(new NormalButton(this, i + 1, buffDef.name.Substring(2), ButtonAction));
                     buttons.Add(button);
                     i++;
                 }
@@ -39,12 +38,12 @@ namespace UmbraMenu.Menus
             }
         }
 
-        private void ApplyBuff(BuffIndex buffIndex)
+        private void ApplyBuff(BuffDef buffDef)
         {
             var localUser = LocalUserManager.GetFirstLocalUser();
             if (localUser.cachedMasterController && localUser.cachedMasterController.master)
             {
-                UmbraMenu.LocalPlayerBody.AddBuff(buffIndex);
+                UmbraMenu.LocalPlayerBody.AddBuff(buffDef);
             }
         }
     }

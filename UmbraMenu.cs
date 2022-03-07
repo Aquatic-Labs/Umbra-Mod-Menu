@@ -33,7 +33,7 @@ namespace UmbraMenu
         public static List<GameObject> bodyPrefabs = Utility.GetBodyPrefabs();
         public static List<EquipmentIndex> equipment = Utility.GetEquipment();
         public static List<ItemIndex> items = Utility.GetItems();
-        public static List<BuffIndex> buffs = Utility.GetBuffs();
+        public static List<BuffDef> buffs = Utility.GetBuffs();
         public static List<SpawnCard> spawnCards = Utility.GetSpawnCards();
         public static List<ItemIndex> bossItems;
         public static List<ItemIndex> unreleasedItems;

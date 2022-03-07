@@ -215,31 +215,42 @@ namespace UmbraMenu
             var result = items.Concat(boss).Concat(tier3).Concat(tier2).Concat(tier1).Concat(lunar).Concat(voidt).Concat(other).ToList();
             return result;
         }
-           
-        public static List<BuffIndex> GetBuffs()
+
+        public static List<BuffDef> GetBuffs()
         {
-            List<BuffIndex> buffs = new List<BuffIndex>();
+            List<BuffDef> buffs = new List<BuffDef>();
 
-            List<BuffIndex> normal = new List<BuffIndex>();
-            List<BuffIndex> elite = new List<BuffIndex>();
-            List<BuffIndex> debuff = new List<BuffIndex>();
+            List<BuffDef> eliteBuff = new List<BuffDef>();
+            List<BuffDef> nonEliteBuff = new List<BuffDef>();
+            List<BuffDef> eliteDebuff = new List<BuffDef>();
+            List<BuffDef> nonEliteDebuff = new List<BuffDef>();
+            List<BuffDef> other = new List<BuffDef>();
 
-/*            foreach (BuffIndex buffIndex in BuffCatalog.nonHiddenBuffIndices)
+            foreach (BuffDef buffDef in typeof(BuffCatalog).GetField<BuffDef[]>("buffDefs"))
             {
-                normal.Add(buffIndex);
-
-            } */          
-            foreach (BuffIndex buffIndex in BuffCatalog.debuffBuffIndices)
-            {
-                debuff.Add(buffIndex);
-
+                if (!buffDef.isDebuff && buffDef.isElite)
+                {
+                    eliteBuff.Add(buffDef);
+                }
+                else if (!buffDef.isDebuff && !buffDef.isElite)
+                {
+                    nonEliteBuff.Add(buffDef);
+                }
+                else if (buffDef.isDebuff && buffDef.isElite)
+                {
+                    eliteDebuff.Add(buffDef);
+                }
+                else if (buffDef.isDebuff && !buffDef.isElite)
+                {
+                    nonEliteDebuff.Add(buffDef);
+                }
+                else
+                {
+                    other.Add(buffDef);
+                }
             }
-            foreach (BuffIndex buffIndex in BuffCatalog.eliteBuffIndices)
-            {
-                elite.Add(buffIndex);
-            }
-            var result = buffs.Concat(normal).Concat(elite).Concat(debuff).ToList();
-            return result;                      
+            var result = buffs.Concat(eliteBuff).Concat(nonEliteBuff).Concat(eliteDebuff).Concat(nonEliteDebuff).Concat(other).ToList();
+            return result;
         }
 
 

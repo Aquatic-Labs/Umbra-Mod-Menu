@@ -162,18 +162,17 @@ namespace UmbraMenu.Menus
 
         public static void RemoveAllBuffs()
         {
-            foreach (BuffIndex buffIndex in UmbraMenu.buffs)
+            foreach (BuffDef buffDef in UmbraMenu.buffs)
             {
                 try
                 {
-                    while (UmbraMenu.LocalPlayerBody.HasBuff(buffIndex))
+                    while (UmbraMenu.LocalPlayerBody.HasBuff(buffDef))
                     {
-                        UmbraMenu.LocalPlayerBody.RemoveBuff(buffIndex);
+                        UmbraMenu.LocalPlayerBody.RemoveBuff(buffDef);
                     }
                 }
-                catch (Exception e)
+                catch
                 {
-                    Debug.Log(e);
                     continue;
                 }
             }

@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace UmbraMenu
 {
-    // shalzuth//RiskOfShame/Reflection.cs
+    // shalzuth/RiskOfShame/Reflection.cs
     public static class Reflections
     {
         public static BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
