@@ -284,7 +284,7 @@ namespace UmbraMenu
                 {
                     updatedHurtboxes.Add(hurtBox);
                 }
-                /*else
+/*                else
                 {
                     WriteToLog($"Blocked: {mobName}");
                 }*/
