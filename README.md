@@ -174,7 +174,7 @@ pause
 - [ ] Add Railgunner's weak points to aimbot.
 - [ ] Fix intangible God Mod.
 - [ ] Update Buff List.
-- [ ] Buff list now uses BuffDef instead of BuffIndex
+- [ ] Buff list now uses BuffDef instead of BuffIndex.
 
 
 ## 3/4/2022 v2.0.3:
