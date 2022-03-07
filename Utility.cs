@@ -220,9 +220,15 @@ namespace UmbraMenu
         {
             List<BuffIndex> buffs = new List<BuffIndex>();
 
+            List<BuffIndex> normal = new List<BuffIndex>();
             List<BuffIndex> elite = new List<BuffIndex>();
             List<BuffIndex> debuff = new List<BuffIndex>();
 
+/*            foreach (BuffIndex buffIndex in BuffCatalog.nonHiddenBuffIndices)
+            {
+                normal.Add(buffIndex);
+
+            } */          
             foreach (BuffIndex buffIndex in BuffCatalog.debuffBuffIndices)
             {
                 debuff.Add(buffIndex);
@@ -232,7 +238,7 @@ namespace UmbraMenu
             {
                 elite.Add(buffIndex);
             }
-            var result = buffs.Concat(elite).Concat(debuff).ToList();
+            var result = buffs.Concat(normal).Concat(elite).Concat(debuff).ToList();
             return result;                      
         }
 

@@ -272,7 +272,10 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Buff
-                        UmbraMenu.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("Invulnerable"));
+                        if (!UmbraMenu.LocalPlayerBody.HasBuff(BuffCatalog.FindBuffIndex("bdIntangible")))
+                        {
+                            UmbraMenu.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("bdIntangible"));
+                        }
                         break;
                     }
 
@@ -336,7 +339,7 @@ namespace UmbraMenu.Menus
 
                 case 1:
                     {
-                        RemoveAllBuffs();
+                        UmbraMenu.LocalPlayerBody.RemoveBuff(BuffCatalog.FindBuffIndex("bdIntangible"));
                         break;
                     }
 
