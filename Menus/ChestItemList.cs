@@ -130,7 +130,7 @@ namespace UmbraMenu.Menus
             Dictionary<float, ChestBehavior> chestsWithDistance = new Dictionary<float, ChestBehavior>();
             foreach (var chest in chests)
             {
-                string dropName = Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken());
+                string dropName = Language.GetString(PickupCatalog.GetPickupDef(chest.dropPickup).nameToken);
                 if (dropName != null && dropName != "???")
                 {
                     float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
@@ -151,7 +151,7 @@ namespace UmbraMenu.Menus
             var chestBoundingVector = new Vector3(chestPosition.x, chestPosition.y, chestPosition.z);
             if (chestBoundingVector.z > 0.01)
             {
-                string dropNameColored = Util.GenerateColoredString(Language.GetString(chest.GetField<PickupIndex>("dropPickup").GetPickupNameToken()), chest.GetField<PickupIndex>("dropPickup").GetPickupColor());
+                string dropNameColored = Util.GenerateColoredString(Language.GetString(PickupCatalog.GetPickupDef(chest.dropPickup).nameToken), PickupCatalog.GetPickupDef(chest.dropPickup).baseColor);
                 float distanceToChest = Vector3.Distance(Camera.main.transform.position, FindClosestChest().transform.position);
                 float width = 100f * (distanceToChest / 100);
                 if (width > 125)
@@ -179,19 +179,19 @@ namespace UmbraMenu.Menus
         public static void SetChestItem(ItemIndex itemIndex)
         {
             var chest = FindClosestChest();
-            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(itemIndex));
+            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(itemIndex), "PickupIndex", "ChestBehavior");
         }
 
         public static void SetChestEquipment(EquipmentIndex euipmentIndex)
         {
             var chest = FindClosestChest();
-            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(euipmentIndex));
+            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(euipmentIndex), "PickupIndex", "ChestBehavior");
         }
 
         public static bool CheckClosestChestEquip()
         {
             var chest = FindClosestChest();
-            var equipmentDrop = chest.GetField<PickupIndex>("dropPickup").equipmentIndex;
+            var equipmentDrop = PickupCatalog.GetPickupDef(chest.dropPickup).equipmentIndex;
             if (UmbraMenu.equipment.Contains(equipmentDrop) && equipmentDrop != EquipmentIndex.None)
             {
                 return true;
