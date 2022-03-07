@@ -232,8 +232,27 @@ namespace UmbraMenu.Menus
             var hurtBox = bullseyeSearch.GetResults().FirstOrDefault();
             if (hurtBox)
             {
-                Vector3 direction = hurtBox.transform.position - aimRay.origin;
-                inputBank.aimDirection = direction;
+                //todo check if the player is the railgunner
+
+                HurtBox selectedBox = null;
+                foreach (HurtBox box in hurtBox.hurtBoxGroup.hurtBoxes)
+                {
+                    if (box.isSniperTarget)
+                    {
+                        selectedBox = box;
+                        break;
+                    }
+                }
+                if (selectedBox != null)
+                {
+                    Vector3 dir = selectedBox.transform.position - aimRay.origin;
+                    inputBank.aimDirection = dir;
+                }
+                else
+                {
+                    Vector3 direction = hurtBox.transform.position - aimRay.origin;
+                    inputBank.aimDirection = direction;
+                }
             }
         }
 
@@ -253,7 +272,10 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Buff
-                        //UmbraMenu.LocalPlayerBody.AddBuff(BuffDef..FindBuffIndex("Intangible"));
+                        if (!UmbraMenu.LocalPlayerBody.HasBuff(BuffCatalog.FindBuffIndex("bdIntangible")))
+                        {
+                            UmbraMenu.LocalPlayerBody.AddBuff(BuffCatalog.FindBuffIndex("bdIntangible"));
+                        }
                         break;
                     }
 
@@ -317,7 +339,7 @@ namespace UmbraMenu.Menus
 
                 case 1:
                     {
-                        RemoveAllBuffs();
+                        UmbraMenu.LocalPlayerBody.RemoveBuff(BuffCatalog.FindBuffIndex("bdIntangible"));
                         break;
                     }
 
