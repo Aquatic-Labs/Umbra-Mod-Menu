@@ -9,10 +9,13 @@ namespace UmbraMenu
     public class Loader
     {
         public static GameObject gameObject;
+        //public static Harmony harmony;
 
         public static void Load()
         {
             //RoR2.RoR2Application.isModded = true;
+            //harmony = new Harmony("com.Acher0ns.Umbra.ModMenu");
+            //Harmony.DEBUG = true;
             while (gameObject = GameObject.Find("Umbra Menu"))
                 UnityEngine.Object.Destroy(gameObject);
             gameObject = new GameObject("Umbra Menu");

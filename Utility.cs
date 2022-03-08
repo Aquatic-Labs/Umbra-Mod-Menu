@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using RoR2;
-using System.Reflection;
 using System.IO;
+using HarmonyLib;
 
 namespace UmbraMenu
 {
@@ -232,6 +232,7 @@ namespace UmbraMenu
             List<BuffDef> nonEliteDebuff = new List<BuffDef>();
             List<BuffDef> other = new List<BuffDef>();
 
+          
             foreach (BuffDef buffDef in typeof(BuffCatalog).GetField<BuffDef[]>("buffDefs"))
             {
                 if (!buffDef.isDebuff && buffDef.isElite)
@@ -258,8 +259,6 @@ namespace UmbraMenu
             var result = buffs.Concat(eliteBuff).Concat(nonEliteBuff).Concat(eliteDebuff).Concat(nonEliteDebuff).Concat(other).ToList();
             return result;
         }
-
-
 
         public static List<SpawnCard> GetSpawnCards()
         {
@@ -640,6 +639,16 @@ namespace UmbraMenu
             {
                 outputFile.WriteLine("[UmbraMenu]: " + logContent);
             }
+        }
+
+        public static void WriteFieldsAndPropertiesToLog(object obj)
+        {
+            List<string> fields = Traverse.Create(obj).Fields();
+            List<string> properties = Traverse.Create(obj).Properties();
+            WriteToLog("Fields: ");
+            foreach (var field in fields) { WriteToLog($"    {field}"); }
+            WriteToLog("Properties: ");
+            foreach (var property in properties) { WriteToLog($"    {property}"); }
         }
         #endregion
     }

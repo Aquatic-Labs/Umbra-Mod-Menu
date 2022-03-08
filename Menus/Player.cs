@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using RoR2;
 using System.Text;
+using HarmonyLib;
 
 
 namespace UmbraMenu.Menus
@@ -283,7 +284,8 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Negative
-                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
+                        Traverse.Create(UmbraMenu.LocalHealth).Field("wasAlive").SetValue(false);
+                        //UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
                         break;
                     }
 
@@ -291,7 +293,7 @@ namespace UmbraMenu.Menus
                     {
                         // works
                         // Revive
-                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", false);
+                        Traverse.Create(UmbraMenu.LocalHealth).Field("wasAlive").SetValue(false);
                         int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
                         int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
                         if (UmbraMenu.LocalHealth.health < 1)
@@ -299,7 +301,7 @@ namespace UmbraMenu.Menus
                             if (itemELCount == 0)
                             {
                                 ItemList.GiveItem(ItemCatalog.FindItemIndex("ExtraLife"));
-                                UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                                Traverse.Create(UmbraMenu.LocalHealth).Field("wasAlive").SetValue(true);
                             }
                         }
                         if (itemELCCount > 0)
@@ -341,7 +343,7 @@ namespace UmbraMenu.Menus
                         {
                             UmbraMenu.LocalHealth.health = 1;
                         }
-                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                        Traverse.Create(UmbraMenu.LocalHealth).Field("wasAlive").SetValue(true);
                         break;
                     }
 
@@ -351,7 +353,7 @@ namespace UmbraMenu.Menus
                         {
                             UmbraMenu.LocalHealth.health = 1;
                         }
-                        UmbraMenu.LocalHealth.SetField<bool>("wasAlive", true);
+                        Traverse.Create(UmbraMenu.LocalHealth).Field("wasAlive").SetValue(true);
                         int itemELCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLife"));
                         int itemELCCount = UmbraMenu.LocalPlayerInv.GetItemCount(ItemCatalog.FindItemIndex("ExtraLifeConsumed"));
                         if (itemELCCount > 0)

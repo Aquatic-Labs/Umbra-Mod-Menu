@@ -2,6 +2,7 @@
 using System.Linq;
 using RoR2;
 using UnityEngine;
+using HarmonyLib;
 
 namespace UmbraMenu.Menus
 {
@@ -107,22 +108,7 @@ namespace UmbraMenu.Menus
 
         private static void DumpInteractables(SceneDirector obj)
         {
-            purchaseInteractions = UnityEngine.Object.FindObjectsOfType<PurchaseInteraction>().ToList();
-            chests = ConvertPurchaseInteractsToChests();
-        }
-
-        public static List<ChestBehavior> ConvertPurchaseInteractsToChests()
-        {
-            List<ChestBehavior> chests = new List<ChestBehavior>();
-            foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)
-            {
-                var chest = purchaseInteraction?.gameObject.GetComponent<ChestBehavior>();
-                if (chest)
-                {
-                    chests.Add(chest);
-                }
-            }
-            return chests;
+            chests = UnityEngine.Object.FindObjectsOfType<ChestBehavior>().ToList();
         }
 
         public static ChestBehavior FindClosestChest()
@@ -130,8 +116,7 @@ namespace UmbraMenu.Menus
             Dictionary<float, ChestBehavior> chestsWithDistance = new Dictionary<float, ChestBehavior>();
             foreach (var chest in chests)
             {
-                string dropName = Language.GetString(PickupCatalog.GetPickupDef(chest.dropPickup).nameToken);
-                if (dropName != null && dropName != "???")
+                if (chest && chest.dropPickup != null)
                 {
                     float distanceToChest = Vector3.Distance(Camera.main.transform.position, chest.transform.position);
                     chestsWithDistance.Add(distanceToChest, chest);
@@ -146,7 +131,7 @@ namespace UmbraMenu.Menus
 
         public static void RenderClosestChest()
         {
-            var chest = FindClosestChest();
+            ChestBehavior chest = FindClosestChest();
             Vector3 chestPosition = Camera.main.WorldToScreenPoint(chest.transform.position);
             var chestBoundingVector = new Vector3(chestPosition.x, chestPosition.y, chestPosition.z);
             if (chestBoundingVector.z > 0.01)
@@ -179,13 +164,15 @@ namespace UmbraMenu.Menus
         public static void SetChestItem(ItemIndex itemIndex)
         {
             var chest = FindClosestChest();
-            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(itemIndex), "PickupIndex", "ChestBehavior");
+            PickupIndex newPickupIndex = PickupCatalog.FindPickupIndex(itemIndex);
+            Traverse.Create(chest).Field("<dropPickup>k__BackingField").SetValue(newPickupIndex);
         }
 
-        public static void SetChestEquipment(EquipmentIndex euipmentIndex)
+        public static void SetChestEquipment(EquipmentIndex equipmentIndex)
         {
             var chest = FindClosestChest();
-            chest.SetField<PickupIndex>("dropPickup", PickupCatalog.FindPickupIndex(euipmentIndex), "PickupIndex", "ChestBehavior");
+            PickupIndex newPickupIndex = PickupCatalog.FindPickupIndex(equipmentIndex);
+            Traverse.Create(chest).Field("<dropPickup>k__BackingField").SetValue(newPickupIndex);
         }
 
         public static bool CheckClosestChestEquip()
