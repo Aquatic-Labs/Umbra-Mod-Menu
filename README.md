@@ -170,6 +170,13 @@ pause
 
 
 # Changelog:
+## 3/7/2022 v2.0.4:
+- [ ] Add Railgunner's weak points to aimbot.
+- [ ] Fix intangible God Mod.
+- [ ] Update Buff List.
+- [ ] Buff list now uses BuffDef instead of BuffIndex.
+
+
 ## 3/4/2022 v2.0.3:
 - [ ] Fixed to the extent where the game won't crash anymore after injecting.
 - [ ] Added all new Void Items to the ItemList Pool.
