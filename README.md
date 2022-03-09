@@ -2,6 +2,10 @@
 ![UmbraInjecter-icon](https://user-images.githubusercontent.com/12210881/87236402-2d05ae80-c3b7-11ea-96d9-61f2136e8607.png)
 
 [![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/kamroncole/)
+![Neonix#1337](https://dcbadge.vercel.app/api/shield/143449441095909376)
+
+### Join the Discord Server: [![](https://img.shields.io/discord/899489498524692542)](https://discord.gg/5smWz2UA8x)
+
 
 A small collection of hacks and cheats for Risk of Rain 2.
 
