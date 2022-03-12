@@ -4,7 +4,7 @@
 [![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/kamroncole/)
 ![Neonix#1337](https://dcbadge.vercel.app/api/shield/143449441095909376)
 
-### Join the Discord Server: [![](https://img.shields.io/discord/899489498524692542)](https://discord.gg/invite/M4e8MJu)
+### Join the Discord Server: [![](https://img.shields.io/discord/620901010810077184)](https://discord.gg/invite/M4e8MJu)
 
 
 A small collection of hacks and cheats for Risk of Rain 2.
