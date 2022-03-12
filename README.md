@@ -1,10 +1,10 @@
-# Umbra Menu ![Downloads](https://img.shields.io/github/downloads/Acher0ns/Umbra-Mod-Menu/total)
+# Umbra Menu ![Downloads](https://img.shields.io/github/downloads/Aquatic-Labs/Umbra-Mod-Menu/total)
 ![UmbraInjecter-icon](https://user-images.githubusercontent.com/12210881/87236402-2d05ae80-c3b7-11ea-96d9-61f2136e8607.png)
 
 [![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/kamroncole/)
 ![Neonix#1337](https://dcbadge.vercel.app/api/shield/143449441095909376)
 
-### Join the Discord Server: [![](https://img.shields.io/discord/899489498524692542)](https://discord.gg/5smWz2UA8x)
+### Join the Discord Server: [![](https://img.shields.io/discord/899489498524692542)](https://discord.gg/invite/M4e8MJu)
 
 
 A small collection of hacks and cheats for Risk of Rain 2.
@@ -19,7 +19,7 @@ and was merged with [Lodington's](https://github.com/Lodington/) unofficial fork
 This menu is for testing/personal fun. I do not condone the use of this menu in competitive modes such as the Prismatic Trials nor do I condone the use of this menu if it harms the experience of other players in any way. Thank you.
 
 
-### Check out Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Acher0ns/Umbra-Menu-Injector)
+### Check out Umbra-Injector to auto inject/update Umbra Menu. Check it out [here](https://github.com/Aquatic-Labs/Umbra-Menu-Injector)
 # Updated for Survivors of the Void!
 # Features
 
@@ -79,7 +79,7 @@ Note: Some features may not work if you are not the host of the lobby
 
 # Getting Started:
 ## v1.2.4 and above
-1. Head to [releases](https://github.com/Acher0ns/Umbra-Menu-Injector/releases/latest/) and download `Umbra-Injector-vX.X.X.zip`
+1. Head to [releases](https://github.com/Aquatic-Labs/Umbra-Menu-Injector/releases/latest/) and download `Umbra-Injector-vX.X.X.zip`
 2. Extract the zip.
 3. Run `UmbraInjector.exe`
 4. Press the `Inject` button while the game is open.
@@ -93,7 +93,7 @@ Note: Make sure `UmbraInjector.exe` and the `Data` folder stay in the same direc
 Note: Must use the CLI version of sharp mono injector. The GUI version doesn't work properly.
 
 
-1. Head to [releases](https://github.com/Acher0ns/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
+1. Head to [releases](https://github.com/Aquatic-Labs/Umbra-Mod-Menu/releases) and download `UmbraMenu-vX.X.zip`
 2. Extract the zip
 3. Use your favorite mono injector to inject the dll (If you do not know how to use sharpmonoinjector, scroll down to that section)
 ```
