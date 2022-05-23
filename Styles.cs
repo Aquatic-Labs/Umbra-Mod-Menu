@@ -4,6 +4,7 @@ namespace UmbraMenu
 {
     public static class Styles
     {
+        private static GUIStyle defaultStyle, chestStyle, newtStyle, equipmentStyle, lunarStyle, voidStyle, chanceStyle, bloodStyle, combatStyle, mountainStyle, woodsStyle, teleporterStyle;
         private static GUIStyle mainBgStyle, onStyle, offStyle, labelStyle, titleStyle, btnStyle, itemBtnStyle, cornerStyle, highlightBtnStyle, activeModsStyle, renderTeleporterStyle, renderMobsStyle, renderInteractablesStyle, renderSecretsStyle, watermarkStyle, statsStyle, selectedChestStyle;
 
         public static GUIStyle CreateGUIStyle(Texture2D normalBackground, Texture2D activeBackground, Color color, int fontSize, FontStyle font, TextAnchor textAlignmnet, bool wrapWords = false)
@@ -253,6 +254,149 @@ namespace UmbraMenu
 
                 }
                 return renderSecretsStyle;
+            }
+        }
+
+        public static GUIStyle DefaultStyle
+        {
+            get
+            {
+                if (defaultStyle == null)
+                {
+                    defaultStyle = CreateGUIStyle(null, null, new Color32(180, 200, 220, 255), 12, FontStyle.Normal, TextAnchor.MiddleCenter);
+                }
+                return defaultStyle;
+            }
+        }
+
+        public static GUIStyle ChestStyle
+        {
+            get
+            {
+                if (chestStyle == null)
+                {
+                    chestStyle = CreateGUIStyle(null, null, new Color32(40, 110, 255, 255), 12, FontStyle.Normal, TextAnchor.MiddleCenter);
+                }
+                return chestStyle;
+            }
+        }
+
+        public static GUIStyle NewtStyle
+        {
+            get
+            {
+                if (newtStyle == null)
+                {
+                    newtStyle = CreateGUIStyle(null, null, new Color32(70, 130, 220, 255), 12, FontStyle.BoldAndItalic, TextAnchor.MiddleCenter);
+                }
+                return newtStyle;
+            }
+        }
+
+        public static GUIStyle EquipmentStyle
+        {
+            get
+            {
+                if (equipmentStyle == null)
+                {
+                    equipmentStyle = CreateGUIStyle(null, null, new Color32(200, 80, 0, 255), 12, FontStyle.Normal, TextAnchor.MiddleCenter);
+                }
+                return equipmentStyle;
+            }
+        }
+
+        public static GUIStyle LunarStyle
+        {
+            get
+            {
+                if (lunarStyle == null)
+                {
+                    lunarStyle = CreateGUIStyle(null, null, new Color32(120, 175, 225, 255), 12, FontStyle.Italic, TextAnchor.MiddleCenter);
+                }
+                return lunarStyle;
+            }
+        }
+
+        public static GUIStyle VoidStyle
+        {
+            get
+            {
+                if (voidStyle == null)
+                {
+                    voidStyle = CreateGUIStyle(null, null, new Color32(250, 80, 160, 255), 12, FontStyle.Italic, TextAnchor.MiddleCenter);
+                }
+                return voidStyle;
+            }
+        }
+
+        public static GUIStyle ChanceStyle
+        {
+            get
+            {
+                if (chanceStyle == null)
+                {
+                    chanceStyle = CreateGUIStyle(null, null, new Color32(255, 255, 90, 255), 12, FontStyle.Bold, TextAnchor.MiddleCenter);
+                }
+                return chanceStyle;
+            }
+        }
+
+        public static GUIStyle BloodStyle
+        {
+            get
+            {
+                if (bloodStyle == null)
+                {
+                    bloodStyle = CreateGUIStyle(null, null, new Color32(230, 110, 100, 255), 12, FontStyle.Bold, TextAnchor.MiddleCenter);
+                }
+                return bloodStyle;
+            }
+        }
+
+        public static GUIStyle CombatStyle
+        {
+            get
+            {
+                if (combatStyle == null)
+                {
+                    combatStyle = CreateGUIStyle(null, null, new Color32(230, 165, 240, 255), 12, FontStyle.Bold, TextAnchor.MiddleCenter);
+                }
+                return combatStyle;
+            }
+        }
+
+        public static GUIStyle MountainStyle
+        {
+            get
+            {
+                if (mountainStyle == null)
+                {
+                    mountainStyle = CreateGUIStyle(null, null, new Color32(125, 230, 255, 255), 12, FontStyle.Bold, TextAnchor.MiddleCenter);
+                }
+                return mountainStyle;
+            }
+        }
+
+        public static GUIStyle WoodsStyle
+        {
+            get
+            {
+                if (woodsStyle == null)
+                {
+                    woodsStyle = CreateGUIStyle(null, null, new Color32(170, 225, 100, 255), 12, FontStyle.Bold, TextAnchor.MiddleCenter);
+                }
+                return woodsStyle;
+            }
+        }
+        public static GUIStyle TeleporterStyle
+        {
+            get
+            {
+                if (teleporterStyle == null)
+                {
+                    teleporterStyle = CreateGUIStyle(null, null, new Color32(125, 40, 70, 255), 12, FontStyle.Bold, TextAnchor.MiddleCenter);
+                }
+                return teleporterStyle;
             }
         }
         #endregion

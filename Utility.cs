@@ -502,10 +502,6 @@ namespace UmbraMenu
                 outputFile.WriteLine(@"#        \::/____/                \::/    /                \::/____/                \:|   |                  \::/    /                        \::/    /                \::/    /                \::/    /                \::/____/        #");
                 outputFile.WriteLine(@"#         ~~                       \/____/                  ~~                       \|___|                   \/____/                          \/____/                  \/____/                  \/____/                  ~~              #");
                 outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
-                outputFile.WriteLine(@"# This is the settings file for the Risk Of Rain 2 Umbra Mod Menu.");
-                outputFile.WriteLine(@"# Created by https://www.github.com/Acher0ns");
-                outputFile.WriteLine(@"# If you need any help, add me on discord! Neonix#1337");
-                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
                 outputFile.WriteLine($"Width: {UmbraMenu.Width}: # Menu Width Size (Any Number)");
                 outputFile.WriteLine($"Allow Navigation: {UmbraMenu.AllowNavigation}: # Enable or Disable Keyboard Navigation Feature (true/false)");
                 outputFile.WriteLine($"God Version: {UmbraMenu.GodVersion}: # Godmode Version (0-4)");
@@ -565,10 +561,6 @@ namespace UmbraMenu
                 outputFile.WriteLine(@"#       \::::/    /               /:::/    /              \::::/    /              \::|   |                  /:::/    /                       /:::/    /              \:::\____\                /:::/    /              \::::/    /       #");
                 outputFile.WriteLine(@"#        \::/____/                \::/    /                \::/____/                \:|   |                  \::/    /                        \::/    /                \::/    /                \::/    /                \::/____/        #");
                 outputFile.WriteLine(@"#         ~~                       \/____/                  ~~                       \|___|                   \/____/                          \/____/                  \/____/                  \/____/                  ~~              #");
-                outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
-                outputFile.WriteLine(@"# This is the settings file for the Risk Of Rain 2 Umbra Mod Menu.");
-                outputFile.WriteLine(@"# Created by https://www.github.com/Acher0ns");
-                outputFile.WriteLine(@"# If you need any help, add me on discord! Neonix#1337");
                 outputFile.WriteLine(@"###########################################################################################################################################################################################################################################");
                 outputFile.WriteLine($"Width: {350}: # Menu Width Size (Any Number)");
                 outputFile.WriteLine($"Allow Navigation: {true}: # Enable or Disable the Keyboard Navigation feature (True/False)");
