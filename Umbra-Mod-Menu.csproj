@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <RootNamespace>Umbra_Mod_Menu</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject></StartupObject>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\SharpmonoInjector\SharpMonoInjector.dll" />
+    <None Remove="Resources\UmbraMenu\UmbraMenuLegacy.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SharpmonoInjector\SharpMonoInjector.dll" />
+    <EmbeddedResource Include="Resources\UmbraMenu\UmbraMenuLegacy.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Control.Draggable" Version="1.0.5049.269" />
+    <PackageReference Include="ModernUI" Version="2.0.0" />
+    <PackageReference Include="versionmanagernet" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="View\Background.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Model\Controls\FlatComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\Controls\MainNavButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\Controls\Separator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\Controls\Text.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SharpMonoInjector">
+      <HintPath>Resources\SharpmonoInjector\SharpMonoInjector.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

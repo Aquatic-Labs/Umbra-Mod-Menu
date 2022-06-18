@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Model\DefaultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Model\FlatComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\MainNavButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Model\Separator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Model\Text.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="View\Injector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="View\MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
