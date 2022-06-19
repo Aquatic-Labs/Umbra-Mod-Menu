@@ -37,7 +37,7 @@ namespace Umbra_Mod_Menu
             var client = new Client(background);
             var mainMenu = new MainMenu(background);
 
-            Application.Run(client);
+            Application.Run(mainMenu);
         }
     }
 }

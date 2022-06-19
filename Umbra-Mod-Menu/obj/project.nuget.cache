@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UecrfnRxNdcIorVtAoIB3lWt3JBrzSTygF8bLPCF2+8Xfn6fYwrahBTDadvLkvYDyBq69TRoe5mGGUn71h0gJg==",
+  "dgSpecHash": "GbNF4QnH2KadCYhF46cRXrSpDyCiq4WySJRDZVViVV3gZ1/9wN1ZWy8oHbmo4KfyjEnVkJogcLDrat/NxQ2rUg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kamron Cole\\source\\repos\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
+  "projectFilePath": "C:\\Users\\Kamron Cole\\Documents\\GitHub\\umbra-upload-stuffs\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kamron Cole\\.nuget\\packages\\control.draggable\\1.0.5049.269\\control.draggable.1.0.5049.269.nupkg.sha512",
     "C:\\Users\\Kamron Cole\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

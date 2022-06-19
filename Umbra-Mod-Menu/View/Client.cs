@@ -43,9 +43,9 @@ namespace Umbra_Mod_Menu.View
             CloseButton.Location = new Point(Width - CloseButton.Width, 0);
 
             // Change version to GitHub link
-            Version.Text = "GitHub";
-            Version.Location = new Point(Width - Version.Width, Title.Bottom);
-            Version.Click += (sender, args) =>
+            Subtitle.Text = "GitHub";
+            Subtitle.Location = new Point(Width - Subtitle.Width, Title.Bottom);
+            Subtitle.Click += (sender, args) =>
             {
                 Utils.OpenBrowserUrl(Program.REPO_URL);
             };

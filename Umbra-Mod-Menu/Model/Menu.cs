@@ -12,7 +12,7 @@ namespace Umbra_Mod_Menu.Model
     {
         public Text Title { get; set; }
         public Text Footer { get; set; }
-        public Text Version { get; set; }
+        public Text Subtitle { get; set; }
         public PictureBox Logo { get; set; }
         public Separator TopSep { get; set; }
         public Separator NavSep { get; set; }
@@ -73,12 +73,12 @@ namespace Umbra_Mod_Menu.Model
             content.Controls.Add(title);
             Title = title;
             
-            var version = new Text($"v{Program.VERSION}", new Point(Width - 48, title.Bottom), Styles.DefaultTitleStyle);
-            version.ForeColor = Color.SteelBlue;
-            version.AutoSize = true;
-            version.Font = new Font("Arial", 10, FontStyle.Regular);
-            content.Controls.Add(version);
-            Version = version;
+            var subtitle = new Text($"v{Program.VERSION}", new Point(Width - 48, title.Bottom), Styles.DefaultTitleStyle);
+            subtitle.ForeColor = ColorTranslator.FromHtml("#40CCFF");
+            subtitle.AutoSize = true;
+            subtitle.Font = new Font("Arial", 10, FontStyle.Regular);
+            content.Controls.Add(subtitle);
+            Subtitle = subtitle;
 
             var footer = new Text("Copyright © 2022 Aquatic Labs", new Point(Width - Styles.DefaultFooterStyle.Size.Width, Height - Styles.DefaultFooterStyle.Size.Height - 4), Styles.DefaultFooterStyle);
             content.Controls.Add(footer);

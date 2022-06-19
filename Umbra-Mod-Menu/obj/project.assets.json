@@ -227,11 +227,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kamron Cole\\source\\repos\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
+      "projectUniqueName": "C:\\Users\\Kamron Cole\\Documents\\GitHub\\umbra-upload-stuffs\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
       "projectName": "Umbra-Mod-Menu",
-      "projectPath": "C:\\Users\\Kamron Cole\\source\\repos\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
+      "projectPath": "C:\\Users\\Kamron Cole\\Documents\\GitHub\\umbra-upload-stuffs\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
       "packagesPath": "C:\\Users\\Kamron Cole\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kamron Cole\\source\\repos\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\obj\\",
+      "outputPath": "C:\\Users\\Kamron Cole\\Documents\\GitHub\\umbra-upload-stuffs\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
