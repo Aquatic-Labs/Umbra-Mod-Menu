@@ -1,0 +1,17 @@
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\bin\Debug\net6.0-windows\Umbra-Mod-Menu.exe
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\bin\Debug\net6.0-windows\Umbra-Mod-Menu.deps.json
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\bin\Debug\net6.0-windows\Umbra-Mod-Menu.runtimeconfig.json
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\bin\Debug\net6.0-windows\Umbra-Mod-Menu.dll
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\bin\Debug\net6.0-windows\Umbra-Mod-Menu.pdb
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.csproj.AssemblyReference.cache
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra_Mod_Menu.Injector.resources
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.csproj.GenerateResource.cache
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.AssemblyInfoInputs.cache
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.AssemblyInfo.cs
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.csproj.CoreCompileInputs.cache
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.dll
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\refint\Umbra-Mod-Menu.dll
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.pdb
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\Umbra-Mod-Menu.genruntimeconfig.cache
+C:\Users\Kamron Cole\source\repos\Umbra-Mod-Menu\Umbra-Mod-Menu\obj\Debug\net6.0-windows\ref\Umbra-Mod-Menu.dll

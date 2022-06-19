@@ -1,0 +1,43 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Control.Draggable/1.0.5049.269": {
+        "runtime": {
+          "lib/net35-Client/Control.Draggable.dll": {
+            "assemblyVersion": "1.0.5049.269",
+            "fileVersion": "1.0.5049.269"
+          }
+        }
+      },
+      "versionmanagernet/1.0.0": {
+        "runtime": {
+          "lib/net6.0/versionmanagernet.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Control.Draggable/1.0.5049.269": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mwRZLDAyCA8dPgtiZnmHq+u96ga/aDnxPEg76t//CpZtpzHhUU+qAN/IhMcOvyrOjtclyLB+DAOfGRgePrMRgA==",
+      "path": "control.draggable/1.0.5049.269",
+      "hashPath": "control.draggable.1.0.5049.269.nupkg.sha512"
+    },
+    "versionmanagernet/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V/3WjQHLe0AlzR8Sc9ynjflWBhUEhHG6bpdHGt5cyBhCALYOy28A9QjQFcMCSxSVRMOt7PZf4qmhSt2OgFVhMQ==",
+      "path": "versionmanagernet/1.0.0",
+      "hashPath": "versionmanagernet.1.0.0.nupkg.sha512"
+    }
+  }
+}

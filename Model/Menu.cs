@@ -16,14 +16,16 @@ namespace Umbra_Mod_Menu.Model
         public PictureBox Logo { get; set; }
         public Separator TopSep { get; set; }
         public Separator NavSep { get; set; }
+        public Button CloseButton { get; set; }
         
+        public Panel Content { get; set; }
         public Panel NavPanel { get; set; }
 
         public int NextNavButton = 1;
         
         public LinkedList<Scene> Scenes = new();
 
-        public Menu(View.Background background, MenuStyle menuStyle, string titleText, int cornerRadius, Point location)
+        public Menu(Form background, MenuStyle menuStyle, string titleText, int cornerRadius, Point location)
         {
             FormBorderStyle = menuStyle.BorderStyle;
             BackColor = menuStyle.BackColor;
@@ -32,7 +34,7 @@ namespace Umbra_Mod_Menu.Model
             DesktopLocation = PointToScreen(location);
             ClientSize = menuStyle.Size;
             Owner = background;
-            ShowInTaskbar = false;
+            ShowInTaskbar = true;
             TopMost = menuStyle.TopMost;
             Region = Region.FromHrgn(Utils.CreateRoundRectRgn(0, 0, Width, Height, cornerRadius, cornerRadius));
             if (menuStyle.Draggable)
@@ -43,19 +45,43 @@ namespace Umbra_Mod_Menu.Model
                 };
             }
 
+            var closeButton = new Button
+            {
+                Text = "━",
+                FlatStyle = FlatStyle.Flat,
+                ForeColor = Color.White,
+                Size = new Size(27, 27),
+                Location = new Point(Width - 27, 27 / 2 - 15),
+                Font = Styles.DefaultTitleStyle.Font
+            };
+            closeButton.FlatAppearance.BorderSize = 0;
+            closeButton.Click += (sender, e) =>
+            {
+                WindowState = FormWindowState.Minimized;
+            };
+            Controls.Add(closeButton);
+            CloseButton = closeButton;
+
+            var content = new Panel
+            {
+                Size = new Size(Width, Height - 25),
+                Location = new Point(0, 25),
+                BackColor = ColorTranslator.FromHtml("#222222")
+            };
+
             var title = new Text(titleText, new Point(Width - Styles.DefaultTitleStyle.Size.Width), Styles.DefaultTitleStyle);
-            Controls.Add(title);
+            content.Controls.Add(title);
             Title = title;
             
             var version = new Text($"v{Program.VERSION}", new Point(Width - 48, title.Bottom), Styles.DefaultTitleStyle);
             version.ForeColor = Color.SteelBlue;
             version.AutoSize = true;
             version.Font = new Font("Arial", 10, FontStyle.Regular);
-            Controls.Add(version);
+            content.Controls.Add(version);
             Version = version;
 
             var footer = new Text("Copyright © 2022 Aquatic Labs", new Point(Width - Styles.DefaultFooterStyle.Size.Width, Height - Styles.DefaultFooterStyle.Size.Height - 4), Styles.DefaultFooterStyle);
-            Controls.Add(footer);
+            content.Controls.Add(footer);
             Footer = footer;
 
             // Logo Container
@@ -66,15 +92,15 @@ namespace Umbra_Mod_Menu.Model
                 Image = menuStyle.Logo,
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
-            Controls.Add(logo);
+            content.Controls.Add(logo);
             Logo = logo;
             
             var topSep = new Separator(new Point(0, logo.Bottom), Width, ColorTranslator.FromHtml("#333333"));
-            Controls.Add(topSep);
+            content.Controls.Add(topSep);
             TopSep = topSep;
 
             var navSep = new Separator(new Point(Styles.DefaultMainNavButtonStyle.Size.Width, logo.Height), Height - logo.Height, ColorTranslator.FromHtml("#333333"), false);
-            Controls.Add(navSep);
+            content.Controls.Add(navSep);
             NavSep = navSep;
 
             var navPanel = new Panel()
@@ -82,13 +108,15 @@ namespace Umbra_Mod_Menu.Model
                 Size = new Size(navSep.Left, Height - topSep.Bottom),
                 Location = new Point(0, topSep.Bottom)
             };
-            Controls.Add(navPanel);
+            content.Controls.Add(navPanel);
             NavPanel = navPanel;
             
             SizeChanged += (sender, e) =>
             {
                 Region = Region.FromHrgn(Utils.CreateRoundRectRgn(0, 0, Width, Height, cornerRadius, cornerRadius));
             };
+            Controls.Add(content);
+            Content = content;
         }
 
         protected void AddNavButton(MainNavButton button)

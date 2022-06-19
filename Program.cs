@@ -37,9 +37,7 @@ namespace Umbra_Mod_Menu
             var client = new Client(background);
             var mainMenu = new MainMenu(background);
 
-            var testMenu = new Menu(background, Styles.DefaultMenuStyle, "Test", 20, new Point(100, 100));
-            
-            Application.Run(testMenu);
+            Application.Run(client);
         }
     }
 }

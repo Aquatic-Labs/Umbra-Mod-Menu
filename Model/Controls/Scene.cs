@@ -9,6 +9,6 @@ internal class Scene : Panel
         Location = PointToScreen(location);
         Size = size;
         Hide();
-        owner.Controls.Add(this);
+        owner.Content.Controls.Add(this);
     }
 }

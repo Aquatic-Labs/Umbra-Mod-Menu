@@ -1,0 +1,127 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Umbra-Mod-Menu/1.0.0": {
+        "dependencies": {
+          "Control.Draggable": "1.0.5049.269",
+          "ModernUI": "2.0.0",
+          "versionmanagernet": "1.0.0",
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.17763.25"
+        },
+        "runtime": {
+          "Umbra-Mod-Menu.dll": {}
+        }
+      },
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.17763.25": {
+        "runtime": {
+          "Microsoft.Windows.SDK.NET.dll": {
+            "assemblyVersion": "10.0.17763.24",
+            "fileVersion": "10.0.17763.25"
+          },
+          "WinRT.Runtime.dll": {
+            "assemblyVersion": "1.6.0.0",
+            "fileVersion": "1.6.2.38681"
+          }
+        }
+      },
+      "Control.Draggable/1.0.5049.269": {
+        "runtime": {
+          "lib/net35-Client/Control.Draggable.dll": {
+            "assemblyVersion": "1.0.5049.269",
+            "fileVersion": "1.0.5049.269"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.1.0": {},
+      "Microsoft.Win32.SystemEvents/4.7.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.0"
+        }
+      },
+      "ModernUI/2.0.0": {
+        "dependencies": {
+          "System.Drawing.Common": "4.7.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MetroFramework.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "System.Drawing.Common/4.7.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.Win32.SystemEvents": "4.7.0"
+        }
+      },
+      "versionmanagernet/1.0.0": {
+        "runtime": {
+          "lib/net6.0/versionmanagernet.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Umbra-Mod-Menu/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.17763.25": {
+      "type": "runtimepack",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Control.Draggable/1.0.5049.269": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mwRZLDAyCA8dPgtiZnmHq+u96ga/aDnxPEg76t//CpZtpzHhUU+qAN/IhMcOvyrOjtclyLB+DAOfGRgePrMRgA==",
+      "path": "control.draggable/1.0.5049.269",
+      "hashPath": "control.draggable.1.0.5049.269.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w==",
+      "path": "microsoft.netcore.platforms/3.1.0",
+      "hashPath": "microsoft.netcore.platforms.3.1.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
+      "path": "microsoft.win32.systemevents/4.7.0",
+      "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "ModernUI/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uFs5caxyT0YXJ08jXI80LlP7TE7LpMUXB2duD1TU697zUl+QCJAFCiu+b9wmzwUFkjsNvmed7okNK94yKv6pVA==",
+      "path": "modernui/2.0.0",
+      "hashPath": "modernui.2.0.0.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v+XbyYHaZjDfn0ENmJEV1VYLgGgCTx1gnfOBcppowbpOAriglYgGCvFCPr2EEZyBvXlpxbEsTwkOlInl107ahA==",
+      "path": "system.drawing.common/4.7.0",
+      "hashPath": "system.drawing.common.4.7.0.nupkg.sha512"
+    },
+    "versionmanagernet/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V/3WjQHLe0AlzR8Sc9ynjflWBhUEhHG6bpdHGt5cyBhCALYOy28A9QjQFcMCSxSVRMOt7PZf4qmhSt2OgFVhMQ==",
+      "path": "versionmanagernet/1.0.0",
+      "hashPath": "versionmanagernet.1.0.0.nupkg.sha512"
+    }
+  }
+}

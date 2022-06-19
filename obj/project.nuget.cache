@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "UecrfnRxNdcIorVtAoIB3lWt3JBrzSTygF8bLPCF2+8Xfn6fYwrahBTDadvLkvYDyBq69TRoe5mGGUn71h0gJg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Kamron Cole\\source\\repos\\Umbra-Mod-Menu\\Umbra-Mod-Menu\\Umbra-Mod-Menu.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\control.draggable\\1.0.5049.269\\control.draggable.1.0.5049.269.nupkg.sha512",
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\modernui\\2.0.0\\modernui.2.0.0.nupkg.sha512",
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\versionmanagernet\\1.0.0\\versionmanagernet.1.0.0.nupkg.sha512",
+    "C:\\Users\\Kamron Cole\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.17763.25\\microsoft.windows.sdk.net.ref.10.0.17763.25.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Control.Draggable 1.0.5049.269' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0-windows10.0.17763'. This package may not be fully compatible with your project.",
+      "libraryId": "Control.Draggable",
+      "targetGraphs": [
+        "net6.0-windows10.0.17763"
+      ]
+    }
+  ]
+}
