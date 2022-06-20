@@ -149,43 +149,54 @@ namespace UmbraMenu.Menus
 
         public static void DrawInteractables()
         {
-            foreach (PurchaseInteraction purchaseInter in purchaseInteractions)
+            for (int i = 0; i < purchaseInteractions.Count; i++)
             {
-                if (purchaseInter.available)
+                PurchaseInteraction purchaseInteraction = purchaseInteractions[i];
+
+                if (purchaseInteraction.available)
                 {
                     string dropName = null;
-                    var chest = purchaseInter?.gameObject.GetComponent<ChestBehavior>();
+                    var chest = purchaseInteraction?.gameObject.GetComponent<ChestBehavior>();
                     if (chest)
+                    {
                         dropName = Util.GenerateColoredString(Language.GetString(chest.dropPickup.GetPickupNameToken()), chest.dropPickup.GetPickupColor());
+                    }
 
-                    float distanceToObject = Vector3.Distance(camera.transform.position, purchaseInter.transform.position);
-                    Vector3 Position = camera.WorldToScreenPoint(purchaseInter.transform.position);
-                    Vector3 BoundingVector = new Vector3(Position.x, Position.y, Position.z);
+                    float distanceToObject = Vector3.Distance(camera.transform.position, purchaseInteraction.transform.position);
+                    Vector3 Position = camera.WorldToScreenPoint(purchaseInteraction.transform.position);
+                    var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
 
                     if (BoundingVector.z > 0.01)
                     {
                         int distance = (int)distanceToObject;
-                        string friendlyName = purchaseInter.GetDisplayName();
-                        int cost = purchaseInter.cost;
+                        string friendlyName = purchaseInteraction.GetDisplayName();
+                        int cost = purchaseInteraction.cost;
 
                         string boxText;
                         if (friendlyName.Contains("Mountain") || friendlyName.Contains("Combat") || friendlyName.Contains("Printer"))
+                        {
                             boxText = $"{friendlyName}\n{distance}m";
+                        }
                         else
-                            boxText = dropName != null ?
-                                $"{friendlyName}\n{BuyingUnit(friendlyName, cost)}\n{distance}m\n{dropName}" : $"{friendlyName}\n{BuyingUnit(friendlyName, cost)}\n{distance}m";
-
+                        {
+                            boxText = dropName != null 
+                                ? $"{friendlyName}\n{BuyingUnit(friendlyName, cost)}\n{distance}m\n{dropName}" 
+                                : $"{friendlyName}\n{BuyingUnit(friendlyName, cost)}\n{distance}m";
+                        }
                         monsoon.Renderer.DrawString(new Vector2(BoundingVector.x, (float)Screen.height - BoundingVector.y),
                             boxText, ChooseStyle(friendlyName));
                     }
                 }
+
             }
         }
 
         public static void DrawBarrels()
         {
-            foreach (BarrelInteraction barrel in barrelInteractions)
+            for (int i = 0; i < barrelInteractions.Count; i++)
             {
+                BarrelInteraction barrel = barrelInteractions[i];
+
                 if (!barrel.Networkopened)
                 {
                     string friendlyName = "Barrel";
@@ -195,7 +206,7 @@ namespace UmbraMenu.Menus
                     {
                         float distance = (int)Vector3.Distance(camera.transform.position, barrel.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
-                        monsoon.Renderer.DrawString(new Vector2(BoundingVector.x, (float)Screen.height - BoundingVector.y),
+                        monsoon.Renderer.DrawString(new Vector2(BoundingVector.x, Screen.height - BoundingVector.y),
                             boxText, ChooseStyle(friendlyName));
                     }
                 }
@@ -204,16 +215,17 @@ namespace UmbraMenu.Menus
 
         public static void DrawPressurePlates()
         {
-            foreach (PressurePlateController pressurePlate in secretButtons)
+            for (int i = 0; i < secretButtons.Count; i++)
             {
-                if (pressurePlate)
+                PressurePlateController secretButton = secretButtons[i];
+                if (secretButton)
                 {
                     string friendlyName = "Secret Button";
-                    Vector3 Position = camera.WorldToScreenPoint(pressurePlate.transform.position);
+                    Vector3 Position = camera.WorldToScreenPoint(secretButton.transform.position);
                     var BoundingVector = new Vector3(Position.x, Position.y, Position.z);
                     if (BoundingVector.z > 0.01)
                     {
-                        float distance = (int)Vector3.Distance(camera.transform.position, pressurePlate.transform.position);
+                        float distance = (int)Vector3.Distance(camera.transform.position, secretButton.transform.position);
                         string boxText = $"{friendlyName}\n{distance}m";
                         monsoon.Renderer.DrawString(new Vector2(BoundingVector.x, (float)Screen.height - BoundingVector.y),
                             boxText, ChooseStyle(friendlyName));
@@ -224,8 +236,9 @@ namespace UmbraMenu.Menus
 
         public static void DrawScrappers()
         {
-            foreach (ScrapperController scrapper in scrappers)
+            for (int i = 0; i < scrappers.Count; i++)
             {
+                ScrapperController scrapper = scrappers[i];
                 if (scrapper)
                 {
                     string friendlyName = "Scrapper";
