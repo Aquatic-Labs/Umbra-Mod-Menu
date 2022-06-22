@@ -416,7 +416,11 @@ namespace UmbraMenu
             {
                 if (Menus.Render.renderInteractables)
                 {
-                    Menus.Render.Interactables();
+                    Menus.Render.DrawTeleporter();
+                    Menus.Render.DrawInteractables();
+                    Menus.Render.DrawBarrels();
+                    Menus.Render.DrawPressurePlates();
+                    Menus.Render.DrawScrappers();
                     Menus.Render.renderInteractables = true;
                 }
                 else

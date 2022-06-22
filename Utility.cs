@@ -205,7 +205,7 @@ namespace UmbraMenu
                 else if (itemColor.Equals(lunarColor)) // lunar
                 {
                     lunar.Add(itemIndex);
-                }                
+                }
                 else if (itemColor.Equals(voidColor)) // Void
                 {
                     voidt.Add(itemIndex);
@@ -232,7 +232,7 @@ namespace UmbraMenu
             List<BuffDef> nonEliteDebuff = new List<BuffDef>();
             List<BuffDef> other = new List<BuffDef>();
 
-          
+
             foreach (BuffDef buffDef in typeof(BuffCatalog).GetField<BuffDef[]>("buffDefs"))
             {
                 if (!buffDef.isDebuff && buffDef.isElite)
@@ -266,7 +266,7 @@ namespace UmbraMenu
             return spawnCards;
         }
 
-        public static List<HurtBox> GetHurtBoxes()                              
+        public static List<HurtBox> GetHurtBoxes()
         {
             string[] allowedBoxes = { "Golem", "Jellyfish", "Wisp", "Beetle", "Lemurian", "Imp", "HermitCrab", "ClayBruiser", "Bell", "BeetleGuard", "MiniMushroom", "Bison", "GreaterWisp", "LemurianBruiser", "RoboBallMini", "Vulture",  /* BOSSES */ "BeetleQueen2", "ClayDunestrider", "Titan", "TitanGold", "TitanBlackBeach", "Grovetender", "Gravekeeper", "Mithrix", "Aurelionite", "Vagrant", "MagmaWorm", "ImpBoss", "ElectricWorm", "RoboBallBoss", "Nullifier", "Parent", "Scav", "ScavLunar1", "ClayBoss", "LunarGolem", "LunarWisp", "Brother", "BrotherHurt" };
             var localUser = LocalUserManager.GetFirstLocalUser();
@@ -306,10 +306,10 @@ namespace UmbraMenu
                 {
                     updatedHurtboxes.Add(hurtBox);
                 }
-/*                else
-                {
-                    WriteToLog($"Blocked: {mobName}");
-                }*/
+                /*                else
+                                {
+                                    WriteToLog($"Blocked: {mobName}");
+                                }*/
             }
             return updatedHurtboxes;
         }

@@ -94,6 +94,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reflections.cs" />
+    <Compile Include="Renderer.cs" />
     <Compile Include="Styles.cs" />
     <Compile Include="ButtonTypes\Text.cs" />
     <Compile Include="Textures.cs" />
