@@ -12,7 +12,7 @@ namespace UmbraMenu
     {
         public const string
             NAME = "U M B R A",
-            VERSION = "2.0.5";
+            VERSION = "2.0.6";
 
 
 
@@ -161,7 +161,7 @@ namespace UmbraMenu
             #region Watermark
             if (Loader.updateAvailable)
             {
-                GUI.Label(new Rect(Screen.width - 250, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Lastest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
+                GUI.Label(new Rect(Screen.width - 250, 1f, 100, 50f), $"Umbra Menu (v{VERSION}) <color=grey>-</color> <color=yellow>Latest (v{Loader.latestVersion})</color>", Styles.WatermarkStyle);
             }
             else if (Loader.upToDate)
             {
@@ -293,7 +293,7 @@ namespace UmbraMenu
                 {
                     if (Menus.Render.renderInteractables)
                     {
-                        Menus.Render.DumpInteractables(null);
+                        Menus.Render.RefreshInteractables();
                     }
                 }
             }
@@ -1136,7 +1136,7 @@ namespace UmbraMenu
 
                 if (Input.GetKeyDown(keybindDict["RENDER INTERACTABLES"].KeyCode))
                 {
-                    Menus.Render.renderInteractables = !Menus.Render.renderInteractables;
+                    Menus.Render.ToggleRenderInteractablesKey();
                     Utility.FindButtonById(6, 2).SetEnabled(Menus.Render.renderInteractables);
                 }
 

@@ -18,7 +18,7 @@ namespace UmbraMenu.Menus
         public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
         public static List<ScrapperController> scrappers = new List<ScrapperController>();
         public static List<HurtBox> hurtBoxes;
-        public static bool onRenderIntEnable = true, renderMobs, renderInteractables, renderMods = true;
+        public static bool scenePopulateToggle = true, renderMobs, renderInteractables, renderMods = true;
 
         public Button toggleActiveMods;
         public Button toggleInteractESP;
@@ -69,8 +69,20 @@ namespace UmbraMenu.Menus
             base.Reset();
         }
 
+        public static void RefreshInteractables(SceneDirector obj)
+        {
+            RefreshInteractables();
+        }
+        public static void RefreshInteractables()
+        {
+            barrelInteractions = MonoBehaviour.FindObjectsOfType<BarrelInteraction>().ToList();
+            purchaseInteractions = MonoBehaviour.FindObjectsOfType<PurchaseInteraction>().ToList();
+            secretButtons = MonoBehaviour.FindObjectsOfType<PressurePlateController>().ToList();
+            scrappers = MonoBehaviour.FindObjectsOfType<ScrapperController>().ToList();
+        }
         private void ToggleRenderInteractables()
         {
+
             if (renderInteractables)
             {
                 DisableInteractables();
@@ -78,6 +90,21 @@ namespace UmbraMenu.Menus
             else
             {
                 EnableInteractables();
+                Render.RefreshInteractables();
+            }
+            renderInteractables = !renderInteractables;
+        }
+        public static void ToggleRenderInteractablesKey()
+        {
+
+            if (renderInteractables)
+            {
+                DisableInteractables();
+            }
+            else
+            {
+                EnableInteractables();
+                Render.RefreshInteractables();
             }
             renderInteractables = !renderInteractables;
         }
@@ -94,31 +121,21 @@ namespace UmbraMenu.Menus
 
         public static void EnableInteractables()
         {
-            if (onRenderIntEnable)
+            if (scenePopulateToggle)
             {
-                DumpInteractables(null);
-                SceneDirector.onPostPopulateSceneServer += DumpInteractables;
-                onRenderIntEnable = false;
+                SceneDirector.onPostPopulateSceneServer += RefreshInteractables;
+                scenePopulateToggle = false;
             }
         }
 
         public static void DisableInteractables()
         {
-            if (!onRenderIntEnable)
+            if (!scenePopulateToggle)
             {
-                SceneDirector.onPostPopulateSceneServer -= DumpInteractables;
-                onRenderIntEnable = true;
+                SceneDirector.onPostPopulateSceneServer -= RefreshInteractables;
+                scenePopulateToggle = true;
             }
         }
-
-        public static void DumpInteractables(SceneDirector obj)
-        {
-            barrelInteractions = MonoBehaviour.FindObjectsOfType<BarrelInteraction>().ToList();
-            purchaseInteractions = MonoBehaviour.FindObjectsOfType<PurchaseInteraction>().ToList();
-            secretButtons = MonoBehaviour.FindObjectsOfType<PressurePlateController>().ToList();
-            scrappers = MonoBehaviour.FindObjectsOfType<ScrapperController>().ToList();
-        }
-
         public static void DrawTeleporter() {
             camera = Camera.main;
 
